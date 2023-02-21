@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="adventure_time.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
     <ClCompile Include="calculator_testing.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
