@@ -7,53 +7,54 @@ template <typename T>
 T get_valid_input(const string& prompt);
 
 int main() {
+	// catch integer overflow(32 bits is split half for positive half for negative numbers) - make integers to long
+	// catch truncation(lose everything after the decimal point) - convert the variables to the proper type (type casting)
+	// floating-point imprecision - can try to change from float to double
 
-    // catch integer overflow(32 bits is split half for positive half for negative numbers) - make integers to long
-    // catch truncation(lose everything after the decimal point) - convert the variables to the proper type (type casting)
-    // floating-point imprecision - can try to change from float to double
+	int x = get_valid_input<int>("x: ");
+	int y = get_valid_input<int>("y: ");
 
-    int x = get_valid_input<int>("x: ");
-    int y = get_valid_input<int>("y: ");
+	float float1 = (float)x / (float)y;
+	double double1 = (double)x / (double)y;
+	float float2 = x / y;
+	int int1 = x / y;
+	int int2 = x % y;
+	int int3 = (float)x / y;
+	int int4 = x / 10;
+	int int5 = y / 10;
+	int int6 = x % 10;
+	int int7 = y % 10;
 
-    float float1 = (float)x / (float)y;
-    double double1 = (double)x / (double)y;
-    float float2 = x / y;
-    int int1 = x / y;
-    int int2 = x % y;
-    int int3 = (float)x / y;
-    int int4 = x / 10;
-    int int5 = y / 10;
-    int int6 = x % 10;
-    int int7 = y % 10;
+	cout << "all float:           " << float1 << endl;
+	cout << "all float %.20f:     " << fixed << setprecision(20) << float1 << endl;
+	cout << "all double:          " << double1 << endl;
+	cout << "float only int1:     " << float2 << endl;
+	cout << "integer:             " << int1 << endl;
+	cout << "mod:                 " << int2 << endl;
+	cout << "float only x:        " << int3 << endl;
+	cout << "remove last digit x: " << int4 << endl;
+	cout << "remove last digit y: " << int5 << endl;
+	cout << "get last digit x:    " << int6 << endl;
+	cout << "get last digit y:    " << int7 << endl;
 
-    cout << "all float:           " << float1 << endl;
-    cout << "all float %.20f:     " << fixed << setprecision(20) << float1 << endl;
-    cout << "all double:          " << double1 << endl;
-    cout << "float only int1:     " << float2 << endl;
-    cout << "integer:             " << int1 << endl;
-    cout << "mod:                 " << int2 << endl;
-    cout << "float only x:        " << int3 << endl;
-    cout << "remove last digit x: " << int4 << endl;
-    cout << "remove last digit y: " << int5 << endl;
-    cout << "get last digit x:    " << int6 << endl;
-    cout << "get last digit y:    " << int7 << endl;
+	return 0;
 }
 
 template <typename T>
 T get_valid_input(const string& prompt) {
-    T input;
-    while (true) {
-        cout << prompt;
-        if (cin >> input) {
-            // The user entered a valid number
-            break;
-        }
-        else {
-            // The user did not enter a valid number
-            cout << "Error: Please enter a valid input." << endl;
-            cin.clear(); // Clear the error state
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard any input in the buffer
-        }
-    }
-    return input;
+	T input;
+	while (true) {
+		cout << prompt;
+		if (cin >> input) {
+			// The user entered a valid number
+			break;
+		}
+		else {
+			// The user did not enter a valid number
+			cout << "Error: Please enter a valid input." << endl;
+			cin.clear(); // Clear the error state
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard any input in the buffer
+		}
+	}
+	return input;
 }

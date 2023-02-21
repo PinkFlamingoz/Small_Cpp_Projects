@@ -14,42 +14,43 @@ void print_card(long long card);
 
 int main()
 {
-    // Get input
-    long long card = get_credit_input();
-    // Calculate checksum
-    // Check for card length and starting digits
-    // Print AMEX, MASTERCARD, VISA, INVALID
-    print_card(card);
+	// Get input
+	long long card = get_credit_input();
+	// Calculate checksum
+	// Check for card length and starting digits
+	// Print AMEX, MASTERCARD, VISA, INVALID
+	print_card(card);
+
+	return 0;
 }
 
 template <typename T>
 T get_valid_input(const string& prompt) {
-    T input;
-    while (true) {
-        cout << prompt;
-        if (cin >> input) {
-            // The user entered a valid number
-            break;
-        }
-        else {
-            // The user did not enter a valid number
-            cout << "Error: Please enter a valid input." << endl;
-            cin.clear(); // Clear the error state
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard any input in the buffer
-        }
-    }
-    return input;
+	T input;
+	while (true) {
+		cout << prompt;
+		if (cin >> input) {
+			// The user entered a valid number
+			break;
+		}
+		else {
+			// The user did not enter a valid number
+			cout << "Error: Please enter a valid input." << endl;
+			cin.clear(); // Clear the error state
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard any input in the buffer
+		}
+	}
+	return input;
 }
 
 long long get_credit_input(void)
 {
-    long long card;
-    do
-    {
-        card = get_valid_input<long long>("Enter credit card number: ");
-
-    } while (card < 1);
-    return card;
+	long long card;
+	do
+	{
+		card = get_valid_input<long long>("Enter credit card number: ");
+	} while (card < 1);
+	return card;
 }
 
 //                   4003600000000014
@@ -71,122 +72,122 @@ long long get_credit_input(void)
 //16.digit= 4, card= ,                if{digit= 4 * 2 = 8},                        sum= 12 + 8 = 20
 int calculate_checksum(long long card)
 {
-    int digit;
-    int sum = 0;
-    int i = 0;
-    while (card > 0)
-    {
-        digit = card % 10;   // gets and resets the last digit      
-        card = card / 10;    // removes the last number setp by step
-        if (i % 2 == 1)
-        {
-            digit = digit * 2;
-            if (digit > 9)            // equivelent of adding the 2 digits
-            {                         // of a double integer number       
-                digit = digit - 9;    // 12 - 9 = 3, 1 + 2 = 3
-            }
-        }
-        sum += digit;
-        i++;
-    }
-    return sum % 10;
+	int digit;
+	int sum = 0;
+	int i = 0;
+	while (card > 0)
+	{
+		digit = card % 10;   // gets and resets the last digit
+		card = card / 10;    // removes the last number setp by step
+		if (i % 2 == 1)
+		{
+			digit = digit * 2;
+			if (digit > 9)            // equivelent of adding the 2 digits
+			{                         // of a double integer number
+				digit = digit - 9;    // 12 - 9 = 3, 1 + 2 = 3
+			}
+		}
+		sum += digit;
+		i++;
+	}
+	return sum % 10;
 }
 
 int get_lenght(long long card)
 {
-    int count = 0;
-    while (card > 0)
-    {
-        card = card / 10;
-        count++;
-    }
-    return count;
+	int count = 0;
+	while (card > 0)
+	{
+		card = card / 10;
+		count++;
+	}
+	return count;
 }
 
 int get_first_two_digits(long long card)
 {
-    int two_digits = 0;
-    int first_digit = 0;
-    while (card >= 100)
-    {
-        card = card / 10;
-    }
-    two_digits = card;
-    first_digit = two_digits / 10;
-    if (first_digit == 4)
-    {
-        return first_digit;
-    }
-    else
-    {
-        return two_digits;
-    }
+	int two_digits = 0;
+	int first_digit = 0;
+	while (card >= 100)
+	{
+		card = card / 10;
+	}
+	two_digits = card;
+	first_digit = two_digits / 10;
+	if (first_digit == 4)
+	{
+		return first_digit;
+	}
+	else
+	{
+		return two_digits;
+	}
 }
 
 void print_card(long long card)
 {
-    int check = calculate_checksum(card);
-    int i = get_lenght(card);
-    int b = get_first_two_digits(card);
-    if (check == 0)
-    {
-        if (i == 15 && (b == 34 || b == 37))
-        {
-            cout << "Card is: AMEX" << endl;
-        }
-        else if (i == 16 && (b == 51 || b == 52 || b == 53 || b == 54 || b == 55))
-        {
-            cout << "Card is: MASTERCARD" << endl;
-        }
-        else if ((i == 13 || i == 16) && (b == 4))
-        {
-            cout << "Card is: VISA" << endl;
-        }
-        else
-        {
-            cout << "Card is: INVALID" << endl;
-        }
-    }
-    else
-    {
-        cout << "Card is: INVALID" << endl;
-    }
+	int check = calculate_checksum(card);
+	int i = get_lenght(card);
+	int b = get_first_two_digits(card);
+	if (check == 0)
+	{
+		if (i == 15 && (b == 34 || b == 37))
+		{
+			cout << "Card is: AMEX" << endl;
+		}
+		else if (i == 16 && (b == 51 || b == 52 || b == 53 || b == 54 || b == 55))
+		{
+			cout << "Card is: MASTERCARD" << endl;
+		}
+		else if ((i == 13 || i == 16) && (b == 4))
+		{
+			cout << "Card is: VISA" << endl;
+		}
+		else
+		{
+			cout << "Card is: INVALID" << endl;
+		}
+	}
+	else
+	{
+		cout << "Card is: INVALID" << endl;
+	}
 }
 
 void get_individual_numbers_from_string(long long number) {
-    int digit;
-    while (number > 0) {
-        digit = number % 10;
-        number = number / 10;
-        cout << digit << " ";
-    }
-    cout << endl;
+	int digit;
+	while (number > 0) {
+		digit = number % 10;
+		number = number / 10;
+		cout << digit << " ";
+	}
+	cout << endl;
 }
 
 void get_individual_every_other_number_from_string(long long number) {
-    int digit;
-    int i = 0;
-    while (number > 0) {
-        digit = number % 10;
-        number = number / 10;
-        if (i % 2 == 0) {
-            cout << digit << " ";
-        }
-        i++;
-    }
-    cout << endl;
+	int digit;
+	int i = 0;
+	while (number > 0) {
+		digit = number % 10;
+		number = number / 10;
+		if (i % 2 == 0) {
+			cout << digit << " ";
+		}
+		i++;
+	}
+	cout << endl;
 }
 
 void get_individual_every_other_number_from_string_twisted(long long number) {
-    int digit;
-    int i = 0;
-    while (number > 0) {
-        digit = number % 10;
-        number = number / 10;
-        if (i % 2 == 1) {
-            cout << digit << " ";
-        }
-        i++;
-    }
-    cout << endl;
+	int digit;
+	int i = 0;
+	while (number > 0) {
+		digit = number % 10;
+		number = number / 10;
+		if (i % 2 == 1) {
+			cout << digit << " ";
+		}
+		i++;
+	}
+	cout << endl;
 }
