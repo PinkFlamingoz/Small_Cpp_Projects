@@ -119,7 +119,7 @@ void print_pyramid_right(int n)
 	cout << "Pyramid right print :" << endl;
 	for (int i = 0; i < n; i++)
 	{
-		for (int c = 8; c > i + 1; c--)
+		for (int c = n; c > i + 1; c--)
 		{
 			cout << " ";
 		}
@@ -136,7 +136,7 @@ void print_pyramid_full(int n)
 	cout << "Full pyramid print :" << endl;
 	for (int i = 0; i < n; i++)
 	{
-		for (int c = 8; c > i + 1; c--)
+		for (int c = n; c > i + 1; c--)
 		{
 			cout << " ";
 		}
@@ -157,7 +157,7 @@ void print_pyramid_full_gap(int n)
 	cout << "Full pyramid with gap print :" << endl;
 	for (int i = 0; i < n; i++)
 	{
-		for (int c = 8; c > i + 1; c--)
+		for (int c = n; c > i + 1; c--)
 		{
 			cout << " ";
 		}
