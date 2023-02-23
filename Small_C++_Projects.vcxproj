@@ -131,6 +131,7 @@
     <ClCompile Include="average_score.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
     <ClCompile Include="calculator_testing.cpp" />
+    <ClCompile Include="contacts.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="prime.cpp" />

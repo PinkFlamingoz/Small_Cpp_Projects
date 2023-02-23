@@ -45,5 +45,8 @@
     <ClCompile Include="average_score.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="contacts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
