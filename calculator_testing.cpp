@@ -28,22 +28,24 @@ int main() {
 	int int9 = y / 100;
 	int int10 = x % 100;
 	int int11 = y % 100;
+	int int12 = x + y;
 
-	cout << "all float:           " << float1 << endl;
-	cout << "all float %.20f:     " << fixed << setprecision(20) << float1 << endl;
-	cout << "all double:          " << double1 << endl;
-	cout << "float only int1:     " << float2 << endl;
-	cout << "integer:             " << int1 << endl;
-	cout << "mod:                 " << int2 << endl;
-	cout << "float only x:        " << int3 << endl;
-	cout << "remove last digit x: " << int4 << endl;
-	cout << "remove last digit y: " << int5 << endl;
-	cout << "get last digit x:    " << int6 << endl;
-	cout << "get last digit y:    " << int7 << endl;
+	cout << "all float:            " << float1 << endl;
+	cout << "all float %.20f:      " << fixed << setprecision(20) << float1 << endl;
+	cout << "all double:           " << double1 << endl;
+	cout << "float only int1:      " << float2 << endl;
+	cout << "integer:              " << int1 << endl;
+	cout << "mod:                  " << int2 << endl;
+	cout << "float only x:         " << int3 << endl;
+	cout << "remove last digit x:  " << int4 << endl;
+	cout << "remove last digit y:  " << int5 << endl;
+	cout << "get last digit x:     " << int6 << endl;
+	cout << "get last digit y:     " << int7 << endl;
 	cout << "remove 2last digit x: " << int8 << endl;
 	cout << "remove 2last digit y: " << int9 << endl;
 	cout << "get 2last digit x:    " << int10 << endl;
 	cout << "get 2last digit y:    " << int11 << endl;
+	cout << "integer-overflow:     " << int12 << endl;
 
 	return 0;
 }

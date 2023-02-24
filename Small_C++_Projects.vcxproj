@@ -134,9 +134,11 @@
     <ClCompile Include="contacts.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
+    <ClCompile Include="power_up_array.cpp" />
     <ClCompile Include="prime.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="printing_hashtag_grids.cpp" />
+    <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
