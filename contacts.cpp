@@ -16,6 +16,8 @@ int main() {
 
 	// Print input for confirmation
 	print_confirmation(name, age, number);
+
+	return 0;
 }
 
 template <typename T>

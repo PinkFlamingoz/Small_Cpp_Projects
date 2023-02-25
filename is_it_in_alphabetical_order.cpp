@@ -16,6 +16,8 @@ int main() {
 	bool result = check_alphabetic_order(formated);
 	// Print true or false
 	print_result(result);
+
+	return 0;
 }
 
 template <typename T>

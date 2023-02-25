@@ -40,13 +40,16 @@ T get_valid_input(const string& prompt) {
 }
 
 int get_number_of_subjects() {
-	int number = get_valid_input<int>("Number of subjects?: ");
+	int number = 0;
+	do
+		number = get_valid_input<int>("Number of subjects?: ");
+	while (number < 1);
 	return number;
 }
 
 void enter_scores(int number, float scores[]) {
 	for (int i = 0; i < number; i++) {
-		scores[i] = get_valid_input<float>("Enter grade:\n");
+		scores[i] = get_valid_input<float>("Enter grade: ");
 	}
 }
 

@@ -63,5 +63,8 @@
     <ClCompile Include="return_initials.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hours_study.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

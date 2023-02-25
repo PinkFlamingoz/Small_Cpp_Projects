@@ -22,6 +22,8 @@ int main(void)
 	bool meth2 = check_triangle_method2(a, b, c);
 	// Print results
 	print_triangle_check(meth1, meth2);
+
+	return 0;
 }
 
 template <typename T>

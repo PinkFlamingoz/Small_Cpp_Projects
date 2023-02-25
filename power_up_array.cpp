@@ -15,6 +15,8 @@ int main() {
 	create_array_power_by_two(size, power_up);
 	// Print the array, integer by integer
 	print_array(size, power_up);
+
+	return 0;
 }
 
 template <typename T>
