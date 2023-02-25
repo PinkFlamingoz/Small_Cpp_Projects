@@ -54,5 +54,14 @@
     <ClCompile Include="power_up_array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="is_it_in_alphabetical_order.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command_line_arguments.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="return_initials.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

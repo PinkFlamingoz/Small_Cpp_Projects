@@ -131,13 +131,16 @@
     <ClCompile Include="average_score.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
     <ClCompile Include="calculator_testing.cpp" />
+    <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="contacts.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
+    <ClCompile Include="is_it_in_alphabetical_order.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
     <ClCompile Include="prime.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="printing_hashtag_grids.cpp" />
+    <ClCompile Include="return_initials.cpp" />
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
   </ItemGroup>
