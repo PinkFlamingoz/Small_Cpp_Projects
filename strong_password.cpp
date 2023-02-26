@@ -12,6 +12,8 @@ int main() {
 	// Check for password validation
 	// Print results
 	string password = get_user_password();
+
+	return 0;
 }
 
 template <typename T>

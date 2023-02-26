@@ -72,5 +72,8 @@
     <ClCompile Include="strong_password.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="scrabble_points_compare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -45,12 +45,18 @@ string get_input_name() {
 }
 
 int get_input_age() {
-	int age = get_valid_input<int>("Enter age: ");
+	int age;
+	do
+		age = get_valid_input<int>("Enter age: ");
+	while (age < 1);
 	return age;
 }
 
 long long get_input_number() {
-	long long number = get_valid_input<long long>("Enter number: ");
+	long long number;
+	do
+		number = get_valid_input<long long>("Enter number: ");
+	while (number < 1);
 	return number;
 }
 
