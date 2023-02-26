@@ -66,5 +66,11 @@
     <ClCompile Include="hours_study.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="swap_characters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strong_password.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

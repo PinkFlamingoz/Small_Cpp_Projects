@@ -142,6 +142,8 @@
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="printing_hashtag_grids.cpp" />
     <ClCompile Include="return_initials.cpp" />
+    <ClCompile Include="strong_password.cpp" />
+    <ClCompile Include="swap_characters.cpp" />
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
   </ItemGroup>
