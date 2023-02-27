@@ -75,5 +75,8 @@
     <ClCompile Include="scrabble_points_compare.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="what_grade_is_this_text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

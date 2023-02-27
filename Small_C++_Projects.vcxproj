@@ -147,6 +147,7 @@
     <ClCompile Include="swap_characters.cpp" />
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
+    <ClCompile Include="what_grade_is_this_text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
