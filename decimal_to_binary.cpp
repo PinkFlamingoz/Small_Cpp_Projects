@@ -69,21 +69,21 @@ void convert_decimal_to_binary(string text) {
 	int structure[EIGHT_BITS];
 	int length = text.length();
 	for (int i = 0; i < length; i++) {
-		devide = text[i];
+		devide = text[i]; // We simply get the number of the first character in this devide
 		for (int j = 0; j < EIGHT_BITS; j++) {
-			if (devide % 2 == 0) {
+			if (devide % 2 == 0) { // Check the mod and store it in a structure
 				structure[j] = 0;
 			}
 			else if (devide % 2 == 1) {
 				structure[j] = 1;
 			}
-			devide = devide / 2;
+			devide = devide / 2; // We get the new value to check the mod
 		}
 		reverse_the_bits(structure, EIGHT_BITS);
 		for (int c = 0; c < EIGHT_BITS; c++) {
 			print_bulb(structure[c]);
 		}
-		cout << endl;
+		cout << endl; // Print a new line after each set of 8 bits
 	}
 }
 
