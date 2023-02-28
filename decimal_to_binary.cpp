@@ -6,7 +6,7 @@ using namespace std;
 
 string get_user_text();
 void convert_decimal_to_binary(string text);
-void reverse_the_bits(int structure[], int size);
+void reverse_the_bits(int size, int structure[]);
 void print_bulb(int bit);
 
 const int EIGHT_BITS = 8;
@@ -79,7 +79,7 @@ void convert_decimal_to_binary(string text) {
 			}
 			devide = devide / 2; // We get the new value to check the mod
 		}
-		reverse_the_bits(structure, EIGHT_BITS);
+		reverse_the_bits(EIGHT_BITS, structure);
 		for (int c = 0; c < EIGHT_BITS; c++) {
 			print_bulb(structure[c]);
 		}
@@ -87,7 +87,7 @@ void convert_decimal_to_binary(string text) {
 	}
 }
 
-void reverse_the_bits(int structure[], int size) { // We use this to reverse the order of the valuse in a array
+void reverse_the_bits(int size, int structure[]) { // We use this to reverse the order of the valuse in a array
 	int help; // This is only used to hold the value of the of the current i in the array, so we dont lose it when we swap it
 	for (int i = 0; i < size / 2; i++) // Why half the size? Well because we are swapping first and last, second and secont to last , third and third to last, they meet in the middel where we dont swap at all
 	{
