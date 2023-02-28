@@ -78,5 +78,8 @@
     <ClCompile Include="what_grade_is_this_text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="decimal_to_binary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

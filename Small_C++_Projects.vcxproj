@@ -133,6 +133,7 @@
     <ClCompile Include="calculator_testing.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="contacts.cpp" />
+    <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="hours_study.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
     <ClCompile Include="is_it_in_alphabetical_order.cpp" />
