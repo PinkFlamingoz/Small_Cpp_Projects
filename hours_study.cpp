@@ -20,6 +20,8 @@ int main() {
 	char answer = get_T_or_A();
 	print_results(weeks, hours, answer);
 
+	delete[] hours;
+
 	return 0;
 }
 

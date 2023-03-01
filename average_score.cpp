@@ -9,12 +9,13 @@ float get_average(int number, float scores[]);
 void print_average(int number, float scores[]);
 
 int main() {
-	const int number_of_subjects = get_number_of_subjects();
+	int number_of_subjects = get_number_of_subjects();
 	float* scores = new float[number_of_subjects];
 	// The error message "C++ expression must have a constant value" typically occurs when you try to use a variable where a constant value is required, such as when defining the size of an array.
 	// To fix this error, you can use dynamic memory allocation to create an array of the appropriate size at runtime.
 	enter_scores(number_of_subjects, scores);
 	print_average(number_of_subjects, scores);
+
 	delete[] scores;
 	// Here, we have used the new operator to allocate an array of floats of size numberOfSubjects at runtime. Once we are done using the array, we use the delete[] operator to free the allocated memory.
 	return 0;

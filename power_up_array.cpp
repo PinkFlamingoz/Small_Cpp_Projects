@@ -16,6 +16,8 @@ int main() {
 	// Print the array, integer by integer
 	print_array(size, power_up);
 
+	delete[] power_up;
+
 	return 0;
 }
 

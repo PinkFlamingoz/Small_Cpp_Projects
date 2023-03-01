@@ -146,6 +146,7 @@
     <ClCompile Include="return_initials.cpp" />
     <ClCompile Include="scrabble_points_compare.cpp" />
     <ClCompile Include="strong_password.cpp" />
+    <ClCompile Include="substitution_cipher.cpp" />
     <ClCompile Include="swap_characters.cpp" />
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
