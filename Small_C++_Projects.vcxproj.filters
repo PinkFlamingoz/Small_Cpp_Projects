@@ -81,5 +81,8 @@
     <ClCompile Include="decimal_to_binary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="caeser_cipher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
