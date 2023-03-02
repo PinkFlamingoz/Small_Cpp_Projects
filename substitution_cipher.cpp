@@ -9,12 +9,10 @@ bool is_a_alpha(string text);
 bool is_it_all_random(string text);
 string get_user_text();
 string encrypt_text(string key_string, string text);
-void map_key_in_array(string key_string);
 int swap(char character, int upperOrlower);
 void print_result(string text, string result);
 
 const int MAX_LENGTH = 26;
-char key_array[MAX_LENGTH];
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) {
@@ -116,7 +114,6 @@ bool is_it_all_random(string key_string) {
 }
 
 string encrypt_text(string key_string, string text) {
-	map_key_in_array(key_string);
 	string cipher;
 	int length = text.length();
 	int upper = 65;
@@ -124,11 +121,11 @@ string encrypt_text(string key_string, string text) {
 	for (int i = 0; i < length; i++) {
 		if (isalpha(text[i])) {
 			if (isupper(text[i])) {
-				cipher += key_array[swap(text[i], upper)];
+				cipher += key_string[swap(text[i], upper)];
 				cipher[i] = toupper(cipher[i]);
 			}
 			else if (islower(text[i])) {
-				cipher += key_array[swap(text[i], lower)];
+				cipher += key_string[swap(text[i], lower)];
 				cipher[i] = tolower(cipher[i]);
 			}
 		}
@@ -143,12 +140,6 @@ int swap(char character, int upperOrlower) {
 	int alphaIndex = 0;
 	alphaIndex = character - upperOrlower;
 	return  alphaIndex;
-}
-
-void map_key_in_array(string key_string) {
-	for (int i = 0; i < MAX_LENGTH; i++) {
-		key_array[i] = key_string[i];
-	}
 }
 
 string get_user_text() {
