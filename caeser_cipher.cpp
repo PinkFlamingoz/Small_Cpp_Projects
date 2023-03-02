@@ -78,10 +78,10 @@ string get_valid_input<string>(const string& prompt) {
 	return input;
 }
 
-bool is_a_digit(string text) {
-	int length = text.length();
+bool is_a_digit(string key_string) {
+	int length = key_string.length();
 	for (int i = 0; i < length; i++) {
-		if (!isdigit(text[i])) {
+		if (!isdigit(key_string[i])) {
 			return false;
 		}
 	}
