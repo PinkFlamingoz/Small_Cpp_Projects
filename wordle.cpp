@@ -27,8 +27,10 @@ bool is_a_digit(string worldsize);
 void set_word_size(int worldsize_int);
 string get_guess(int WORDSIZE, string wl_filename);
 bool check_if_word_exists(string guess, string wl_filename);
+void set_initial_elements_to_zero(int WORDSIZE, int status[]);
 void print_word(string guess, int WORDSIZE, int status[]);
 int check_word(string guess, int WORDSIZE, int status[], string choice);
+void print_end(bool won, string choice);
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) {
@@ -77,6 +79,7 @@ int main(int argc, char* argv[]) {
 		cout << GREEN << "This is WORDLE50" << RESET << endl;
 		cout << "You have " << guesses << " tries to guess the " << WORDSIZE << "-letter word I'm thinking of" << endl;
 
+		cout << "DEBUG WORD: " << choice << endl;
 		// main game loop, one iteration for each guess
 		for (int i = 0; i < guesses; i++)
 		{
@@ -85,6 +88,9 @@ int main(int argc, char* argv[]) {
 
 			// array to hold guess status, initially set to zero
 			int* status = new int[WORDSIZE];
+
+			// set all elements of status array initially to 0, aka WRONG
+			set_initial_elements_to_zero(WORDSIZE, status);
 
 			// Calculate score for the guess
 			int score = check_word(guess, WORDSIZE, status, choice);
@@ -95,14 +101,16 @@ int main(int argc, char* argv[]) {
 			print_word(guess, WORDSIZE, status);
 
 			// if they guessed it exactly right, terminate loop
-			if (score == EXACT * WORDSIZE)
+			//if (score == EXACT * WORDSIZE)
+			if (guess == choice)
 			{
 				won = true;
 				break;
 			}
 		}
 		// Print the game's result
-		// TODO #7
+		print_end(won, choice);
+
 		delete[] options;
 		// that's all folks!
 		return 0;
@@ -180,7 +188,6 @@ void set_word_size(int worldsize_int) {
 		cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
 		break;
 	}
-	cout << WORDSIZE << endl;
 }
 
 string get_guess(int WORDSIZE, string wl_filename)
@@ -212,10 +219,29 @@ bool check_if_word_exists(string guess, string wl_filename) {
 	return found;
 }
 
+void set_initial_elements_to_zero(int WORDSIZE, int status[]) {
+	for (int i = 0; i < WORDSIZE; i++) {
+		status[i] = WRONG;
+	}
+}
+
 void print_word(string guess, int WORDSIZE, int status[])
 {
 	// print word character-for-character with correct color coding, then reset terminal font to normal
-	// TODO #6
+
+	for (int i = 0; i < WORDSIZE; i++) {
+		switch (status[i]) {
+		case EXACT:
+			cout << GREEN << guess[i] << RESET;
+			break;
+		case CLOSE:
+			cout << YELLOW << guess[i] << RESET;
+			break;
+		case WRONG:
+			cout << RED << guess[i] << RESET;
+			break;
+		}
+	}
 
 	cout << endl;
 }
@@ -225,7 +251,6 @@ int check_word(string guess, int WORDSIZE, int status[], string choice)
 	int score = 0;
 
 	// compare guess to choice and score points as appropriate, storing points in status
-	// TODO #5
 
 	// HINTS
 	// iterate over each letter of the guess
@@ -235,5 +260,29 @@ int check_word(string guess, int WORDSIZE, int status[], string choice)
 				// if it's in the word, but not the right spot, score CLOSE point (yellow)
 		// keep track of the total score by adding each individual letter's score from above
 
+	for (int i = 0; i < WORDSIZE; i++) {
+		for (int j = 0; j < WORDSIZE; j++) {
+			if (guess[i] == choice[j]) {
+				if (i == j) {
+					score += EXACT;
+					status[i] = EXACT;
+					break;
+				}
+				score += CLOSE;
+				status[i] = CLOSE;
+			}
+		}
+	}
+	cout << "DEBUG SCORE: " << score << endl;
+
 	return score;
+}
+
+void print_end(bool won, string choice) {
+	if (won) {
+		cout << GREEN << "YOU WIN!" << RESET << endl;
+	}
+	else {
+		cout << RED << "YOU LOST!" << RESET << endl << "The word was: " << YELLOW << choice << RESET << endl;
+	}
 }

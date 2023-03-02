@@ -106,9 +106,8 @@ bool is_a_alpha(string key_string) {
 
 bool is_it_all_random(string key_string) {
 	for (int i = 0; i < MAX_LENGTH; i++) {
-		char character = key_string[i];
 		for (int j = i + 1; j < MAX_LENGTH; j++) {
-			if (character == key_string[j]) {
+			if (key_string[i] == key_string[j]) {
 				return false;
 			}
 		}
