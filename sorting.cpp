@@ -141,7 +141,7 @@ int get_size() {
 	int number;
 	do {
 		number = get_valid_input<int>("Enter size of array: ");
-	} while (number < 1 || number > BOUND);
+	} while (number < 2 || number > BOUND);
 	return number;
 }
 
