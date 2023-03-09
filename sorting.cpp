@@ -10,37 +10,39 @@ using namespace std;
 constexpr auto GREEN = "\e[38;2;255;255;255;1m\e[48;2;106;170;100;1m";
 constexpr auto RESET = "\e[0;39m";
 
-void random_array();
-void print_array();
-void bubble_sort();
-void selection_sort();
+int get_size();
+void random_array(int MAXSIZE, int RANDOM_ARRAY[]);
+void print_array(int MAXSIZE, int RANDOM_ARRAY[]);
+void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[]);
+void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]);
 void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]);
 
-const int MAXSIZE = 10;
-int RANDOM_ARRAY[MAXSIZE];
+const int BOUND = 50;
 
 int main() {
+	const int size = get_size();
+	int* RANDOM_ARRAY = new int[size];
 	// Bubble -----------------------------------------------------------------------------------------------------
 	cout << endl;
 	cout << "---------------- Bubble -----------------------------------------------------------------------------------------------------" << endl;
 	cout << endl;
 
-	random_array();
+	random_array(size, RANDOM_ARRAY);
 	cout << "Unsorted array: ";
-	print_array();
+	print_array(size, RANDOM_ARRAY);
 	cout << endl;
 
 	auto start1 = chrono::high_resolution_clock::now();
 
-	bubble_sort();
+	bubble_sort(size, RANDOM_ARRAY);
 
 	auto end1 = chrono::high_resolution_clock::now();
 
 	auto elapsed_seconds1 = chrono::duration_cast<chrono::duration<double>>(end1 - start1).count();
 
 	cout << "Sorted array:   ";
-	print_array();
+	print_array(size, RANDOM_ARRAY);
 
 	cout << endl << "Time took for bubble sort: " << elapsed_seconds1 << endl;
 
@@ -49,21 +51,21 @@ int main() {
 	cout << "---------------- Selection --------------------------------------------------------------------------------------------------" << endl;
 	cout << endl;
 
-	random_array();
+	random_array(size, RANDOM_ARRAY);
 	cout << "Unsorted array: ";
-	print_array();
+	print_array(size, RANDOM_ARRAY);
 	cout << endl;
 
 	auto start2 = chrono::high_resolution_clock::now();
 
-	selection_sort();
+	selection_sort(size, RANDOM_ARRAY);
 
 	auto end2 = chrono::high_resolution_clock::now();
 
 	auto elapsed_seconds2 = chrono::duration_cast<chrono::duration<double>>(end2 - start2).count();
 
 	cout << "Sorted array:   ";
-	print_array();
+	print_array(size, RANDOM_ARRAY);
 
 	cout << endl << "Time took selection sort: " << elapsed_seconds2 << endl;
 
@@ -72,35 +74,85 @@ int main() {
 	cout << "---------------- Merge ------------------------------------------------------------------------------------------------------" << endl;
 	cout << endl;
 
-	random_array();
+	random_array(size, RANDOM_ARRAY);
 	cout << "Unsorted array: ";
-	print_array();
+	print_array(size, RANDOM_ARRAY);
 	cout << endl;
 
 	auto start3 = chrono::high_resolution_clock::now();
 
-	merge_sort(0, MAXSIZE - 1, RANDOM_ARRAY);
+	merge_sort(0, size - 1, RANDOM_ARRAY);
 
 	auto end3 = chrono::high_resolution_clock::now();
 
 	auto elapsed_seconds3 = chrono::duration_cast<chrono::duration<double>>(end3 - start3).count();
 
 	cout << "Sorted array:   ";
-	print_array();
+	print_array(size, RANDOM_ARRAY);
 
 	cout << endl << "Time took for merge sort: " << elapsed_seconds3 << endl;
 
+	delete[] RANDOM_ARRAY;
 	return 0;
 }
 
-void random_array() {
+template <typename T>
+T get_valid_input(const string& prompt) {
+	T input;
+	while (true) {
+		cout << prompt;
+		cin >> input;
+		if (cin.fail()) {
+			// Input is not valid
+			cout << "Error: Please enter a valid input." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+		else {
+			// Input is valid
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
+	}
+	return input;
+}
+
+template<>
+string get_valid_input<string>(const string& prompt) {
+	string input;
+	while (true) {
+		cout << prompt;
+		getline(cin, input);
+		if (cin.fail() || input.empty()) {
+			// Input is not valid
+			cout << "Error: Please enter a valid input." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+		else {
+			// Input is valid
+			break;
+		}
+	}
+	return input;
+}
+
+int get_size() {
+	int number;
+	do {
+		number = get_valid_input<int>("Enter size of array: ");
+	} while (number < 1 || number > BOUND);
+	return number;
+}
+
+void random_array(int MAXSIZE, int RANDOM_ARRAY[]) {
 	srand(time(nullptr));
 	for (int i = 0; i < MAXSIZE; i++) {
-		RANDOM_ARRAY[i] = rand() % MAXSIZE;
+		RANDOM_ARRAY[i] = rand() % 100;
 	}
 }
 
-void print_array() {
+void print_array(int MAXSIZE, int RANDOM_ARRAY[]) {
 	for (int i = 0; i < MAXSIZE; i++) {
 		cout << RANDOM_ARRAY[i] << ", ";
 		if (i == (MAXSIZE - 1) / 2) {
@@ -109,7 +161,7 @@ void print_array() {
 	}
 }
 
-void bubble_sort() {
+void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[]) {
 	int counter = 0;
 	int swap_counter = -1;											// Set swap counter to a non-zero value
 	int help = 0;
@@ -124,7 +176,7 @@ void bubble_sort() {
 				// DEBUG PRINT
 				counter++;
 				cout << "Step " << counter << ":         ";
-				print_array();
+				print_array(MAXSIZE, RANDOM_ARRAY);
 				cout << endl;
 			}
 		}
@@ -136,7 +188,7 @@ void bubble_sort() {
 // Ω(n)
 // Best-case scenario: The array is already perfectly sorted, and we make no swaps on the first pass
 
-void selection_sort() {
+void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]) {
 	int counter = 0;
 	int smallest_value = 0;
 	int help = 0;
@@ -154,7 +206,7 @@ void selection_sort() {
 			// DEBUG PRINT
 			counter++;
 			cout << "Step " << counter << ":         ";
-			print_array();
+			print_array(MAXSIZE, RANDOM_ARRAY);
 			cout << endl;
 		}
 	}
@@ -169,7 +221,8 @@ void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]) {
 	int left_index = start_point;
 	int right_index = mid_point + 1;
 	int help_index = 0;
-	int help[MAXSIZE] = {};
+	int help_size = end_point - start_point + 1;
+	int* help = new int[help_size];
 
 	while (left_index <= mid_point && right_index <= end_point) {
 		if (RANDOM_ARRAY[left_index] <= RANDOM_ARRAY[right_index]) {
@@ -199,6 +252,7 @@ void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]) {
 	for (int i = start_point; i <= end_point; i++) {
 		RANDOM_ARRAY[i] = help[i - start_point];
 	}
+	delete[] help;
 	// DEBUG PRINT
 	//	cout << "Step:           ";
 	//	print_array();
