@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="adventure_time.cpp" />
     <ClCompile Include="average_score.cpp" />
+    <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="caeser_cipher.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
     <ClCompile Include="calculator_testing.cpp" />
@@ -138,13 +139,16 @@
     <ClCompile Include="hours_study.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
     <ClCompile Include="is_it_in_alphabetical_order.cpp" />
+    <ClCompile Include="linear_search.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
     <ClCompile Include="prime.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="printing_hashtag_grids.cpp" />
+    <ClCompile Include="recursion.cpp" />
     <ClCompile Include="return_initials.cpp" />
     <ClCompile Include="scrabble_points_compare.cpp" />
+    <ClCompile Include="sorting.cpp" />
     <ClCompile Include="strong_password.cpp" />
     <ClCompile Include="substitution_cipher.cpp" />
     <ClCompile Include="swap_characters.cpp" />

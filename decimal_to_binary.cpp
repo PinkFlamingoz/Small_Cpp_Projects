@@ -16,6 +16,8 @@ int main() {
 	string text = get_user_text();
 	// Conver the decimal to binary
 	convert_decimal_to_binary(text);
+
+	return 0;
 }
 
 template <typename T>

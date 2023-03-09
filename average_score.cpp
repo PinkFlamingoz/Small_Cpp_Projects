@@ -18,6 +18,7 @@ int main() {
 
 	delete[] scores;
 	// Here, we have used the new operator to allocate an array of floats of size numberOfSubjects at runtime. Once we are done using the array, we use the delete[] operator to free the allocated memory.
+
 	return 0;
 }
 
