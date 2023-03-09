@@ -223,17 +223,20 @@ void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]) {
 	int help_index = 0;
 	int help_size = end_point - start_point + 1;
 	int* help = new int[help_size];
+	int counter = 0;
 
 	while (left_index <= mid_point && right_index <= end_point) {
 		if (RANDOM_ARRAY[left_index] <= RANDOM_ARRAY[right_index]) {
 			help[help_index] = RANDOM_ARRAY[left_index];
 			left_index++;
 			help_index++;
+			counter++;
 		}
 		else {
 			help[help_index] = RANDOM_ARRAY[right_index];
 			right_index++;
 			help_index++;
+			counter++;
 		}
 	}
 
@@ -241,22 +244,25 @@ void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]) {
 		help[help_index] = RANDOM_ARRAY[left_index];
 		left_index++;
 		help_index++;
+		counter++;
 	}
 
 	while (right_index <= end_point) {
 		help[help_index] = RANDOM_ARRAY[right_index];
 		right_index++;
 		help_index++;
+		counter++;
 	}
 
 	for (int i = start_point; i <= end_point; i++) {
 		RANDOM_ARRAY[i] = help[i - start_point];
 	}
 	delete[] help;
+
 	// DEBUG PRINT
-	//	cout << "Step:           ";
-	//	print_array();
-	//	cout << endl;
+	cout << "Step " << counter << ":         ";
+	print_array(end_point + 1, RANDOM_ARRAY);
+	cout << endl;
 }
 
 void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]) {
