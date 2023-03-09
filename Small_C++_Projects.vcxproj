@@ -133,6 +133,7 @@
     <ClCompile Include="caeser_cipher.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
     <ClCompile Include="calculator_testing.cpp" />
+    <ClCompile Include="candidates.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="contacts.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />

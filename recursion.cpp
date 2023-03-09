@@ -64,7 +64,10 @@ string get_valid_input<string>(const string& prompt) {
 }
 
 long long get_number() {
-	long long number = get_valid_input<long long>("Enter number: ");
+	long long number;
+	do {
+		number = get_valid_input<long long>("Enter number: ");
+	} while (number < 1);
 	return number;
 }
 
