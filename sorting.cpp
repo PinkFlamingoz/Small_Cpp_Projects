@@ -17,6 +17,7 @@ void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]);
 void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]);
+void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 
 const int BOUND = 50;
 
@@ -91,6 +92,29 @@ int main() {
 	print_array(size, RANDOM_ARRAY);
 
 	cout << endl << "Time took for merge sort: " << elapsed_seconds3 << endl;
+
+	// Insertion -----------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Insertion --------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	auto start4 = chrono::high_resolution_clock::now();
+
+	insertion_sort(size, RANDOM_ARRAY);
+
+	auto end4 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds4 = chrono::duration_cast<chrono::duration<double>>(end4 - start4).count();
+
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds4 << endl;
 
 	delete[] RANDOM_ARRAY;
 	return 0;
@@ -218,12 +242,12 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]) {
 // Best-case scenario:  Exactly the same! There’s no way to guarantee the array is sorted until we go through this process for all the elements
 
 void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]) {
+	int counter = 0;
 	int left_index = start_point;
 	int right_index = mid_point + 1;
 	int help_index = 0;
 	int help_size = end_point - start_point + 1;
 	int* help = new int[help_size];
-	int counter = 0;
 
 	while (left_index <= mid_point && right_index <= end_point) {
 		if (RANDOM_ARRAY[left_index] <= RANDOM_ARRAY[right_index]) {
@@ -279,3 +303,30 @@ void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]) {
 
 // Ω(n log n)
 // Best-case scenario: The array is already perfectly sorted. But we still have to split and recombine it back together with this algorithm
+
+void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]) {
+	int counter = 0;
+	int next_index = 0;
+	int holder = 0;
+
+	for (int i = 1; i < MAXSIZE; i++) {
+		holder = RANDOM_ARRAY[i];
+		next_index = i - 1;
+		while (next_index >= 0 && RANDOM_ARRAY[next_index] > holder) {
+			RANDOM_ARRAY[next_index + 1] = RANDOM_ARRAY[next_index];
+			next_index = next_index - 1;
+		}
+		RANDOM_ARRAY[next_index + 1] = holder;
+		// DEBUG PRINT
+		counter++;
+		cout << "Step " << counter << ":         ";
+		print_array(MAXSIZE, RANDOM_ARRAY);
+		cout << endl;
+	}
+}
+
+// O(n^2)
+// Worst-case scenario: Suppose, an array is in ascending order, and you want to sort it in descending order. In this case, worst case complexity occurs. Each element has to be compared with each of the other elements so, for every nth element, (n - 1) number of comparisons are made. Thus, the total number of comparisons = n * (n - 1) ~n2
+
+// Ω(n)
+// Best-case scenario: When the array is already sorted, the outer loop runs for n number of times whereas the inner loop does not run at all. So, there are only n number of comparisons. Thus, complexity is linear.
