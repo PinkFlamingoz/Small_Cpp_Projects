@@ -306,17 +306,17 @@ void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]) {
 
 void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]) {
 	int counter = 0;
-	int next_index = 0;
+	int previous_element = 0;
 	int holder = 0;
 
 	for (int i = 1; i < MAXSIZE; i++) {
-		holder = RANDOM_ARRAY[i];
-		next_index = i - 1;
-		while (next_index >= 0 && RANDOM_ARRAY[next_index] > holder) {
-			RANDOM_ARRAY[next_index + 1] = RANDOM_ARRAY[next_index];
-			next_index = next_index - 1;
+		holder = RANDOM_ARRAY[i];																// Get next element in array
+		previous_element = i - 1;																// Get the index of the previous element in the array
+		while (previous_element >= 0 && RANDOM_ARRAY[previous_element] > holder) {				// Check if the index of the previous elemet is in the bounds of the array and check if the previous element is bigger than the next one
+			RANDOM_ARRAY[previous_element + 1] = RANDOM_ARRAY[previous_element];				// If they are swap them
+			previous_element = previous_element - 1;											// Decrement to get the previous element and to check for the other elements behind it
 		}
-		RANDOM_ARRAY[next_index + 1] = holder;
+		RANDOM_ARRAY[previous_element + 1] = holder;											// Place the next element in the place of the smaller element that was behind it
 		// DEBUG PRINT
 		counter++;
 		cout << "Step " << counter << ":         ";
