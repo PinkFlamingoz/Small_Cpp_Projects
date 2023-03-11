@@ -6,12 +6,15 @@ using namespace std;
 string correct_text(string text);
 void print_result(string result);
 
-int main(int argc, char* argv[]) {
-	if (argc != 2) {
+int main(int argc, char* argv[])
+{
+	if (argc != 2)
+	{
 		cout << "Error 1: Enter only one argument! " << endl;
 		return 1;
 	}
-	else {
+	else
+	{
 		// Check for vowels and replace them
 		string  result = correct_text(argv[1]);
 		// Print result
@@ -21,10 +24,12 @@ int main(int argc, char* argv[]) {
 	}
 }
 
-string correct_text(string text) {
+string correct_text(string text)
+{
 	int length = text.length();
 	for (int i = 0; i < length; i++)
-		switch (text[i]) {
+		switch (text[i])
+		{
 		case 'a':
 			text[i] = '6';
 			break;
@@ -42,6 +47,7 @@ string correct_text(string text) {
 	return text;
 }
 
-void print_result(string result) {
+void print_result(string result)
+{
 	cout << result << endl;
 }

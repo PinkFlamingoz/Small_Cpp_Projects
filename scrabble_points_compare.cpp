@@ -8,7 +8,8 @@ void print_results(int score1, int score2);
 
 int POINTS[] = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10 };
 
-int main() {
+int main()
+{
 	// Get players input
 	string word1 = get_player_word();
 	string word2 = get_player_word();
@@ -22,15 +23,19 @@ int main() {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
-		if (cin >> input) {
+		if (cin >> input)
+		{
 			// The user entered a valid number
 			break;
 		}
-		else {
+		else
+		{
 			// The user did not enter a valid number
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear(); // Clear the error state
@@ -40,37 +45,47 @@ T get_valid_input(const string& prompt) {
 	return input;
 }
 
-string get_player_word() {
+string get_player_word()
+{
 	string word = get_valid_input<string>("Enter word: ");
 	int length = word.length();
-	for (int i = 0; i < length; i++) {
+	for (int i = 0; i < length; i++)
+	{
 		word[i] = toupper(word[i]);
 	}
 	return word;
 }
 
-int compare_words(string word) {
+int compare_words(string word)
+{
 	int length = word.length();
 	int sum = 0;
-	for (int i = 0; i < length; i++) {
-		if (isalpha(word[i])) {
+	for (int i = 0; i < length; i++)
+	{
+		if (isalpha(word[i]))
+		{
 			sum += POINTS[word[i] - 65];
 		}
-		else {
+		else
+		{
 			sum += 0;
 		}
 	}
 	return sum;
 }
 
-void print_results(int score1, int score2) {
-	if (score1 > score2) {
+void print_results(int score1, int score2)
+{
+	if (score1 > score2)
+	{
 		cout << "Player one WINS!" << endl << "Player one score: " << score1 << endl << "Player two score: " << score2 << endl;
 	}
-	else if (score1 < score2) {
+	else if (score1 < score2)
+	{
 		cout << "Player two WINS!" << endl << "Player one score: " << score1 << endl << "Player two score: " << score2 << endl;;
 	}
-	else {
+	else
+	{
 		cout << "TIE!" << endl << "Player one score: " << score1 << endl << "Player two score: " << score2 << endl;;
 	}
 }

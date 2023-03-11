@@ -7,7 +7,8 @@ int get_size();
 void create_array_power_by_two(int size, int power_up[]);
 void print_array(int size, int power_up[]);
 
-int main() {
+int main()
+{
 	// Get the size from user
 	int size = get_size();
 	int* power_up = new int[size];
@@ -22,15 +23,19 @@ int main() {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
-		if (cin >> input) {
+		if (cin >> input)
+		{
 			// The user entered a valid number
 			break;
 		}
-		else {
+		else
+		{
 			// The user did not enter a valid number
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear(); // Clear the error state
@@ -40,7 +45,8 @@ T get_valid_input(const string& prompt) {
 	return input;
 }
 
-int get_size() {
+int get_size()
+{
 	int size;
 	do
 		size = get_valid_input<int>("Enter size of array: ");
@@ -48,14 +54,18 @@ int get_size() {
 	return size;
 }
 
-void create_array_power_by_two(int size, int power_up[]) {
-	for (int i = 0; i < size; i++) {
+void create_array_power_by_two(int size, int power_up[])
+{
+	for (int i = 0; i < size; i++)
+	{
 		power_up[i] = pow(2, i);
 	}
 }
 
-void print_array(int size, int power_up[]) {
-	for (int i = 0; i < size; i++) {
+void print_array(int size, int power_up[])
+{
+	for (int i = 0; i < size; i++)
+	{
 		cout << power_up[i] << endl;
 	}
 }

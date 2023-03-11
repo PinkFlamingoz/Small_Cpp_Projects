@@ -8,7 +8,8 @@ int get_input_age();
 long long get_input_number();
 void print_confirmation(string name, int age, long long number);
 
-int main() {
+int main()
+{
 	// Get input
 	string name = get_input_name();
 	int age = get_input_age();
@@ -21,15 +22,19 @@ int main() {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
-		if (cin >> input) {
+		if (cin >> input)
+		{
 			// The user entered a valid number
 			break;
 		}
-		else {
+		else
+		{
 			// The user did not enter a valid number
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear(); // Clear the error state
@@ -39,27 +44,33 @@ T get_valid_input(const string& prompt) {
 	return input;
 }
 
-string get_input_name() {
+string get_input_name()
+{
 	string name = get_valid_input<string>("Enter name: ");
 	return name;
 }
 
-int get_input_age() {
+int get_input_age()
+{
 	int age;
 	do
+	{
 		age = get_valid_input<int>("Enter age: ");
-	while (age < 1);
+	} while (age < 1);
 	return age;
 }
 
-long long get_input_number() {
+long long get_input_number()
+{
 	long long number;
 	do
+	{
 		number = get_valid_input<long long>("Enter number: ");
-	while (number < 1);
+	} while (number < 1);
 	return number;
 }
 
-void print_confirmation(string name, int age, long long number) {
+void print_confirmation(string name, int age, long long number)
+{
 	cout << "Name: " << name << endl << "Age: " << age << endl << "Number: " << number << endl;
 }

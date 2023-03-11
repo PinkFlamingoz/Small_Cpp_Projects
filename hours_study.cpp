@@ -10,7 +10,8 @@ float get_total(int weeks, float hours[]);
 char get_T_or_A();
 void print_results(int weeks, float hours[], char answer);
 
-int main() {
+int main()
+{
 	// Get how many weeks
 	int weeks = get_weeks();
 	float* hours = new float[weeks];
@@ -26,15 +27,19 @@ int main() {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
-		if (cin >> input) {
+		if (cin >> input)
+		{
 			// The user entered a valid number
 			break;
 		}
-		else {
+		else
+		{
 			// The user did not enter a valid number
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear(); // Clear the error state
@@ -44,7 +49,8 @@ T get_valid_input(const string& prompt) {
 	return input;
 }
 
-int get_weeks() {
+int get_weeks()
+{
 	int weeks = 0;
 	do
 		weeks = get_valid_input<int>("Enter number of weeks for study: ");
@@ -52,52 +58,64 @@ int get_weeks() {
 	return weeks;
 }
 
-void fill_the_weeks(int weeks, float hours[]) {
-	for (int i = 0; i < weeks; i++) {
+void fill_the_weeks(int weeks, float hours[])
+{
+	for (int i = 0; i < weeks; i++)
+	{
 		hours[i] = get_valid_input<int>("Enter number of hours: ");
 	}
 }
 
-float get_average(int weeks, float hours[]) {
+float get_average(int weeks, float hours[])
+{
 	float sum = 0;
-	for (int i = 0; i < weeks; i++) {
+	for (int i = 0; i < weeks; i++)
+	{
 		sum += hours[i];
 	}
 	return sum / (float)weeks;
 }
 
-float get_total(int weeks, float hours[]) {
+float get_total(int weeks, float hours[])
+{
 	float sum = 0;
-	for (int i = 0; i < weeks; i++) {
+	for (int i = 0; i < weeks; i++)
+	{
 		sum += hours[i];
 	}
 	return sum;
 }
 
-char get_T_or_A() {
+char get_T_or_A()
+{
 	char answer = get_valid_input<char>("Total(T) or Average(A): ");
 	answer = toupper(answer);
 	return answer;
 }
 
-void print_results(int weeks, float hours[], char answer) {
-	switch (answer) {
+void print_results(int weeks, float hours[], char answer)
+{
+	switch (answer)
+	{
 	case 'A':
-		for (int i = 0; i < weeks; i++) {
+		for (int i = 0; i < weeks; i++)
+		{
 			cout << "Week " << i + 1 << ": " << hours[i] << "\n";
 		}
 		cout << "Average is: " << get_average(weeks, hours) << "\n";
 		break;
 
 	case 'T':
-		for (int i = 0; i < weeks; i++) {
+		for (int i = 0; i < weeks; i++)
+		{
 			cout << "Week " << i + 1 << ": " << hours[i] << "\n";
 		}
 		cout << "Total is: " << get_total(weeks, hours) << "\n";
 		break;
 
 	default:
-		for (int i = 0; i < weeks; i++) {
+		for (int i = 0; i < weeks; i++)
+		{
 			cout << "Week " << i + 1 << ": " << hours[i] << "\n";
 		}
 		cout << "Average is: " << get_average(weeks, hours) << "\n";

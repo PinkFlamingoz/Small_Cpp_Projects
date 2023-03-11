@@ -25,15 +25,19 @@ int main()
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
-		if (cin >> input) {
+		if (cin >> input)
+		{
 			// The user entered a valid number
 			break;
 		}
-		else {
+		else
+		{
 			// The user did not enter a valid number
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear(); // Clear the error state
@@ -154,9 +158,11 @@ void print_card(long long card)
 	}
 }
 
-void get_individual_numbers_from_string(long long number) {
+void get_individual_numbers_from_string(long long number)
+{
 	int digit;
-	while (number > 0) {
+	while (number > 0)
+	{
 		digit = number % 10;
 		number = number / 10;
 		cout << digit << " ";
@@ -164,13 +170,16 @@ void get_individual_numbers_from_string(long long number) {
 	cout << endl;
 }
 
-void get_individual_every_other_number_from_string(long long number) {
+void get_individual_every_other_number_from_string(long long number)
+{
 	int digit;
 	int i = 0;
-	while (number > 0) {
+	while (number > 0)
+	{
 		digit = number % 10;
 		number = number / 10;
-		if (i % 2 == 0) {
+		if (i % 2 == 0)
+		{
 			cout << digit << " ";
 		}
 		i++;
@@ -178,13 +187,16 @@ void get_individual_every_other_number_from_string(long long number) {
 	cout << endl;
 }
 
-void get_individual_every_other_number_from_string_twisted(long long number) {
+void get_individual_every_other_number_from_string_twisted(long long number)
+{
 	int digit;
 	int i = 0;
-	while (number > 0) {
+	while (number > 0)
+	{
 		digit = number % 10;
 		number = number / 10;
-		if (i % 2 == 1) {
+		if (i % 2 == 1)
+		{
 			cout << digit << " ";
 		}
 		i++;

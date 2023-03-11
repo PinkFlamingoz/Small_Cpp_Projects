@@ -141,6 +141,7 @@
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
     <ClCompile Include="is_it_in_alphabetical_order.cpp" />
     <ClCompile Include="linear_search.cpp" />
+    <ClCompile Include="max_and_min.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
     <ClCompile Include="prime.cpp" />
@@ -149,11 +150,13 @@
     <ClCompile Include="recursion.cpp" />
     <ClCompile Include="return_initials.cpp" />
     <ClCompile Include="scrabble_points_compare.cpp" />
+    <ClCompile Include="snackbar.cpp" />
     <ClCompile Include="sorting.cpp" />
     <ClCompile Include="string_to_integer_recursive.cpp" />
     <ClCompile Include="strong_password.cpp" />
     <ClCompile Include="substitution_cipher.cpp" />
     <ClCompile Include="swap_characters.cpp" />
+    <ClCompile Include="temperature.cpp" />
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
     <ClCompile Include="what_grade_is_this_text.cpp" />

@@ -8,10 +8,12 @@ string get_number_string();
 bool is_a_digit(string number);
 long long convert(string input);
 
-int main() {
+int main()
+{
 	string number_string = get_number_string();
 
-	if (!is_a_digit(number_string)) {
+	if (!is_a_digit(number_string))
+	{
 		cout << "Error 1: Enter numbers only! " << endl;
 		return 1;
 	}
@@ -23,18 +25,22 @@ int main() {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
 		cin >> input;
-		if (cin.fail()) {
+		if (cin.fail())
+		{
 			// Input is not valid
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		else {
+		else
+		{
 			// Input is valid
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			break;
@@ -44,18 +50,22 @@ T get_valid_input(const string& prompt) {
 }
 
 template<>
-string get_valid_input<string>(const string& prompt) {
+string get_valid_input<string>(const string& prompt)
+{
 	string input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
 		getline(cin, input);
-		if (cin.fail() || input.empty()) {
+		if (cin.fail() || input.empty())
+		{
 			// Input is not valid
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		else {
+		else
+		{
 			// Input is valid
 			break;
 		}
@@ -63,19 +73,24 @@ string get_valid_input<string>(const string& prompt) {
 	return input;
 }
 
-string get_number_string() {
+string get_number_string()
+{
 	string number = get_valid_input<string>("Enter number to convert: ");
 	return number;
 }
 
-bool is_a_digit(string number) {
+bool is_a_digit(string number)
+{
 	int length = number.length();
 	int i = 0;
-	if (number[i] == '-') {
+	if (number[i] == '-')
+	{
 		i = i + 1;
 	}
-	for (i; i < length; i++) {
-		if (!isdigit(number[i])) {
+	for (i; i < length; i++)
+	{
+		if (!isdigit(number[i]))
+		{
 			return false;
 		}
 	}
@@ -87,6 +102,7 @@ long long convert(string input)
 	int sign = 1;
 	long long length = input.length();
 
+	// Base case
 	if (length == 0)
 	{
 		return 0;
@@ -99,6 +115,7 @@ long long convert(string input)
 		length--;
 	}
 
+	// Recursive case
 	int num = input[length - 1] - '0';
 	input.erase(length - 1, 1);
 	return sign * (num + 10 * convert(input));

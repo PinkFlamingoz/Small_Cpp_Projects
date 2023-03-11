@@ -14,7 +14,8 @@ bool linear_search(int number);
 const int MAXSIZE = 1000000;
 int RANDOM_ARRAY[MAXSIZE];
 
-int main() {
+int main()
+{
 	random_array();
 	int number = get_number();
 
@@ -32,18 +33,22 @@ int main() {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
 		cin >> input;
-		if (cin.fail()) {
+		if (cin.fail())
+		{
 			// Input is not valid
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		else {
+		else
+		{
 			// Input is valid
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			break;
@@ -53,18 +58,22 @@ T get_valid_input(const string& prompt) {
 }
 
 template<>
-string get_valid_input<string>(const string& prompt) {
+string get_valid_input<string>(const string& prompt)
+{
 	string input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
 		getline(cin, input);
-		if (cin.fail() || input.empty()) {
+		if (cin.fail() || input.empty())
+		{
 			// Input is not valid
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		else {
+		else
+		{
 			// Input is valid
 			break;
 		}
@@ -72,22 +81,27 @@ string get_valid_input<string>(const string& prompt) {
 	return input;
 }
 
-int get_number() {
+int get_number()
+{
 	int number;
-	do {
+	do
+	{
 		number = get_valid_input<int>("Enter number: ");
 	} while (number < 1 || number > MAXSIZE);
 	return number;
 }
 
-void random_array() {
+void random_array()
+{
 	srand(time(nullptr));
-	for (int i = 0; i < MAXSIZE; i++) {
+	for (int i = 0; i < MAXSIZE; i++)
+	{
 		RANDOM_ARRAY[i] = rand() % MAXSIZE;
 	}
 }
 
-bool linear_search(int number) {
+bool linear_search(int number)
+{
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		if (RANDOM_ARRAY[i] == number)

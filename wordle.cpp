@@ -32,22 +32,27 @@ void print_word(string guess, int WORDSIZE, int status[]);
 int check_word(string guess, int WORDSIZE, int status[], string choice);
 void print_end(bool won, string choice);
 
-int main(int argc, char* argv[]) {
-	if (argc != 2) {
+int main(int argc, char* argv[])
+{
+	if (argc != 2)
+	{
 		cout << "Error 1: Too many or none arguments " << endl << "Usage: ./wordle (size of words)" << endl;
 		return 1;
 	}
 	string worldsize = argv[1];
-	if (!is_a_digit(worldsize)) {
+	if (!is_a_digit(worldsize))
+	{
 		cout << "Error 2: Enter a digit " << endl;
 		return 1;
 	}
 	int worldsize_int = stoi(worldsize);
-	if (worldsize_int < 5 || worldsize_int > 8) {
+	if (worldsize_int < 5 || worldsize_int > 8)
+	{
 		cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
 		return 1;
 	}
-	else {
+	else
+	{
 		// Set word size
 		set_word_size(worldsize_int);
 
@@ -118,18 +123,22 @@ int main(int argc, char* argv[]) {
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
 		cin >> input;
-		if (cin.fail()) {
+		if (cin.fail())
+		{
 			// Input is not valid
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		else {
+		else
+		{
 			// Input is valid
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			break;
@@ -139,18 +148,22 @@ T get_valid_input(const string& prompt) {
 }
 
 template<>
-string get_valid_input<string>(const string& prompt) {
+string get_valid_input<string>(const string& prompt)
+{
 	string input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
 		getline(cin, input);
-		if (cin.fail() || input.empty()) {
+		if (cin.fail() || input.empty())
+		{
 			// Input is not valid
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		else {
+		else
+		{
 			// Input is valid
 			break;
 		}
@@ -158,17 +171,21 @@ string get_valid_input<string>(const string& prompt) {
 	return input;
 }
 
-bool is_a_digit(string worldsize) {
+bool is_a_digit(string worldsize)
+{
 	int length = worldsize.length();
-	for (int i = 0; i < length; i++) {
-		if (!isdigit(worldsize[i])) {
+	for (int i = 0; i < length; i++)
+	{
+		if (!isdigit(worldsize[i]))
+		{
 			return false;
 		}
 	}
 	return true;
 }
 
-void set_word_size(int worldsize_int) {
+void set_word_size(int worldsize_int)
+{
 	switch (worldsize_int)
 	{
 	case 5:
@@ -195,7 +212,8 @@ string get_guess(int WORDSIZE, string wl_filename)
 	string guess;
 	bool exists = false;
 	int length = 0;
-	do {
+	do
+	{
 		guess = get_valid_input<string>("Enter guess: ");
 		exists = check_if_word_exists(guess, wl_filename);
 		length = guess.length();
@@ -203,24 +221,30 @@ string get_guess(int WORDSIZE, string wl_filename)
 
 	return guess;
 }
-bool check_if_word_exists(string guess, string wl_filename) {
+bool check_if_word_exists(string guess, string wl_filename)
+{
 	string word;
 	ifstream wordlist(wl_filename);
 	bool found = false;
-	while (getline(wordlist, word)) {
-		if (word == guess) {
+	while (getline(wordlist, word))
+	{
+		if (word == guess)
+		{
 			found = true;
 			break;
 		}
 	}
-	if (found == false) {
+	if (found == false)
+	{
 		cout << "Word does not exist!" << endl;
 	}
 	return found;
 }
 
-void set_initial_elements_to_zero(int WORDSIZE, int status[]) {
-	for (int i = 0; i < WORDSIZE; i++) {
+void set_initial_elements_to_zero(int WORDSIZE, int status[])
+{
+	for (int i = 0; i < WORDSIZE; i++)
+	{
 		status[i] = WRONG;
 	}
 }
@@ -229,8 +253,10 @@ void print_word(string guess, int WORDSIZE, int status[])
 {
 	// print word character-for-character with correct color coding, then reset terminal font to normal
 
-	for (int i = 0; i < WORDSIZE; i++) {
-		switch (status[i]) {
+	for (int i = 0; i < WORDSIZE; i++)
+	{
+		switch (status[i])
+		{
 		case EXACT:
 			cout << GREEN << guess[i] << RESET;
 			break;
@@ -260,10 +286,14 @@ int check_word(string guess, int WORDSIZE, int status[], string choice)
 				// if it's in the word, but not the right spot, score CLOSE point (yellow)
 		// keep track of the total score by adding each individual letter's score from above
 
-	for (int i = 0; i < WORDSIZE; i++) {
-		for (int j = 0; j < WORDSIZE; j++) {
-			if (guess[i] == choice[j]) {
-				if (i == j) {
+	for (int i = 0; i < WORDSIZE; i++)
+	{
+		for (int j = 0; j < WORDSIZE; j++)
+		{
+			if (guess[i] == choice[j])
+			{
+				if (i == j)
+				{
 					score += EXACT;
 					status[i] = EXACT;
 					break;
@@ -278,11 +308,14 @@ int check_word(string guess, int WORDSIZE, int status[], string choice)
 	return score;
 }
 
-void print_end(bool won, string choice) {
-	if (won) {
+void print_end(bool won, string choice)
+{
+	if (won)
+	{
 		cout << GREEN << "YOU WIN!" << RESET << endl;
 	}
-	else {
+	else
+	{
 		cout << RED << "YOU LOST!" << RESET << endl << "The word was: " << YELLOW << choice << RESET << endl;
 	}
 }

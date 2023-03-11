@@ -31,15 +31,19 @@ int main()
 }
 
 template <typename T>
-T get_valid_input(const string& prompt) {
+T get_valid_input(const string& prompt)
+{
 	T input;
-	while (true) {
+	while (true)
+	{
 		cout << prompt;
-		if (cin >> input) {
+		if (cin >> input)
+		{
 			// The user entered a valid number
 			break;
 		}
-		else {
+		else
+		{
 			// The user did not enter a valid number
 			cout << "Error: Please enter a valid input." << endl;
 			cin.clear(); // Clear the error state
@@ -62,7 +66,8 @@ int get_size_bounded()
 void print_horizontal(int n)
 {
 	cout << "Horizontal print :" << endl;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 		cout << "#";
 	}
 	cout << endl;
@@ -71,7 +76,8 @@ void print_horizontal(int n)
 void print_vertical(int n)
 {
 	cout << "Vertical print :" << endl;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 		cout << "#" << endl;
 	}
 }
@@ -79,9 +85,11 @@ void print_vertical(int n)
 void print_grid1(int n)
 {
 	cout << "Grid1 nxn print :" << endl;
-	for (int i = 0; i < n; i++) { // column
+	for (int i = 0; i < n; i++)
+	{ // column
 		cout << "#";
-		for (int j = 0; j < n - 1; j++) { // row
+		for (int j = 0; j < n - 1; j++)
+		{ // row
 			cout << "#";
 		}
 		cout << endl;
