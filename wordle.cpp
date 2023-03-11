@@ -43,13 +43,13 @@ int main(int argc, char* argv[])
 	if (!is_a_digit(worldsize))
 	{
 		cout << "Error 2: Enter a digit " << endl;
-		return 1;
+		return 2;
 	}
 	int worldsize_int = stoi(worldsize);
 	if (worldsize_int < 5 || worldsize_int > 8)
 	{
 		cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
-		return 1;
+		return 3;
 	}
 	else
 	{
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 		if (!wordlist.is_open())
 		{
 			cout << "Error opening file " << wl_filename << "." << endl;
-			return 1;
+			return 4;
 		}
 
 		// load word file into an array of size LISTSIZE

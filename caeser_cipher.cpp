@@ -21,13 +21,13 @@ int main(int argc, char* argv[])
 	if (!is_a_digit(key_string))
 	{
 		cout << "Error 2: Enter a digit " << endl;
-		return 1;
+		return 2;
 	}
 	int key = stoi(key_string);
 	if (key < 1)
 	{
 		cout << "Error 3: Must be positive number" << endl;
-		return 1;
+		return 3;
 	}
 	else
 	{

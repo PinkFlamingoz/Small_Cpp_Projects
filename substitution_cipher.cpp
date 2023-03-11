@@ -25,17 +25,17 @@ int main(int argc, char* argv[])
 	if (!is_it_26(key_string))
 	{
 		cout << "Error 2: The key must be 26 characters long" << endl;
-		return 1;
+		return 2;
 	}
 	else if (!is_a_alpha(key_string))
 	{
 		cout << "Error 3: Enter alphabetic characters only" << endl;
-		return 1;
+		return 3;
 	}
 	else if (!is_it_all_random(key_string))
 	{
 		cout << "Error 4: Characters must not be the same" << endl;
-		return 1;
+		return 4;
 	}
 	else
 	{
