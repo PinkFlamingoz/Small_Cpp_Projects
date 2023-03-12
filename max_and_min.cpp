@@ -126,17 +126,21 @@ void print_results(char answer, int size, int array[])
 {
 	switch (answer)
 	{
-	case'1': {
-		cout << "Max is: " << max(size, array) << endl;
-		break;
-	}
-	case'2': {
-		cout << "Min is: " << min(size, array) << endl;
-		break;
-	}
-	default:
-		cout << "Max is: " << max(size, array) << endl;
-		cout << "Min is: " << min(size, array) << endl;
-		break;
+		case'1':
+		{
+			cout << "Max is: " << max(size, array) << endl;
+			break;
+		}
+		case'2':
+		{
+			cout << "Min is: " << min(size, array) << endl;
+			break;
+		}
+		default:
+		{
+			cout << "Max is: " << max(size, array) << endl;
+			cout << "Min is: " << min(size, array) << endl;
+			break;
+		}
 	}
 }

@@ -49,8 +49,9 @@ int get_size()
 {
 	int size;
 	do
+	{
 		size = get_valid_input<int>("Enter size of array: ");
-	while (size < 1);
+	} while (size < 1);
 	return size;
 }
 

@@ -53,8 +53,9 @@ int get_weeks()
 {
 	int weeks = 0;
 	do
+	{
 		weeks = get_valid_input<int>("Enter number of weeks for study: ");
-	while (weeks < 1);
+	} while (weeks < 1);
 	return weeks;
 }
 
@@ -97,29 +98,33 @@ void print_results(int weeks, float hours[], char answer)
 {
 	switch (answer)
 	{
-	case 'A':
-		for (int i = 0; i < weeks; i++)
+		case 'A':
 		{
-			cout << "Week " << i + 1 << ": " << hours[i] << "\n";
+			for (int i = 0; i < weeks; i++)
+			{
+				cout << "Week " << i + 1 << ": " << hours[i] << "\n";
+			}
+			cout << "Average is: " << get_average(weeks, hours) << "\n";
+			break;
 		}
-		cout << "Average is: " << get_average(weeks, hours) << "\n";
-		break;
-
-	case 'T':
-		for (int i = 0; i < weeks; i++)
+		case 'T':
 		{
-			cout << "Week " << i + 1 << ": " << hours[i] << "\n";
+			for (int i = 0; i < weeks; i++)
+			{
+				cout << "Week " << i + 1 << ": " << hours[i] << "\n";
+			}
+			cout << "Total is: " << get_total(weeks, hours) << "\n";
+			break;
 		}
-		cout << "Total is: " << get_total(weeks, hours) << "\n";
-		break;
-
-	default:
-		for (int i = 0; i < weeks; i++)
+		default:
 		{
-			cout << "Week " << i + 1 << ": " << hours[i] << "\n";
+			for (int i = 0; i < weeks; i++)
+			{
+				cout << "Week " << i + 1 << ": " << hours[i] << "\n";
+			}
+			cout << "Average is: " << get_average(weeks, hours) << "\n";
+			cout << "Total is: " << get_total(weeks, hours) << "\n";
+			break;
 		}
-		cout << "Average is: " << get_average(weeks, hours) << "\n";
-		cout << "Total is: " << get_total(weeks, hours) << "\n";
-		break;
 	}
 }

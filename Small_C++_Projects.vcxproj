@@ -142,6 +142,7 @@
     <ClCompile Include="is_it_in_alphabetical_order.cpp" />
     <ClCompile Include="linear_search.cpp" />
     <ClCompile Include="max_and_min.cpp" />
+    <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
     <ClCompile Include="prime.cpp" />

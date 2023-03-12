@@ -30,18 +30,26 @@ string correct_text(string text)
 	for (int i = 0; i < length; i++)
 		switch (text[i])
 		{
-		case 'a':
-			text[i] = '6';
-			break;
-		case 'e':
-			text[i] = '3';
-			break;
-		case 'i':
-			text[i] = '1';
-			break;
-		case 'o':
-			text[i] = '0';
-			break;
+			case 'a':
+			{
+				text[i] = '6';
+				break;
+			}
+			case 'e':
+			{
+				text[i] = '3';
+				break;
+			}
+			case 'i':
+			{
+				text[i] = '1';
+				break;
+			}
+			case 'o':
+			{
+				text[i] = '0';
+				break;
+			}
 		}
 
 	return text;

@@ -215,54 +215,54 @@ void modify_array(int& size, Menu*& menu)
 		} while (answer < 1 || answer > 6);
 		switch (answer)
 		{
-		case 1:
-		{
-			cout << endl;
-			edit_element(size, menu);
-			cout << endl;
-			break;
-		}
-		case 2:
-		{
-			cout << endl;
-			add_element(size, menu);
-			cout << endl;
-			break;
-		}
-		case 3:
-		{
-			cout << endl;
-			delete_element(size, menu);
-			cout << endl;
-			break;
-		}
-		case 4:
-		{
-			cout << endl;
-			float total = get_total(size, menu);
-			print_total(total);
-			cout << endl;
-			break;
-		}
-		case 5:
-		{
-			cout << endl;
-			print_menu(size, menu);
-			cout << endl;
-			break;
-		}
-		case 6:
-		{
-			done = true;
-			break;
-		}
-		default:
-		{
-			cout << endl;
-			cout << "                         Invalid choice. Please try again." << endl;
-			cout << endl;
-			break;
-		}
+			case 1:
+			{
+				cout << endl;
+				edit_element(size, menu);
+				cout << endl;
+				break;
+			}
+			case 2:
+			{
+				cout << endl;
+				add_element(size, menu);
+				cout << endl;
+				break;
+			}
+			case 3:
+			{
+				cout << endl;
+				delete_element(size, menu);
+				cout << endl;
+				break;
+			}
+			case 4:
+			{
+				cout << endl;
+				float total = get_total(size, menu);
+				print_total(total);
+				cout << endl;
+				break;
+			}
+			case 5:
+			{
+				cout << endl;
+				print_menu(size, menu);
+				cout << endl;
+				break;
+			}
+			case 6:
+			{
+				done = true;
+				break;
+			}
+			default:
+			{
+				cout << endl;
+				cout << "                         Invalid choice. Please try again." << endl;
+				cout << endl;
+				break;
+			}
 		}
 	}
 	// Allocate memory for the new array

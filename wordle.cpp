@@ -188,22 +188,31 @@ void set_word_size(int worldsize_int)
 {
 	switch (worldsize_int)
 	{
-	case 5:
-		WORDSIZE = 5;
-		break;
-	case 6:
-		WORDSIZE = 6;
-		break;
-	case 7:
-		WORDSIZE = 7;
-		break;
-	case 8:
-		WORDSIZE = 8;
-		break;
-
-	default:
-		cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
-		break;
+		case 5:
+		{
+			WORDSIZE = 5;
+			break;
+		}
+		case 6:
+		{
+			WORDSIZE = 6;
+			break;
+		}
+		case 7:
+		{
+			WORDSIZE = 7;
+			break;
+		}
+		case 8:
+		{
+			WORDSIZE = 8;
+			break;
+		}
+		default:
+		{
+			cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
+			break;
+		}
 	}
 }
 
@@ -257,15 +266,21 @@ void print_word(string guess, int WORDSIZE, int status[])
 	{
 		switch (status[i])
 		{
-		case EXACT:
-			cout << GREEN << guess[i] << RESET;
-			break;
-		case CLOSE:
-			cout << YELLOW << guess[i] << RESET;
-			break;
-		case WRONG:
-			cout << RED << guess[i] << RESET;
-			break;
+			case EXACT:
+			{
+				cout << GREEN << guess[i] << RESET;
+				break;
+			}
+			case CLOSE:
+			{
+				cout << YELLOW << guess[i] << RESET;
+				break;
+			}
+			case WRONG:
+			{
+				cout << RED << guess[i] << RESET;
+				break;
+			}
 		}
 	}
 
