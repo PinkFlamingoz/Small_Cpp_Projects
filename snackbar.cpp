@@ -1,8 +1,7 @@
 #include <iostream>
-#include <limits>
-#include <string>
 #include <iomanip>
 #include <cstring>
+#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
 
@@ -39,55 +38,6 @@ int main()
 	delete[] menu;
 
 	return 0;
-}
-
-template <typename T>
-T get_valid_input(const string& prompt)
-{
-	T input;
-	while (true)
-	{
-		cout << prompt;
-		cin >> input;
-		if (cin.fail())
-		{
-			// Input is not valid
-			cout << "     ->->-> Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			break;
-		}
-	}
-	return input;
-}
-
-template<>
-string get_valid_input<string>(const string& prompt)
-{
-	string input;
-	while (true)
-	{
-		cout << prompt;
-		getline(cin, input);
-		if (cin.fail())
-		{
-			// Input is not valid
-			cout << "     ->->-> Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			break;
-		}
-	}
-	return input;
 }
 
 void get_menu(Menu menu[])
@@ -128,7 +78,7 @@ void print_menu(int size, Menu menu[])
 	cout << " .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.\n"
 		"=`. .'==`. .'==`. .'== Welcome to Beach Burger Shack! ==`. .'==`. .'==`. .'=\n"
 		"   .      .      .         .      .      .      .         .      .      .   \n\n";
-	cout << "       Choose from the following menu to order. Press enter when done.\n\n";
+	cout << " Choose from the following menu to order. Press space then enter when done.\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << "            |__*__|      " << menu[i].item << ": " << "$" << fixed << setprecision(2) << menu[i].price << endl;
@@ -168,7 +118,7 @@ float get_total(int size, Menu menu[])
 	while (true)
 	{
 		string item = get_valid_input<string>("                         Bye food item: ");
-		if (item.length() == 0)
+		if (item == " ")
 		{
 			cout << endl;
 			break;

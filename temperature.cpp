@@ -1,6 +1,5 @@
 #include <iostream>
-#include <limits>
-#include <string>
+#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
 
@@ -32,55 +31,6 @@ int main()
 	return 0;
 }
 
-template <typename T>
-T get_valid_input(const string& prompt)
-{
-	T input;
-	while (true)
-	{
-		cout << prompt;
-		cin >> input;
-		if (cin.fail())
-		{
-			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			break;
-		}
-	}
-	return input;
-}
-
-template<>
-string get_valid_input<string>(const string& prompt)
-{
-	string input;
-	while (true)
-	{
-		cout << prompt;
-		getline(cin, input);
-		if (cin.fail() || input.empty())
-		{
-			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			break;
-		}
-	}
-	return input;
-}
-
 int get_size()
 {
 	int size = 0;
@@ -91,9 +41,9 @@ int get_size()
 	return size;
 }
 
-Temperature get_temperatures_and_names(string prompt)
+Temperature get_temperatures_and_names(string prompt, int num)
 {
-	cout << prompt << endl;
+	cout << prompt << " " << num << endl;
 
 	Temperature temporary;
 
@@ -107,7 +57,7 @@ void fill_temperatures_array(int size, Temperature temperatures[])
 {
 	for (int i = 0; i < size; i++)
 	{
-		temperatures[i] = get_temperatures_and_names("Enter Data --------------");
+		temperatures[i] = get_temperatures_and_names("Enter Data --------------", i);
 	}
 }
 

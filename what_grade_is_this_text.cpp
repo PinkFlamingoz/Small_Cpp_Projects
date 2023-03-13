@@ -1,7 +1,6 @@
 #include <iostream>
-#include <limits>
-#include <string>
 #include <math.h>
+#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
 
@@ -26,55 +25,6 @@ int main()
 	print_results(letters, words, sentences, result);
 
 	return 0;
-}
-
-template <typename T>
-T get_valid_input(const string& prompt)
-{
-	T input;
-	while (true)
-	{
-		cout << prompt;
-		cin >> input;
-		if (cin.fail())
-		{
-			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			break;
-		}
-	}
-	return input;
-}
-
-template<>
-string get_valid_input<string>(const string& prompt)
-{
-	string input;
-	while (true)
-	{
-		cout << prompt;
-		getline(cin, input);
-		if (cin.fail() || input.empty())
-		{
-			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			break;
-		}
-	}
-	return input;
 }
 
 string get_user_text()

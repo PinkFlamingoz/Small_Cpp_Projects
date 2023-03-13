@@ -1,5 +1,5 @@
 #include <iostream>
-#include <limits>
+#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
 
@@ -26,29 +26,6 @@ int main()
 	return 0;
 }
 
-template <typename T>
-T get_valid_input(const string& prompt)
-{
-	T input;
-	while (true)
-	{
-		cout << prompt;
-		if (cin >> input)
-		{
-			// The user entered a valid number
-			break;
-		}
-		else
-		{
-			// The user did not enter a valid number
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear(); // Clear the error state
-			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard any input in the buffer
-		}
-	}
-	return input;
-}
-
 int get_weeks()
 {
 	int weeks = 0;
@@ -63,7 +40,7 @@ void fill_the_weeks(int weeks, float hours[])
 {
 	for (int i = 0; i < weeks; i++)
 	{
-		hours[i] = get_valid_input<int>("Enter number of hours: ");
+		hours[i] = get_valid_input<int>("Enter number of hours for week", "", -1, "", i);
 	}
 }
 

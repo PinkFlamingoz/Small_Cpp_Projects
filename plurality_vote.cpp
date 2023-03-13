@@ -1,7 +1,6 @@
 #include <iostream>
-#include <limits>
-#include <string>
 #include <cstring>
+#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
 
@@ -43,56 +42,9 @@ int main(int argc, char* argv[])
 		int voter_count = get_number_of_voters();
 		calculate_votes(voter_count);
 		print_winner();
-	}
-}
 
-template <typename T>
-T get_valid_input(const string& prompt)
-{
-	T input;
-	while (true)
-	{
-		cout << prompt;
-		cin >> input;
-		if (cin.fail())
-		{
-			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			break;
-		}
+		return 0;
 	}
-	return input;
-}
-
-template<>
-string get_valid_input<string>(const string& prompt)
-{
-	string input;
-	while (true)
-	{
-		cout << prompt;
-		getline(cin, input);
-		if (cin.fail() || input.empty())
-		{
-			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-		else
-		{
-			// Input is valid
-			break;
-		}
-	}
-	return input;
 }
 
 void get_candidates(char* argv[])
@@ -118,7 +70,7 @@ void calculate_votes(int voter_count)
 {
 	for (int i = 0; i < voter_count; i++)
 	{
-		string name = get_valid_input<string>("Enter vote for: ");
+		string name = get_valid_input<string>("Voter", "", i, "votes for: ");
 		if (!vote(name))
 		{
 			cout << "Invalid vote!" << endl;
@@ -144,9 +96,9 @@ int get_max_vote()
 	int max = candidates[0].votes;
 	for (int i = 0; i < candidate_count; i++)
 	{
-		if (candidates[i].votes < candidates[i + 1].votes)
+		if (max < candidates[i].votes)
 		{
-			max = candidates[i + 1].votes;
+			max = candidates[i].votes;
 		}
 	}
 	return max;

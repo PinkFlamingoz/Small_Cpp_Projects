@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -139,6 +142,7 @@
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="hours_study.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
+    <ClCompile Include="instant_runoff.cpp" />
     <ClCompile Include="is_it_in_alphabetical_order.cpp" />
     <ClCompile Include="linear_search.cpp" />
     <ClCompile Include="max_and_min.cpp" />
@@ -162,6 +166,9 @@
     <ClCompile Include="valid_credit_card.cpp" />
     <ClCompile Include="what_grade_is_this_text.cpp" />
     <ClCompile Include="wordle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basic_get_functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

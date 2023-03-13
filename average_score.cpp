@@ -1,5 +1,5 @@
 #include <iostream>
-#include <limits>
+#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
 
@@ -23,35 +23,12 @@ int main()
 	return 0;
 }
 
-template <typename T>
-T get_valid_input(const string& prompt)
-{
-	T input;
-	while (true)
-	{
-		cout << prompt;
-		if (cin >> input)
-		{
-			// The user entered a valid number
-			break;
-		}
-		else
-		{
-			// The user did not enter a valid number
-			cout << "Error: Please enter a valid input." << endl;
-			cin.clear(); // Clear the error state
-			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard any input in the buffer
-		}
-	}
-	return input;
-}
-
 int get_number_of_subjects()
 {
 	int number = 0;
 	do
 	{
-		number = get_valid_input<int>("Number of subjects?: ");
+		number = get_valid_input<int>("Number of subjects? ");
 	} while (number < 1);
 	return number;
 }
@@ -60,7 +37,7 @@ void enter_scores(int number, float scores[])
 {
 	for (int i = 0; i < number; i++)
 	{
-		scores[i] = get_valid_input<float>("Enter grade: ");
+		scores[i] = get_valid_input<float>("Enter grade for subject", "", i + 1);
 	}
 }
 
