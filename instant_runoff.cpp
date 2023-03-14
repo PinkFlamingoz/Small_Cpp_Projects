@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <algorithm>
+#include <vector>
 #include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
@@ -21,12 +22,17 @@ int preferences[MAX_VOTERS][MAX_CANDIDATES];
 int candidate_count = 0;
 int voter_count = 0;
 
+bool check_if_candidates_are_different(int argc, char* argv[]);
 void get_candidates(char* argv[]);
 int get_number_of_voters();
-int caluclate_vote();
+void set_voter_preferences();
+bool check_correct_vote_cast(bool valid_name, string name);
+string check_if_ranked(string name, int j, vector<string>& ranked_candidates);
+string get_cast_vote(string name, int j);
 void vote(int voter, int rank, string name);
 void tabulate(void);
 bool print_winner();
+void find_max(int& max, int& index_of_winner);
 int find_min();
 bool is_tie(int min);
 void eliminate(int min);
@@ -46,6 +52,12 @@ int main(int argc, char* argv[])
 		cout << "Error 2: Too many candidates the max is: " << MAX_CANDIDATES << endl;
 		return 2;
 	}
+	bool all_random = check_if_candidates_are_different(argc, argv);
+	if (!all_random)
+	{
+		cout << "Error 3: Candidates must not have the same name! " << endl;
+		return 3;
+	}
 	else
 	{
 		get_candidates(argv);
@@ -56,7 +68,7 @@ int main(int argc, char* argv[])
 			return 3;
 		}
 
-		caluclate_vote();
+		set_voter_preferences();
 
 		while (true)
 		{
@@ -91,6 +103,21 @@ int main(int argc, char* argv[])
 	}
 }
 
+bool check_if_candidates_are_different(int argc, char* argv[])
+{
+	for (int i = 1; i < argc; i++)
+	{
+		for (int j = i + 1; j < argc; j++)
+		{
+			if (stricmp(argv[i], argv[j]) == 0)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void get_candidates(char* argv[])
 {
 	for (int i = 0; i < candidate_count; i++)
@@ -111,38 +138,70 @@ int get_number_of_voters()
 	return number;
 }
 
-int caluclate_vote()
+void set_voter_preferences()
 {	// Keep querying for votes
 	for (int i = 0; i < voter_count; i++)
 	{
 		cout << "Voter " << i << ": " << endl;
+		// Vector array to keep track of already ranked candidates
+		vector<string> ranked_candidates;
 		// Query for each rank
 		for (int j = 0; j < candidate_count; j++)
 		{
 			string name;
-			bool valid_name = false;
-			while (!valid_name)
-			{
-				name = get_valid_input<string>("Enter vote preference", "", -1, "", j);
-				for (int c = 0; c < candidate_count; c++)
-				{
-					if (stricmp(candidates[c].name.c_str(), name.c_str()) == 0)
-					{
-						valid_name = true;
-						break;
-					}
-				}
-				if (!valid_name)
-				{
-					cout << "Error: Invalid candidate name." << endl;
-				}
-			}
+			name = check_if_ranked(name, j, ranked_candidates);
 			// Record vote
 			vote(i, j, name);
 		}
 		cout << endl;
 	}
-	return 0;
+}
+
+string check_if_ranked(string name, int j, vector<string>& ranked_candidates)
+{
+	bool valid_vote = false;
+	while (!valid_vote)
+	{
+		name = get_cast_vote(name, j);
+		transform(name.begin(), name.end(), name.begin(), ::tolower);
+		if (find(ranked_candidates.begin(), ranked_candidates.end(), name) != ranked_candidates.end())
+		{
+			cout << "Error: Candidate already ranked." << endl;
+		}
+		else
+		{
+			ranked_candidates.push_back(name);
+			valid_vote = true;
+		}
+	}
+	return name;
+}
+
+string get_cast_vote(string name, int j)
+{
+	bool valid_name = false;
+	while (!valid_name)
+	{
+		name = get_valid_input<string>("Enter vote preference", "", -1, "", j);
+		valid_name = check_correct_vote_cast(valid_name, name);
+		if (!valid_name)
+		{
+			cout << "Error: Invalid candidate name." << endl;
+		}
+	}
+	return name;
+}
+
+bool check_correct_vote_cast(bool valid_name, string name)
+{
+	for (int i = 0; i < candidate_count; i++)
+	{
+		if (stricmp(candidates[i].name.c_str(), name.c_str()) == 0)
+		{
+			return valid_name = true;
+		}
+	}
+	return valid_name = false;
 }
 
 void vote(int voter, int rank, string name)
@@ -152,6 +211,7 @@ void vote(int voter, int rank, string name)
 		if (stricmp(candidates[i].name.c_str(), name.c_str()) == 0)
 		{
 			preferences[voter][rank] = i;
+			break;
 		}
 	}
 }
@@ -163,20 +223,12 @@ void tabulate()
 		int pointer = 0;
 		for (int j = 0; j < candidate_count; j++)
 		{
-			if ((preferences[i][pointer] == j) && (candidates[j].eliminated == false))
+			while (candidates[preferences[i][pointer]].eliminated == true)
 			{
-				candidates[j].votes++;
-				break;
+				pointer++;
 			}
-			if ((preferences[i][pointer] == j) && (candidates[j].eliminated == true))
-			{
-				while (candidates[preferences[i][pointer]].eliminated == true)
-				{
-					pointer++;
-				}
-				candidates[preferences[i][pointer]].votes++;
-				break;
-			}
+			candidates[preferences[i][pointer]].votes++;
+			break;
 		}
 	}
 }
@@ -185,6 +237,17 @@ bool print_winner()
 {
 	int max = candidates[0].votes;
 	int index_of_winner = 0;
+	find_max(max, index_of_winner);
+	if (max > (voter_count / 2))
+	{
+		cout << "Winner: " << candidates[index_of_winner].name << endl;
+		return true;
+	}
+	return false;
+}
+
+void find_max(int& max, int& index_of_winner)
+{
 	for (int i = 0; i < candidate_count; i++)
 	{
 		if (max < candidates[i].votes)
@@ -193,17 +256,20 @@ bool print_winner()
 			index_of_winner = i;
 		}
 	}
-	if (max > (voter_count / 2))
-	{
-		cout << "Winner/s: " << candidates[index_of_winner].name << endl;
-		return true;
-	}
-	return false;
 }
 
 int find_min()
 {
-	int min = candidates[0].votes;
+	int min = 0;
+	for (int i = 0; i < candidate_count; i++)
+	{
+		if (candidates[i].eliminated == false)
+		{
+			min = candidates[i].votes;
+			break;
+		}
+	}
+
 	for (int i = 0; i < candidate_count; i++)
 	{
 		if (candidates[i].eliminated == false)
@@ -246,7 +312,7 @@ void print_tie()
 	{
 		if (!candidates[i].eliminated)
 		{
-			cout << candidates[i].name << endl;
+			cout << "Winners: " << candidates[i].name << endl;
 		}
 	}
 }

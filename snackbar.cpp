@@ -12,6 +12,7 @@ struct Menu
 };
 
 // We use Menu* menu to read data only and Menu*& menu to modify data
+// & is pointing it as a reference not a copy
 
 void get_menu(Menu menu[]);
 void print_menu(int size, Menu menu[]);
