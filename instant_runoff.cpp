@@ -124,7 +124,6 @@ int caluclate_vote()
 			while (!valid_name)
 			{
 				name = get_valid_input<string>("Enter vote preference", "", -1, "", j);
-				valid_name = false;
 				for (int c = 0; c < candidate_count; c++)
 				{
 					if (stricmp(candidates[c].name.c_str(), name.c_str()) == 0)
