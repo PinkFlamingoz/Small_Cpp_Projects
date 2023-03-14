@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 #include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
 
 using namespace std;
@@ -111,7 +112,7 @@ int get_number_of_voters()
 }
 
 int caluclate_vote()
-{
+{	// Keep querying for votes
 	for (int i = 0; i < voter_count; i++)
 	{
 		cout << "Voter " << i << ": " << endl;
@@ -126,7 +127,7 @@ int caluclate_vote()
 				valid_name = false;
 				for (int c = 0; c < candidate_count; c++)
 				{
-					if (name == candidates[c].name)
+					if (stricmp(candidates[c].name.c_str(), name.c_str()) == 0)
 					{
 						valid_name = true;
 						break;
@@ -149,7 +150,7 @@ void vote(int voter, int rank, string name)
 {
 	for (int i = 0; i < candidate_count; i++)
 	{
-		if (strcmp(candidates[i].name.c_str(), name.c_str()) == 0)
+		if (stricmp(candidates[i].name.c_str(), name.c_str()) == 0)
 		{
 			preferences[voter][rank] = i;
 		}
