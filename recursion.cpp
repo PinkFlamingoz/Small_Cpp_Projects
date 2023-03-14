@@ -1,5 +1,5 @@
 #include <iostream>
-#include <D:\Xixijan\repos\Small_C++_Projects\basic_get_functions.h>
+#include "basic_get_functions.h"
 
 using namespace std;
 
