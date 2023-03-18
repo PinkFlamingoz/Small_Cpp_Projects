@@ -162,6 +162,7 @@
     <ClCompile Include="substitution_cipher.cpp" />
     <ClCompile Include="swap_characters.cpp" />
     <ClCompile Include="temperature.cpp" />
+    <ClCompile Include="tideman_vote.cpp" />
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
     <ClCompile Include="what_grade_is_this_text.cpp" />

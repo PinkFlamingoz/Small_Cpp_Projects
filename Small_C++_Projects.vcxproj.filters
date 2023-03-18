@@ -123,6 +123,9 @@
     <ClCompile Include="instant_runoff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tideman_vote.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_get_functions.h">
