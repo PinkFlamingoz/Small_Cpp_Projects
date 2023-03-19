@@ -6,7 +6,7 @@
 using namespace std;
 
 template <typename T>
-T get_valid_input(const string& prompt, const string& helper_string1 = "", int num1 = -1, const string& helper_string2 = "", int num2 = -1)
+T get_valid_input(const string &prompt, const string &helper_string1 = "", int num1 = -1, const string &helper_string2 = "", int num2 = -1)
 {
 	T input;
 	while (true)
@@ -47,7 +47,7 @@ T get_valid_input(const string& prompt, const string& helper_string1 = "", int n
 }
 
 template<>
-string get_valid_input<string>(const string& prompt, const string& helper_string1, int num1, const string& helper_string2, int num2)
+string get_valid_input<string>(const string &prompt, const string &helper_string1, int num1, const string &helper_string2, int num2)
 {
 	string input;
 	while (true)

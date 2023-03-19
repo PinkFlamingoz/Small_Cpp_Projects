@@ -22,24 +22,24 @@ int preferences[MAX_VOTERS][MAX_CANDIDATES];
 int candidate_count = 0;
 int voter_count = 0;
 
-bool check_if_candidates_are_different(int argc, char* argv[]);
-void get_candidates(char* argv[]);
+bool check_if_candidates_are_different(int argc, char *argv[]);
+void get_candidates(char *argv[]);
 int get_number_of_voters();
 void set_voter_preferences();
 bool check_correct_vote_cast(bool valid_name, string name);
-string check_if_ranked(string name, int j, vector<string>& ranked_candidates);
+string check_if_ranked(string name, int j, vector<string> &ranked_candidates);
 string get_cast_vote(string name, int j);
 void vote(int voter, int rank, string name);
 void tabulate(void);
 bool print_winner();
-void find_max(int& max, int& index_of_winner);
+void find_max(int &max, int &index_of_winner);
 int find_min();
 bool is_tie(int min);
 void eliminate(int min);
 void print_tie();
 void reset_vote_count();
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 	}
 }
 
-bool check_if_candidates_are_different(int argc, char* argv[])
+bool check_if_candidates_are_different(int argc, char *argv[])
 {
 	for (int i = 1; i < argc; i++)
 	{
@@ -118,7 +118,7 @@ bool check_if_candidates_are_different(int argc, char* argv[])
 	return true;
 }
 
-void get_candidates(char* argv[])
+void get_candidates(char *argv[])
 {
 	for (int i = 0; i < candidate_count; i++)
 	{
@@ -157,7 +157,7 @@ void set_voter_preferences()
 	}
 }
 
-string check_if_ranked(string name, int j, vector<string>& ranked_candidates)
+string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 {
 	bool valid_vote = false;
 	while (!valid_vote)
@@ -246,7 +246,7 @@ bool print_winner()
 	return false;
 }
 
-void find_max(int& max, int& index_of_winner)
+void find_max(int &max, int &index_of_winner)
 {
 	for (int i = 0; i < candidate_count; i++)
 	{

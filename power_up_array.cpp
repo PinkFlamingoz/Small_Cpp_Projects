@@ -12,7 +12,7 @@ int main()
 {
 	// Get the size from user
 	int size = get_size();
-	int* power_up = new int[size];
+	int *power_up = new int[size];
 	// Dinamicaly create a array of that size where each element is 2 times the previous one
 	create_array_power_by_two(size, power_up);
 	// Print the array, integer by integer

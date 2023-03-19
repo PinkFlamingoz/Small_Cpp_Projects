@@ -14,7 +14,7 @@ int main()
 {
 	// Get how many weeks
 	int weeks = get_weeks();
-	float* hours = new float[weeks];
+	float *hours = new float[weeks];
 	// Enter the hours
 	fill_the_weeks(weeks, hours);
 	// Print for total or average

@@ -11,7 +11,7 @@ void print_results(char answer, int size, int array[]);
 int main()
 {
 	int size = get_size();
-	int* array = new int[size];
+	int *array = new int[size];
 
 	fill_array(size, array);
 

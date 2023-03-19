@@ -28,12 +28,12 @@ int pair_count = 0;
 int candidate_count = 0;
 int voter_count = 0;
 
-bool check_if_candidates_are_different(int argc, char* argv[]);
-void get_candidates(char* argv[]);
+bool check_if_candidates_are_different(int argc, char *argv[]);
+void get_candidates(char *argv[]);
 void clear_graph();
 int get_number_of_voters();
 void set_voter_preference();
-string check_if_ranked(string name, int j, vector<string>& ranked_candidates);
+string check_if_ranked(string name, int j, vector<string> &ranked_candidates);
 string get_cast_vote(string name, int j);
 bool check_correct_vote_cast(bool valid_name, string name);
 void vote(int rank, string name, int ranks[]);
@@ -44,7 +44,7 @@ bool check_cycle(int winner, int loser);
 void lock_pairs();
 void print_winner();
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 	}
 }
 
-bool check_if_candidates_are_different(int argc, char* argv[])
+bool check_if_candidates_are_different(int argc, char *argv[])
 {
 	for (int i = 1; i < argc; i++)
 	{
@@ -97,7 +97,7 @@ bool check_if_candidates_are_different(int argc, char* argv[])
 	return true;
 }
 
-void get_candidates(char* argv[])
+void get_candidates(char *argv[])
 {
 	for (int i = 0; i < candidate_count; i++)
 	{
@@ -132,7 +132,7 @@ void set_voter_preference()
 	for (int i = 0; i < voter_count; i++)
 	{
 		// ranks[i] is voter's ith preference
-		int* ranks = new int[candidate_count];
+		int *ranks = new int[candidate_count];
 
 		cout << "Voter " << i << ": " << endl;
 		// Vector array to keep track of already ranked candidates
@@ -151,7 +151,7 @@ void set_voter_preference()
 	}
 }
 
-string check_if_ranked(string name, int j, vector<string>& ranked_candidates)
+string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 {
 	bool valid_vote = false;
 	while (!valid_vote)

@@ -13,7 +13,7 @@ void print_result(string text, string result);
 
 const int MAX_LENGTH = 26;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{

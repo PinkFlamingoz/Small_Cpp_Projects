@@ -10,7 +10,7 @@ struct Temperature
 };
 
 int get_size();
-Temperature get_temperatures_and_names(string prompt);
+Temperature get_temperatures_and_names(string prompt, int num);
 void fill_temperatures_array(int size, Temperature temperatures[]);
 void print_data(int size, Temperature temperatures[]);
 void sort_data_bubble(int size, Temperature temperatures[]);
@@ -18,7 +18,7 @@ void sort_data_bubble(int size, Temperature temperatures[]);
 int main()
 {
 	int size = get_size();
-	Temperature* temperatures = new Temperature[size];
+	Temperature *temperatures = new Temperature[size];
 
 	fill_temperatures_array(size, temperatures);
 

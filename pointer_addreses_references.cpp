@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void allocateMemory(int*& variable3);
+void allocateMemory(int *&variable3);
 
 int main()
 {
@@ -13,7 +13,7 @@ int main()
 	// Any changes made to variable1 will affect the original variable it refers to.
 
 	int x = 10;
-	int& variable1 = x; // variable1 is a reference to x
+	int &variable1 = x; // variable1 is a reference to x
 
 	cout << "x = " << x << endl; // prints x = 10
 	cout << "variable1 = " << variable1 << endl; // prints variable1 = 10
@@ -35,10 +35,11 @@ int main()
 	// This operator is often used to pass the memory address of a variable as a parameter to a function or to initialize a pointer variable with the address of another variable.
 
 	int y = 10;
-	int* variable2 = &y; // pointer variable2 holds the address of y
+	int *variable2 = &y; // pointer variable2 holds the address of y
 
 	cout << "y = " << y << endl; // prints y = 10
 	cout << "variable2 = " << variable2 << endl; // prints the memory address of y
+	cout << "variable2 = " << *variable2 << endl; // prints the value of y
 
 	*variable2 = 20; // changes the value of y
 	cout << "y = " << y << endl; // prints y = 20
@@ -52,7 +53,7 @@ int main()
 	// It means that variable3 is an alias or an alternate name for an existing pointer variable.
 	// Any changes made to variable3 will affect the original pointer variable it refers to.
 
-	int* variable3 = nullptr; // initialize pointer variable3 to nullptr
+	int *variable3 = nullptr; // initialize pointer variable3 to nullptr
 
 	allocateMemory(variable3); // dynamically allocate memory for variable3
 
@@ -79,7 +80,7 @@ int main()
 	// Double pointers are useful in scenarios where you want to dynamically allocate memory for a two - dimensional array.
 	// By using a double pointer, you can create an array of pointers, where each pointer points to another array of data.
 
-	int** array1 = new int* [3];
+	int **array1 = new int *[3];
 	for (int i = 0; i < 3; i++)
 	{
 		array1[i] = new int[4];
@@ -91,14 +92,14 @@ int main()
 	// By passing a pointer to a pointer, we can modify the value of the original pointer itself.
 
 	// Declare a double pointer to an integer
-	int** array;
+	int **array;
 
 	// Declare variables for array size
 	int rows = 3;
 	int cols = 4;
 
 	// Allocate memory for rows
-	array = new int* [rows];
+	array = new int *[rows];
 
 	// Allocate memory for each column in each row
 	for (int i = 0; i < rows; i++)
@@ -159,7 +160,7 @@ int main()
 	return 0;
 }
 
-void allocateMemory(int*& variable3)
+void allocateMemory(int *&variable3)
 {
 	variable3 = new int; // dynamically allocate memory for an integer
 }

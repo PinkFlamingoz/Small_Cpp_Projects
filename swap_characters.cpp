@@ -5,7 +5,7 @@ using namespace std;
 string correct_text(string text);
 void print_result(string result);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{

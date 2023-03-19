@@ -9,7 +9,7 @@ string encrypt_text(string text, int key);
 char rotate(char character, int upperOrlower, int key);
 void print_result(string text, string result);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{

@@ -16,14 +16,14 @@ Candidate candidates[MAX];
 
 int candidate_count = 0;
 
-void get_candidates(char* argv[]);
+void get_candidates(char *argv[]);
 int get_number_of_voters();
 void calculate_votes(int voter_count);
 bool vote(string name);
 int get_max_vote();
 void print_winner(void);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	}
 }
 
-void get_candidates(char* argv[])
+void get_candidates(char *argv[])
 {
 	for (int i = 0; i < candidate_count; i++)
 	{

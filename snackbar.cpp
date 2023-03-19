@@ -16,19 +16,19 @@ struct Menu
 
 void get_menu(Menu menu[]);
 void print_menu(int size, Menu menu[]);
-int get_size_of_menu(Menu* menu);
+int get_size_of_menu(Menu *menu);
 float get_cost(string item, int size, Menu menu[]);
 float get_total(int size, Menu menu[]);
 void print_total(float total);
-void modify_array(int& size, Menu*& menu);
-void add_element(int& size, Menu*& menu);
-void edit_element(int size, Menu*& menu);
-void delete_element(int& size, Menu*& menu);
+void modify_array(int &size, Menu *&menu);
+void add_element(int &size, Menu *&menu);
+void edit_element(int size, Menu *&menu);
+void delete_element(int &size, Menu *&menu);
 
 int main()
 {
 	int DEFAULT = 10;
-	Menu* menu = new Menu[DEFAULT];
+	Menu *menu = new Menu[DEFAULT];
 	get_menu(menu);
 
 	int size = get_size_of_menu(menu);
@@ -90,7 +90,7 @@ void print_menu(int size, Menu menu[])
 		"   .      .      .         .      .      .      .         .      .      .   \n\n";
 }
 
-int get_size_of_menu(Menu* menu)
+int get_size_of_menu(Menu *menu)
 {
 	int size = 0;
 	while (menu[size].item != "" && menu[size].price != 0)
@@ -147,7 +147,7 @@ Menu get_new_item(string prompt)
 	return temp;
 }
 
-void modify_array(int& size, Menu*& menu)
+void modify_array(int &size, Menu *&menu)
 {
 	bool done = false;
 	while (!done)
@@ -226,9 +226,9 @@ void modify_array(int& size, Menu*& menu)
 	//menu = new_menu;
 }
 
-void add_element(int& size, Menu*& menu)
+void add_element(int &size, Menu *&menu)
 {
-	Menu* temp = new Menu[size + 1];
+	Menu *temp = new Menu[size + 1];
 	for (int i = 0; i < size; i++)
 	{
 		temp[i] = menu[i];
@@ -240,7 +240,7 @@ void add_element(int& size, Menu*& menu)
 	cout << "     ->->-> Item added successfully." << endl;
 }
 
-void edit_element(int size, Menu*& menu)
+void edit_element(int size, Menu *&menu)
 {
 	bool found = false;
 	string item = get_valid_input<string>("     ->->-> Enter the name of the item you want to edit: ");
@@ -262,7 +262,7 @@ void edit_element(int size, Menu*& menu)
 	}
 }
 
-void delete_element(int& size, Menu*& menu)
+void delete_element(int &size, Menu *&menu)
 {
 	bool found = false;
 	string item = get_valid_input<string>("     ->->-> Enter the name of the item you want to delete: ");

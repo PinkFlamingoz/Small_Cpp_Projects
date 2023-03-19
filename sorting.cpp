@@ -23,7 +23,7 @@ const int BOUND = 50;
 int main()
 {
 	const int size = get_size();
-	int* RANDOM_ARRAY = new int[size];
+	int *RANDOM_ARRAY = new int[size];
 	// Bubble -----------------------------------------------------------------------------------------------------
 	cout << endl;
 	cout << "---------------- Bubble -----------------------------------------------------------------------------------------------------" << endl;
@@ -223,7 +223,7 @@ void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[])
 	int right_index = mid_point + 1;
 	int help_index = 0;
 	int help_size = end_point - start_point + 1;
-	int* help = new int[help_size];
+	int *help = new int[help_size];
 
 	while (left_index <= mid_point && right_index <= end_point)
 	{

@@ -31,7 +31,7 @@ void print_word(string guess, int WORDSIZE, int status[]);
 int check_word(string guess, int WORDSIZE, int status[], string choice);
 void print_end(bool won, string choice);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 		}
 
 		// load word file into an array of size LISTSIZE
-		string* options = new string[LISTSIZE];
+		string *options = new string[LISTSIZE];
 		for (int i = 0; i < LISTSIZE; i++)
 		{
 			wordlist >> options[i];
@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
 			string guess = get_guess(WORDSIZE, wl_filename);
 
 			// array to hold guess status, initially set to zero
-			int* status = new int[WORDSIZE];
+			int *status = new int[WORDSIZE];
 
 			// set all elements of status array initially to 0, aka WRONG
 			set_initial_elements_to_zero(WORDSIZE, status);
