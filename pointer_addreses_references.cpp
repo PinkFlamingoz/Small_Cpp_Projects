@@ -68,10 +68,94 @@ int main()
 	// sets the value of variable3 to 10,
 	// prints the value of variable3,
 	// deallocates the memory using the delete operator,
-	// and returns 0.
 	// Since variable3 is a reference to the pointer variable, any changes made to variable3 inside the function allocateMemory will be reflected in the original variable outside the function.
 
 	// - *& - REFERENCE TO A POINTER --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	// - ** - POINTER TO A POINTER ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	// A double pointer is declared by using two asterisks ** before the variable name. For example: **int pointer;
+	// Here, pointer is a double pointer that can point to the address of another pointer variable.
+	// Double pointers are useful in scenarios where you want to dynamically allocate memory for a two - dimensional array.
+	// By using a double pointer, you can create an array of pointers, where each pointer points to another array of data.
+
+	int** array1 = new int* [3];
+	for (int i = 0; i < 3; i++)
+	{
+		array1[i] = new int[4];
+	}
+
+	// Here, array1 is a double pointer that points to an array of three integer pointers.
+	// We then use a loop to allocate memory for each of these pointers, which in turn point to arrays of four integers each.
+	// Double pointers can also be used in functions to modify the values of a pointer variable passed as an argument.
+	// By passing a pointer to a pointer, we can modify the value of the original pointer itself.
+
+	// Declare a double pointer to an integer
+	int** array;
+
+	// Declare variables for array size
+	int rows = 3;
+	int cols = 4;
+
+	// Allocate memory for rows
+	array = new int* [rows];
+
+	// Allocate memory for each column in each row
+	for (int i = 0; i < rows; i++)
+	{
+		array[i] = new int[cols];
+	}
+
+	// Initialize array elements
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			array[i][j] = i * cols + j;
+		}
+	}
+
+	// Print array elements
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cout << array[i][j] << " ";
+		}
+		cout << endl;
+	}
+
+	// Deallocate memory for each column in each row
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] array[i];
+	}
+
+	// Deallocate memory for rows
+	delete[] array;
+
+	// In this example, we first declare a double pointer array to an integer.
+	// We then allocate memory for the rows of the array by creating an array of integer pointers with new int*[rows].
+	// We then use a loop to allocate memory for each column in each row with new int[cols].
+	// After initializing the array elements,
+	// we print them out using nested loops.
+	// We then deallocate memory for each column in each row with delete[] array[i],
+	// and finally deallocate memory for the rows with delete[] array.
+
+	// row --------------
+
+	// columns
+	// -
+	// -
+	// -
+	// -
+	// -
+	// -
+	// -
+	// -
+
+	// - ** - POINTER TO A POINTER ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	return 0;
 }
 
