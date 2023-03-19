@@ -126,6 +126,9 @@
     <ClCompile Include="tideman_vote.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pointer_addreses_references.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_get_functions.h">
