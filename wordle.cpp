@@ -111,6 +111,8 @@ int main(int argc, char *argv[])
 				won = true;
 				break;
 			}
+
+			delete[] status;
 		}
 		// Print the game's result
 		print_end(won, choice);
