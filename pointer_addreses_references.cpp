@@ -45,6 +45,32 @@ int main()
 	cout << "y = " << y << endl; // prints y = 20
 	cout << "variable2 = " << variable2 << endl; // prints the memory address of y
 
+	const char *s = "HI!";
+	cout << s << endl; // prints all characters
+	cout << s + 1 << endl; // prints characters after the first
+	cout << s + 2 << endl; // prints characters after the second
+	cout << s + 3 << endl; // prints characters after the third
+	cout << &s[0] << endl; // prints all character
+	cout << &s[1] << endl; // prints characters after the first
+	cout << &s[2] << endl; // prints characters after the second
+	cout << &s[3] << endl; // prints characters after the third
+
+	cout << *s << endl; // prints first character
+	cout << *(s + 1) << endl; // prints second character
+	cout << *(s + 2) << endl; // prints third character
+	cout << *(s + 3) << endl; // prints null character
+	cout << s[0] << endl;  // prints first character
+	cout << s[1] << endl; // prints second character
+	cout << s[2] << endl; // prints third character
+	cout << s[3] << endl; // prints null character
+
+	cout << &s << endl; // prints address of the pointer
+
+	cout << static_cast<const void *>(&s[0]) << endl; // prints address of first character
+	cout << static_cast<const void *>(&s[1]) << endl; // prints address of second character
+	cout << static_cast<const void *>(&s[2]) << endl; // prints address of third character
+	cout << static_cast<const void *>(&s[3]) << endl; // prints address of null character
+
 	// - * - POINTER ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// - *& - REFERENCE TO A POINTER --------------------------------------------------------------------------------------------------------------------------------------------------------

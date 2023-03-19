@@ -9,6 +9,7 @@ template <typename T>
 T get_valid_input(const string &prompt, const string &helper_string1 = "", int num1 = -1, const string &helper_string2 = "", int num2 = -1)
 {
 	T input;
+	string input_buffer;
 	while (true)
 	{
 		cout << prompt;
