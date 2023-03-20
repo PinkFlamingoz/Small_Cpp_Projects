@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		cout << "Error 1: Too many or none arguments " << endl << "Usage: ./caesar_cipher key" << endl;
+		cout << "Error 1: Too many or none arguments " << endl
+			<< "Usage: ./caesar_cipher key" << endl;
 		return 1;
 	}
 	string key_string = argv[1];
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
 		// Get user text
 		string text = get_user_text();
 		// Encrypt result
-		string  result = encrypt_text(text, key);
+		string result = encrypt_text(text, key);
 		// Print result
 		print_result(text, result);
 
@@ -94,7 +95,7 @@ char rotate(char character, int upperOrlower, int key)
 	alphaIndex = character - upperOrlower;
 	help = (alphaIndex + key) % 26;
 	help += upperOrlower;
-	return  help;
+	return help;
 }
 
 void print_result(string text, string result)

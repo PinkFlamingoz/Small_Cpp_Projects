@@ -4,9 +4,7 @@
 
 using namespace std;
 
-double long get_input_a(void);
-double long get_input_b(void);
-double long get_input_c(void);
+double long get_input(string prompt);
 bool check_triangle_method1(double long a, double long b, double long c);
 bool check_triangle_method2(double long a, double long b, double long c);
 void print_triangle_check(bool meth1, bool meth2);
@@ -14,9 +12,9 @@ void print_triangle_check(bool meth1, bool meth2);
 int main(void)
 {
 	// Get the 3 sides input
-	double long a = get_input_a();
-	double long b = get_input_b();
-	double long c = get_input_c();
+	double long a = get_input("Side a");
+	double long b = get_input("Side b");
+	double long c = get_input("Side c");
 	// Check for triangle
 	bool meth1 = check_triangle_method1(a, b, c);
 	bool meth2 = check_triangle_method2(a, b, c);
@@ -26,34 +24,15 @@ int main(void)
 	return 0;
 }
 
-double long get_input_a(void)
+double long get_input(string prompt)
 {
-	double long a;
+	cout << prompt;
+	double long n;
 	do
 	{
-		a = get_valid_input<double long>("Enter a: ");
-	} while (a < 1);
-	return a;
-}
-
-double long get_input_b(void)
-{
-	double long b;
-	do
-	{
-		b = get_valid_input<double long>("Enter b: ");
-	} while (b < 1);
-	return b;
-}
-
-double long get_input_c(void)
-{
-	double long c;
-	do
-	{
-		c = get_valid_input<double long>("Enter c: ");
-	} while (c < 1);
-	return c;
+		n = get_valid_input<double long>(": ");
+	} while (n < 1);
+	return n;
 }
 
 bool check_triangle_method1(double long a, double long b, double long c)

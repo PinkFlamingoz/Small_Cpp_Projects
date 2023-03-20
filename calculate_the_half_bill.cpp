@@ -3,9 +3,7 @@
 
 using namespace std;
 
-double get_bill();
-double get_tax();
-double get_tip();
+double get_input(string prompt);
 double calculate_grandTotal(double bill, double tax, double tip);
 double calculate_half(double grandTotal);
 void print_grandTotal(double grandTotal, double half);
@@ -13,10 +11,10 @@ void print_grandTotal(double grandTotal, double half);
 int main()
 {
 	// Get the bill, tax, tip
-	double bill = get_bill();
-	double tax = get_tax();
-	double tip = get_tip();
-	// Calculate the half price
+	double bill = get_input("Bill");
+	double tax = get_input("Tax");
+	double tip = get_input("Tip");
+		// Calculate the half price
 	double grandTotal = calculate_grandTotal(bill, tax, tip);
 	double half = calculate_half(grandTotal);
 	// Print the price
@@ -25,35 +23,16 @@ int main()
 	return 0;
 }
 
-double get_bill()
+double get_input(string prompt)
 {
-	double bill;
+	cout << prompt;
+	double input;
 	do
 	{
-		bill = get_valid_input<double>("Bill: ");
-	} while (bill < 1);
+		input = get_valid_input<double>(": ");
+	} while (input < 1);
 
-	return bill;
-}
-
-double get_tax()
-{
-	double tax;
-	do
-	{
-		tax = get_valid_input<double>("Tax percent %: ");
-	} while (tax < 1);
-	return tax;
-}
-
-double get_tip()
-{
-	double tip;
-	do
-	{
-		tip = get_valid_input<double>("Tip percent %: ");
-	} while (tip < 1);
-	return tip;
+	return input;
 }
 
 double calculate_grandTotal(double bill, double tax, double tip)

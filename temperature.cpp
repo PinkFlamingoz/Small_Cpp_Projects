@@ -72,7 +72,7 @@ void print_data(int size, Temperature temperatures[])
 void sort_data_bubble(int size, Temperature temperatures[])
 {
 	int swap_counter = -1;
-	Temperature help;							//When copying one struct to another, no need to assign individual elements. The entire struct can be assigned in one statement
+	Temperature help;							// When copying one struct to another, no need to assign individual elements. The entire struct can be assigned in one statement
 	while (swap_counter != 0)
 	{
 		swap_counter = 0;

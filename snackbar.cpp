@@ -82,7 +82,8 @@ void print_menu(int size, Menu menu[])
 	cout << " Choose from the following menu to order. Press space then enter when done.\n\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << "            |__*__|      " << menu[i].item << ": " << "$" << fixed << setprecision(2) << menu[i].price << endl;
+		cout << "            |__*__|      " << menu[i].item << ": "
+			<< "$" << fixed << setprecision(2) << menu[i].price << endl;
 	}
 	cout << endl;
 	cout << " .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.\n"
@@ -118,7 +119,7 @@ float get_total(int size, Menu menu[])
 	float total = 0;
 	while (true)
 	{
-		string item = get_valid_input<string>("                         Bye food item: ");
+		string item = get_valid_input<string>("                         Buy food item: ");
 		if (item == " ")
 		{
 			cout << endl;
@@ -132,7 +133,8 @@ float get_total(int size, Menu menu[])
 
 void print_total(float total)
 {
-	cout << "                         Total is: " << "$" << fixed << setprecision(2) << total << endl;
+	cout << "                         Total is: "
+		<< "$" << fixed << setprecision(2) << total << endl;
 }
 
 Menu get_new_item(string prompt)
@@ -217,13 +219,13 @@ void modify_array(int &size, Menu *&menu)
 		}
 	}
 	// Allocate memory for the new array
-	//Menu* new_menu = new Menu[size];
+	// Menu* new_menu = new Menu[size];
 	// Copy the modified elements to the new array
-	//memcpy(new_menu, menu, size * sizeof(Menu));
+	// memcpy(new_menu, menu, size * sizeof(Menu));
 	// Free memory for the old array
-	//delete[] menu;
+	// delete[] menu;
 	// Update the pointer to the new array
-	//menu = new_menu;
+	// menu = new_menu;
 }
 
 void add_element(int &size, Menu *&menu)

@@ -65,8 +65,8 @@ long long convert(string input)
 		length--;
 	}
 
-	// Recursive case
-	int num = input[length - 1] - '0';
-	input.erase(length - 1, 1);
-	return sign * (num + 10 * convert(input));
+	// Recursive case                  // Start by getting the index of the last char in the string
+	int num = input[length - 1] - '0'; // Convert this char into its numeric value. Can you subtract some char to do this that is a '0' example '1' = 49 - '0' = 48 = 1
+	input.erase(length - 1, 1); // Remove the last char from the string by moving the null terminator one position to the left.
+	return sign * (num + 10 * convert(input)); // Return this value plus 10 times the integer value of the new shortened string.
 }
