@@ -148,11 +148,13 @@
     <ClCompile Include="max_and_min.cpp" />
     <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="pointer_addreses_references.cpp" />
+    <ClCompile Include="swap_values.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
     <ClCompile Include="prime.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="printing_hashtag_grids.cpp" />
+    <ClCompile Include="read_and_write_to_files.cpp" />
     <ClCompile Include="recursion.cpp" />
     <ClCompile Include="return_initials.cpp" />
     <ClCompile Include="scrabble_points_compare.cpp" />
@@ -171,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_get_functions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
