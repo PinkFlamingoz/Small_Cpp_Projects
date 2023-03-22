@@ -231,3 +231,14 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // ios::beg	Offset from beginning of the stream
 // ios::cur	Offset from current position
 // ios::end	Offset from the end of the stream
+//
+// File State Slags
+// There are some member functions that are used to check the state of the file.All these functions return a Boolean value.
+//
+// We have tabularized these functions as follows :
+//
+// Function	Description
+// eof()	Returns true if the end of file is reached while reading the file.
+// fail()	Returns true when read / write operation fails or format error occurs
+// bad()	Returns true if reading from or writing to a file fail.
+// good()	Returns  false  in the same cases in which calling any of the above functions would return  true.
