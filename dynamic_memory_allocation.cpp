@@ -29,6 +29,7 @@ int main()
 	if (cp == nullptr)
 	{
 		cout << "Memory allocation failed! " << endl;
+		return 1;
 	}
 	free(cp);
 }
