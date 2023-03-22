@@ -204,3 +204,30 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 		cout << contacts_array[i] << endl;
 	}
 }
+
+// Get/Put And Other Special Operations
+// The file I / O streams that we have seen so far have an internal get and put positions similar to the other I / O streams like iostream.
+//
+// The class ifstream has an internal get position that contains the location of the element / character to be read in the file in the next input operation.The class ofstream has an internal put position that contains the location of the element / character to be written in the next output operation.
+//
+// Incidentally, fstream has both get and put positions.
+//
+// To facilitate reading and writing using these positions, we have a few member functions that are used to observe and modify these positions.
+//
+// These functions are listed below :
+//
+// Functions	            Description
+// tellg()	                Returns current position of get pointer
+// tellp()	                Returns current position of put pointer
+// seekg(position)	        Moves get a pointer to specified location counting from the beginning of the file
+// seekg(offset, direction)	Moves get a pointer to offset value relative to the point given by parameter direction.
+// seekp(position)	        Moves put a pointer to specified location counting from the beginning of the file
+// seekp(offset, direction)	Moves put a pointer to offset value relative to the point given by parameter direction.
+//
+// The parameter direction given in the above function prototypes is an enumerated type of type seekdir and it determines the point from which the offset is counted.
+//
+// It can have the following values.
+//
+// ios::beg	Offset from beginning of the stream
+// ios::cur	Offset from current position
+// ios::end	Offset from the end of the stream
