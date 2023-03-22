@@ -32,6 +32,8 @@ int main()
 		return 1;
 	}
 	free(cp);
+
+	return 0;
 }
 
 long get_input()

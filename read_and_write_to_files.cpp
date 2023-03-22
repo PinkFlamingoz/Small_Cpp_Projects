@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include "basic_get_functions.h"
 
 using namespace std;
@@ -46,7 +45,7 @@ Contact get_contact(string prompt)
 
 string get_delete_name()
 {
-	string name = get_valid_input<string>("Delete a contact ");
+	string name = get_valid_input<string>("Delete a contact: ");
 	return name;
 }
 
@@ -106,19 +105,19 @@ void delete_from_file(string name_to_delete)
 		return;
 	}
 
-	// Read each line from the input file, skipping lines that match the name to delete
+	// Read each line from the input file
 	string line;
 	bool found = false;
 	while (getline(file, line))
 	{
-		// Check if the line contains the name to delete
-		if (line.find(name_to_delete) != string::npos)
+		if (line.find(name_to_delete) == string::npos)
+		{
+			temp_file << line << endl;
+		}
+		else
 		{
 			found = true;
-			continue; // skip this line
 		}
-		// Write the line to the output file
-		temp_file << line << endl;
 	}
 
 	// Close the input and output files
