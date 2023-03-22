@@ -110,7 +110,7 @@ void delete_from_file(string name_to_delete)
 	bool found = false;
 	while (getline(file, line))
 	{
-		if (line.find(name_to_delete) == string::npos)
+		if (line.find(name_to_delete) == string::npos) // If find cannot find what you are looking for, it returns a sentinel value, std::string::npos
 		{
 			temp_file << line << endl;
 		}
