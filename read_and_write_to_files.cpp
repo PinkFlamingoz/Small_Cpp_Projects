@@ -38,6 +38,7 @@ int main()
 	get_data_from_a_file2(contacts_array, line_count);
 	print(contacts, contacts_array, line_count);
 	delete[]contacts_array;
+	file.close();
 
 	return 0;
 }
