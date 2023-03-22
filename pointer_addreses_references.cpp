@@ -112,6 +112,8 @@ int main()
 		array1[i] = new int[4];
 	}
 
+	delete[] array1;
+
 	// Here, array1 is a double pointer that points to an array of three integer pointers.
 	// We then use a loop to allocate memory for each of these pointers, which in turn point to arrays of four integers each.
 	// Double pointers can also be used in functions to modify the values of a pointer variable passed as an argument.
@@ -169,17 +171,32 @@ int main()
 	// We then deallocate memory for each column in each row with delete[] array[i],
 	// and finally deallocate memory for the rows with delete[] array.
 
-	// row --------------
+	//   		 _____________            _____________            _____________  _____________  _____________  _____________
+	//   	    |		      |          |	   	       |          |	   	        ||	   	       ||	   	      ||	   	     |
+	//   		|	   p      | -------> |	    *p     | -------> |    *(*p)    ||   *(*p+1)   ||   *(*p+2)   ||   *(*p+3)   |
+	//   		|_____________|          |_____________|          |_____________||_____________||_____________||_____________|
+	//                                    _____________            _____________  _____________  _____________  _____________
+	//                                   |		       |          |	   	        ||	   	       ||	   	      ||	   	     |
+	//                                   |    *(p+1)   | -------> |  *(*(p+1))  || *(*(p+1)+1) || *(*(p+1)+2) || *(*(p+1)+3) |
+	//                                   |_____________|          |_____________||_____________||_____________||_____________|
+	//                                    _____________            _____________  _____________  _____________  _____________
+	//                                   |		       |          |	   	        ||	   	       ||	   	      ||	   	     |
+	//                                   |    *(p+2)   | -------> |  *(*(p+2))  || *(*(p+2)+1) || *(*(p+2)+2) || *(*(p+2)+3) |
+	//                                   |_____________|          |_____________||_____________||_____________||_____________|
 
-	// columns
-	// -
-	// -
-	// -
-	// -
-	// -
-	// -
-	// -
-	// -
+	// row0 --------------
+	// row1 --------------
+	// row2 --------------
+
+	// columns0		columns1		columns2
+	// -			-				-
+	// -			-				-
+	// -			-				-
+	// -			-				-
+	// -			-				-
+	// -			-				-
+	// -			-				-
+	// -			-				-
 
 	// - ** - POINTER TO A POINTER ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
