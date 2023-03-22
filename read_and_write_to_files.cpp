@@ -176,7 +176,7 @@ void get_data_from_a_file2(string contacts_array[], int line_count)
 		int i = 0;
 		while (getline(file, line) && i < line_count)
 		{
-			contacts_array[i] = line;
+			contacts_array[i] = line; // >> this command only reads till a white space so we cant use this
 			i++;
 		}
 		file.close();
