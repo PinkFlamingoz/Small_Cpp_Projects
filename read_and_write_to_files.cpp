@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 #include "basic_get_functions.h"
 
 using namespace std;
@@ -17,6 +19,9 @@ void write_to_a_file(Contact person);
 void read_form_a_file();
 string get_delete_name();
 void delete_from_file(string name_to_delete);
+void get_data_from_a_file(vector<string> &contacts);
+void get_data_from_a_file2(string contacts_array[], int line_count);
+void print(vector<string> &contacts, string contacts_array[], int line_count);
 
 int main()
 {
@@ -25,6 +30,14 @@ int main()
 	read_form_a_file();
 	string name = get_delete_name();
 	delete_from_file(name);
+	vector<string> contacts;
+	get_data_from_a_file(contacts);
+	ifstream file(file_name);
+	int line_count = count(istreambuf_iterator<char>(file), istreambuf_iterator<char>(), '\n');
+	string *contacts_array = new string[line_count];
+	get_data_from_a_file2(contacts_array, line_count);
+	print(contacts, contacts_array, line_count);
+	delete[]contacts_array;
 
 	return 0;
 }
@@ -110,13 +123,13 @@ void delete_from_file(string name_to_delete)
 	bool found = false;
 	while (getline(file, line))
 	{
-		if (line.find(name_to_delete) == string::npos) // If find cannot find what you are looking for, it returns a sentinel value, std::string::npos
+		if (line.substr(0, line.find(":") - 1) == name_to_delete)
 		{
-			temp_file << line << endl;
+			found = true;
 		}
 		else
 		{
-			found = true;
+			temp_file << line << endl;
 		}
 	}
 
@@ -133,5 +146,60 @@ void delete_from_file(string name_to_delete)
 	else
 	{
 		remove("temp.txt"); // delete the output file if the name was not found
+	}
+}
+
+void get_data_from_a_file(vector<string> &contacts)
+{
+	string line;
+	ifstream file(file_name);
+	if (file.is_open())
+	{
+		while (getline(file, line))
+		{
+			contacts.push_back(line);
+		}
+		file.close();
+	}
+	else
+	{
+		cout << "Error: Unable to open file " << file_name << endl;
+		return;
+	}
+}
+void get_data_from_a_file2(string contacts_array[], int line_count)
+{
+	string line;
+	ifstream file(file_name);
+	if (file.is_open())
+	{
+		int i = 0;
+		while (getline(file, line) && i < line_count)
+		{
+			contacts_array[i] = line;
+			i++;
+		}
+		file.close();
+	}
+	else
+	{
+		cout << "Error: Unable to open file " << file_name << endl;
+		return;
+	}
+}
+void print(vector<string> &contacts, string contacts_array[], int line_count)
+{
+	// Print the contents of the vector
+	cout << "Contents of vector:" << endl;
+	for (const auto &contact : contacts)
+	{
+		cout << contact << endl;
+	}
+
+	// Print the contents of the array
+	cout << "Contents of array:" << endl;
+	for (int i = 0; i < line_count; i++)
+	{
+		cout << contacts_array[i] << endl;
 	}
 }
