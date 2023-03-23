@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 

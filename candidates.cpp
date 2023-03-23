@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -19,6 +19,7 @@ int main(void)
 	int number = get_number_of_candidates();
 	// Create candidates
 	Candidate *candidates = new Candidate[number];
+
 	fill_in_the_candidates(candidates, number);
 	// Get candidates
 	print_candidates(candidates, number);

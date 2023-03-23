@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -27,17 +27,26 @@ int main()
 {
 	Contact person = get_contact("Enter Contact: ");
 	write_to_a_file(person);
+
 	read_form_a_file();
+
 	string name = get_delete_name();
 	delete_from_file(name);
+
 	vector<string> contacts;
 	get_data_from_a_file(contacts);
+
 	ifstream file(file_name);
+	// count the new lines:
 	int line_count = count(istreambuf_iterator<char>(file), istreambuf_iterator<char>(), '\n');
 	string *contacts_array = new string[line_count];
+
 	get_data_from_a_file2(contacts_array, line_count);
+
 	print(contacts, contacts_array, line_count);
+
 	delete[]contacts_array;
+
 	file.close();
 
 	return 0;
@@ -66,39 +75,33 @@ string get_delete_name()
 void write_to_a_file(Contact person)
 {
 	// Writing to a file
-	//ofstream file(file_name);
+	// ofstream file(file_name);
 	// Writing to a file in append mode
 	ofstream file(file_name, ios::app);
-	if (file.is_open())
+	if (!file.is_open())
 	{
-		file << person.name << " : " << person.phone << endl;
-		file.close();
-	}
-	else
-	{
-		cout << "Error: Failed to open file " << file_name << endl;
+		cerr << "Error: Failed to open file " << file_name << endl;
 		return;
 	}
+	file << person.name << " : " << person.phone << endl;
+	file.close();
 }
 
 void read_form_a_file()
 {
-	 // Reading from a file
+	// Reading from a file
 	string line;
 	ifstream file(file_name);
-	if (file.is_open())
+	if (!file.is_open())
 	{
-		while (getline(file, line))
-		{
-			cout << line << endl;
-		}
-		file.close();
-	}
-	else
-	{
-		cout << "Error: Unable to open file " << file_name << endl;
+		cerr << "Error: Unable to open file " << file_name << endl;
 		return;
 	}
+	while (getline(file, line))
+	{
+		cout << line << endl;
+	}
+	file.close();
 }
 
 void delete_from_file(string name_to_delete)
@@ -110,12 +113,12 @@ void delete_from_file(string name_to_delete)
 	// Check if the files were opened successfully
 	if (!file.is_open())
 	{
-		cout << "Error: Failed to open input file " << file_name << endl;
+		cerr << "Error: Failed to open input file " << file_name << endl;
 		return;
 	}
 	if (!temp_file.is_open())
 	{
-		cout << "Error: Failed to open output file temp.txt" << endl;
+		cerr << "Error: Failed to open output file temp.txt" << endl;
 		return;
 	}
 
@@ -154,39 +157,34 @@ void get_data_from_a_file(vector<string> &contacts)
 {
 	string line;
 	ifstream file(file_name);
-	if (file.is_open())
+	if (!file.is_open())
 	{
-		while (getline(file, line))
-		{
-			contacts.push_back(line);
-		}
-		file.close();
-	}
-	else
-	{
-		cout << "Error: Unable to open file " << file_name << endl;
+		cerr << "Error: Unable to open file " << file_name << endl;
 		return;
 	}
+	while (getline(file, line))
+	{
+		contacts.push_back(line);
+	}
+	file.close();
 }
+
 void get_data_from_a_file2(string contacts_array[], int line_count)
 {
 	string line;
 	ifstream file(file_name);
-	if (file.is_open())
+	if (!file.is_open())
 	{
-		int i = 0;
-		while (getline(file, line) && i < line_count)
-		{
-			contacts_array[i] = line; // >> this command only reads till a white space so we cant use this
-			i++;
-		}
-		file.close();
-	}
-	else
-	{
-		cout << "Error: Unable to open file " << file_name << endl;
+		cerr << "Error: Unable to open file " << file_name << endl;
 		return;
 	}
+	int i = 0;
+	while (getline(file, line) && i < line_count)
+	{
+		contacts_array[i] = line; // >> this command only reads till a white space so we cant use this
+		i++;
+	}
+	file.close();
 }
 void print(vector<string> &contacts, string contacts_array[], int line_count)
 {
@@ -206,12 +204,10 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 }
 
 // Get/Put And Other Special Operations
+//
 // The file I / O streams that we have seen so far have an internal get and put positions similar to the other I / O streams like iostream.
-//
 // The class ifstream has an internal get position that contains the location of the element / character to be read in the file in the next input operation.The class ofstream has an internal put position that contains the location of the element / character to be written in the next output operation.
-//
 // Incidentally, fstream has both get and put positions.
-//
 // To facilitate reading and writing using these positions, we have a few member functions that are used to observe and modify these positions.
 //
 // These functions are listed below :
@@ -225,16 +221,21 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // seekp(offset, direction)	Moves put a pointer to offset value relative to the point given by parameter direction.
 //
 // The parameter direction given in the above function prototypes is an enumerated type of type seekdir and it determines the point from which the offset is counted.
-//
 // It can have the following values.
 //
 // ios::beg	Offset from beginning of the stream
 // ios::cur	Offset from current position
 // ios::end	Offset from the end of the stream
 //
-// File State Slags
-// There are some member functions that are used to check the state of the file.All these functions return a Boolean value.
 //
+//
+//
+//
+//
+//
+// File State Slags
+//
+// There are some member functions that are used to check the state of the file.All these functions return a Boolean value.
 // We have tabularized these functions as follows :
 //
 // Function	Description
@@ -242,3 +243,59 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // fail()	Returns true when read / write operation fails or format error occurs
 // bad()	Returns true if reading from or writing to a file fail.
 // good()	Returns  false  in the same cases in which calling any of the above functions would return  true.
+//
+//
+//
+//
+//
+//
+//
+// The general syntax to open a file with the stream is:
+//
+// void open(const char *filename, ios::open mode mode)
+//
+// filename = > The string containing path and name of the file to be opened.
+// mode = > Optional parameter indicating the mode in which the file is to be opened.
+// C++ supports various modes in which the file can be opened.We can also specify a combination of these modes using the OR operator.
+//
+// File mode	Description
+// ios::in	    Opens the file in input mode for reading.
+// ios::out	    Opens the file in output mode for writing data to file.
+// ios::ate	    Set initial position at the end of the file.If the end of file flag is not set, the initial position is set to the beginning of the file.
+// ios::trunc	If the file is opened for writing and already has contents, the contents are truncated.
+// ios::app	    Opens the file in append mode such that all contents are appended at the end of the file.
+// ios::binary	Opens file in binary mode.
+//
+// file.open(“myfile.dat”, ios::in|ios::out|ios::app|ios::binary);
+// fstream file(“myfile.dat”, |ios::app|ios::binary);
+//
+// Class	Default mode
+// Ifstream	ios::in
+// ofstream	ios::out
+// Fstream	ios::in | ios::out
+//
+//
+//
+//
+//
+//
+//
+// get size of file in bytes
+// infile.seekg(0, infile.end);
+// long size = infile.tellg();
+// infile.seekg(0);
+//
+// allocate memory for file content
+// char *buffer = new char[size];
+//
+// read content of infile
+// infile.read(buffer, size);
+//
+// write to outfile
+// outfile.write(buffer, size);
+//
+// release dynamically-allocated memory
+// delete[] buffer;
+//
+// outfile.close();
+// infile.close();

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -11,12 +11,14 @@ struct Menu
 	float price = 0;
 };
 
+const int DEFAULT = 10;
+
 // We use Menu* menu to read data only and Menu*& menu to modify data
 // & is pointing it as a reference not a copy
 
 void get_menu(Menu menu[]);
 void print_menu(int size, Menu menu[]);
-int get_size_of_menu(Menu *menu);
+int get_size_of_menu(Menu menu[]);
 float get_cost(string item, int size, Menu menu[]);
 float get_total(int size, Menu menu[]);
 void print_total(float total);
@@ -27,8 +29,8 @@ void delete_element(int &size, Menu *&menu);
 
 int main()
 {
-	int DEFAULT = 10;
 	Menu *menu = new Menu[DEFAULT];
+
 	get_menu(menu);
 
 	int size = get_size_of_menu(menu);
@@ -91,7 +93,7 @@ void print_menu(int size, Menu menu[])
 		"   .      .      .         .      .      .      .         .      .      .   \n\n";
 }
 
-int get_size_of_menu(Menu *menu)
+int get_size_of_menu(Menu menu[])
 {
 	int size = 0;
 	while (menu[size].item != "" && menu[size].price != 0)
@@ -212,14 +214,14 @@ void modify_array(int &size, Menu *&menu)
 			default:
 			{
 				cout << endl;
-				cout << "                         Invalid choice. Please try again." << endl;
+				cerr << "                         Invalid choice. Please try again." << endl;
 				cout << endl;
 				break;
 			}
 		}
 	}
 	// Allocate memory for the new array
-	// Menu* new_menu = new Menu[size];
+	// Menu *new_menu = new Menu[size];
 	// Copy the modified elements to the new array
 	// memcpy(new_menu, menu, size * sizeof(Menu));
 	// Free memory for the old array
@@ -231,6 +233,7 @@ void modify_array(int &size, Menu *&menu)
 void add_element(int &size, Menu *&menu)
 {
 	Menu *temp = new Menu[size + 1];
+
 	for (int i = 0; i < size; i++)
 	{
 		temp[i] = menu[i];
@@ -260,7 +263,7 @@ void edit_element(int size, Menu *&menu)
 	}
 	if (!found)
 	{
-		cout << "     ->->-> " << item << " not found." << endl;
+		cerr << "     ->->-> " << item << " not found." << endl;
 	}
 }
 
@@ -285,6 +288,6 @@ void delete_element(int &size, Menu *&menu)
 	}
 	if (!found)
 	{
-		cout << "     ->->-> " << item << " not found." << endl;
+		cerr << "     ->->-> " << item << " not found." << endl;
 	}
 }

@@ -126,7 +126,7 @@
     <ClCompile Include="tideman_vote.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pointer_addreses_references.cpp">
+    <ClCompile Include="pointers_addresses_references.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="read_and_write_to_files.cpp">
@@ -138,9 +138,15 @@
     <ClCompile Include="dynamic_memory_allocation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="create.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="validate_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basic_get_functions.h">
+    <ClInclude Include="basic_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

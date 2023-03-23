@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ int main()
 	double bill = get_input("Bill");
 	double tax = get_input("Tax");
 	double tip = get_input("Tip");
-		// Calculate the half price
+	// Calculate the half price
 	double grandTotal = calculate_grandTotal(bill, tax, tip);
 	double half = calculate_half(grandTotal);
 	// Print the price

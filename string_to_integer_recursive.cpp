@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ int main()
 
 	if (!is_a_digit(number_string))
 	{
-		cout << "Error 1: Enter numbers only! " << endl;
+		cerr << "Error 1: Enter numbers only! " << endl;
 		return 1;
 	}
 

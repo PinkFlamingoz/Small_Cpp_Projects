@@ -2,7 +2,7 @@
 #include <cstring>
 #include <algorithm>
 #include <vector>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -48,19 +48,19 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		cout << "Error 1: Too many or none arguments " << endl << "Usage: ./plurality_vote [candidate ...]" << endl;
+		cerr << "Error 1: Too many or none arguments " << endl << "Usage: ./plurality_vote [candidate ...]" << endl;
 		return 1;
 	}
 	candidate_count = argc - 1;
 	if (candidate_count > MAX_CANDIDATES)
 	{
-		cout << "Error 2: Too many candidates the max is: " << MAX_CANDIDATES << endl;
+		cerr << "Error 2: Too many candidates the max is: " << MAX_CANDIDATES << endl;
 		return 2;
 	}
 	bool all_random = check_if_candidates_are_different(argc, argv);
 	if (!all_random)
 	{
-		cout << "Error 3: Candidates must not have the same name! " << endl;
+		cerr << "Error 3: Candidates must not have the same name! " << endl;
 		return 3;
 	}
 	else
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 		voter_count = get_number_of_voters();
 		if (voter_count > MAX_VOTERS)
 		{
-			cout << "Error 3: Maximum number of voter is: " << MAX_VOTERS << endl;
+			cerr << "Error 3: Maximum number of voter is: " << MAX_VOTERS << endl;
 			return 3;
 		}
 		set_voter_preference();
@@ -160,7 +160,7 @@ string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 		transform(name.begin(), name.end(), name.begin(), ::tolower);
 		if (find(ranked_candidates.begin(), ranked_candidates.end(), name) != ranked_candidates.end())
 		{
-			cout << "Error: Candidate already ranked." << endl;
+			cerr << "Error: Candidate already ranked." << endl;
 		}
 		else
 		{
@@ -180,7 +180,7 @@ string get_cast_vote(string name, int j)
 		valid_name = check_correct_vote_cast(valid_name, name);
 		if (!valid_name)
 		{
-			cout << "Error: Invalid candidate name." << endl;
+			cerr << "Error: Invalid candidate name." << endl;
 		}
 	}
 	return name;

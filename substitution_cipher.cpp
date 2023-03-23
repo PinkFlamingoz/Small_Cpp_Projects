@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -17,23 +17,23 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		cout << "Error 1: Too many or none arguments " << endl << "Usage: ./substitution_cipher key" << endl;
+		cerr << "Error 1: Enter only one argument! " << endl << "Usage: ./substitution_cipher [key]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
 	string key_string = argv[1];
 	if (!is_it_26(key_string))
 	{
-		cout << "Error 2: The key must be 26 characters long" << endl;
+		cerr << "Error 2: The key must be 26 characters long" << endl;
 		return 2;
 	}
 	else if (!is_a_alpha(key_string))
 	{
-		cout << "Error 3: Enter alphabetic characters only" << endl;
+		cerr << "Error 3: Enter alphabetic characters only" << endl;
 		return 3;
 	}
 	else if (!is_it_all_random(key_string))
 	{
-		cout << "Error 4: Characters must not be the same" << endl;
+		cerr << "Error 4: Characters must not be the same" << endl;
 		return 4;
 	}
 	else

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		cout << "Error 1: Enter only one argument! " << endl;
+		cerr << "Error 1: Enter only one argument! " << endl << "Usage: ./swap_characters [text]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
 	else

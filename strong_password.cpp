@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -74,22 +74,22 @@ void print_error(bool uppercase, bool lowercase, bool number, bool symbol, bool 
 {
 	if (!uppercase)
 	{
-		cout << "Password needs one upper case!" << endl;
+		cerr << "Password needs one upper case!" << endl;
 	}
 	if (!lowercase)
 	{
-		cout << "Password needs one lower case!" << endl;
+		cerr << "Password needs one lower case!" << endl;
 	}
 	if (!number)
 	{
-		cout << "Password needs one number!" << endl;
+		cerr << "Password needs one number!" << endl;
 	}
 	if (!symbol)
 	{
-		cout << "Password needs one symbol!" << endl;
+		cerr << "Password needs one symbol!" << endl;
 	}
 	if (!length)
 	{
-		cout << "Password needs to be at least 8 characters!" << endl;
+		cerr << "Password needs to be at least 8 characters!" << endl;
 	}
 }

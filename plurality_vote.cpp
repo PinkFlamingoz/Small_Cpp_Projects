@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -27,13 +27,13 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		cout << "Error 1: Too many or none arguments " << endl << "Usage: ./plurality_vote [candidate ...]" << endl;
+		cerr << "Error 1: Too many or none arguments " << endl << "Usage: ./plurality_vote [candidate ...]" << endl;
 		return 1;
 	}
 	candidate_count = argc - 1;
 	if (candidate_count > MAX)
 	{
-		cout << "Error 2: Too many candidates the max is: " << MAX << endl;
+		cerr << "Error 2: Too many candidates the max is: " << MAX << endl;
 		return 2;
 	}
 	else
@@ -73,7 +73,7 @@ void calculate_votes(int voter_count)
 		string name = get_valid_input<string>("Voter", "", i, "votes for: ");
 		if (!vote(name))
 		{
-			cout << "Invalid vote!" << endl;
+			cerr << "Invalid vote!" << endl;
 		}
 	}
 }

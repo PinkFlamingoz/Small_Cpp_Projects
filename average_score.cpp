@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -12,6 +12,7 @@ int main()
 {
 	int number_of_subjects = get_number_of_subjects();
 	float *scores = new float[number_of_subjects];
+
 	// The error message "C++ expression must have a constant value" typically occurs when you try to use a variable where a constant value is required, such as when defining the size of an array.
 	// To fix this error, you can use dynamic memory allocation to create an array of the appropriate size at runtime.
 	enter_scores(number_of_subjects, scores);
@@ -28,7 +29,7 @@ int get_number_of_subjects()
 	int number = 0;
 	do
 	{
-		number = get_valid_input<int>("Number of subjects? ");
+		number = get_valid_input<int>("Number of subjects: ");
 	} while (number < 1);
 	return number;
 }
@@ -37,7 +38,7 @@ void enter_scores(int number, float scores[])
 {
 	for (int i = 0; i < number; i++)
 	{
-		scores[i] = get_valid_input<float>("Enter grade for subject", "", i + 1);
+		scores[i] = get_valid_input<float>("Enter grade for subject", "", -1, "", i + 1);
 	}
 }
 

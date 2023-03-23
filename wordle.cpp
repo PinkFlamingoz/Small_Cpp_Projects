@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -35,19 +35,19 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		cout << "Error 1: Too many or none arguments " << endl << "Usage: ./wordle (size of words)" << endl;
+		cerr << "Error 1: Too many or none arguments " << endl << "Usage: ./wordle [size of words]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
 	string worldsize = argv[1];
 	if (!is_a_digit(worldsize))
 	{
-		cout << "Error 2: Enter a digit " << endl;
+		cerr << "Error 2: Enter a digit " << endl;
 		return 2;
 	}
 	int worldsize_int = stoi(worldsize);
 	if (worldsize_int < 5 || worldsize_int > 8)
 	{
-		cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
+		cerr << "Error 3: Must be 5, 6, 7 or 8" << endl;
 		return 3;
 	}
 	else
@@ -60,12 +60,13 @@ int main(int argc, char *argv[])
 		ifstream wordlist(wl_filename);
 		if (!wordlist.is_open())
 		{
-			cout << "Error opening file " << wl_filename << "." << endl;
+			cerr << "Error opening file " << wl_filename << "." << endl;
 			return 4;
 		}
 
 		// load word file into an array of size LISTSIZE
 		string *options = new string[LISTSIZE];
+
 		for (int i = 0; i < LISTSIZE; i++)
 		{
 			wordlist >> options[i];
@@ -162,7 +163,7 @@ void set_word_size(int worldsize_int)
 		}
 		default:
 		{
-			cout << "Error 3: Must be 5, 6, 7 or 8" << endl;
+			cerr << "Error 3: Must be 5, 6, 7 or 8" << endl;
 			break;
 		}
 	}

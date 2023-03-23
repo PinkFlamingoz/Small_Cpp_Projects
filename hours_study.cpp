@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -15,6 +15,7 @@ int main()
 	// Get how many weeks
 	int weeks = get_weeks();
 	float *hours = new float[weeks];
+
 	// Enter the hours
 	fill_the_weeks(weeks, hours);
 	// Print for total or average

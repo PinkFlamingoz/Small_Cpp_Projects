@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void allocateMemory(int *&variable3);
+void allocate_memory_2D_array(int **&array1, int rows, int cols);
 
 int main()
 {
@@ -81,7 +81,7 @@ int main()
 
 	int *variable3 = nullptr; // initialize pointer variable3 to nullptr
 
-	allocateMemory(variable3); // dynamically allocate memory for variable3
+	variable3 = new int; // dynamically allocate memory for variable3
 
 	*variable3 = 10; // set the value of variable3 to 10
 	cout << "variable3 = " << *variable3 << endl; // prints variable3 = 10
@@ -106,34 +106,14 @@ int main()
 	// Double pointers are useful in scenarios where you want to dynamically allocate memory for a two - dimensional array.
 	// By using a double pointer, you can create an array of pointers, where each pointer points to another array of data.
 
-	int **array1 = new int *[3];
-	for (int i = 0; i < 3; i++)
-	{
-		array1[i] = new int[4];
-	}
-
-	delete[] array1;
-
-	// Here, array1 is a double pointer that points to an array of three integer pointers.
-	// We then use a loop to allocate memory for each of these pointers, which in turn point to arrays of four integers each.
-	// Double pointers can also be used in functions to modify the values of a pointer variable passed as an argument.
-	// By passing a pointer to a pointer, we can modify the value of the original pointer itself.
-
 	// Declare a double pointer to an integer
-	int **array;
+	int **array = nullptr;
 
 	// Declare variables for array size
 	int rows = 3;
 	int cols = 4;
 
-	// Allocate memory for rows
-	array = new int *[rows];
-
-	// Allocate memory for each column in each row
-	for (int i = 0; i < rows; i++)
-	{
-		array[i] = new int[cols];
-	}
+	allocate_memory_2D_array(array, rows, cols);
 
 	// Initialize array elements
 	for (int i = 0; i < rows; i++)
@@ -203,7 +183,13 @@ int main()
 	return 0;
 }
 
-void allocateMemory(int *&variable3)
+void allocate_memory_2D_array(int **&array, int rows, int cols)
 {
-	variable3 = new int; // dynamically allocate memory for an integer
+	// Allocate memory for rows
+	array = new int *[rows];
+	for (int i = 0; i < rows; i++)
+	{
+		// Allocate memory for each column in each row
+		array[i] = new int[cols];
+	}
 }

@@ -2,7 +2,7 @@
 #include <chrono>
 #include <ctime>
 #include <cstdlib>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -22,8 +22,9 @@ const int BOUND = 50;
 
 int main()
 {
-	const int size = get_size();
+	int size = get_size();
 	int *RANDOM_ARRAY = new int[size];
+
 	// Bubble -----------------------------------------------------------------------------------------------------
 	cout << endl;
 	cout << "---------------- Bubble -----------------------------------------------------------------------------------------------------" << endl;

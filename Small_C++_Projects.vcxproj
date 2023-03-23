@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -139,6 +139,7 @@
     <ClCompile Include="candidates.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="contacts.cpp" />
+    <ClCompile Include="create.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="dynamic_memory_allocation.cpp" />
     <ClCompile Include="hours_study.cpp" />
@@ -173,7 +174,7 @@
     <ClCompile Include="wordle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basic_get_functions.h" />
+    <ClInclude Include="basic_functions.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.txt" />

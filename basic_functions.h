@@ -33,7 +33,7 @@ T get_valid_input(const string &prompt, const string &helper_string1 = "", int n
 		if (cin.fail())
 		{
 			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
+			cerr << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
@@ -75,7 +75,7 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 		if (cin.fail() || input.empty())
 		{
 			// Input is not valid
-			cout << "Error: Please enter a valid input." << endl;
+			cerr << "Error: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
@@ -86,4 +86,16 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 		}
 	}
 	return input;
+}
+
+template <typename T, typename R, typename C>
+void allocate_memory_2D_array(T **&array, R rows, C cols)
+{
+	// Allocate memory for rows
+	array = new T * [rows];
+	for (int i = 0; i < rows; i++)
+	{
+		// Allocate memory for each column in each row
+		array[i] = new T[cols];
+	}
 }

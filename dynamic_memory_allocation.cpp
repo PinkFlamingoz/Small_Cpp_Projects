@@ -1,13 +1,13 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
-long get_input();
+int get_input();
 
 int main()
 {
-	long size = get_input();
+	int size = get_input();
 
 	int *p = nullptr;
 	try
@@ -16,7 +16,7 @@ int main()
 	}
 	catch (const bad_alloc &e)
 	{
-		cout << "Memory allocation failed: " << e.what() << endl;
+		cerr << "Memory allocation failed: " << e.what() << endl;
 		return 1;
 	}
 
@@ -28,7 +28,7 @@ int main()
 	cp = (int *)malloc(size * sizeof(int)); // int* cp = (int *)malloc(sizeof(int));   dynamically allocate a single integer
 	if (cp == nullptr)
 	{
-		cout << "Memory allocation failed! " << endl;
+		cerr << "Memory allocation failed! " << endl;
 		return 1;
 	}
 	free(cp);
@@ -36,9 +36,9 @@ int main()
 	return 0;
 }
 
-long get_input()
+int get_input()
 {
-	long number;
+	int number;
 	do
 	{
 		number = get_valid_input<long>("Enter size of memory allocation: ");

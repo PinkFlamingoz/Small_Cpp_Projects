@@ -2,7 +2,7 @@
 #include <chrono>
 #include <ctime>
 #include <cstdlib>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 

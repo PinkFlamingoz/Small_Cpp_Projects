@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -13,20 +13,19 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		cout << "Error 1: Too many or none arguments " << endl
-			<< "Usage: ./caesar_cipher key" << endl;
+		cerr << "Error 1: Enter only one argument! " << endl << "Usage: ./caeser_cipher [key]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
 	string key_string = argv[1];
 	if (!is_a_digit(key_string))
 	{
-		cout << "Error 2: Enter a digit " << endl;
+		cerr << "Error 2: Enter a digit " << endl;
 		return 2;
 	}
 	int key = stoi(key_string);
 	if (key < 1)
 	{
-		cout << "Error 3: Must be positive number" << endl;
+		cerr << "Error 3: Must be positive number" << endl;
 		return 3;
 	}
 	else

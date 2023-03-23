@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_get_functions.h"
+#include "basic_functions.h"
 
 using namespace std;
 
@@ -18,6 +18,8 @@ int main()
 	char answer = get_max_or_min();
 
 	print_results(answer, size, array);
+
+	delete[] array;
 
 	return 0;
 }
