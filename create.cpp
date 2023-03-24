@@ -11,13 +11,11 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	string file_name = argv[1];
-
-	ofstream new_file(file_name); //ofstream creates a file
+	ofstream new_file(argv[1]); //ofstream creates a file
 
 	if (!new_file.is_open())
 	{
-		cerr << "Error 2: Can't open file " << file_name << endl;
+		cerr << "Error 2: Cant open file " << argv[1] << endl;
 		return 2;
 	}
 

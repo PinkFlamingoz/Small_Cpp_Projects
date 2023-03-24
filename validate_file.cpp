@@ -26,17 +26,19 @@ int main(int argc, char *argv[])
 	bool jpg = true;
 	bool exe = true;
 
-	uint8_t buffer[4]{};
-	file_to_test.read(reinterpret_cast<char *>(buffer), 4);
+	uint8_t buffer[sizeof(int)]{}; // Because size of int is 4 bytes thats 32bits
+	file_to_test.read(reinterpret_cast<char *>(buffer), sizeof(int));
 	file_to_test.close();
 
 	check(buffer, pdf, jpg, exe);
 	print(pdf, jpg, exe, argv);
+
+	return 0;
 }
 
 void check(uint8_t buffer[], bool &pdf, bool &jpg, bool &exe)
 {
-	int length_of_signiture = 4;
+	int length_of_signiture = sizeof(int);
 
 	uint8_t signature_PDF[] = { 37, 80, 68, 70 };
 	uint8_t signature_JPG[] = { 255, 216, 255, 224 };

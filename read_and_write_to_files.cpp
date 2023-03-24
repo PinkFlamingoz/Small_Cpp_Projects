@@ -94,7 +94,7 @@ void read_form_a_file()
 	ifstream file(file_name);
 	if (!file.is_open())
 	{
-		cerr << "Error: Unable to open file " << file_name << endl;
+		cerr << "Error: Cant open file " << file_name << endl;
 		return;
 	}
 	while (getline(file, line))
@@ -159,7 +159,7 @@ void get_data_from_a_file(vector<string> &contacts)
 	ifstream file(file_name);
 	if (!file.is_open())
 	{
-		cerr << "Error: Unable to open file " << file_name << endl;
+		cerr << "Error: Cant open file " << file_name << endl;
 		return;
 	}
 	while (getline(file, line))
@@ -175,7 +175,7 @@ void get_data_from_a_file2(string contacts_array[], int line_count)
 	ifstream file(file_name);
 	if (!file.is_open())
 	{
-		cerr << "Error: Unable to open file " << file_name << endl;
+		cerr << "Error: Cant open file " << file_name << endl;
 		return;
 	}
 	int i = 0;
@@ -280,21 +280,26 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 //
 //
 //
-// get size of file in bytes
+// get size of file in bytes:
+//
 // infile.seekg(0, infile.end);
 // long size = infile.tellg();
 // infile.seekg(0);
 //
-// allocate memory for file content
+// allocate memory for file content:
+//
 // char *buffer = new char[size];
 //
-// read content of infile
+// read content of infile:
+//
 // infile.read(buffer, size);
 //
-// write to outfile
+// write to outfile:
+//
 // outfile.write(buffer, size);
 //
-// release dynamically-allocated memory
+// release dynamically-allocated memory:
+//
 // delete[] buffer;
 //
 // outfile.close();
