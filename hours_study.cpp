@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Functions
 int get_weeks();
 void fill_the_weeks(int weeks, float hours[]);
 float get_average(int weeks, float hours[]);
@@ -12,21 +13,20 @@ void print_results(int weeks, float hours[], char answer);
 
 int main()
 {
-	// Get how many weeks
-	int weeks = get_weeks();
-	float *hours = new float[weeks];
+	int weeks = get_weeks(); //------------ Get the number of weeks to study
+	float *hours = new float[weeks]; //---- Make a dynamic array with that size
 
-	// Enter the hours
-	fill_the_weeks(weeks, hours);
-	// Print for total or average
-	char answer = get_T_or_A();
-	print_results(weeks, hours, answer);
+	fill_the_weeks(weeks, hours); //------- Enter the hours for each week
 
-	delete[] hours;
+	char answer = get_T_or_A();	//--------- Get from user to see total or average
+	print_results(weeks, hours, answer); // Print for total, average or both
 
-	return 0;
+	delete[] hours; //--------------------- Free up the allocated memory
+
+	return 0; //--------------------------- Success
 }
 
+// Get the number of weeks to study
 int get_weeks()
 {
 	int weeks = 0;
@@ -37,6 +37,7 @@ int get_weeks()
 	return weeks;
 }
 
+// Enter hours for each week
 void fill_the_weeks(int weeks, float hours[])
 {
 	for (int i = 0; i < weeks; i++)
@@ -45,6 +46,7 @@ void fill_the_weeks(int weeks, float hours[])
 	}
 }
 
+// Get the average by summing up all the hours and dividing them by the total of subjects
 float get_average(int weeks, float hours[])
 {
 	float sum = 0;
@@ -52,9 +54,10 @@ float get_average(int weeks, float hours[])
 	{
 		sum += hours[i];
 	}
-	return sum / (float)weeks;
+	return sum / static_cast<float>(weeks);
 }
 
+// Get the total by summing up all the hours
 float get_total(int weeks, float hours[])
 {
 	float sum = 0;
@@ -65,6 +68,7 @@ float get_total(int weeks, float hours[])
 	return sum;
 }
 
+// Get from user to see total or average
 char get_T_or_A()
 {
 	char answer = get_valid_input<char>("Total(T) or Average(A): ");
@@ -72,6 +76,7 @@ char get_T_or_A()
 	return answer;
 }
 
+// Print the result depending on the answer in a switch case
 void print_results(int weeks, float hours[], char answer)
 {
 	switch (answer)

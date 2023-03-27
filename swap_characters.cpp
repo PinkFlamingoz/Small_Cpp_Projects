@@ -2,27 +2,28 @@
 
 using namespace std;
 
+// Functions
 string correct_text(string text);
 void print_result(string result);
 
 int main(int argc, char *argv[])
 {
+	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 	if (argc != 2)
 	{
 		cerr << "Error 1: Enter only one argument! " << endl << "Usage: ./swap_characters [text]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
-	else
-	{
-		// Check for vowels and replace them
-		string  result = correct_text(argv[1]);
-		// Print result
-		print_result(result);
+	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 
-		return 0;
-	}
+	string  result = correct_text(argv[1]); // Check for vowels and replace them
+
+	print_result(result); //------------------ Print result
+
+	return 0; //------------------------------ Success
 }
 
+// Check for vowels and use the switch case to do a certain action when a certain letter appears
 string correct_text(string text)
 {
 	int length = text.length();
@@ -54,6 +55,7 @@ string correct_text(string text)
 	return text;
 }
 
+// Print the results
 void print_result(string result)
 {
 	cout << result << endl;

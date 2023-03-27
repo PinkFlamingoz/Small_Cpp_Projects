@@ -13,6 +13,7 @@ T get_valid_input(const string &prompt, const string &helper_string1 = "", int n
 	while (true)
 	{
 		cout << prompt;
+
 		if (!helper_string1.empty())
 		{
 			cout << " " << helper_string1;
@@ -54,6 +55,7 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 	while (true)
 	{
 		cout << prompt;
+
 		if (!helper_string1.empty())
 		{
 			cout << " " << helper_string1;
@@ -70,8 +72,7 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 		{
 			cout << " " << num2 << ": ";
 		}
-		getline(cin, input);
-
+		getline(cin >> ws, input);
 		if (cin.fail() || input.empty())
 		{
 			// Input is not valid
@@ -98,4 +99,16 @@ void allocate_memory_2D_array(T **&array, R rows, C cols)
 		// Allocate memory for each column in each row
 		array[i] = new T[cols];
 	}
+}
+
+template <typename T, typename R>
+void free_allocate_memory_2D_array(T **&array, R rows)
+{
+	// Deallocate memory for each column in each row
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] array[i];
+	}
+	// Deallocate memory for rows
+	delete[] array;
 }

@@ -4,49 +4,57 @@
 
 using namespace std;
 
+// Structures
 struct Candidate
 {
 	string name = "";
 	int votes = 0;
 };
 
-const int MAX = 10;
-
-Candidate candidates[MAX];
-
-int candidate_count = 0;
-
+// Functions
 void get_candidates(char *argv[]);
 int get_number_of_voters();
 void calculate_votes(int voter_count);
 bool vote(string name);
-int get_max_vote();
 void print_winner(void);
+int get_max_vote();
+
+// Globals
+const int MAX = 10;
+int candidate_count = 0;
+
+Candidate candidates[MAX];
 
 int main(int argc, char *argv[])
 {
-	if (argc < 2)
+	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
+	if (argc < 3)
 	{
-		cerr << "Error 1: Too many or none arguments " << endl << "Usage: ./plurality_vote [candidate ...]" << endl;
+		cerr << "Error 1: Enter more than two arguments " << endl << "Usage: ./plurality_vote [candidate ...]" << endl;
 		return 1;
 	}
+
+	// Make sure the user does not enter more than the MAX candidates
 	candidate_count = argc - 1;
 	if (candidate_count > MAX)
 	{
 		cerr << "Error 2: Too many candidates the max is: " << MAX << endl;
 		return 2;
 	}
-	else
-	{
-		get_candidates(argv);
-		int voter_count = get_number_of_voters();
-		calculate_votes(voter_count);
-		print_winner();
+	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 
-		return 0;
-	}
+	get_candidates(argv); //-------------------- Initialize the candidates structure array
+
+	int voter_count = get_number_of_voters(); // Get the number of voters
+
+	calculate_votes(voter_count); //------------ Calculate the votes
+
+	print_winner(); //-------------------------- Print the winner
+
+	return 0; //-------------------------------- Success
 }
 
+// Initialize the candidates structure array with the default values and the names from argv[]
 void get_candidates(char *argv[])
 {
 	for (int i = 0; i < candidate_count; i++)
@@ -56,6 +64,7 @@ void get_candidates(char *argv[])
 	}
 }
 
+// Get the number of voters
 int get_number_of_voters()
 {
 	int number = 0;
@@ -66,6 +75,7 @@ int get_number_of_voters()
 	return number;
 }
 
+//* Calculate votes and check if the vote is valid, if not dont count it ----------------------------------------------------------------------------------
 void calculate_votes(int voter_count)
 {
 	for (int i = 0; i < voter_count; i++)
@@ -78,11 +88,12 @@ void calculate_votes(int voter_count)
 	}
 }
 
+// Record the vote by comparing the entered name with the candiate names in the pool of candidates and add one vote to the matching names
 bool vote(string name)
 {
 	for (int i = 0; i < candidate_count; i++)
 	{
-		if (stricmp(candidates[i].name.c_str(), name.c_str()) == 0)
+		if (_stricmp(candidates[i].name.c_str(), name.c_str()) == 0)
 		{
 			candidates[i].votes += 1;
 			return true;
@@ -90,7 +101,22 @@ bool vote(string name)
 	}
 	return false;
 }
+//* Calculate votes and check if the vote is valid, if not dont count it ----------------------------------------------------------------------------------
 
+//* Print the winner/s that have the max vote -------------------------------------------------------------------------------------------------------------
+void print_winner()
+{
+	int max = get_max_vote();
+	for (int i = 0; i < candidate_count; i++)
+	{
+		if (max == candidates[i].votes)
+		{
+			cout << "Winner/s: " << candidates[i].name << endl;
+		}
+	}
+}
+
+// Get the max vote a candidate has
 int get_max_vote()
 {
 	int max = candidates[0].votes;
@@ -103,15 +129,4 @@ int get_max_vote()
 	}
 	return max;
 }
-
-void print_winner()
-{
-	int max = get_max_vote();
-	for (int i = 0; i < candidate_count; i++)
-	{
-		if (max == candidates[i].votes)
-		{
-			cout << "Winner/s: " << candidates[i].name << endl;
-		}
-	}
-}
+//* Print the winner/s that have the max vote -------------------------------------------------------------------------------------------------------------

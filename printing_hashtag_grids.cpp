@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Functions
 int get_size_bounded();
 void print_horizontal(int n);
 void print_vertical(int n);
@@ -25,7 +26,8 @@ int main()
 {
 	// Get the bounded size
 	int n = get_size_bounded();
-	// Print the pyramid
+
+	// Print the pyramids
 	print_horizontal(n);
 	print_vertical(n);
 	print_grid1(n);
@@ -43,9 +45,11 @@ int main()
 	print_pyramid_pascal(n);
 	print_diamond(n);
 
+	// Success
 	return 0;
 }
 
+// Get the bounded size
 int get_size_bounded()
 {
 	int n;
@@ -310,7 +314,7 @@ void print_pyramid_pascal(int n)
 void print_diamond(int n)
 {
 	cout << "Diamond print :" << endl;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++) // Top Half of diamond
 	{
 		for (int j = 0; j < (2 * n); j++)
 		{
@@ -333,7 +337,7 @@ void print_diamond(int n)
 		}
 		cout << endl;
 	}
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++) // Bottom Half of diamond
 	{
 		for (int j = 0; j < (2 * n); j++)
 		{

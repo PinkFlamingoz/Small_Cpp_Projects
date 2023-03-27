@@ -3,23 +3,22 @@
 
 using namespace std;
 
+// Functions
 string get_user_password();
 bool check_password(string password);
 void print_error(bool uppercase, bool lowercase, bool number, bool symbol, bool length);
 
 int main()
 {
-	// Get password input
-	// Check for password validation
-	// Print results
-	string password = get_user_password();
+	string password = get_user_password(); // Get password input
 
-	return 0;
+	return 0; //----------------------------- Success
 }
 
+// Get a password from the user keep prompting the same thing unitl he enters the correct information
 string get_user_password()
 {
-	string password;
+	string password = "";
 	do
 	{
 		password = get_valid_input<string>("Enter password: ");
@@ -27,6 +26,7 @@ string get_user_password()
 	return password;
 }
 
+// Check if the passowrd is a valid one
 bool check_password(string password)
 {
 	bool uppercase = false;
@@ -70,6 +70,7 @@ bool check_password(string password)
 	return valid;
 }
 
+// Print if something is missing from the users inputed password
 void print_error(bool uppercase, bool lowercase, bool number, bool symbol, bool length)
 {
 	if (!uppercase)

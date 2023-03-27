@@ -1,39 +1,39 @@
 ﻿#include <iostream>
 #include <chrono>
-#include <ctime>
-#include <cstdlib>
 #include "basic_functions.h"
 
 using namespace std;
 
+// Functions
 int get_number();
 void random_array();
 bool linear_search(int number);
 
+// Globals
 const int MAXSIZE = 1000000;
 int RANDOM_ARRAY[MAXSIZE];
 
 int main()
 {
-	random_array();
-	int number = get_number();
+	random_array(); //----------------------------------- Initialize a random array with values from 0 to MAXSIZE - 1
 
-	auto start = chrono::high_resolution_clock::now();
+	int number = get_number(); //------------------------ Get the number we want to find in the random array
 
-	linear_search(number);
+	auto start = chrono::high_resolution_clock::now(); // We use a clock to time how fast the search completes
+
+	linear_search(number); //---------------------------- We use linear search for the number we want to find
 
 	auto end = chrono::high_resolution_clock::now();
-
 	auto elapsed_seconds = chrono::duration_cast<chrono::duration<double>>(end - start).count();
-
 	cout << "Time took: " << elapsed_seconds << endl;
 
-	return 0;
+	return 0; //----------------------------------------- Success
 }
 
+// Get the number we want to find
 int get_number()
 {
-	int number;
+	int number = 0;
 	do
 	{
 		number = get_valid_input<int>("Enter number: ");
@@ -41,15 +41,17 @@ int get_number()
 	return number;
 }
 
+// Initialize the random array with values from 0 to MAXSIZE - 1
 void random_array()
 {
-	srand(time(nullptr));
+	srand(time(nullptr)); //--------------- Seeds the random number generator with a value based on the current time
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		RANDOM_ARRAY[i] = rand() % MAXSIZE;
 	}
 }
 
+// Linear search algorithm compare the number with each value in the array until found
 bool linear_search(int number)
 {
 	for (int i = 0; i < MAXSIZE; i++)
@@ -57,11 +59,11 @@ bool linear_search(int number)
 		if (RANDOM_ARRAY[i] == number)
 		{
 			cout << "Found: " << RANDOM_ARRAY[i] << endl;
-			return 0;
+			return true;
 		}
 	}
 	cout << "Not found! " << endl;
-	return 1;
+	return false;
 }
 
 // O(n)

@@ -4,28 +4,29 @@
 
 using namespace std;
 
+// Functions
 int get_size();
 void create_array_power_by_two(int size, int power_up[]);
 void print_array(int size, int power_up[]);
 
 int main()
 {
-	// Get the size from user
-	int size = get_size();
-	int *power_up = new int[size];
-	// Dinamicaly create a array of that size where each element is 2 times the previous one
-	create_array_power_by_two(size, power_up);
-	// Print the array, integer by integer
-	print_array(size, power_up);
+	int size = get_size(); 	//------------------- Get the size from user
+	int *power_up = new int[size]; 	//----------- Make a dynamic array with that size
 
-	delete[] power_up;
+	create_array_power_by_two(size, power_up); // Raze every integer to the power of 2
 
-	return 0;
+	print_array(size, power_up); //-------------- Print the array, integer by integer
+
+	delete[] power_up; //------------------------ Free up the allocated memory
+
+	return 0; //--------------------------------- Success
 }
 
+// Get the size for the dynamic array
 int get_size()
 {
-	int size;
+	int size = 0;
 	do
 	{
 		size = get_valid_input<int>("Enter size of array: ");
@@ -33,6 +34,7 @@ int get_size()
 	return size;
 }
 
+// Raze every integer to the power of 2
 void create_array_power_by_two(int size, int power_up[])
 {
 	for (int i = 0; i < size; i++)
@@ -41,6 +43,7 @@ void create_array_power_by_two(int size, int power_up[])
 	}
 }
 
+// Print the array, integer by integer
 void print_array(int size, int power_up[])
 {
 	for (int i = 0; i < size; i++)

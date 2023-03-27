@@ -13,143 +13,164 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Week_1">
+      <UniqueIdentifier>{b392d386-e5c1-479b-adb1-a4c86d982d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Week_2">
+      <UniqueIdentifier>{f2bfaa49-17e6-48ba-b983-b3e542dd5216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Week_3">
+      <UniqueIdentifier>{19475300-f938-440d-9580-ae1fd5a525d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Week_4">
+      <UniqueIdentifier>{154ff8fb-e89d-4c6f-b6dc-813f9aaecc31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hello.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="prime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="population_time_growth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="printing_hashtag_grids.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="calculate_the_half_bill.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="how_many_coins_to_give_back.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="valid_credit_card.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="adventure_time.cpp">
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
     <ClCompile Include="calculator_testing.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
-    <ClCompile Include="adventure_time.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="hello.cpp">
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
-    <ClCompile Include="average_score.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="printing_hashtag_grids.cpp">
+      <Filter>Source Files\Week_1</Filter>
+    </ClCompile>
+    <ClCompile Include="how_many_coins_to_give_back.cpp">
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
     <ClCompile Include="contacts.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
-    <ClCompile Include="triangle_check.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="valid_credit_card.cpp">
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
-    <ClCompile Include="power_up_array.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="calculate_the_half_bill.cpp">
+      <Filter>Source Files\Week_1</Filter>
+    </ClCompile>
+    <ClCompile Include="prime.cpp">
+      <Filter>Source Files\Week_1</Filter>
+    </ClCompile>
+    <ClCompile Include="population_time_growth.cpp">
+      <Filter>Source Files\Week_1</Filter>
     </ClCompile>
     <ClCompile Include="is_it_in_alphabetical_order.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
+    </ClCompile>
+    <ClCompile Include="power_up_array.cpp">
+      <Filter>Source Files\Week_2</Filter>
+    </ClCompile>
+    <ClCompile Include="average_score.cpp">
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="command_line_arguments.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="return_initials.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hours_study.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="swap_characters.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="strong_password.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
+    </ClCompile>
+    <ClCompile Include="triangle_check.cpp">
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="scrabble_points_compare.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="what_grade_is_this_text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="decimal_to_binary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="caeser_cipher.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="substitution_cipher.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
+    </ClCompile>
+    <ClCompile Include="caeser_cipher.cpp">
+      <Filter>Source Files\Week_2</Filter>
+    </ClCompile>
+    <ClCompile Include="decimal_to_binary.cpp">
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="wordle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="recursion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="linear_search.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="binary_search.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_2</Filter>
     </ClCompile>
     <ClCompile Include="sorting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="candidates.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="string_to_integer_recursive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="temperature.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="max_and_min.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
+    </ClCompile>
+    <ClCompile Include="recursion.cpp">
+      <Filter>Source Files\Week_3</Filter>
+    </ClCompile>
+    <ClCompile Include="temperature.cpp">
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="snackbar.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
+    </ClCompile>
+    <ClCompile Include="candidates.cpp">
+      <Filter>Source Files\Week_3</Filter>
+    </ClCompile>
+    <ClCompile Include="binary_search.cpp">
+      <Filter>Source Files\Week_3</Filter>
+    </ClCompile>
+    <ClCompile Include="linear_search.cpp">
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="plurality_vote.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="instant_runoff.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="tideman_vote.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_3</Filter>
     </ClCompile>
-    <ClCompile Include="pointers_addresses_references.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="read_and_write_to_files.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="swap_values.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="change_pixel_color_of_bmp.cpp">
+      <Filter>Source Files\Week_4</Filter>
     </ClCompile>
     <ClCompile Include="dynamic_memory_allocation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_4</Filter>
     </ClCompile>
-    <ClCompile Include="create.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="validate_file.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="flip_bmp_images.cpp">
+      <Filter>Source Files\Week_4</Filter>
     </ClCompile>
     <ClCompile Include="license_plates.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
+    <ClCompile Include="read_and_write_to_files.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
+    <ClCompile Include="pointers_addresses_references.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
+    <ClCompile Include="create.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
+    <ClCompile Include="hours_study.cpp">
+      <Filter>Source Files\Week_2</Filter>
+    </ClCompile>
+    <ClCompile Include="swap_values.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
+    <ClCompile Include="validate_file.cpp">
+      <Filter>Source Files\Week_4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bmp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -175,6 +196,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="harvard_bottomup.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="smiley.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="newsmiley.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="fliped.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

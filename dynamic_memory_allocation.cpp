@@ -3,42 +3,47 @@
 
 using namespace std;
 
+// Functions
 int get_input();
 
 int main()
 {
-	int size = get_input();
+	int size = get_input(); // Get the size of the memory we want to allocate
 
-	int *p = nullptr;
-	try
-	{						// int* p = new int(42);  dynamically allocate a single integer initialized with the value 42
-		p = new int[size];  // int* p = new int;   dynamically allocate a single integer
-	}
-	catch (const bad_alloc &e)
-	{
-		cerr << "Memory allocation failed: " << e.what() << endl;
-		return 1;
-	}
+	//* C++ Style -----------------------------------------------------------------------------------------------------------------------
+	int *p = nullptr; //------- Set the pointer to null if it doesnt point to anything
 
-	delete[] p;
+	p = new int[size]; //------ Dynamically allocate memory for array
 
-	// =====================================================================================
+	// int* p = new int; //---- Dynamically allocate a single integer
+	// int* p = new int(42); // Dynamically allocate a single integer initialized with the value 42
 
-	int *cp = nullptr;
-	cp = (int *)malloc(size * sizeof(int)); // int* cp = (int *)malloc(sizeof(int));   dynamically allocate a single integer
-	if (cp == nullptr)
+	delete[] p; //------------- Free up the allocated memory
+	//* C++ Style -----------------------------------------------------------------------------------------------------------------------
+
+	//* C Style -------------------------------------------------------------------------------------------------------------------------
+	int *cp = nullptr; //---------------------- Set the pointer to null if it doesnt point to anything
+
+	cp = (int *)malloc(size * sizeof(int)); //- Dynamically allocate memory for array
+
+	// int* cp = (int *)malloc(sizeof(int)); // Dynamically allocate a single integer
+
+	if (cp == nullptr) // --------------------- Catch if memory allocation failed
 	{
 		cerr << "Memory allocation failed! " << endl;
 		return 1;
 	}
-	free(cp);
+
+	free(cp); //------------------------------- Free up the allocated memory
+	//* C Style -------------------------------------------------------------------------------------------------------------------------
 
 	return 0;
 }
 
+// Get the size of the memory we want to allocate
 int get_input()
 {
-	int number;
+	int number = 0;
 	do
 	{
 		number = get_valid_input<long>("Enter size of memory allocation: ");

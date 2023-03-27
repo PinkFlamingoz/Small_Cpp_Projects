@@ -6,76 +6,88 @@
 
 using namespace std;
 
+// Structures
 struct Contact
 {
 	string name = "";
 	long long phone = 0;
 };
 
-string file_name = "test.txt";
-
+// Functions
 Contact get_contact(string prompt);
+string get_delete_name();
 void write_to_a_file(Contact person);
 void read_form_a_file();
-string get_delete_name();
 void delete_from_file(string name_to_delete);
 void get_data_from_a_file(vector<string> &contacts);
 void get_data_from_a_file2(string contacts_array[], int line_count);
 void print(vector<string> &contacts, string contacts_array[], int line_count);
 
+// Globals
+string file_name = "test.txt";
+
 int main()
 {
-	Contact person = get_contact("Enter Contact: ");
-	write_to_a_file(person);
+	Contact person = get_contact("Enter Contact: "); //------------------------------------------- Get the contact that we want to enter into the file
 
-	read_form_a_file();
+	write_to_a_file(person); //------------------------------------------------------------------- Write the contact into the file
 
-	string name = get_delete_name();
-	delete_from_file(name);
+	read_form_a_file(); //------------------------------------------------------------------------ Print out the contacts from the file
 
-	vector<string> contacts;
-	get_data_from_a_file(contacts);
+	string name = get_delete_name(); //----------------------------------------------------------- Get the name of the contact we want to delete from the file
+	delete_from_file(name); //-------------------------------------------------------------------- Delete that name in the file by making a temporery file with that name not in it and then just rename it to the original name
 
-	ifstream file(file_name);
-	// count the new lines:
-	int line_count = count(istreambuf_iterator<char>(file), istreambuf_iterator<char>(), '\n');
-	string *contacts_array = new string[line_count];
+	vector<string> contacts; //------------------------------------------------------------------- Create a vector array to store the contacts from the file
+	get_data_from_a_file(contacts); //------------------------------------------------------------ Push the contacts into the vector array
 
-	get_data_from_a_file2(contacts_array, line_count);
+	ifstream file(file_name); //------------------------------------------------------------------ Open the file so we can count how many new lines it has (in such way we count how many contacts we have)
+	int line_count = count(istreambuf_iterator<char>(file), istreambuf_iterator<char>(), '\n'); // Count the lines with the function count
+	string *contacts_array = new string[line_count]; //------------------------------------------- Make a dynamic array with that size
 
-	print(contacts, contacts_array, line_count);
+	get_data_from_a_file2(contacts_array, line_count); //----------------------------------------- Push the contacts in the dynamic array
 
-	delete[]contacts_array;
+	print(contacts, contacts_array, line_count); //----------------------------------------------- Print the contents of the vector array and dynamic array
 
-	file.close();
+	delete[]contacts_array; //-------------------------------------------------------------------- Free up the allocated memory
 
-	return 0;
+	file.close(); //------------------------------------------------------------------------------ Close the file to free up memory
+
+	return 0; //---------------------------------------------------------------------------------- Success
 }
+// The count function takes three arguments: a pair of iterators that define a range to search, and a value to count.
+// In this case, the first iterator is created by constructing an istreambuf_iterator<char> object from the file input stream.
+// This iterator reads characters from the file one at a time, and it's used as the starting point for the range to search.
+// The second iterator is the default constructor for istreambuf_iterator<char>, which creates an end-of-stream iterator.
+// This iterator is used to mark the end of the range to search.
+// The third argument is the value to count, which is the newline character '\n'.
 
+// Get the contact that we want to enter into the file
 Contact get_contact(string prompt)
 {
 	cout << prompt << endl;
-	Contact person;
 
+	Contact person;
 	person.name = get_valid_input<string>("Enter name: ");
 	do
 	{
 		person.phone = get_valid_input<long long>("Enter phone: ");
 	} while (person.phone < 1);
-
 	return person;
 }
 
+// Get the name we want to delete from the file
 string get_delete_name()
 {
 	string name = get_valid_input<string>("Delete a contact: ");
 	return name;
 }
 
+// Write the contact to a file
 void write_to_a_file(Contact person)
 {
 	// Writing to a file
 	// ofstream file(file_name);
+
 	// Writing to a file in append mode
 	ofstream file(file_name, ios::app);
 	if (!file.is_open())
@@ -87,23 +99,25 @@ void write_to_a_file(Contact person)
 	file.close();
 }
 
+// Read the contacts from a file
 void read_form_a_file()
 {
 	// Reading from a file
-	string line;
+	string buffer = "";
 	ifstream file(file_name);
 	if (!file.is_open())
 	{
 		cerr << "Error: Cant open file " << file_name << endl;
 		return;
 	}
-	while (getline(file, line))
+	while (getline(file, buffer))
 	{
-		cout << line << endl;
+		cout << buffer << endl;
 	}
 	file.close();
 }
 
+// Delete a contact from a file
 void delete_from_file(string name_to_delete)
 {
 	// Open the input and output files
@@ -123,55 +137,58 @@ void delete_from_file(string name_to_delete)
 	}
 
 	// Read each line from the input file
-	string line;
+	string buffer = "";
 	bool found = false;
-	while (getline(file, line))
+	while (getline(file, buffer))
 	{
-		if (line.substr(0, line.find(":") - 1) == name_to_delete)
+		if (buffer.substr(0, buffer.find(":") - 1) == name_to_delete)
 		{
-			found = true;
+			found = true; // If we find a name to delete, change the found to true so we can rename the temp file to the original and if not just delete the temp file
 		}
 		else
 		{
-			temp_file << line << endl;
+			temp_file << buffer << endl;
 		}
 	}
+	// substr string buffer, finds the position of the first occurrence of the character ':' in the string using the find method,
+	// and then extracts a substring from the beginning of the original string up to one character before the position of the ':' character.
 
-	// Close the input and output files
-	file.close();
-	temp_file.close();
+	file.close(); //----- Close the input
+	temp_file.close(); // Close output files
 
-	// Delete the original file if the name was found and rewrite it with the output file
+	// Delete the original file if the name was found and rewrite it with the temp file
 	if (found)
 	{
-		remove(file_name.c_str()); // remove the original file
-		rename("temp.txt", file_name.c_str()); // rename the output file to the original name
+		remove(file_name.c_str()); //------------ Remove the original file
+		rename("temp.txt", file_name.c_str()); // Rename the output file to the original name
 	}
 	else
 	{
-		remove("temp.txt"); // delete the output file if the name was not found
+		remove("temp.txt"); //------------------- Delete the output file if the name was not found
 	}
 }
 
+// Get contacts from the file and push each new line into the vector array
 void get_data_from_a_file(vector<string> &contacts)
 {
-	string line;
+	string buffer = "";
 	ifstream file(file_name);
 	if (!file.is_open())
 	{
 		cerr << "Error: Cant open file " << file_name << endl;
 		return;
 	}
-	while (getline(file, line))
+	while (getline(file, buffer))
 	{
-		contacts.push_back(line);
+		contacts.push_back(buffer);
 	}
 	file.close();
 }
 
+// Get contacts from the file array and push each new line into the dynamic array
 void get_data_from_a_file2(string contacts_array[], int line_count)
 {
-	string line;
+	string buffer = "";
 	ifstream file(file_name);
 	if (!file.is_open())
 	{
@@ -179,24 +196,24 @@ void get_data_from_a_file2(string contacts_array[], int line_count)
 		return;
 	}
 	int i = 0;
-	while (getline(file, line) && i < line_count)
+	while (getline(file, buffer) && i < line_count)
 	{
-		contacts_array[i] = line; // >> this command only reads till a white space so we cant use this
+		contacts_array[i] = buffer; // ">>" this command only reads till a white space so we cant use this
 		i++;
 	}
 	file.close();
 }
+
+// Print the contents of both arrays
 void print(vector<string> &contacts, string contacts_array[], int line_count)
 {
-	// Print the contents of the vector
-	cout << "Contents of vector:" << endl;
+	cout << "Contents of vector:" << endl; // Print the contents of the vector
 	for (const auto &contact : contacts)
 	{
 		cout << contact << endl;
 	}
 
-	// Print the contents of the array
-	cout << "Contents of array:" << endl;
+	cout << "Contents of array:" << endl; //- Print the contents of the array
 	for (int i = 0; i < line_count; i++)
 	{
 		cout << contacts_array[i] << endl;
@@ -205,11 +222,10 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 
 // Get/Put And Other Special Operations
 //
-// The file I / O streams that we have seen so far have an internal get and put positions similar to the other I / O streams like iostream.
-// The class ifstream has an internal get position that contains the location of the element / character to be read in the file in the next input operation.The class ofstream has an internal put position that contains the location of the element / character to be written in the next output operation.
+// The class ifstream has an internal get position that contains the location of the element / character to be read in the file in the next input operation.
+// The class ofstream has an internal put position that contains the location of the element / character to be written in the next output operation.
 // Incidentally, fstream has both get and put positions.
 // To facilitate reading and writing using these positions, we have a few member functions that are used to observe and modify these positions.
-//
 // These functions are listed below :
 //
 // Functions	            Description
@@ -227,28 +243,19 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // ios::cur	Offset from current position
 // ios::end	Offset from the end of the stream
 //
-//
-//
-//
-//
-//
+// ****************************************************************************************************************************************************************************
 //
 // File State Slags
 //
-// There are some member functions that are used to check the state of the file.All these functions return a Boolean value.
-// We have tabularized these functions as follows :
+// There are some member functions that are used to check the state of the file. All these functions return a Boolean value.
 //
 // Function	Description
 // eof()	Returns true if the end of file is reached while reading the file.
 // fail()	Returns true when read / write operation fails or format error occurs
 // bad()	Returns true if reading from or writing to a file fail.
-// good()	Returns  false  in the same cases in which calling any of the above functions would return  true.
+// good()	Returns  false  in the same cases in which calling any of the above functions would return true.
 //
-//
-//
-//
-//
-//
+// ****************************************************************************************************************************************************************************
 //
 // The general syntax to open a file with the stream is:
 //
@@ -256,12 +263,12 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 //
 // filename = > The string containing path and name of the file to be opened.
 // mode = > Optional parameter indicating the mode in which the file is to be opened.
-// C++ supports various modes in which the file can be opened.We can also specify a combination of these modes using the OR operator.
+// C++ supports various modes in which the file can be opened. We can also specify a combination of these modes using the OR operator.
 //
 // File mode	Description
 // ios::in	    Opens the file in input mode for reading.
 // ios::out	    Opens the file in output mode for writing data to file.
-// ios::ate	    Set initial position at the end of the file.If the end of file flag is not set, the initial position is set to the beginning of the file.
+// ios::ate	    Set initial position at the end of the file. If the end of file flag is not set, the initial position is set to the beginning of the file.
 // ios::trunc	If the file is opened for writing and already has contents, the contents are truncated.
 // ios::app	    Opens the file in append mode such that all contents are appended at the end of the file.
 // ios::binary	Opens file in binary mode.
@@ -272,13 +279,9 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // Class	Default mode
 // Ifstream	ios::in
 // ofstream	ios::out
-// Fstream	ios::in | ios::out
+// fstream	ios::in | ios::out
 //
-//
-//
-//
-//
-//
+// ****************************************************************************************************************************************************************************
 //
 // get size of file in bytes:
 //
@@ -286,21 +289,21 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // long size = infile.tellg();
 // infile.seekg(0);
 //
-// allocate memory for file content:
+// char *buffer = new char[size]; Allocate memory for file content
 //
-// char *buffer = new char[size];
+// infile.read(buffer, size);     Read content of infile:
 //
-// read content of infile:
+// outfile.write(buffer, size);   Write to outfile:
 //
-// infile.read(buffer, size);
-//
-// write to outfile:
-//
-// outfile.write(buffer, size);
-//
-// release dynamically-allocated memory:
-//
-// delete[] buffer;
+// delete[] buffer;               Release dynamically-allocated memory:
 //
 // outfile.close();
 // infile.close();
+//
+// Manual way to count the new lines in a file
+//
+// int count = 0;
+// while (getline(infile, buffer))
+// {
+//	 count++; //------------------------------------------- Count how many new lines we have in the file
+// }

@@ -3,31 +3,33 @@
 
 using namespace std;
 
+// Functions
 string get_user_input();
-bool check_alphabetic_order(string text);
 string convert_to_uppercase(string text);
+bool check_alphabetic_order(string text);
 void print_result(bool result);
 
 int main()
 {
-	// Get user string
-	string text = get_user_input();
-	// Convert all to upper
-	string formated = convert_to_uppercase(text);
-	// Check if it is in alphabetical order
-	bool result = check_alphabetic_order(formated);
-	// Print true or false
-	print_result(result);
+	string text = get_user_input(); //---------------- Get user string
 
-	return 0;
+	string formated = convert_to_uppercase(text); //-- Convert all to upper
+
+	bool result = check_alphabetic_order(formated); // Check if it is in alphabetical order
+
+	print_result(result); //-------------------------- Print true or false
+
+	return 0; //-------------------------------------- Success
 }
 
+// Get the user text
 string get_user_input()
 {
 	string text = get_valid_input<string>("Enter string of text: ");
 	return text;
 }
 
+// Concert the text to uppercase
 string convert_to_uppercase(string text)
 {
 	int length = text.length();
@@ -38,6 +40,7 @@ string convert_to_uppercase(string text)
 	return text;
 }
 
+// Check if the ASCII value of the first character is bigger than the next, if it is, its not in alphabetical order
 bool check_alphabetic_order(string text)
 {
 	int length = text.length();
@@ -51,6 +54,7 @@ bool check_alphabetic_order(string text)
 	return true;
 }
 
+// Print the result
 void print_result(bool result)
 {
 	if (result)

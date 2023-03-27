@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Functions
 int get_populationStart();
 int get_populationEnd(int n);
 int calculate_years(int start, int end);
@@ -10,22 +11,20 @@ void print_years(int years);
 
 int main()
 {
-	// Get the population input
-	int start = get_populationStart();
-	int end = get_populationEnd(start);
+	int start = get_populationStart(); //------ Get size of the population at start
+	int end = get_populationEnd(start); //----- Get size of the population at the end make sure it does not go under start
 
-	// Calculate the start size and end size
-	int years = calculate_years(start, end);
+	int years = calculate_years(start, end); // Calculate how many years it will take to reach that population
 
-	// Print the results
-	print_years(years);
+	print_years(years); //--------------------- Print the years
 
-	return 0;
+	return 0; //------------------------------- Success
 }
 
+//Get the size of the population at start
 int get_populationStart()
 {
-	int start;
+	int start = 0;
 	do
 	{
 		start = get_valid_input<int>("Enter size of start population: ");
@@ -33,9 +32,10 @@ int get_populationStart()
 	return start;
 }
 
+// Get size of the population at the end make sure it does not go under start
 int get_populationEnd(int n)
 {
-	int end;
+	int end = 0;
 	do
 	{
 		end = get_valid_input<int>("Enter size of end population: ");
@@ -43,6 +43,7 @@ int get_populationEnd(int n)
 	return end;
 }
 
+// Calculate how many years it will take to reach that population
 int calculate_years(int start, int end)
 {
 	int years = 0;
@@ -54,6 +55,7 @@ int calculate_years(int start, int end)
 	return years;
 }
 
+// Print the years
 void print_years(int years)
 {
 	cout << "It will take (year/s): " << years << "!" << endl;

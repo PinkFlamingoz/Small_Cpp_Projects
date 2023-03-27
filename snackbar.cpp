@@ -5,44 +5,47 @@
 
 using namespace std;
 
+// Structures
 struct Menu
 {
 	string item = "";
 	float price = 0;
 };
 
-const int DEFAULT = 10;
-
-// We use Menu* menu to read data only and Menu*& menu to modify data
-// & is pointing it as a reference not a copy
-
+// Functions
 void get_menu(Menu menu[]);
-void print_menu(int size, Menu menu[]);
 int get_size_of_menu(Menu menu[]);
-float get_cost(string item, int size, Menu menu[]);
-float get_total(int size, Menu menu[]);
-void print_total(float total);
+void print_menu(int &size, Menu menu[]);
 void modify_array(int &size, Menu *&menu);
+int get_choice();
 void add_element(int &size, Menu *&menu);
+Menu get_new_item(string prompt);
 void edit_element(int size, Menu *&menu);
 void delete_element(int &size, Menu *&menu);
+float get_total(int &size, Menu menu[]);
+float get_cost(string item, int &size, Menu menu[]);
+void print_total(float total);
+
+// Globals
+const int DEFAULT = 10;
 
 int main()
 {
-	Menu *menu = new Menu[DEFAULT];
+	Menu *menu = new Menu[DEFAULT]; //--- Make a dynamic array with DEFAULT
 
-	get_menu(menu);
+	get_menu(menu); //------------------- Initialize the menu dynamic array
 
-	int size = get_size_of_menu(menu);
-	print_menu(size, menu);
+	int size = get_size_of_menu(menu); // Get the size of the menu so we can modify and edit it
+	print_menu(size, menu); //----------- Print the current menu
 
-	modify_array(size, menu);
+	modify_array(size, menu); //--------- Modify the menu
 
-	delete[] menu;
+	delete[] menu; //-------------------- Free up the allocated memory
 
-	return 0;
+	return 0; //------------------------- Success
 }
 
+// Initialize the menu dynamic array
 void get_menu(Menu menu[])
 {
 	menu[0].item = "Burger";
@@ -76,12 +79,24 @@ void get_menu(Menu menu[])
 	menu[9].price = 2;
 }
 
-void print_menu(int size, Menu menu[])
+// Get the size of the menu so we can modify and edit it, by counting till we reach a empty string
+int get_size_of_menu(Menu menu[])
+{
+	int size = 0;
+	while (menu[size].item != "" && menu[size].price != 0)
+	{
+		size++;
+	}
+	return size;
+}
+
+// Print the current menu
+void print_menu(int &size, Menu menu[])
 {
 	cout << " .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.\n"
 		"=`. .'==`. .'==`. .'== Welcome to Beach Burger Shack! ==`. .'==`. .'==`. .'=\n"
 		"   .      .      .         .      .      .      .         .      .      .   \n\n";
-	cout << " Choose from the following menu to order. Press space then enter when done.\n\n";
+	cout << "  Choose from the following menu to order. Enter GET then enter when done.\n\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << "            |__*__|      " << menu[i].item << ": "
@@ -93,64 +108,7 @@ void print_menu(int size, Menu menu[])
 		"   .      .      .         .      .      .      .         .      .      .   \n\n";
 }
 
-int get_size_of_menu(Menu menu[])
-{
-	int size = 0;
-	while (menu[size].item != "" && menu[size].price != 0)
-	{
-		size++;
-	}
-	return size;
-}
-
-float get_cost(string item, int size, Menu menu[])
-{
-	float cost = 0;
-	for (int i = 0; i < size; i++)
-	{
-		if (stricmp(menu[i].item.c_str(), item.c_str()) == 0)
-		{
-			cost += menu[i].price;
-		}
-	}
-	return cost;
-}
-
-float get_total(int size, Menu menu[])
-{
-	float total = 0;
-	while (true)
-	{
-		string item = get_valid_input<string>("                         Buy food item: ");
-		if (item == " ")
-		{
-			cout << endl;
-			break;
-		}
-
-		total += get_cost(item, size, menu);
-	}
-	return total;
-}
-
-void print_total(float total)
-{
-	cout << "                         Total is: "
-		<< "$" << fixed << setprecision(2) << total << endl;
-}
-
-Menu get_new_item(string prompt)
-{
-	cout << prompt << endl;
-
-	Menu temp;
-
-	temp.item = get_valid_input<string>("                         Enter item name: ");
-	temp.price = get_valid_input<float>("                         Enter price of item: ");
-
-	return temp;
-}
-
+// Modify the array by the set of options we are giving to the user
 void modify_array(int &size, Menu *&menu)
 {
 	bool done = false;
@@ -162,12 +120,7 @@ void modify_array(int &size, Menu *&menu)
 		cout << "            |__*__|      4) Get total price     |__*__|" << endl;
 		cout << "            |__*__|      5) Print Menu          |__*__|" << endl;
 		cout << "            |__*__|      6) Done editing        |__*__|" << endl;
-		int answer = 0;
-		do
-		{
-			cout << endl;
-			answer = get_valid_input<int>("                         Enter your choice: ");
-		} while (answer < 1 || answer > 6);
+		int answer = get_choice();
 		switch (answer)
 		{
 			case 1:
@@ -220,20 +173,30 @@ void modify_array(int &size, Menu *&menu)
 			}
 		}
 	}
-	// Allocate memory for the new array
-	// Menu *new_menu = new Menu[size];
-	// Copy the modified elements to the new array
-	// memcpy(new_menu, menu, size * sizeof(Menu));
-	// Free memory for the old array
-	// delete[] menu;
-	// Update the pointer to the new array
-	// menu = new_menu;
 }
 
+// Get the choice of the user what to do
+int get_choice()
+{
+	int answer = 0;
+	do
+	{
+		cout << endl;
+		answer = get_valid_input<int>("                         Enter your choice: ");
+	} while (answer < 1 || answer > 6);
+	return answer;
+}
+
+//* Add element -------------------------------------------------------------------------------------------------------------------------------------------
+// Add a new item by creating a temporary structure array + 1 size,
+// adding all the items to it and then adding the new item, we also increase the size ++;
+// Once done we delete the old allocated memmory and allocate a new memory with the new size,
+// copy all the contents of the temp structure array into the original menu array with the new size
+// finally we delete the temp array.
+// we can use memcpy(new_menu, menu, size * sizeof(Menu)); here as well but i wanted to do it manualy
 void add_element(int &size, Menu *&menu)
 {
 	Menu *temp = new Menu[size + 1];
-
 	for (int i = 0; i < size; i++)
 	{
 		temp[i] = menu[i];
@@ -241,17 +204,36 @@ void add_element(int &size, Menu *&menu)
 	temp[size] = get_new_item("                         Enter Menu item: ");
 	size++;
 	delete[] menu;
-	menu = temp;
+
+	menu = new Menu[size];
+	for (int i = 0; i < size; i++)
+	{
+		menu[i] = temp[i];
+	}
+	delete[] temp;
 	cout << "     ->->-> Item added successfully." << endl;
 }
 
+// Get a new item we want to enter in our dynamic array
+Menu get_new_item(string prompt)
+{
+	cout << prompt << endl;
+
+	Menu temp;
+	temp.item = get_valid_input<string>("                         Enter item name: ");
+	temp.price = get_valid_input<float>("                         Enter price of item: ");
+	return temp;
+}
+//* Add element -------------------------------------------------------------------------------------------------------------------------------------------
+
+// Get the item we want to edit by comparing the entered name and the names in the structure array, do nothing if the item is not found
 void edit_element(int size, Menu *&menu)
 {
 	bool found = false;
 	string item = get_valid_input<string>("     ->->-> Enter the name of the item you want to edit: ");
 	for (int i = 0; i < size; i++)
 	{
-		if (stricmp(menu[i].item.c_str(), item.c_str()) == 0)
+		if (_stricmp(menu[i].item.c_str(), item.c_str()) == 0)
 		{
 			cout << "     ->->-> Enter the new name and price for " << item << ":" << endl;
 			menu[i].item = get_valid_input<string>("                         New name: ");
@@ -267,16 +249,17 @@ void edit_element(int size, Menu *&menu)
 	}
 }
 
+// Delete an item by shifting all the elements in the array by 1 starting from the item we want to delete  + 1, do nothing if the item is not found
+// Note for the last element we dont delete it we just reduce the size so we dont see it
 void delete_element(int &size, Menu *&menu)
 {
 	bool found = false;
 	string item = get_valid_input<string>("     ->->-> Enter the name of the item you want to delete: ");
 	for (int i = 0; i < size; i++)
 	{
-		if (stricmp(menu[i].item.c_str(), item.c_str()) == 0)
+		if (_stricmp(menu[i].item.c_str(), item.c_str()) == 0)
 		{
-			// Shift all elements after i to the left by 1
-			for (int j = i + 1; j < size; j++)
+			for (int j = i + 1; j < size; j++) // Shift the elements by 1
 			{
 				menu[j - 1] = menu[j];
 			}
@@ -290,4 +273,51 @@ void delete_element(int &size, Menu *&menu)
 	{
 		cerr << "     ->->-> " << item << " not found." << endl;
 	}
+}
+
+//* Get total ---------------------------------------------------------------------------------------------------------------------------------------------
+// We get the total by summing up all the costs of the selected items, if we enter GET we are done getting the total
+float get_total(int &size, Menu menu[])
+{
+	float total = 0;
+	while (true)
+	{
+		string item = get_valid_input<string>("                         Buy food item: ");
+		if (item == "GET")
+		{
+			cout << endl;
+			break;
+		}
+		total += get_cost(item, size, menu);
+	}
+	return total;
+}
+
+// We get the cost of a item by comparing the entered name with the menu item names, do nothing if the item is not found
+float get_cost(string item, int &size, Menu menu[])
+{
+	bool found = false;
+	float cost = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (_stricmp(menu[i].item.c_str(), item.c_str()) == 0)
+		{
+			cost = menu[i].price;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		cerr << "     ->->-> " << item << " not found." << endl;
+	}
+	return cost;
+}
+//* Get total ---------------------------------------------------------------------------------------------------------------------------------------------
+
+// Print out the total with a decimal precision of 2, 0.00
+void print_total(float total)
+{
+	cout << "                         Total is: "
+		<< "$" << fixed << setprecision(2) << total << endl;
 }
