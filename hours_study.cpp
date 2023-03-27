@@ -42,7 +42,7 @@ void fill_the_weeks(int weeks, float hours[])
 {
 	for (int i = 0; i < weeks; i++)
 	{
-		hours[i] = get_valid_input<int>("Enter number of hours for week", "", -1, "", i);
+		hours[i] = get_valid_input<float>("Enter number of hours for week", "", -1, "", i);
 	}
 }
 
