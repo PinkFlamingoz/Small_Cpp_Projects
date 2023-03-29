@@ -40,14 +40,12 @@ int main(int argc, char *argv[])
 	float factor = stof(argv[3]);
 
 	//* Read and write header of a wav files ------------------------------------------------------------------------------------------------------------------
-
 	uint8_t header[HEADER_SIZE]{};
 	old_wav_file.read(reinterpret_cast<char *>(header), HEADER_SIZE);
 	new_wav_file.write(reinterpret_cast<char *>(header), HEADER_SIZE);
 	//* Read and write header of a wav files ------------------------------------------------------------------------------------------------------------------
 
 	//* Read and write samples of a wav files -----------------------------------------------------------------------------------------------------------------
-
 	int16_t buffer = 0;
 	while (old_wav_file.read(reinterpret_cast<char *>(&buffer), sizeof(int16_t)))
 	{
