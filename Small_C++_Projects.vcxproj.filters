@@ -165,6 +165,9 @@
     <ClCompile Include="validate_file.cpp">
       <Filter>Source Files\Week_4</Filter>
     </ClCompile>
+    <ClCompile Include="change_volume_of_wav.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
@@ -215,5 +218,13 @@
     <None Include="test.pdf">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="input.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="new_sound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

@@ -103,6 +103,14 @@ int main(int argc, char *argv[])
 
 	return 0; //---------------------------------------------------- Success
 }
+// A digital image file is just a sequence of bits, arranged in some fashion.
+// A 24-bit BMP file, then, is essentially just a sequence of bits, (almost) every 24 of which happen to represent some pixel’s color.
+// But a BMP file also contains some “metadata,” information like an image’s height and width.
+// That metadata is stored at the beginning of the file in the form of two data structures generally referred to as "headers".
+// The first of these headers, called BITMAPFILEHEADER, is 14 bytes long. (Recall that 1 byte equals 8 bits.)
+// The second of these headers, called BITMAPINFOHEADER, is 40 bytes long.
+// Immediately following these headers is the actual bitmap: an array of bytes, triples of which represent a pixel’s color.
+// You could represent a bitmap as a 2-dimensional array of pixels: where the image is an array of rows, each row is an array of pixels.
 
 // Change the colors of the pixles
 void colorize(int height, int width, RGBTRIPLE **&image)

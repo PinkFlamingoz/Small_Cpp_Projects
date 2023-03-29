@@ -138,6 +138,7 @@
     <ClCompile Include="calculator_testing.cpp" />
     <ClCompile Include="candidates.cpp" />
     <ClCompile Include="change_pixel_color_of_bmp.cpp" />
+    <ClCompile Include="change_volume_of_wav.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="contacts.cpp" />
     <ClCompile Include="create.cpp" />
@@ -198,6 +199,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="test.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="input.wav" />
+    <Media Include="new_sound.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

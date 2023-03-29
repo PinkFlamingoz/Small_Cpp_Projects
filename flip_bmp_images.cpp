@@ -139,7 +139,7 @@ bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BI
 //
 // Skipping over the padding bytes is important, as they are not part of the actual image data and would otherwise be written to the output file as garbage data.
 //
-// This line of code is using the seekg function to move the input position indicator of an input file stream old_bmp_image by a certain number of bytes relative to its current position.
+// The seekg function to move the input position indicator of an input file stream old_bmp_image by a certain number of bytes relative to its current position.
 // In particular, padding is the number of bytes to move, and ios::cur specifies the reference point from which to move the input position indicator, which is the current position.
 // Therefore, this line of code moves the input position indicator of the old_bmp_image file stream padding bytes forward from its current position.
 // This line of code is typically used when working with bitmap image files that have padding bytes at the end of each row to ensure that each row of pixels is aligned on a specific byte boundary.
