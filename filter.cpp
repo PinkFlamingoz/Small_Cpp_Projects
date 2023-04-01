@@ -13,7 +13,7 @@ bool check_correct_filter(string option);
 bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BITMAPINFOHEADER bitmap_info_header);
 void filter(string option, int height, int width, RGBTRIPLE **&image);
 void cap_to_max_value(int &R, int &G, int &B);
-void set_the_new_RGB_values(int &R, int &G, int &B, int i, int j, RGBTRIPLE **&image);
+void set_the_new_RGB_values(int R, int G, int B, int i, int j, RGBTRIPLE **&image);
 void copy_image_pixels(int height, int width, RGBTRIPLE **&image, RGBTRIPLE **&image_copy);
 void grayscale(int height, int width, RGBTRIPLE **&image);
 void sepia(int height, int width, RGBTRIPLE **&image);
@@ -209,7 +209,7 @@ void cap_to_max_value(int &R, int &G, int &B)
 }
 
 // Set the new RBG values
-void set_the_new_RGB_values(int &R, int &G, int &B, int i, int j, RGBTRIPLE **&image)
+void set_the_new_RGB_values(int R, int G, int B, int i, int j, RGBTRIPLE **&image)
 {
 	image[i][j].rgbtRed = R;
 	image[i][j].rgbtGreen = G;
