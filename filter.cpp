@@ -70,10 +70,10 @@ int main(int argc, char *argv[])
 	}
 
 	// Open output file if condition of bmp image is true
-	ofstream new_bmp_image(argv[2], ios::binary);
+	ofstream new_bmp_image(argv[3], ios::binary);
 	if (!new_bmp_image.is_open())
 	{
-		cerr << "Error 2: Cant open file " << argv[2] << endl;
+		cerr << "Error 2: Cant open file " << argv[3] << endl;
 		return 2;
 	}
 
