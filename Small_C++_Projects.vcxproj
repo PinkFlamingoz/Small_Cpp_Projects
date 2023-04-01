@@ -144,6 +144,7 @@
     <ClCompile Include="create.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="dynamic_memory_allocation.cpp" />
+    <ClCompile Include="filter.cpp" />
     <ClCompile Include="flip_bmp_images.cpp" />
     <ClCompile Include="hours_study.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />

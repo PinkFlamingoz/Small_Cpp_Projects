@@ -168,6 +168,9 @@
     <ClCompile Include="change_volume_of_wav.cpp">
       <Filter>Source Files\Week_4</Filter>
     </ClCompile>
+    <ClCompile Include="filter.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
