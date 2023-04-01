@@ -168,6 +168,9 @@
     <ClCompile Include="change_volume_of_wav.cpp">
       <Filter>Source Files\Week_4</Filter>
     </ClCompile>
+    <ClCompile Include="filters.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
@@ -211,6 +214,33 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="fliped.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="courtyard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="stadium.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="tower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="yard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="edge_tower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="blur_tower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="reflect_courtyard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="grayscale_stadium.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sepia_yard.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

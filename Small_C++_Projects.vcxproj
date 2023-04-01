@@ -144,6 +144,7 @@
     <ClCompile Include="create.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="dynamic_memory_allocation.cpp" />
+    <ClCompile Include="filters.cpp" />
     <ClCompile Include="flip_bmp_images.cpp" />
     <ClCompile Include="hours_study.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
@@ -191,11 +192,20 @@
     <Text Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="blur_tower.bmp" />
+    <Image Include="courtyard.bmp" />
+    <Image Include="edge_tower.bmp" />
     <Image Include="fliped.bmp" />
+    <Image Include="grayscale_stadium.bmp" />
     <Image Include="harvard_bottomup.bmp" />
     <Image Include="newsmiley.bmp" />
+    <Image Include="reflect_courtyard.bmp" />
+    <Image Include="sepia_yard.bmp" />
     <Image Include="smiley.bmp" />
+    <Image Include="stadium.bmp" />
     <Image Include="test.jpg" />
+    <Image Include="tower.bmp" />
+    <Image Include="yard.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.pdf" />

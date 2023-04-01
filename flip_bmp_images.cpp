@@ -5,7 +5,7 @@
 using namespace std;
 
 // Functions
-bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BITMAPINFOHEADER bitmap_info_header, ifstream &old_bmp_image, ofstream &new_bmp_image);
+bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BITMAPINFOHEADER bitmap_info_header);
 
 int main(int argc, char *argv[])
 {
@@ -47,8 +47,10 @@ int main(int argc, char *argv[])
 	old_bmp_image.read(reinterpret_cast<char *>(&bitmap_info_header), sizeof(BITMAPINFOHEADER));
 
 	// Ensure old_bmp_image is (likely) a 24-bit uncompressed BMP 4.0
-	if (!is_it_a_24_bit_uncompressed_BMP_4_0(bitmap_file_header, bitmap_info_header, old_bmp_image, new_bmp_image))
+	if (!is_it_a_24_bit_uncompressed_BMP_4_0(bitmap_file_header, bitmap_info_header))
 	{
+		old_bmp_image.close();
+		new_bmp_image.close();
 		return 3;
 	}
 	//* Read the bits of the old file and store them in the Bit structure variables ---------------------------------------------------------------------------
@@ -102,7 +104,7 @@ int main(int argc, char *argv[])
 }
 
 // Ensure old_bmp_image is (likely) a 24-bit uncompressed BMP 4.0
-bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BITMAPINFOHEADER bitmap_info_header, ifstream &old_bmp_image, ofstream &new_bmp_image)
+bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BITMAPINFOHEADER bitmap_info_header)
 {
 	if (bitmap_file_header.bfType != 0x4d42 ||
 		bitmap_file_header.bfOffBits != 54 ||
@@ -110,8 +112,6 @@ bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BI
 		bitmap_info_header.biBitCount != 24 ||
 		bitmap_info_header.biCompression != 0)
 	{
-		old_bmp_image.close();
-		new_bmp_image.close();
 		cerr << "Error 3: Unsupported file format." << endl;
 		return false;
 	}
