@@ -44,20 +44,20 @@ int main(int argc, char *argv[])
 		old_bmp_image.close();
 		return 3;
 	}
-
-	// Open output file if condition of bmp image is true
-	ofstream new_bmp_image(argv[2], ios::binary);
-	if (!new_bmp_image.is_open())
-	{
-		cerr << "Error 2: Cant open file " << argv[2] << endl;
-		return 2;
-	}
 	//* Read the bits of the old file and store them in the Bit structure variables ---------------------------------------------------------------------------
 
 	// Flip the image
 	bitmap_info_header.biHeight *= -1;
 
 	//* Write the bits for the new file from the previously made Bit structure variables ----------------------------------------------------------------------
+
+	// Create output file if is_it_a_24_bit_uncompressed_BMP_4_0 of old_bmp image is true
+	ofstream new_bmp_image(argv[2], ios::binary);
+	if (!new_bmp_image.is_open())
+	{
+		cerr << "Error 2: Cant open file " << argv[2] << endl;
+		return 2;
+	}
 
 	// Write new_bmp_image's BITMAPFILEHEADER
 	new_bmp_image.write(reinterpret_cast<const char *>(&bitmap_file_header), sizeof(BITMAPFILEHEADER));

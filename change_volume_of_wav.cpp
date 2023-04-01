@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 		return 2;
 	}
 
-	// Open new_wav file
+	// Create new_wav file
 	ofstream new_wav_file(argv[2], ios::binary);
 	if (!new_wav_file.is_open())
 	{
