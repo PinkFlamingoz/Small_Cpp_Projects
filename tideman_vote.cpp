@@ -267,11 +267,11 @@ void record_preferences(int ranks[])
 }
 
 // Record pairs of candidates where one is preferred over the other
-// We always compare the opposites of the matrix example
+// We always compare the opposites of the matrix, example
 // to check if Alice wins over Bob that will be 0, preferences[0][1],
 // opposite of that in the matrix is preferences[1][0],
 // so we compare them next we check Alice vs Charlie or [0][2] vs [2][0],
-// then we have no more for alice and we go to Bob thats 1, [1][0] is already checked we skip to [1][2] vs [2][1] and so on
+// then we have no more for alice and we go to Bob thats 1, [1][0] is already checked we skip to [1][2] vs [2][1] and so on.
 void add_pairs()
 {
 	for (int i = 0; i < candidate_count; i++)

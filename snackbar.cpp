@@ -191,9 +191,8 @@ int get_choice()
 // Add a new item by creating a temporary structure array + 1 size,
 // adding all the items to it and then adding the new item, we also increase the size ++;
 // Once done we delete the old allocated memmory and allocate a new memory with the new size,
-// copy all the contents of the temp structure array into the original menu array with the new size
-// finally we delete the temp array.
-// we can use memcpy(new_menu, menu, size * sizeof(Menu)); here as well but i wanted to do it manualy
+// copy all the contents of the temp structure array into the original menu array with the new size, finally we delete the temp array.
+// We can use memcpy(new_menu, menu, size * sizeof(Menu)); here as well but i wanted to do it manualy.
 void add_element(int &size, Menu *&menu)
 {
 	Menu *temp = new Menu[size + 1];
@@ -249,7 +248,7 @@ void edit_element(int size, Menu *&menu)
 	}
 }
 
-// Delete an item by shifting all the elements in the array by 1 starting from the item we want to delete  + 1, do nothing if the item is not found
+// Delete an item by shifting all the elements in the array by 1 starting from the item we want to delete  + 1, do nothing if the item is not found.
 // Note for the last element we dont delete it we just reduce the size so we dont see it
 void delete_element(int &size, Menu *&menu)
 {
