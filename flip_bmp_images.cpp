@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	ifstream old_bmp_image(argv[1], ios::binary);
 	if (!old_bmp_image.is_open())
 	{
-		cerr << "Error 2:Cant open file " << argv[1] << endl;
+		cerr << "Error 2: Cant open file " << argv[1] << endl;
 		return 2;
 	}
 	//* Open files --------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,8 @@ int main(int argc, char *argv[])
 	ofstream new_bmp_image(argv[2], ios::binary);
 	if (!new_bmp_image.is_open())
 	{
-		cerr << "Error 2: Cant open file " << argv[2] << endl;
+		cerr << "Error 2: Cant create file " << argv[2] << endl;
+		old_bmp_image.close();
 		return 2;
 	}
 

@@ -171,6 +171,9 @@
     <ClCompile Include="filter.cpp">
       <Filter>Source Files\Week_4</Filter>
     </ClCompile>
+    <ClCompile Include="recover_jpg_images.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
@@ -246,6 +249,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="test.pdf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="card.raw">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

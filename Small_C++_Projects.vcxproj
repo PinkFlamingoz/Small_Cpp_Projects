@@ -155,6 +155,7 @@
     <ClCompile Include="max_and_min.cpp" />
     <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="pointers_addresses_references.cpp" />
+    <ClCompile Include="recover_jpg_images.cpp" />
     <ClCompile Include="swap_values.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
@@ -208,6 +209,7 @@
     <Image Include="yard.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="card.raw" />
     <None Include="test.pdf" />
   </ItemGroup>
   <ItemGroup>

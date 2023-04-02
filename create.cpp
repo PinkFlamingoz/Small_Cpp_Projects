@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
 	if (!new_file.is_open()) //------------------------------- Check if there was an error
 	{
-		cerr << "Error 2: Cant open file " << argv[1] << endl;
+		cerr << "Error 2: Cant create file " << argv[1] << endl;
 		return 2;
 	}
 

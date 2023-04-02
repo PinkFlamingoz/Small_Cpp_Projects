@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	ifstream old_wav_file(argv[1], ios::binary);
 	if (!old_wav_file.is_open())
 	{
-		cerr << "Error 2:Cant open file " << argv[1] << endl;
+		cerr << "Error 2: Cant open file " << argv[1] << endl;
 		return 2;
 	}
 
@@ -31,7 +31,8 @@ int main(int argc, char *argv[])
 	ofstream new_wav_file(argv[2], ios::binary);
 	if (!new_wav_file.is_open())
 	{
-		cerr << "Error 2:Cant open file " << argv[2] << endl;
+		cerr << "Error 2: Cant create file " << argv[2] << endl;
+		old_wav_file.close();
 		return 2;
 	}
 	//* Open files --------------------------------------------------------------------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 	if (!file_to_test.is_open()) //------------------------------------- Check if there was an error
 	{
-		cerr << "Error 2:Cant open file " << argv[1] << endl;
+		cerr << "Error 2: Cant open file " << argv[1] << endl;
 		return 2;
 	}
 
