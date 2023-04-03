@@ -174,12 +174,18 @@
     <ClCompile Include="recover_jpg_images.cpp">
       <Filter>Source Files\Week_4</Filter>
     </ClCompile>
+    <ClCompile Include="reverse_wav_audio.cpp">
+      <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bmp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wav.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

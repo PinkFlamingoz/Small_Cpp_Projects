@@ -1,36 +1,23 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "wav.h"
 
 using namespace std;
 
 // Functions
-bool is_a_digit(string factor);
 bool check_format_for_wav(WAVHEADER header);
-
-// Globals
-const int HEADER_SIZE = 44;
+int32_t get_block_size(WAVHEADER header);
 
 int main(int argc, char *argv[])
 {
 	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
-	if (argc != 4)
+	if (argc != 3)
 	{
-		cerr << "Error 1: Enter only input wav and output wav name, with the factor! " << endl << "Usage: ./change_volume_of_wav [old_wav.wav] [new_wav.wav] [Factor]" << endl << "You entered " << argc - 1 << " arguments." << endl;
+		cerr << "Error 1: Enter only input wav and output wav name! " << endl << "Usage: ./reverse_wav_audio [old_wav.wav] [new_wav.wav] " << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
-
-	// Ensure all the characters in the key are digits
-	string factor_string = argv[3];
-	if (!is_a_digit(factor_string))
-	{
-		cerr << "Error 2: Enter a digit " << endl;
-		return 2;
-	}
-
-	// Get the factor
-	float factor = stof(factor_string);
 	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 
 	//* Open files --------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,11 +55,15 @@ int main(int argc, char *argv[])
 	//* Read and write header of a wav files ------------------------------------------------------------------------------------------------------------------
 
 	//* Read and write samples of a wav files -----------------------------------------------------------------------------------------------------------------
-	int16_t buffer = 0;
-	while (old_wav_file.read(reinterpret_cast<char *>(&buffer), sizeof(int16_t)))
+	int32_t block_size = get_block_size(header); //----------------------------- Get the block size
+	vector<int16_t> buffer(block_size); //-------------------------------------- Make a vector array to hold the sample data
+
+	old_wav_file.seekg(block_size, ios::end); //-------------------------------- Tell the file pointer to point at (at beginning of the last audio block) the end of the file with an offset of block_size, this means the file will point block_size bytes before the end (if block_size is a positive number, if its a negative number it will point block_size bytes after the end)
+	while (old_wav_file.tellg() - streamoff(block_size) > sizeof(WAVHEADER)) //- Do this until we reach the beginning of the header bytes of the old_wavfile
 	{
-		buffer *= factor;
-		new_wav_file.write(reinterpret_cast<char *>(&buffer), sizeof(int16_t));
+		old_wav_file.seekg(-2 * block_size, ios::cur); //----------------------- The input pointer may need to be moved back two block sizes after each read, one to move back to where the fread began, and the second to move to the previous, unread block.
+		old_wav_file.read(reinterpret_cast<char *>(buffer.data()), block_size);
+		new_wav_file.write(reinterpret_cast<char *>(buffer.data()), block_size);
 	}
 	//* Read and write samples of a wav files -----------------------------------------------------------------------------------------------------------------
 
@@ -80,20 +71,6 @@ int main(int argc, char *argv[])
 	new_wav_file.close(); // Close new_bmp_image
 
 	return 0; //------------ Success
-}
-
-// Check if all the characters are digits from argv[3]
-bool is_a_digit(string factor_string)
-{
-	int length = factor_string.length();
-	for (int i = 0; i < length; i++)
-	{
-		if (!isdigit(factor_string[i]))
-		{
-			return false;
-		}
-	}
-	return true;
 }
 
 // Check if its a wav file
@@ -106,8 +83,9 @@ bool check_format_for_wav(WAVHEADER header)
 	}
 	return true;
 }
-// WAV files are a common file format for representing audio.
-// WAV files store audio as a sequence of “samples”: numbers that represent the value of some audio signal at a particular point in time.
-// WAV files begin with a 44-byte “header” that contains information about the file itself, including the size of the file, the number of samples per second, and the size of each sample.
-// After the header, the WAV file contains a sequence of samples, each a single 2-byte (16-bit) integer representing the audio signal at a particular point in time.
-// Scaling each sample value by a given factor has the effect of changing the volume of the audio.Multiplying each sample value by 2.0, for example, will have the effect of doubling the volume of the origin audio.Multiplying each sample by 0.5, meanwhile, will have the effect of cutting the volume in half.
+
+// Get the block size == NumChannels * BitsPerSample/8
+int32_t get_block_size(WAVHEADER header)
+{
+	return header.blockAlign;
+}
