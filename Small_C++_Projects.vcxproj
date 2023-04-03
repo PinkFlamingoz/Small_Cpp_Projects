@@ -217,6 +217,7 @@
   <ItemGroup>
     <Media Include="input.wav" />
     <Media Include="new_sound.wav" />
+    <Media Include="reversed_wav.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
