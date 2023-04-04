@@ -88,7 +88,7 @@ string encrypt_text(string text, int key)
 	return cipher;
 }
 
-// More formally, Caesar’s algorithm (i.e., cipher) encrypts messages by “rotating” each letter by k positions.
+// More formally, Caesar's algorithm (i.e., cipher) encrypts messages by "rotating" each letter by k positions.
 // More formally, if P is some plaintext(i.e., an unencrypted message),
 // Pi is the i(th) character in P, and k is a secret key(i.e., a non - negative integer),
 // then each letter, Ci, in the ciphertext, C, is computed as:

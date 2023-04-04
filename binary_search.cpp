@@ -65,7 +65,7 @@ bool binary_search(int number)
 			cout << "Found: " << SORTED_ARRAY[middle_point] << endl;
 			return true;
 		}
-		else if (SORTED_ARRAY[middle_point] < number) //------------ Otherwise, if the target is greater than what’s at the middle, repeat, changing the start point to be just to the right of the middle
+		else if (SORTED_ARRAY[middle_point] < number) //------------ Otherwise, if the target is greater than what's at the middle, repeat, changing the start point to be just to the right of the middle
 		{
 			start_point = middle_point + 1;
 		}

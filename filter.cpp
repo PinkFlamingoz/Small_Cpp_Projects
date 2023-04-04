@@ -253,7 +253,7 @@ void grayscale(int height, int width, RGBTRIPLE **&image)
 // An image can be converted to sepia by taking each pixel, and computing new red, green, and blue values based on the original values of the three.
 // There are a number of algorithms for converting an image to sepia, we will use the following in the function.
 // The result of each of these formulas may not be an integer, but each value could be rounded to the nearest integer.
-// It’s also possible that the result of the formula is a number greater than 255, the maximum value for an 8-bit color value.
+// It's also possible that the result of the formula is a number greater than 255, the maximum value for an 8-bit color value.
 // In that case, the red, green, and blue values should be capped at 255
 void sepia(int height, int width, RGBTRIPLE **&image)
 {
@@ -287,7 +287,7 @@ void reflect(int height, int width, RGBTRIPLE **&image)
 }
 
 // Blur image
-// We’ll use the “box blur,” which works by taking each pixel and, for each color value, giving it a new value by averaging the color values of neighboring pixels.
+// We'll use the "box blur" which works by taking each pixel and, for each color value, giving it a new value by averaging the color values of neighboring pixels.
 void blur(int height, int width, RGBTRIPLE **&image)
 {
 	RGBTRIPLE **image_copy = nullptr;
@@ -330,13 +330,13 @@ void blur(int height, int width, RGBTRIPLE **&image)
 // Detect edges, one way to achieve this effect is by applying the Sobel operator to the image. https://en.wikipedia.org/wiki/Sobel_operator
 // Like image blurring, edge detection also works by taking each pixel, and modifying it based on the 3x3 grid of pixels that surrounds that pixel.
 // But instead of just taking the average of the nine pixels, the Sobel operator computes the new value of each pixel by taking a weighted sum of the values for the surrounding pixels.
-// And since edges between objects could take place in both a vertical and a horizontal direction, we’ll actually compute two weighted sums: one for detecting edges in the x direction, and one for detecting edges in the y direction.
+// And since edges between objects could take place in both a vertical and a horizontal direction, we'll actually compute two weighted sums: one for detecting edges in the x direction, and one for detecting edges in the y direction.
 //
-// In short, for each of the three color values for each pixel, we’ll compute two values Gx and Gy.
-// To compute Gx for the red channel value of a pixel, for instance, we’ll take the original red values for the nine pixels that form a 3x3 box around the pixel, multiply them each by the corresponding value in the Gx matrix, and take the sum of the resulting values.
+// In short, for each of the three color values for each pixel, we'll compute two values Gx and Gy.
+// To compute Gx for the red channel value of a pixel, for instance, we'll take the original red values for the nine pixels that form a 3x3 box around the pixel, multiply them each by the corresponding value in the Gx matrix, and take the sum of the resulting values.
 //
 // Why these particular values for the matrix?
-// In the Gx direction, for instance, we’re multiplying the pixels to the right of the target pixel by a positive number, and multiplying the pixels to the left of the target pixel by a negative number.
+// In the Gx direction, for instance, we're multiplying the pixels to the right of the target pixel by a positive number, and multiplying the pixels to the left of the target pixel by a negative number.
 // When we take the sum, if the pixels on the right are a similar color to the pixels on the left, the result will be close to 0 (the numbers cancel out).
 // But if the pixels on the right are very different from the pixels on the left, then the resulting value will be very positive or very negative, indicating a change in color that likely is the result of a boundary between objects.
 // And a similar argument holds true for calculating edges in the y direction.

@@ -187,7 +187,7 @@ void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[])
 }
 
 // O(n^2)
-// Worst-case scenario: The array is in reverse order; we have to “bubble” each of the n elements all the way across the array, and since we can only fully bubble one element into position per pass, we must do this n times
+// Worst-case scenario: The array is in reverse order; we have to "bubble" each of the n elements all the way across the array, and since we can only fully bubble one element into position per pass, we must do this n times
 
 // Ω(n)
 // Best-case scenario: The array is already perfectly sorted, and we make no swaps on the first pass
@@ -226,7 +226,7 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // Worst-case scenario: We have to iterate over each of the n elements of the array(to find the smallest unsorted element) and we must repeat this process n times, since only one element gets sorted on each pass
 
 // Ω(n^2)
-// Best-case scenario: Exactly the same! There’s no way to guarantee the array is sorted until we go through this process for all the elements
+// Best-case scenario: Exactly the same! There's no way to guarantee the array is sorted until we go through this process for all the elements
 
 // Merge Sort
 // Merge two sorted subarrays into a single sorted subarray

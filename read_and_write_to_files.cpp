@@ -273,8 +273,8 @@ void print(vector<string> &contacts, string contacts_array[], int line_count)
 // ios::app	    Opens the file in append mode such that all contents are appended at the end of the file.
 // ios::binary	Opens file in binary mode.
 //
-// file.open(“myfile.dat”, ios::in|ios::out|ios::app|ios::binary);
-// fstream file(“myfile.dat”, |ios::app|ios::binary);
+// file.open("myfile.dat", ios::in|ios::out|ios::app|ios::binary);
+// fstream file("myfile.dat", |ios::app|ios::binary);
 //
 // Class	Default mode
 // Ifstream	ios::in

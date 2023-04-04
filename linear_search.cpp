@@ -67,7 +67,7 @@ bool linear_search(int number)
 }
 
 // O(n)
-// Worst-case scenario: We have to look through the entire array of n elements, either because the target element is the last element of the array or doesn’t exist in the array at all
+// Worst-case scenario: We have to look through the entire array of n elements, either because the target element is the last element of the array or doesn't exist in the array at all
 
 // Ω(1)
 // Best-case scenario: The target element is the first element of the array, and so we can stop looking immediately after we start
