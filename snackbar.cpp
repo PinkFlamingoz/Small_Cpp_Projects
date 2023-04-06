@@ -20,10 +20,10 @@ void modify_array(int &size, Menu *&menu);
 int get_choice();
 void add_element(int &size, Menu *&menu);
 Menu get_new_item(string prompt);
-void edit_element(int size, Menu *&menu);
+void edit_element(int size, Menu menu[]);
 void delete_element(int &size, Menu *&menu);
-float get_total(int &size, Menu menu[]);
-float get_cost(string item, int &size, Menu menu[]);
+float get_total(int size, Menu menu[]);
+float get_cost(string item, int size, Menu menu[]);
 void print_total(float total);
 
 // Globals
@@ -226,7 +226,7 @@ Menu get_new_item(string prompt)
 //* Add element -------------------------------------------------------------------------------------------------------------------------------------------
 
 // Get the item we want to edit by comparing the entered name and the names in the structure array, do nothing if the item is not found
-void edit_element(int size, Menu *&menu)
+void edit_element(int size, Menu menu[])
 {
 	bool found = false;
 	string item = get_valid_input<string>("     ->->-> Enter the name of the item you want to edit: ");
@@ -249,7 +249,7 @@ void edit_element(int size, Menu *&menu)
 }
 
 // Delete an item by shifting all the elements in the array by 1 starting from the item we want to delete  + 1, do nothing if the item is not found.
-// Note for the last element we dont delete it we just reduce the size so we dont see it
+// Note for the last element we dont delete it we just reduce the size so we dont see it, but when we remake the menu array we dont copy the last element
 void delete_element(int &size, Menu *&menu)
 {
 	bool found = false;
@@ -272,11 +272,27 @@ void delete_element(int &size, Menu *&menu)
 	{
 		cerr << "     ->->-> " << item << " not found." << endl;
 	}
+	else // Allocate proper memory for the new array
+	{
+		Menu *temp = new Menu[size];
+		for (int i = 0; i < size; i++)
+		{
+			temp[i] = menu[i];
+		}
+		delete[] menu;
+
+		menu = new Menu[size];
+		for (int i = 0; i < size; i++)
+		{
+			menu[i] = temp[i];
+		}
+		delete[] temp;
+	}
 }
 
 //* Get total ---------------------------------------------------------------------------------------------------------------------------------------------
 // We get the total by summing up all the costs of the selected items, if we enter GET we are done getting the total
-float get_total(int &size, Menu menu[])
+float get_total(int size, Menu menu[])
 {
 	float total = 0;
 	while (true)
@@ -293,7 +309,7 @@ float get_total(int &size, Menu menu[])
 }
 
 // We get the cost of a item by comparing the entered name with the menu item names, do nothing if the item is not found
-float get_cost(string item, int &size, Menu menu[])
+float get_cost(string item, int size, Menu menu[])
 {
 	bool found = false;
 	float cost = 0;
@@ -317,6 +333,5 @@ float get_cost(string item, int &size, Menu menu[])
 // Print out the total with a decimal precision of 2, 0.00
 void print_total(float total)
 {
-	cout << "                         Total is: "
-		<< "$" << fixed << setprecision(2) << total << endl;
+	cout << "                         Total is: " << "$" << fixed << setprecision(2) << total << endl;
 }

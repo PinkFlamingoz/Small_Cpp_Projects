@@ -30,7 +30,9 @@ T get_valid_input(const string &prompt, const string &helper_string1 = "", int n
 		{
 			cout << " " << num2 << ": ";
 		}
+
 		cin >> input;
+
 		if (cin.fail())
 		{
 			// Input is not valid
@@ -72,7 +74,14 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 		{
 			cout << " " << num2 << ": ";
 		}
+
+		// Remove leading white spaces with ws
 		getline(cin >> ws, input);
+
+		// Remove trailing white spaces
+		size_t last_non_space = input.find_last_not_of(" \t\n\v\f\r"); // Find the last non-space character
+		input = input.substr(0, last_non_space + 1); //------------------ Extract a substring from the input string starting from index 0 and ending at the index given by last_non_space + 1. The +1 is added to include the last non-space character in the resulting substring. This effectively removes any trailing whitespace from the input string, and the resulting substring is assigned back to the input variable.
+
 		if (cin.fail() || input.empty())
 		{
 			// Input is not valid
