@@ -11,42 +11,62 @@ struct sll_node
 };
 
 template<typename T>
-void insert_sll(sll_node<T> *&list, T value);
+void prepend_sll(sll_node<T> *&list, T value);
 
 template<typename T>
-void print_sll(sll_node<T> *&list);
+void append_sll(sll_node<T> *&list, T value);
 
 template<typename T>
-void free_sll(sll_node<T> *&list);
+void insert_sorted_sll(sll_node<T> *&list, T value);
 
 template<typename T>
-void free_sll_recursive(sll_node<T> *&list);
+void print_sll(sll_node<T> *list);
 
 template<typename T>
-void free_sll_one_element(sll_node<T> *&list, T value);
+void delete_sll(sll_node<T> *&list);
 
 template<typename T>
-bool find_value_of_sll(sll_node<T> *&list, T value);
+void delete_sll_recursive(sll_node<T> *&list);
+
+template<typename T>
+void delete_sll_elements_with_the_same_value(sll_node<T> *&list, T value);
+
+template<typename T>
+void delete_sll_element_first_occurrence(sll_node<T> *&list, T value);
+
+template<typename T>
+bool find_value_in_sll(sll_node<T> *list, T value);
 
 int main()
 {
 	sll_node<int> *list = nullptr; // Create a Singly-Linked Lists with size 0, to indicate that this is an empty list, so we can add upon to it.
-	insert_sll(list, 1);
-	insert_sll(list, 2);
-	insert_sll(list, 3);
+
+	append_sll(list, 3);
+	prepend_sll(list, 9);
+	prepend_sll(list, 7);
+	prepend_sll(list, 11);
+	insert_sorted_sll(list, 8);
+	insert_sorted_sll(list, 5);
+	insert_sorted_sll(list, 0);
+	insert_sorted_sll(list, 10);
+	insert_sorted_sll(list, 4);
+	insert_sorted_sll(list, 1);
+	insert_sorted_sll(list, 2);
 
 	print_sll(list);
 
-	find_value_of_sll(list, 2);
+	find_value_in_sll(list, 2);
 
-	free_sll_one_element(list, 2);
+	//delete_sll_elements_with_the_same_value(list, 3);
+
+	//print_sll(list);
 }
 
 																																 // With pointer to a pointer                        // With return
 																																 //                                                  //
 																																 // In main {insert(&list, 1);}                      // In main {list = insert(list, 1);}
 template<typename T>                                                                                                             // template<typename T>                             // template <typename T>
-void insert_sll(sll_node<T> *&list, T value)                                                                                     // void insert(sll_node<T>** list_ptr, T value)     // sll_node<T>* insert(sll_node<T>* list, T value)
+void prepend_sll(sll_node<T> *&list, T value)                                                                                    // void insert(sll_node<T>** list_ptr, T value)     // sll_node<T>* insert(sll_node<T>* list, T value)
 {                                                                                                                                // {                                                // {
 	sll_node<T> *node = new sll_node<T>; // Dynamically allocate space for a new sll_node                                        //		sll_node<T>* node = new sll_node<T>;         //		sll_node<T>* node = new sll_node<T>;
 	node->value = value; //---------------- Initialize the node's value field                                                    //		node->value = value;                         //		node->value = value;
@@ -55,9 +75,68 @@ void insert_sll(sll_node<T> *&list, T value)                                    
 }                                                                                                                                // }                                                // }
 
 template<typename T>
-void print_sll(sll_node<T> *&list)
+void append_sll(sll_node<T> *&list, T value)
 {
-	sll_node<T> *temp = list;
+	sll_node<T> *node = new sll_node<T>; //---------------------------------- Dynamically allocate space for a new sll_node
+	node->value = value; //-------------------------------------------------- Initialize the node's value field
+	node->next = nullptr; //------------------------------------------------- Initialize the node's next field to point at nullptr because this will be the last element of the linked list
+
+	if (list == nullptr) //-------------------------------------------------- If the list is empty
+	{
+		list = node; //------------------------------------------------------ This node is the whole list
+	}
+	else //------------------------------------------------------------------ If the list has some values already
+	{
+		for (sll_node<T> *temp = list; temp != nullptr; temp = temp->next) // Iterate over nodes in the list till the end
+		{
+			if (temp->next == nullptr) //------------------------------------ At the end of the list add the value, 3 -> 2, 2 -> 1, 1 -> nullptr add it here so we would have, 3 -> 2 -> 1 -> new -> nullptr
+			{
+				temp->next = node;
+				break; //---------------------------------------------------- To prevent keep adding the same node over and over again
+			}
+		}
+	}
+}
+
+template<typename T>
+void insert_sorted_sll(sll_node<T> *&list, T value)
+{
+	sll_node<T> *node = new sll_node<T>;
+	node->value = value;
+	node->next = nullptr;
+
+	if (list == nullptr) //-------------------------------------------------- If the list is empty
+	{
+		list = node; //------------------------------------------------------ This node is the whole list
+	}
+	else if (node->value < list->value) //----------------------------------- If the value belongs at beginning of list
+	{
+		node->next = list;
+		list = node;
+	}
+	else //------------------------------------------------------------------ If the value belongs later in list
+	{
+		for (sll_node<T> *temp = list; temp != nullptr; temp = temp->next) // Iterate over nodes in the list till the end
+		{
+			if (temp->next == nullptr) //------------------------------------ If at end of list
+			{
+				temp->next = node; //---------------------------------------- Append node
+				break;
+			}
+			if (node->value < temp->next->value) //-------------------------- If in middle of list, if the node value is smaller than the next node value, set the node pointer to point at the current temp pointer, and set the current temp pointer to point at the node
+			{
+				node->next = temp->next; //---------------------------------- Set the nullptr of the node that we are trying to insert to point at the bigger temp value
+				temp->next = node; //---------------------------------------- Make the current temp point at the node we are trying to insert and this also points to the rest of the values in the linked list
+				break;
+			}
+		}
+	}
+}
+
+template<typename T>
+void print_sll(sll_node<T> *list)
+{
+	sll_node<T> *temp = list; // We create a temp variable so we dont change the list values
 	while (temp != nullptr)
 	{
 		cout << "Value: " << temp->value << " Debug address thats pointing to the next value: " << temp->next << endl;
@@ -73,19 +152,18 @@ void print_sll(sll_node<T> *&list)
 }
 
 template<typename T>
-void free_sll(sll_node<T> *&list)
+void delete_sll(sll_node<T> *&list)
 {
-	sll_node<T> *temp = list;
-	while (temp != nullptr)
+	while (list != nullptr)
 	{
-		sll_node<T> *next = temp->next;
-		delete temp;
-		temp = next;
+		sll_node<T> *next = list->next; // Grab the next pointer before deleting this one!
+		delete list;
+		list = next;
 	}
 }
 
 template<typename T>
-void free_sll_recursive(sll_node<T> *&list)
+void delete_sll_recursive(sll_node<T> *&list)
 {
 	// Base case
 	if (list == nullptr)
@@ -93,22 +171,105 @@ void free_sll_recursive(sll_node<T> *&list)
 		return;
 	}
 	// Recursive case
-	free_sll_recursive(list->next); // Delete the rest of the list
-	delete list; //------------------- Free the current node
-	list = nullptr; //---------------- Set the current pointer to null
+	delete_sll_recursive(list->next); // Delete the rest of the list
+	delete list; //--------------------- Free the current node
+	list = nullptr; //------------------ Set the current pointer to null
 }
 
+//
+// [   3  ]
+// [ next ] -> [   2  ]
+//             [ next ] -> [   1  ]
+//                         [ next ] -> [  NULL  ]
+//
 // START : current -> 3; previous -> nullptr; target 2; list = 3, 2 ,1;
 // NEXT  : previous -> current = 3; current -> current_next = 2;
 // FOUND : previous_next = 2 -> current_next = 1;
 //         delete current = 2;
 //         current -> previous_next = 1;
 // DONE;
+//
+// ===============================================================================
+// list = 2, 3, 3, 2, 3, 1; target = 3;
+//
+// p[       ]
+//  [  NULL ]
+//
+// c[   2  ]
+//  [ next ] -> c[   3  ]
+//               [ next ] -> c[   3  ]
+//                            [ next ] -> c[  2   ]
+//                                         [ next ] -> c[  3   ]
+//                                                      [ next ] -> c[  1   ]
+//                                                                   [ next ] -> [  NULL  ]
+//
+// NEXT ========================================================================== p = c; c = c_next
+//
+// p[   2  ]
+//  [ next ] -> p[   3  ]
+//               [ next ] -> p[   3  ]
+//                            [ next ] -> p[  2   ]
+//                                         [ next ] -> P[  3   ]
+//                                                      [ next ] -> p[  1   ]
+//                                                                   [ next ] -> [  NULL  ]
+// c[   3  ]
+//  [ next ] -> c[   3  ]
+//               [ next ] -> c[   2  ]
+//                            [ next ] -> c[  3   ]
+//                                         [ next ] -> [  1   ]
+//                                                     [ next ] -> [  NULL  ]
+//
+// FOUND ========================================================================== p_next = c_next; del c; c = p_next
+//
+// p[   2  ]
+//  [ next ] -> p[   3  ]
+//               [ next ] -> p[   2  ]
+//                            [ next ] -> P[  3   ]
+//                                         [ next ] -> p[  1   ]
+//                                                      [ next ] -> [  NULL  ]
+//
+// c[   3  ]
+//  [ next ] -> c[   2  ]
+//               [ next ] -> c[  3   ]
+//                            [ next ] -> [  1   ]
+//                                        [ next ] -> [  NULL  ]
+// FOUND ========================================================================== p_next = c_next; del c; c = p_next
+//
+// p[   2  ]
+//  [ next ] -> p[   2  ]
+//               [ next ] -> P[  3   ]
+//                            [ next ] -> p[  1   ]
+//                                         [ next ] -> [  NULL  ]
+//
+// c[   2  ]
+//  [ next ] -> c[  3   ]
+//               [ next ] -> [  1   ]
+//                           [ next ] -> [  NULL  ]
+// NEXT ========================================================================== p = c; c = c_next
+//
+// p[   2  ]
+//  [ next ] -> p[   3  ]
+//               [ next ] -> P[  1   ]
+//                            [ next ] -> [  NULL  ]
+//
+// c[   3  ]
+//  [ next ] -> c[  1   ]
+//               [ next ] -> [  NULL  ]
+// FOUND ========================================================================== p_next = c_next; del c; c = p_next
+//
+// p[   2  ]
+//  [ next ] -> p[   1  ]
+//               [ next ] -> [  NULL  ]
+//
+// c[   1  ]
+//  [ next ] -> [  NULL  ]
+//
+// DONE ===========================================================================
 template<typename T>
-void free_sll_one_element(sll_node<T> *&list, T value)
+void delete_sll_elements_with_the_same_value(sll_node<T> *&list, T value)
 {
-	sll_node<T> *current = list;
 	sll_node<T> *previous = nullptr;
+	sll_node<T> *current = list;
 	while (current != nullptr)
 	{
 		if (current->value == value)
@@ -117,13 +278,13 @@ void free_sll_one_element(sll_node<T> *&list, T value)
 			{
 				list = current->next;
 				delete current;
-				current = list; //---------------- Update the current node
+				current = list; //---------------- Update the current node because it was deleted
 			}
 			else //------------------------------- If a non-first node matches
 			{
 				previous->next = current->next; // Previous next here is the element we want to delete so we set it to equal the current next
 				delete current;
-				current = previous->next; //------ Update the current node
+				current = previous->next; //------ Update the current node because it was deleted
 			}
 		}
 		else //----------------------------------- If the current node doesn't match
@@ -135,12 +296,40 @@ void free_sll_one_element(sll_node<T> *&list, T value)
 }
 
 template<typename T>
-bool find_value_of_sll(sll_node<T> *&list, T value)
+void delete_sll_element_first_occurrence(sll_node<T> *&list, T value)
+{
+	sll_node<T> *previous = nullptr;
+	sll_node<T> *current = list;
+	while (current != nullptr)
+	{
+		if (current->value == value)
+		{
+			if (previous == nullptr) //-------- If the first node matches
+			{
+				list = current->next;
+			}
+			else //---------------------------- If a non-first node matches
+			{
+				previous->next = current->next;
+			}
+			delete current;
+			break; //-------------------------- Exit the loop after the first node is deleted
+		}
+		else //-------------------------------- If the current node doesn't match
+		{
+			previous = current;
+			current = current->next;
+		}
+	}
+}
+
+template<typename T>
+bool find_value_in_sll(sll_node<T> *list, T value)
 {
 	sll_node<T> *temp = list; //--------------------------- Create a traversal pointer pointing to the list's head.
 	while (temp != nullptr)
 	{
-		if (temp->value == value) //----------------------- If the current node's val field is what we're looking for, report success.
+		if (temp->value == value) //----------------------- If the current node's value field is what we're looking for, report success.
 		{
 			cout << "Found value: " << temp->value << endl;
 			return true;
@@ -150,6 +339,7 @@ bool find_value_of_sll(sll_node<T> *&list, T value)
 	cout << "Value is not in list: " << value << endl;
 	return false; //--------------------------------------- If you've reached the end of the list, report failure.
 }
+
 // • Arrays
 //  • Insertion is bad – lots of shifting to fit an element in the middle
 //  • Deletion is bad – lots of shifting after removing an element
@@ -173,17 +363,17 @@ bool find_value_of_sll(sll_node<T> *&list, T value)
 //		   e. Return a pointer to the newly created sll_node.
 //      2. Search through a linked list to find an element.
 //		   a. Create a traversal pointer pointing to the list's head.
-//		   b. If the current node's val field is what we're looking for, report success.
+//		   b. If the current node's value field is what we're looking for, report success.
 //         c. If not, set the traversal pointer to the next pointer in the list and go back to step b.
 //         d. If you've reached the end of the list, report failure.
 //      3. Insert a new node into the linked list.
 //		   a. Dynamically allocate space for a new sll_node.
-//		   b. Check to make sure we didn’t run out of memory.
+//		   b. Check to make sure we didn't run out of memory.
 //		   c. Populate and insert the node at the beginning of the linked list. Why because it is O(1) steps to do insertion if we do it at the end it is O(n).
 //		   d. Return a pointer to the new head of the linked list.
 //      4. Delete a single element from a linked list.
-//      5. Delete an entire linked list.
-//		   a. If you’ve reached a null pointer, stop.
+//      5. Delete an entire linked list recursive.
+//		   a. If you've reached a null pointer, stop.
 //		   b. Delete the rest of the list.
 //		   c. Free the current node.
 //
