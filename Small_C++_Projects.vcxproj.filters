@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Week_4">
       <UniqueIdentifier>{154ff8fb-e89d-4c6f-b6dc-813f9aaecc31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Week_5">
+      <UniqueIdentifier>{cf52cf11-ecff-4029-ba6c-c5b43aa25e64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="adventure_time.cpp">
@@ -176,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="reverse_wav_audio.cpp">
       <Filter>Source Files\Week_4</Filter>
+    </ClCompile>
+    <ClCompile Include="data_structures.cpp">
+      <Filter>Source Files\Week_5</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

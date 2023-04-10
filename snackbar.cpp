@@ -15,7 +15,7 @@ struct Menu
 // Functions
 void get_menu(Menu menu[]);
 int get_size_of_menu(Menu menu[]);
-void print_menu(int &size, Menu menu[]);
+void print_menu(int size, Menu menu[]);
 void modify_array(int &size, Menu *&menu);
 int get_choice();
 void add_element(int &size, Menu *&menu);
@@ -91,7 +91,7 @@ int get_size_of_menu(Menu menu[])
 }
 
 // Print the current menu
-void print_menu(int &size, Menu menu[])
+void print_menu(int size, Menu menu[])
 {
 	cout << " .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.  .-.-.     .-.-.  .-.-.  .-.-.\n"
 		"=`. .'==`. .'==`. .'== Welcome to Beach Burger Shack! ==`. .'==`. .'==`. .'=\n"

@@ -142,6 +142,7 @@
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="contacts.cpp" />
     <ClCompile Include="create.cpp" />
+    <ClCompile Include="data_structures.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="dynamic_memory_allocation.cpp" />
     <ClCompile Include="filter.cpp" />
