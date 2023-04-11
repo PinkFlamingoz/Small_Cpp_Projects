@@ -37,6 +37,9 @@ void delete_sll_element_first_occurrence(sll_node<T> *&list, T value);
 template<typename T>
 bool find_value_in_sll(sll_node<T> *list, T value);
 
+template<typename T>
+void bubble_sort_sll(sll_node<T> *&list);
+
 int main()
 {
 	sll_node<int> *list = nullptr; // Create a Singly-Linked Lists with size 0, to indicate that this is an empty list, so we can add upon to it.
@@ -57,14 +60,20 @@ int main()
 
 	find_value_in_sll(list, 2);
 
-	//delete_sll_elements_with_the_same_value(list, 3);
+	delete_sll_elements_with_the_same_value(list, 3);
 
-	//print_sll(list);
+	bubble_sort_sll(list);
+
+	print_sll(list);
+
+	delete_sll(list);
+
+	print_sll(list);
 }
 
 																																 // With pointer to a pointer                        // With return
 																																 //                                                  //
-																																 // In main {insert(&list, 1);}                      // In main {list = insert(list, 1);}
+// Prepend, add infront of the linked list O(1)																					 // In main {insert(&list, 1);}                      // In main {list = insert(list, 1);}
 template<typename T>                                                                                                             // template<typename T>                             // template <typename T>
 void prepend_sll(sll_node<T> *&list, T value)                                                                                    // void insert(sll_node<T>** list_ptr, T value)     // sll_node<T>* insert(sll_node<T>* list, T value)
 {                                                                                                                                // {                                                // {
@@ -74,6 +83,7 @@ void prepend_sll(sll_node<T> *&list, T value)                                   
 	list = node; //------------------------ Make list point at the last inserted node                                            //		*list_ptr = node;                            //		return node;
 }                                                                                                                                // }                                                // }
 
+// Append, add at the end of the linked list O(n)
 template<typename T>
 void append_sll(sll_node<T> *&list, T value)
 {
@@ -98,6 +108,7 @@ void append_sll(sll_node<T> *&list, T value)
 	}
 }
 
+// Insert and sort at the same time
 template<typename T>
 void insert_sorted_sll(sll_node<T> *&list, T value)
 {
@@ -133,6 +144,7 @@ void insert_sorted_sll(sll_node<T> *&list, T value)
 	}
 }
 
+// Print the list
 template<typename T>
 void print_sll(sll_node<T> *list)
 {
@@ -151,6 +163,7 @@ void print_sll(sll_node<T> *list)
 	// }
 }
 
+// Delete all of the list
 template<typename T>
 void delete_sll(sll_node<T> *&list)
 {
@@ -162,6 +175,7 @@ void delete_sll(sll_node<T> *&list)
 	}
 }
 
+// Delete all of the list with recursion
 template<typename T>
 void delete_sll_recursive(sll_node<T> *&list)
 {
@@ -176,7 +190,7 @@ void delete_sll_recursive(sll_node<T> *&list)
 	list = nullptr; //------------------ Set the current pointer to null
 }
 
-//
+// Delete sll elements with the same values
 // [   3  ]
 // [ next ] -> [   2  ]
 //             [ next ] -> [   1  ]
@@ -295,6 +309,7 @@ void delete_sll_elements_with_the_same_value(sll_node<T> *&list, T value)
 	}
 }
 
+// Delete sll elements when we first encounter them
 template<typename T>
 void delete_sll_element_first_occurrence(sll_node<T> *&list, T value)
 {
@@ -323,6 +338,7 @@ void delete_sll_element_first_occurrence(sll_node<T> *&list, T value)
 	}
 }
 
+// Find if a value is in the list
 template<typename T>
 bool find_value_in_sll(sll_node<T> *list, T value)
 {
@@ -338,6 +354,28 @@ bool find_value_in_sll(sll_node<T> *list, T value)
 	}
 	cout << "Value is not in list: " << value << endl;
 	return false; //--------------------------------------- If you've reached the end of the list, report failure.
+}
+
+// Sort the sll
+template<typename T>
+void bubble_sort_sll(sll_node<T> *&list)
+{
+	int swap_counter = -1;
+	T help;
+	while (swap_counter != 0)
+	{
+		swap_counter = 0;
+		for (sll_node<T> *temp = list; temp != nullptr && temp->next != nullptr; temp = temp->next)
+		{
+			if (temp->value > temp->next->value)
+			{
+				help = temp->value;
+				temp->value = temp->next->value;
+				temp->next->value = help;
+				swap_counter++;
+			}
+		}
+	}
 }
 
 // • Arrays
