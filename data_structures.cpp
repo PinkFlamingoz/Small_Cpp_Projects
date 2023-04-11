@@ -296,7 +296,7 @@ void delete_sll_elements_with_the_same_value(sll_node<T> *&list, T value)
 			}
 			else //------------------------------- If a non-first node matches
 			{
-				previous->next = current->next; // Previous next here is the element we want to delete so we set it to equal the current next
+				previous->next = current->next; // We set the previous element pointer to point at the next element that the current pointer points at
 				delete current;
 				current = previous->next; //------ Update the current node because it was deleted
 			}
