@@ -461,6 +461,7 @@ void delete_sll_elements_with_the_same_value(sll_node<T> *&list, T value)
 					list = nullptr; //----------------------------------------------------------------------- Set the list to point at nothing because there are no more nodes in the list
 					cout << "Node: " << current << " With value: " << current->value << " Deleted! " << endl;
 					delete current;
+					found = true;
 					break;
 				}
 				else //-------------------------------------------------------------------------------------- If the list has more than one element
@@ -751,6 +752,7 @@ void delete_dll_elements_with_the_same_value(dll_node<T> *&list, T value)
 					list = nullptr; //----------------------------------------------------------------------- Set the list to point at nothing because there are no more nodes in the list
 					cout << "Node: " << current << " With value: " << current->value << " Deleted! " << endl;
 					delete current;
+					found = true;
 					break;
 				}
 				else //-------------------------------------------------------------------------------------- If the list has more than one element
@@ -767,6 +769,7 @@ void delete_dll_elements_with_the_same_value(dll_node<T> *&list, T value)
 				current->previous->next = nullptr; //-------------------------------------------------------- Set the node behind the last one to point at nothing because we deleted the last one
 				cout << "Node: " << current << " With value: " << current->value << " Deleted! " << endl;
 				delete current;
+				found = true;
 				break;
 			}
 			else //------------------------------------------------------------------------------------------ If a non-first node matches
