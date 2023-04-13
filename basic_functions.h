@@ -97,6 +97,18 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 	}
 	return input;
 }
+// \a Bell(alert)     007 Makes a sound from the computer
+// \b Backspace       008 Takes the cursor back
+// \t Horizontal Tab  009 Takes the cursor to the next tab stop
+// \n New line        010 Takes the cursor to the beginning of the next line
+// \v Vertical Tab    011 Performs a vertical tab
+// \f Form feed       012
+// \r Carriage return 013 Causes a carriage return
+// \" Doubl Quote     034 Displays a quotation mark(")
+// \' Apostrophe      039 Displays an apostrophe (')
+// \? Question mark   063 Displays a question mark
+// \\ Backslash       092 Displays a backslash(\)
+// \0 Null            000 Displays a null character
 
 template <typename T, typename R, typename C>
 void allocate_memory_2D_array(T **&array, R rows, C cols)

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "basic_functions.h"
 
 using namespace std;
@@ -8,6 +9,7 @@ double long get_input(string prompt);
 bool check_triangle_method1(double long a, double long b, double long c);
 bool check_triangle_method2(double long a, double long b, double long c);
 void print_triangle_check(bool meth1, bool meth2);
+void area_of_triangle(double long  a, double long  b, double long  c, bool meth1);
 
 int main(void)
 {
@@ -19,6 +21,8 @@ int main(void)
 	bool meth2 = check_triangle_method2(a, b, c); // Check for 90° triangle
 
 	print_triangle_check(meth1, meth2); //---------- Print results
+
+	area_of_triangle(a, b, c, meth1); //------------ Calculate area
 
 	return 0; //------------------------------------ Success
 }
@@ -61,4 +65,20 @@ void print_triangle_check(bool meth1, bool meth2)
 {
 	cout << "Method 1: " << (meth1 ? "True" : "False") << endl;
 	cout << "Method 2 90" << char(248) << ": " << (meth2 ? "True" : "False") << endl;
+}
+
+// Calculate area if its a triangle
+void area_of_triangle(double long  a, double long  b, double long  c, bool meth1)
+{
+	double long area = 0;
+	double long s = 0;
+
+	if (meth1)
+	{
+		s = (a + b + c) / 2;
+
+		area = sqrt(s * (s - a) * (s - b) * (s - c));
+
+		cout << "The area is: " << area << endl;
+	}
 }

@@ -198,6 +198,12 @@
     <ClCompile Include="palindrome.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
+    <ClCompile Include="functions_can_be_friends.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="bitwise_operations.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">

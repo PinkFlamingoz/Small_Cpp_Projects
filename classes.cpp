@@ -110,22 +110,22 @@ void display_data_for_cars(Cars cars[], int size);
 
 int main()
 {
-	//---------------------------------------------------Objects are nothing but variables of type class
-	Cars ParameterCar("Honda", "42", "Water", 0, 99); // Create an object with the parameter constructor
-	ParameterCar.display_data(); //--------------------- Display that data
+	//--------------------------------------------------- Objects are nothing but variables of type class
+	Cars parameter_car("Honda", "42", "Water", 0, 99); // Create an object with the parameter constructor
+	parameter_car.display_data(); //--------------------- Display that data
 
-	Cars CopyCar(ParameterCar); //---------------------- Create an object with the copy constructor
-	CopyCar.display_data(); //-------------------------- Display that data
+	Cars copy_car(parameter_car); //--------------------- Create an object with the copy constructor
+	copy_car.display_data(); //-------------------------- Display that data
 
-	int size = get_size(); //--------------------------- Get the size of the cars
-	Cars *cars = new Cars[size]; //--------------------- Create an object with the set_data member function
+	int size = get_size(); //---------------------------- Get the size of the cars
+	Cars *cars = new Cars[size]; //---------------------- Create an object with the set_data member function
 
-	set_data_for_cars(cars, size); //------------------- Set the data for each car
-	display_data_for_cars(cars, size); //--------------- Display data for each car
+	set_data_for_cars(cars, size); //-------------------- Set the data for each car
+	display_data_for_cars(cars, size); //---------------- Display data for each car
 
-	delete[] cars; //----------------------------------- Free up the allocated memory
+	delete[] cars; //------------------------------------ Free up the allocated memory
 
-	return 0; //---------------------------------------- Success
+	return 0; //----------------------------------------- Success
 }
 
 // Get the size for the cars class array

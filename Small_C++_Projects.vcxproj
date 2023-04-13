@@ -150,6 +150,8 @@
     <ClCompile Include="exception_handling.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="flip_bmp_images.cpp" />
+    <ClCompile Include="functions_can_be_friends.cpp" />
+    <ClCompile Include="bitwise_operations.cpp" />
     <ClCompile Include="hours_study.cpp" />
     <ClCompile Include="how_many_coins_to_give_back.cpp" />
     <ClCompile Include="instant_runoff.cpp" />
