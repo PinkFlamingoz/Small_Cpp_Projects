@@ -139,12 +139,15 @@
     <ClCompile Include="candidates.cpp" />
     <ClCompile Include="change_pixel_color_of_bmp.cpp" />
     <ClCompile Include="change_volume_of_wav.cpp" />
+    <ClCompile Include="classes.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
+    <ClCompile Include="complex_numbers.cpp" />
     <ClCompile Include="contacts.cpp" />
     <ClCompile Include="create.cpp" />
     <ClCompile Include="data_structures.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="dynamic_memory_allocation.cpp" />
+    <ClCompile Include="exception_handling.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="flip_bmp_images.cpp" />
     <ClCompile Include="hours_study.cpp" />
@@ -154,6 +157,7 @@
     <ClCompile Include="license_plates.cpp" />
     <ClCompile Include="linear_search.cpp" />
     <ClCompile Include="max_and_min.cpp" />
+    <ClCompile Include="palindrome.cpp" />
     <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="pointers_addresses_references.cpp" />
     <ClCompile Include="recover_jpg_images.cpp" />

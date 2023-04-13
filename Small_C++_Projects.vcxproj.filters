@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Week_5">
       <UniqueIdentifier>{cf52cf11-ecff-4029-ba6c-c5b43aa25e64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Bonus">
+      <UniqueIdentifier>{48c02aa0-e32c-4a43-b8b3-63babd1dcaaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="adventure_time.cpp">
@@ -182,6 +185,18 @@
     </ClCompile>
     <ClCompile Include="data_structures.cpp">
       <Filter>Source Files\Week_5</Filter>
+    </ClCompile>
+    <ClCompile Include="classes.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="complex_numbers.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="exception_handling.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="palindrome.cpp">
+      <Filter>Source Files\Bonus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
