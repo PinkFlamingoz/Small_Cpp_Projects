@@ -1,16 +1,17 @@
 #include <iostream>
-#include <string>
+#include "basic_functions.h"
 
 using namespace std;
 
 // Functions
 bool is_a_digit(string digit);
-void palindrome_check(int number);
+void palindrome_number_check(int number);
+void palindrome_string_check(string words);
 
 int main(int argc, char *argv[])
 {
 	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
-	if (argc < 2)
+	if (argc != 2)
 	{
 		cerr << "Error 1: Too many or none arguments " << endl << "Usage: ./palindrome [number_to_check] " << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
@@ -27,9 +28,10 @@ int main(int argc, char *argv[])
 	int number = stoi(argv[1]);
 	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 
-	palindrome_check(number); // Check to see if its a palindrome
+	palindrome_number_check(number); //----------------------------------- Check if a number is a palindrome
+	palindrome_string_check(get_valid_input<string>("Enter string: ")); // Check if a string is a palindrome
 
-	return 0; //---------------- Success
+	return 0; //---------------------------------------------------------- Success
 }
 
 // Check if all the characters are digits from argv[1]
@@ -46,7 +48,8 @@ bool is_a_digit(string digit)
 	return true;
 }
 
-void palindrome_check(int number)
+// Check if its a palindrome
+void palindrome_number_check(int number)
 {
 	int temp = number;
 	int digit = 0;
@@ -67,8 +70,35 @@ void palindrome_check(int number)
 		cout << number << " is not a palindrome, reversed: " << reversed << endl;
 	}
 }
-
 // Step 1: 121 % 10 = 1; (0 * 10)  + 1 = 1;     121 / 10 = 12;
 // Step 2: 12  % 10 = 2; (1 * 10)  + 2 = 12;    12  / 10 = 1;
 // Step 3: 1   % 10 = 1; (12 * 10) + 1 = 121;   1   / 10 = 0;
 // STOP;
+
+void palindrome_string_check(string words)
+{
+	string reversed = "";
+	bool is = false;
+	int length = words.length();
+	for (int i = 0; i < length / 2; i++)
+	{
+		if (words[i] == words[length - i - 1])
+		{
+			is = true;
+		}
+	}
+
+	for (int i = length - 1; i >= 0; i--)
+	{
+		reversed += words[i];
+	}
+
+	if (is)
+	{
+		cout << words << " is a palindrome, reversed: " << reversed << endl;
+	}
+	else
+	{
+		cout << words << " is not palindrome, reversed: " << reversed << endl;
+	}
+}

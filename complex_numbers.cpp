@@ -58,7 +58,7 @@ bool is_a_digit(string digit);
 
 int main(int argc, char *argv[])
 {	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
-	if (argc < 5)
+	if (argc != 5)
 	{
 		cerr << "Error 1: Too many or none arguments " << endl << "Usage: ./complex_numbers [real 1] [imaginary 1] [real 2] [imaginary 2]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
