@@ -164,6 +164,7 @@
     <ClCompile Include="pointers_addresses_references.cpp" />
     <ClCompile Include="recover_jpg_images.cpp" />
     <ClCompile Include="reverse_wav_audio.cpp" />
+    <ClCompile Include="shapes.cpp" />
     <ClCompile Include="swap_values.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />

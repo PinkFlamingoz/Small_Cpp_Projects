@@ -3,14 +3,14 @@
 
 using namespace std;
 
+// Globals
+const int EIGHT_BITS = 8;
+
 // Functions
 string get_user_text();
 void convert_decimal_to_binary(string text);
 void reverse_the_bits(int size, int structure[]);
 void print_bulb(int bit);
-
-// Globals
-const int EIGHT_BITS = 8;
 
 int main()
 {

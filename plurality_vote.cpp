@@ -4,6 +4,12 @@
 
 using namespace std;
 
+// Globals
+const int MAX = 10;
+int candidate_count = 0;
+
+Candidate candidates[MAX];
+
 // Structures
 struct Candidate
 {
@@ -18,12 +24,6 @@ void calculate_votes(int voter_count);
 bool vote(string name);
 void print_winner(void);
 int get_max_vote();
-
-// Globals
-const int MAX = 10;
-int candidate_count = 0;
-
-Candidate candidates[MAX];
 
 int main(int argc, char *argv[])
 {

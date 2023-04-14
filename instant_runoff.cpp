@@ -6,6 +6,16 @@
 
 using namespace std;
 
+// Globals
+const int MAX_CANDIDATES = 9;
+const int MAX_VOTERS = 100;
+
+Candidate candidates[MAX_CANDIDATES];
+int preferences[MAX_VOTERS][MAX_CANDIDATES];
+
+int candidate_count = 0;
+int voter_count = 0;
+
 // Structures
 struct Candidate
 {
@@ -31,16 +41,6 @@ bool is_tie(int min);
 void eliminate(int min);
 void print_tie();
 void reset_vote_count();
-
-// Globals
-const int MAX_CANDIDATES = 9;
-const int MAX_VOTERS = 100;
-
-Candidate candidates[MAX_CANDIDATES];
-int preferences[MAX_VOTERS][MAX_CANDIDATES];
-
-int candidate_count = 0;
-int voter_count = 0;
 
 int main(int argc, char *argv[])
 {

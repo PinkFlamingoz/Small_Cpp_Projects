@@ -6,6 +6,21 @@
 
 using namespace std;
 
+// Globals
+const int MAX_CANDIDATES = 9;
+const int MAX_VOTERS = 100;
+
+int preferences[MAX_CANDIDATES][MAX_CANDIDATES]; // preferences[i][j] is number of voters who prefer i over j
+
+bool locked[MAX_CANDIDATES][MAX_CANDIDATES]; // locked[i][j] means i is locked in over j
+
+string candidates[MAX_CANDIDATES];
+Pair pairs[MAX_CANDIDATES * (MAX_CANDIDATES - 1) / 2];
+
+int pair_count = 0;
+int candidate_count = 0;
+int voter_count = 0;
+
 // Structure
 struct Pair
 {
@@ -29,21 +44,6 @@ void sort_pairs();
 bool check_cycle(int winner, int loser);
 void lock_pairs();
 void print_winner();
-
-// Globals
-const int MAX_CANDIDATES = 9;
-const int MAX_VOTERS = 100;
-
-int preferences[MAX_CANDIDATES][MAX_CANDIDATES]; // preferences[i][j] is number of voters who prefer i over j
-
-bool locked[MAX_CANDIDATES][MAX_CANDIDATES]; // locked[i][j] means i is locked in over j
-
-string candidates[MAX_CANDIDATES];
-Pair pairs[MAX_CANDIDATES * (MAX_CANDIDATES - 1) / 2];
-
-int pair_count = 0;
-int candidate_count = 0;
-int voter_count = 0;
 
 int main(int argc, char *argv[])
 {

@@ -8,6 +8,9 @@
 
 using namespace std;
 
+// Globals
+vector<string> FILTERS = { "g","s","r","b","e" };
+
 // Functions
 bool check_correct_filter(string option);
 bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BITMAPINFOHEADER bitmap_info_header);
@@ -20,9 +23,6 @@ void sepia(int height, int width, RGBTRIPLE **&image);
 void reflect(int height, int width, RGBTRIPLE **&image);
 void blur(int height, int width, RGBTRIPLE **&image);
 void edges(int height, int width, RGBTRIPLE **&image);
-
-// Globals
-vector<string> FILTERS = { "g","s","r","b","e" };
 
 int main(int argc, char *argv[])
 {

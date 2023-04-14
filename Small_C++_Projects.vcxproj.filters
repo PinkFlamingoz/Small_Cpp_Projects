@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Bonus">
       <UniqueIdentifier>{48c02aa0-e32c-4a43-b8b3-63babd1dcaaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\OOP">
+      <UniqueIdentifier>{97921328-ad95-4a63-aa9f-8035d3d213bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="adventure_time.cpp">
@@ -186,23 +189,26 @@
     <ClCompile Include="data_structures.cpp">
       <Filter>Source Files\Week_5</Filter>
     </ClCompile>
-    <ClCompile Include="classes.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
-    <ClCompile Include="complex_numbers.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
     <ClCompile Include="exception_handling.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
     <ClCompile Include="palindrome.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
-    <ClCompile Include="functions_can_be_friends.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
     <ClCompile Include="bitwise_operations.cpp">
       <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="functions_can_be_friends.cpp">
+      <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="complex_numbers.cpp">
+      <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="classes.cpp">
+      <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="shapes.cpp">
+      <Filter>Source Files\OOP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

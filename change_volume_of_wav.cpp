@@ -5,12 +5,12 @@
 
 using namespace std;
 
+// Globals
+const int HEADER_SIZE = 44;
+
 // Functions
 bool is_a_digit(string factor);
 bool check_format_for_wav(WAVHEADER header);
-
-// Globals
-const int HEADER_SIZE = 44;
 
 int main(int argc, char *argv[])
 {

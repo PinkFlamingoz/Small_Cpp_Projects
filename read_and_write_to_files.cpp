@@ -6,6 +6,9 @@
 
 using namespace std;
 
+// Globals
+string file_name = "test.txt";
+
 // Structures
 struct Contact
 {
@@ -22,9 +25,6 @@ void delete_from_file(string name_to_delete);
 void get_data_from_a_file(vector<string> &contacts);
 void get_data_from_a_file2(string contacts_array[], int line_count);
 void print(vector<string> &contacts, string contacts_array[], int line_count);
-
-// Globals
-string file_name = "test.txt";
 
 int main()
 {

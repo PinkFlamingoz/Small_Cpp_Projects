@@ -5,6 +5,9 @@
 
 using namespace std;
 
+// Globals
+const int DEFAULT = 10;
+
 // Structures
 struct Menu
 {
@@ -25,9 +28,6 @@ void delete_element(int &size, Menu *&menu);
 float get_total(int size, Menu menu[]);
 float get_cost(string item, int size, Menu menu[]);
 void print_total(float total);
-
-// Globals
-const int DEFAULT = 10;
 
 int main()
 {

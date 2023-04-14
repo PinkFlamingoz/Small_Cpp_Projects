@@ -6,6 +6,12 @@
 
 using namespace std;
 
+// Globals
+constexpr auto GREEN = "\e[38;2;255;255;255;1m\e[48;2;106;170;100;1m";
+constexpr auto RESET = "\e[0;39m";
+
+const int BOUND = 50;
+
 // Functions
 int get_size();
 void random_array(int MAXSIZE, int RANDOM_ARRAY[]);
@@ -15,12 +21,6 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]);
 void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]);
 void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]);
-
-// Globals
-constexpr auto GREEN = "\e[38;2;255;255;255;1m\e[48;2;106;170;100;1m";
-constexpr auto RESET = "\e[0;39m";
-
-const int BOUND = 50;
 
 int main()
 {

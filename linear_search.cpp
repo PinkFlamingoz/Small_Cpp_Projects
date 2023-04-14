@@ -4,14 +4,14 @@
 
 using namespace std;
 
+// Globals
+const int MAXSIZE = 1000000;
+int RANDOM_ARRAY[MAXSIZE];
+
 // Functions
 int get_number();
 void random_array();
 bool linear_search(int number);
-
-// Globals
-const int MAXSIZE = 1000000;
-int RANDOM_ARRAY[MAXSIZE];
 
 int main()
 {

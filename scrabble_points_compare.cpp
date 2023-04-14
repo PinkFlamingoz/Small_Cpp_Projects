@@ -3,13 +3,13 @@
 
 using namespace std;
 
+// Globals
+int POINTS[] = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10 };
+
 // Functions
 string get_player_word();
 int compare_words(string word);
 void print_results(int score1, int score2);
-
-// Globals
-int POINTS[] = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10 };
 
 int main()
 {

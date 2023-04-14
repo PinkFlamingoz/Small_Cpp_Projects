@@ -4,16 +4,6 @@
 
 using namespace std;
 
-// Functions
-bool is_a_digit(string word_size);
-void set_word_size(int word_size_int);
-string get_guess(int WORDSIZE, string word_list_file_name);
-bool check_if_word_exists(string guess, string word_list_file_name);
-void set_initial_elements_to_zero(int WORDSIZE, int status[]);
-void print_word(string guess, int WORDSIZE, int status[]);
-int check_word(string guess, int WORDSIZE, int status[], string choice);
-void print_end(bool won, string choice);
-
 // Globals
 const int LISTSIZE = 1000;
 
@@ -29,6 +19,16 @@ constexpr auto RED = "\e[38;2;255;255;255;1m\e[48;2;220;20;60;1m";
 constexpr auto RESET = "\e[0;39m";
 
 int WORDSIZE = 0;
+
+// Functions
+bool is_a_digit(string word_size);
+void set_word_size(int word_size_int);
+string get_guess(int WORDSIZE, string word_list_file_name);
+bool check_if_word_exists(string guess, string word_list_file_name);
+void set_initial_elements_to_zero(int WORDSIZE, int status[]);
+void print_word(string guess, int WORDSIZE, int status[]);
+int check_word(string guess, int WORDSIZE, int status[], string choice);
+void print_end(bool won, string choice);
 
 int main(int argc, char *argv[])
 {   //* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------

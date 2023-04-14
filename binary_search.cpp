@@ -4,14 +4,14 @@
 
 using namespace std;
 
+// Globals
+const int MAXSIZE = 1000000;
+int SORTED_ARRAY[MAXSIZE];
+
 // Functions
 int get_number();
 void sorted_array();
 bool binary_search(int number);
-
-// Globals
-const int MAXSIZE = 1000000;
-int SORTED_ARRAY[MAXSIZE];
 
 int main()
 {
