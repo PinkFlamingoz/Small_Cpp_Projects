@@ -148,7 +148,7 @@ void set_voter_preference()
 {
 	for (int i = 0; i < voter_count; i++) //----------------------------- Keep querying for votes
 	{
-		int *ranks = new int[candidate_count]; //------------------------ ranks[i] is voter's ith preference
+		int *ranks = new int[candidate_count]; //------------------------ ranks[i] is voter's i'th preference
 
 		cout << "Voter " << i << ": " << endl;
 
@@ -168,7 +168,7 @@ void set_voter_preference()
 	}
 }
 
-// Check if the candidate has aready been ranked by making a temporary vector array and pushing each rank in it as the voter votes, reset the vector
+// Check if the candidate has already been ranked by making a temporary vector array and pushing each rank in it as the voter votes, reset the vector
 string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 {
 	bool valid_vote = false;
@@ -176,7 +176,7 @@ string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 	{
 		name = get_cast_vote(name, j); //---------------------------------------------------------------- Get the name of the candidate to check
 		transform(name.begin(), name.end(), name.begin(), ::tolower);
-		if (find(ranked_candidates.begin(), ranked_candidates.end(), name) != ranked_candidates.end())  // Find retruns the value of the last pushed element if the element we are searching for is not found
+		if (find(ranked_candidates.begin(), ranked_candidates.end(), name) != ranked_candidates.end())  // Find returns the value of the last pushed element if the element we are searching for is not found
 		{
 			cerr << "Error: Candidate already ranked." << endl;
 		}
@@ -218,7 +218,7 @@ bool check_correct_vote_cast(bool valid_name, string name)
 	return valid_name = false;
 }
 
-// Update ranks given a new vote, record the vote by comparing the entered name with the candiate names in the pool of candidates and record it in the ranks array
+// Update ranks given a new vote, record the vote by comparing the entered name with the candidate names in the pool of candidates and record it in the ranks array
 void vote(int rank, string name, int ranks[])
 {
 	for (int i = 0; i < candidate_count; i++)
@@ -271,7 +271,7 @@ void record_preferences(int ranks[])
 // to check if Alice wins over Bob that will be 0, preferences[0][1],
 // opposite of that in the matrix is preferences[1][0],
 // so we compare them next we check Alice vs Charlie or [0][2] vs [2][0],
-// then we have no more for alice and we go to Bob thats 1, [1][0] is already checked we skip to [1][2] vs [2][1] and so on.
+// then we have no more for Alice and we go to Bob thats 1, [1][0] is already checked we skip to [1][2] vs [2][1] and so on.
 void add_pairs()
 {
 	for (int i = 0; i < candidate_count; i++)
@@ -390,7 +390,7 @@ void print_winner()
 		int counter_of_truths = 0;
 		for (int j = 0; j < candidate_count; j++)
 		{
-			if (locked[j][i] == false) //------------------ We check if the columb is all false
+			if (locked[j][i] == false) //------------------ We check if the column is all false
 			{
 				counter_of_truths++;
 			}

@@ -18,7 +18,7 @@ int main()
 
 	string text = get_user_text(); //-- Get user text
 
-	convert_decimal_to_binary(text); // Conver the decimal to binary
+	convert_decimal_to_binary(text); // Convert the decimal to binary
 
 	return 0; //----------------------- Success
 }
@@ -30,7 +30,7 @@ string get_user_text()
 	return text;
 }
 
-// Converting Algoritam
+// Converting Algorithm
 void convert_decimal_to_binary(string text)
 {
 	int devide = 0;
@@ -38,7 +38,7 @@ void convert_decimal_to_binary(string text)
 	int length = text.length();
 	for (int i = 0; i < length; i++)
 	{
-		devide = text[i]; //----------------------- Put the first character in this devide aka its ASCII value
+		devide = text[i]; //----------------------- Put the first character in this divide aka its ASCII value
 		for (int j = 0; j < EIGHT_BITS; j++)
 		{
 			if (devide % 2 == 0) //---------------- Check if that value has a mod of 0
@@ -90,11 +90,11 @@ void convert_decimal_to_binary(string text)
 // Reverse the order of the values in array
 void reverse_the_bits(int size, int structure[])
 {
-	int help = 0; //------------------------------ This is only used to hold the value of the of the current i in the array, so we dont lose it when we swap it
-	for (int i = 0; i < size / 2; i++) //--------- Why half the size? Well because we are swapping first and last, second and secont to last , third and third to last, they meet in the middel where we dont swap at all
+	int help = 0; //------------------------------ This is only used to hold the value of the of the current i in the array, so we don't lose it when we swap it
+	for (int i = 0; i < size / 2; i++) //--------- Why half the size? Well because we are swapping first and last, second and second to last , third and third to last, they meet in the middle where we don't swap at all
 	{
 		help = structure[i];
-		structure[i] = structure[size - i - 1]; // Swap the last value to the first structure[0] = structure[8-0-1], we need size-i-1 becuase to go down the order, example here [8-0-1] = 7 then we go to [8-1-1] = 6 and so on. we must have that initial -1 because the int i is set to 0, and we must have it set to 0 to get access to the first value or 0th
+		structure[i] = structure[size - i - 1]; // Swap the last value to the first structure[0] = structure[8-0-1], we need size-i-1 because to go down the order, example here [8-0-1] = 7 then we go to [8-1-1] = 6 and so on. we must have that initial -1 because the int i is set to 0, and we must have it set to 0 to get access to the first value or 0th
 		structure[size - i - 1] = help;
 	}
 }

@@ -50,7 +50,7 @@ bool check_triangle_method1(double long a, double long b, double long c)
 	return true;
 }
 
-// Check for triangle with the pythagorean theorem
+// Check for triangle with the Pythagorean theorem
 bool check_triangle_method2(double long a, double long b, double long c)
 {
 	if ((a * a + b * b == c * c) || (b * b + c * c == a * a) || (c * c + a * a == b * b))

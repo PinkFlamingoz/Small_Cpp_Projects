@@ -165,7 +165,7 @@ void set_voter_preferences()
 	}
 }
 
-// Check if the candidate has aready been ranked by making a temporary vector array and pushing each rank in it as the voter votes, reset the vector array for the new voter
+// Check if the candidate has already been ranked by making a temporary vector array and pushing each rank in it as the voter votes, reset the vector array for the new voter
 string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 {
 	bool valid_vote = false;
@@ -173,7 +173,7 @@ string check_if_ranked(string name, int j, vector<string> &ranked_candidates)
 	{
 		name = get_cast_vote(name, j); //---------------------------------------------------------------- Get the name of the candidate to check
 		transform(name.begin(), name.end(), name.begin(), ::tolower);
-		if (find(ranked_candidates.begin(), ranked_candidates.end(), name) != ranked_candidates.end()) // Find retruns the value of the last pushed element if the element we are searching for is not found
+		if (find(ranked_candidates.begin(), ranked_candidates.end(), name) != ranked_candidates.end()) // Find returns the value of the last pushed element if the element we are searching for is not found
 		{
 			cerr << "Error: Candidate already ranked." << endl;
 		}
@@ -215,7 +215,7 @@ bool check_correct_vote_cast(bool valid_name, string name)
 	return valid_name = false;
 }
 
-// Record the vote by comparing the entered name with the candiate names in the pool of candidates and record it in the preferences array example voter[0]has ranked[{1, 2, 0, 3}]
+// Record the vote by comparing the entered name with the candidate names in the pool of candidates and record it in the preferences array example voter[0]has ranked[{1, 2, 0, 3}]
 void vote(int voter, int rank, string name)
 {
 	for (int i = 0; i < candidate_count; i++)

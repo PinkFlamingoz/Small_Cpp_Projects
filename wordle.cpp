@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 		word_list >> options[i];
 	}
 
-	srand(time(NULL)); //------------------------------------------ Pseudorandomly select a word for this game
+	srand(time(NULL)); //------------------------------------------ Pseudo randomly select a word for this game
 	string choice = options[rand() % LISTSIZE];
 
 	int guesses = WORDSIZE + 1; //--------------------------------- Allow one more guess than the length of the word

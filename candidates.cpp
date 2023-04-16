@@ -21,7 +21,7 @@ int main(void)
 	int number = get_number_of_candidates(); //------ Get the number of candidates
 	Candidate *candidates = new Candidate[number]; // Make a dynamic array with that size
 
-	fill_in_the_candidates(candidates, number); //--- Fill in the candidate structure array for each candidate a name and total votes that that candidate has
+	fill_in_the_candidates(candidates, number); //--- Fill in the candidate structure array for each candidate a name and total votes that candidate has
 
 	print_candidates(candidates, number); //--------- Print each candidate from the candidate structure array
 

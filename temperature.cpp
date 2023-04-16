@@ -24,7 +24,7 @@ int main()
 
 	fill_temperatures_array(size, temperatures); //------ Set the values from the user in the temperatures structure array
 
-	sort_data_bubble(size, temperatures); //------------- Sort the temperatures structure array using the bubble sort algoritam
+	sort_data_bubble(size, temperatures); //------------- Sort the temperatures structure array using the bubble sort algorithm
 
 	print_data(size, temperatures); //------------------- Print the sorted data
 

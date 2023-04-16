@@ -20,11 +20,11 @@ int main()
 	long long k = get_number(); //---------------------- Get the a number from the user
 
 	long long fa = factorial(number); //---------------- Get whats the factorial of that number
-	long long fi = fibonacci(number); //---------------- Get the fibonacci number at that interval
+	long long fi = fibonacci(number); //---------------- Get the Fibonacci number at that interval
 	long long co = collatz(number); //------------------ Get the total steps to get to one from that number
 	long long po = power(number, k); //----------------- Calculate the power of
 	long long gc = gcd(number, k); //------------------- Calculate the gcd of two numbers
-	long long di = count_divisible_digits(number); //--- Count if a digit is devisable in a number
+	long long di = count_divisible_digits(number); //--- Count if a digit is divisible in a number
 
 	print_results(fa, fi, co, po, gc, di, number, k); // Print the results
 
@@ -57,7 +57,7 @@ long long factorial(long long number)
 	}
 }
 
-// Get the fibonacci number at that interval
+// Get the Fibonacci number at that interval
 long long fibonacci(long long number)
 {
 	// Base case
@@ -125,7 +125,7 @@ long long gcd(long long a, long long b)
 	}
 }
 
-// Count devisible digits, if the input is 12345, it will check if 1 is divisible by 2, if 2 is divisible by 3, if 3 is divisible by 4, and if 4 is divisible by 5
+// Count divisible digits, if the input is 12345, it will check if 1 is divisible by 2, if 2 is divisible by 3, if 3 is divisible by 4, and if 4 is divisible by 5
 long long count_divisible_digits(long long number)
 {
 	// Base case

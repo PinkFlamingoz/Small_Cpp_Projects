@@ -57,7 +57,7 @@ int calculate_dimes(int cents)
 	return cents / 10;
 }
 
-// Calculate nickles
+// Calculate nickels
 int calculate_nickels(int cents)
 {
 	return cents / 5;

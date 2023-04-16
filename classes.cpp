@@ -18,12 +18,15 @@ class Cars
 	float mileage;
 	double price;
 
+	protected:
+	// Member variables or data members
+
 	public:
 	// Member functions they can be constructors, destructors, accessors, setters or mutators
 
 	// Constructor
 	// The constructor initializes objects of a class, it is automatically called when object(instance of a class) is created.
-	// Its a special member function, it has the same name of the class, they dont have a return type, if we dont specify a constructor the compiler generates a default constructor for us(with no parameters and has an empty body).
+	// Its a special member function, it has the same name of the class, they don't have a return type, if we don't specify a constructor the compiler generates a default constructor for us(with no parameters and has an empty body).
 
 	// Default Constructor does not take any arguments, it has no parameters.
 	Cars()
@@ -31,12 +34,15 @@ class Cars
 		cout << "Default Constructor called!" << endl;
 		company = "Default Company";
 		model = "Default Model";
-		fuel_type = "Default Fule Type";
+		fuel_type = "Default Fuel Type";
 		mileage = 0;
 		price = 0;
 	}
 
-	// Parameter Constructor takes arguments, so when we create the object we pass in the paramaters
+	// Parameter Constructor takes arguments, so when we create the object we pass in the parameters
+	//
+	// NOTE: We can also do it like this
+	// Cars(string company, string model, string fuel_type, float mileage, double price) : company(company), model(model), fuel_type(fuel_type), mileage(mileage), price(price){ }
 	Cars(string company, string model, string fuel_type, float mileage, double price)
 	{
 		cout << "Parameter Constructor called!" << endl;
@@ -47,7 +53,7 @@ class Cars
 		this->price = price;
 	}
 
-	// Copy Constructor initializes an onbject using aother object of the same class
+	// Copy Constructor initializes an object using another object of the same class
 	Cars(Cars &object)
 	{
 		cout << "Copy Constructor called!" << endl;
@@ -62,10 +68,10 @@ class Cars
 	// The destructor is a special member function, it destructs or deletes an object.
 	// It is called when the function ends, the program ends, a block containing local variables ends, a delete operator is called.
 	// Destructors have the same name of the class  preceded by a tilde(~).
-	// Destructors dont have any arguments and dont return anything not even void.
+	// Destructors don't have any arguments and don't return anything not even void.
 	// There can only be one destructor unlike the constructors.
 	// If we do not write our own destructor in a class, the compiler creates a default destructor for us.
-	// If we have dynamically allocated memory or pointer in a class, we have to write a deconstructor to release the memory before the class instance is destroyed, so we dont create a memory leak.
+	// If we have dynamically allocated memory or pointer in a class, we have to write a destructor to release the memory before the class instance is destroyed, so we don't create a memory leak.
 	~Cars()
 	{
 		cout << "Destructor called!" << endl;

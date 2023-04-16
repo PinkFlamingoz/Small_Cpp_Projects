@@ -390,7 +390,7 @@ void edges(int height, int width, RGBTRIPLE **&image)
 			int new_red = round(sqrt(pow(reds_x, 2) + pow(reds_y, 2))); //-------------------------------- Compute all the gathered reds, greens and blues for the pixel location at image_copy[i][j]
 			int new_green = round(sqrt(pow(greens_x, 2) + pow(greens_y, 2)));
 			int new_blue = round(sqrt(pow(blues_x, 2) + pow(blues_y, 2)));
-			cap_to_max_value(new_red, new_green, new_blue); //-------------------------------------------- Cap the values so we dont get anything abouve 255
+			cap_to_max_value(new_red, new_green, new_blue); //-------------------------------------------- Cap the values so we don't get anything abouve 255
 			set_the_new_RGB_values(new_red, new_green, new_blue, i, j, image); //------------------------- Set the new values of that pixel in the original image
 		}
 	}
@@ -401,7 +401,7 @@ void edges(int height, int width, RGBTRIPLE **&image)
 // We set a nested for loop to loop around the target  going -1 and +1 directions
 // We can use an if statement to check if the pixel exists, to check if its in the bounds of the array we can just see if the indexes go over or match the height or width or fall below 0, if any pixel matches these statements, we skip this pixel
 //
-// T = Target, G = Get these pixels, X = Pixles dont exist, C - Current check
+// T = Target, G = Get these pixels, X = Pixles don't exist, C - Current check
 //
 //     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5           |     0  1  2  3  4  5           |     0  1  2  3  4  5           |     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5
 //   X X  X                      |        X  X  X                |                 X  X X         |                                |                                |                               |                               |                               |                               |

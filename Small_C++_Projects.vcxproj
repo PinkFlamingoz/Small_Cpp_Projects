@@ -162,9 +162,9 @@
     <ClCompile Include="palindrome.cpp" />
     <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="pointers_addresses_references.cpp" />
+    <ClCompile Include="pure_virtual_functions.cpp" />
     <ClCompile Include="recover_jpg_images.cpp" />
     <ClCompile Include="reverse_wav_audio.cpp" />
-    <ClCompile Include="shapes.cpp" />
     <ClCompile Include="swap_values.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />
@@ -186,6 +186,7 @@
     <ClCompile Include="triangle_check.cpp" />
     <ClCompile Include="validate_file.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
+    <ClCompile Include="virtual_functions.cpp" />
     <ClCompile Include="what_grade_is_this_text.cpp" />
     <ClCompile Include="wordle.cpp" />
   </ItemGroup>

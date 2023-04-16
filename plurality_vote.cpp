@@ -75,7 +75,7 @@ int get_number_of_voters()
 	return number;
 }
 
-//* Calculate votes and check if the vote is valid, if not dont count it ----------------------------------------------------------------------------------
+//* Calculate votes and check if the vote is valid, if not don't count it ----------------------------------------------------------------------------------
 void calculate_votes(int voter_count)
 {
 	for (int i = 0; i < voter_count; i++)
@@ -88,7 +88,7 @@ void calculate_votes(int voter_count)
 	}
 }
 
-// Record the vote by comparing the entered name with the candiate names in the pool of candidates and add one vote to the matching names
+// Record the vote by comparing the entered name with the candidate names in the pool of candidates and add one vote to the matching names
 bool vote(string name)
 {
 	for (int i = 0; i < candidate_count; i++)
@@ -101,7 +101,7 @@ bool vote(string name)
 	}
 	return false;
 }
-//* Calculate votes and check if the vote is valid, if not dont count it ----------------------------------------------------------------------------------
+//* Calculate votes and check if the vote is valid, if not don't count it ----------------------------------------------------------------------------------
 
 //* Print the winner/s that have the max vote -------------------------------------------------------------------------------------------------------------
 void print_winner()

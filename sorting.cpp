@@ -326,7 +326,7 @@ void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[])
 	{
 		holder = RANDOM_ARRAY[i]; //----------------------------------------------- Get next element in array
 		previous_element = i - 1; //----------------------------------------------- Get the index of the previous element in the array
-		while (previous_element >= 0 && RANDOM_ARRAY[previous_element] > holder) // Check if the index of the previous elemet is in the bounds of the array and check if the previous element is bigger than the next one
+		while (previous_element >= 0 && RANDOM_ARRAY[previous_element] > holder) // Check if the index of the previous element is in the bounds of the array and check if the previous element is bigger than the next one
 		{
 			RANDOM_ARRAY[previous_element + 1] = RANDOM_ARRAY[previous_element]; // If they are swap them
 			previous_element = previous_element - 1; //---------------------------- Decrement to get the previous element and to check for the other elements behind it

@@ -64,7 +64,7 @@ int main()
 
 	// Dog or Cat
 	int Door = 0;
-	cout << "Infront you have two doors with the number 1 or 2, what do you pick? \n";
+	cout << "In front you have two doors with the number 1 or 2, what do you pick? \n";
 	while (!(cin >> Door))
 	{
 		cin.clear();
@@ -127,12 +127,12 @@ int main()
 	}
 	else
 	{
-		cout << "Dont hit yourself in the wall ... " << Name << ", Good Bye! \n";
+		cout << "Don't hit yourself in the wall ... " << Name << ", Good Bye! \n";
 	}
 
 	// Secrets of the universe
 	char Ready;
-	cout << "Last chance to know everything in life are you ready?(Y or N)(To stop say the magick word of CTRL + C!) \n";
+	cout << "Last chance to know everything in life are you ready?(Y or N)(To stop say the magic word of CTRL + C!) \n";
 	cin >> Ready;
 	if (Ready == 'Y' || Ready == 'y')
 	{

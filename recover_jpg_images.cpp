@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	int counter = 0;
 	sprintf(&image_name[0], "%03i.jpg", counter); // Set the name of the first image
 
-	// Create the first recoverd image
+	// Create the first recovered image
 	ofstream recovered_image(image_name, ios::binary);
 	if (!recovered_image.is_open())
 	{
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	{
 		if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0) // Check if its the start of a jpg
 		{
-			found = true; //----------------------------------------------------------------------------- We use this so we dont write in the starting surprises at the beginning of the memory card :D, but to start writing when we find the first image bits.
+			found = true; //----------------------------------------------------------------------------- We use this so we don't write in the starting surprises at the beginning of the memory card :D, but to start writing when we find the first image bits.
 
 			// Initial first image
 			if (first_jpg) //---------------------------------------------------------------------------- Write the first image we find

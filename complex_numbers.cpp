@@ -28,11 +28,6 @@ class Complex_Numbers
 		this->imaginary_part = imaginary_part;
 	}
 
-	// Destructor
-	~Complex_Numbers()
-	{
-	}
-
 	// Display the number
 	void display_number()
 	{
@@ -78,7 +73,7 @@ int main(int argc, char *argv[])
 	float c2i = stof(argv[4]);
 	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 
-	Complex_Numbers c1(c1r, c1i), c2(c2r, c2i), c3; // Create the compex numbers two with the parameter constructor and one with the default constructor
+	Complex_Numbers c1(c1r, c1i), c2(c2r, c2i), c3; // Create the complex numbers two with the parameter constructor and one with the default constructor
 
 	c3 = addition(c1, c2); //------------------------- In the third complex number store the addition by returning a complex number
 

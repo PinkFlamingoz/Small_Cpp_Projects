@@ -48,8 +48,8 @@ int main(int argc, char *argv[])
 	}
 
 	// Get the bits of the image
-	int height = abs(bitmap_info_header.biHeight); //---------------------- Set hight for allocating memmory
-	int width = bitmap_info_header.biWidth; //----------------------------- Set width for allocating memmory
+	int height = abs(bitmap_info_header.biHeight); //---------------------- Set hight for allocating memory
+	int width = bitmap_info_header.biWidth; //----------------------------- Set width for allocating memory
 	RGBTRIPLE **image = nullptr;
 	allocate_memory_2D_array<RGBTRIPLE, int, int>(image, height, width); // Allocate Memory for image
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 	}
 	//* Read the bits of the old file and store them in the Bit structure variables ---------------------------------------------------------------------------
 
-	// Change the collor
+	// Change the color
 	colorize(height, width, image);
 
 	//* Write the bits for the new file from the previously made Bit structure variables ----------------------------------------------------------------------
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 // Immediately following these headers is the actual bitmap: an array of bytes, triples of which represent a pixel's color.
 // You could represent a bitmap as a 2-dimensional array of pixels: where the image is an array of rows, each row is an array of pixels.
 
-// Change the colors of the pixles
+// Change the colors of the pixels
 void colorize(int height, int width, RGBTRIPLE **&image)
 {
 	for (int i = 0; i < height; i++)

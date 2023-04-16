@@ -59,7 +59,7 @@ int count_words(string text)
 
 	for (i; i < length; i++)
 	{
-		if (isspace(text[i]) == isspace(text[i + 1])) //-- We use this to skip over multiple spaces in between words. We also get a true here if both are not spaces, because we get false == false, but it doesnt matter.
+		if (isspace(text[i]) == isspace(text[i + 1])) //-- We use this to skip over multiple spaces in between words. We also get a true here if both are not spaces, because we get false == false, but it doesn't matter.
 		{
 			count += 0;
 		}
@@ -70,7 +70,7 @@ int count_words(string text)
 	}
 	return count + 1; //---------------------------------- We add the plus one to include the word at the begging that we never encounter a space for.
 }
-/* This is if we dont have the get_valid_input_function
+/* This is if we don't have the get_valid_input_function
 while (isspace(text[i])) // We use this to skip over if we have one or more spaces in the beginning of a sentence.
 {
 	i++;
@@ -78,7 +78,7 @@ while (isspace(text[i])) // We use this to skip over if we have one or more spac
 
 for (int b = i; b < length; b++)
 {
-	if (isspace(text[b]) == isspace(text[b + 1])) // We use this to skip over multiple spaces in between words. We also get a true here if both are not spaces, because we get false == false, but it doesnt matter.
+	if (isspace(text[b]) == isspace(text[b + 1])) // We use this to skip over multiple spaces in between words. We also get a true here if both are not spaces, because we get false == false, but it doesn't matter.
 	{
 		count += 0;
 	}
@@ -90,7 +90,7 @@ for (int b = i; b < length; b++)
 return count + 1; // We add the plus one to include the word at the begging that we never encounter a space for.
 */
 
-// Count the sentences by counting if a character is a '. ! ?' and make sure that they dont count when they follow each other
+// Count the sentences by counting if a character is a '. ! ?' and make sure that they don't count when they follow each other
 int count_sentences(string text)
 {
 	int count = 0;

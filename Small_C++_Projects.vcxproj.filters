@@ -207,7 +207,10 @@
     <ClCompile Include="classes.cpp">
       <Filter>Source Files\OOP</Filter>
     </ClCompile>
-    <ClCompile Include="shapes.cpp">
+    <ClCompile Include="virtual_functions.cpp">
+      <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="pure_virtual_functions.cpp">
       <Filter>Source Files\OOP</Filter>
     </ClCompile>
   </ItemGroup>

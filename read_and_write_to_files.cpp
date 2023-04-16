@@ -35,7 +35,7 @@ int main()
 	read_form_a_file(); //------------------------------------------------------------------------ Print out the contacts from the file
 
 	string name = get_delete_name(); //----------------------------------------------------------- Get the name of the contact we want to delete from the file
-	delete_from_file(name); //-------------------------------------------------------------------- Delete that name in the file by making a temporery file with that name not in it and then just rename it to the original name
+	delete_from_file(name); //-------------------------------------------------------------------- Delete that name in the file by making a temporary file with that name not in it and then just rename it to the original name
 
 	vector<string> contacts; //------------------------------------------------------------------- Create a vector array to store the contacts from the file
 	get_data_from_a_file(contacts); //------------------------------------------------------------ Push the contacts into the vector array

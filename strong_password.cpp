@@ -15,7 +15,7 @@ int main()
 	return 0; //----------------------------- Success
 }
 
-// Get a password from the user keep prompting the same thing unitl he enters the correct information
+// Get a password from the user keep prompting the same thing until he enters the correct information
 string get_user_password()
 {
 	string password = "";
@@ -26,7 +26,7 @@ string get_user_password()
 	return password;
 }
 
-// Check if the passowrd is a valid one
+// Check if the password is a valid one
 bool check_password(string password)
 {
 	bool uppercase = false;

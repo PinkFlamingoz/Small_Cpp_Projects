@@ -135,7 +135,7 @@ bool is_it_a_24_bit_uncompressed_BMP_4_0(BITMAPFILEHEADER bitmap_file_header, BI
 //
 // The number of padding bytes for each scanline is calculated as (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4, and is stored in the variable padding.
 // The code then skips over the padding bytes in the input file using the fseek function,
-// and writes new padding bytes to the output file using a loop that writes zeroes.
+// and writes new padding bytes to the output file using a loop that writes zeros.
 //
 // Skipping over the padding bytes is important, as they are not part of the actual image data and would otherwise be written to the output file as garbage data.
 //

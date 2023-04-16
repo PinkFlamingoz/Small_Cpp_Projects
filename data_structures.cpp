@@ -234,7 +234,7 @@ int main()
 //* Singly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
 																																 // With pointer to a pointer                        // With return
 																																 //                                                  //
-// Prepend, add infront of the singly linked list O(1)																			 // In main {insert(&list, 1);}                      // In main {list = insert(list, 1);}
+// Prepend, add in front of the singly linked list O(1)																			 // In main {insert(&list, 1);}                      // In main {list = insert(list, 1);}
 template <typename T>                                                                                                             // template <typename T>                             // template <typename T>
 void prepend_sll(sll_node<T> *&list, T value)                                                                                    // void insert(sll_node<T>** list_ptr, T value)     // sll_node<T>* insert(sll_node<T>* list, T value)
 {                                                                                                                                // {                                                // {
@@ -309,7 +309,7 @@ void insert_sorted_sll(sll_node<T> *&list, T value)
 template <typename T>
 void print_sll(sll_node<T> *list)
 {
-	sll_node<T> *temp = list; // We create a temp node so we dont change the list values when we traverse the list aka get the pointer to point at the next value
+	sll_node<T> *temp = list; // We create a temp node so we don't change the list values when we traverse the list aka get the pointer to point at the next value
 	while (temp != nullptr)
 	{
 		cout << "Value: " << temp->value << " Debug current address of the element:               " << temp << endl;
@@ -597,7 +597,7 @@ void bubble_sort_sll(sll_node<T> *&list)
 //* Singly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
 
 //* Doubly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
-// Prepend, add infront of the doubly linked list O(1)
+// Prepend, add in front of the doubly linked list O(1)
 template <typename T>
 void prepend_dll(dll_node<T> *&list, T value)
 {
@@ -690,7 +690,7 @@ void insert_sorted_dll(dll_node<T> *&list, T value)
 template <typename T>
 void print_dll(dll_node<T> *list)
 {
-	dll_node<T> *temp = list; // We create a temp variable so we dont change the list values when we traverse the list aka get the pointer to point at the next value
+	dll_node<T> *temp = list; // We create a temp variable so we don't change the list values when we traverse the list aka get the pointer to point at the next value
 	while (temp != nullptr)
 	{
 		cout << "Value: " << temp->value << " Prev: " << temp->previous << " Curr: " << temp << " Next: " << temp->next << endl;

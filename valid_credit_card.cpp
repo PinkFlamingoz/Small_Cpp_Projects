@@ -88,13 +88,13 @@ int calculate_checksum(long long card)
 	int i = 0;
 	while (card > 0)
 	{
-		digit = card % 10; //-------- gets and resets the last digit
-		card = card / 10; //--------- removes the last number setp by step
+		digit = card % 10; //-------- Gets and resets the last digit
+		card = card / 10; //--------- Removes the last number step by step
 		if (i % 2 == 1)
 		{
 			digit = digit * 2;
-			if (digit > 9)         // equivelent of adding the 2 digits
-			{                      // of a double integer number
+			if (digit > 9)         // Equivalent of adding the 2 digits
+			{                      // Of a double integer number
 				digit = digit - 9; // 12 - 9 = 3, 1 + 2 = 3
 			}
 		}
@@ -149,8 +149,8 @@ void get_individual_numbers_from_string(long long number)
 	int digit = 0;
 	while (number > 0)
 	{
-		digit = number % 10; //- gets and resets the last digit
-		number = number / 10; // removes the last digit of the number setp by step
+		digit = number % 10; //- Gets and resets the last digit
+		number = number / 10; // Removes the last digit of the number step by step
 		cout << digit << " ";
 	}
 	cout << endl;
@@ -162,9 +162,9 @@ void get_individual_every_other_number_from_string(long long number)
 	int i = 0;
 	while (number > 0)
 	{
-		digit = number % 10; //- gets and resets the last digit
-		number = number / 10; // removes the last digit of the number setp by step
-		if (i % 2 == 0) //------ even position numbers
+		digit = number % 10; //- Gets and resets the last digit
+		number = number / 10; // Removes the last digit of the number step by step
+		if (i % 2 == 0) //------ Even position numbers
 		{
 			cout << digit << " ";
 		}
@@ -179,9 +179,9 @@ void get_individual_every_other_number_from_string_twisted(long long number)
 	int i = 0;
 	while (number > 0)
 	{
-		digit = number % 10; //- gets and resets the last digit
-		number = number / 10; // removes the last digit of the number setp by step
-		if (i % 2 == 1) //------ odd position numbers
+		digit = number % 10; //- Gets and resets the last digit
+		number = number / 10; // Removes the last digit of the number step by step
+		if (i % 2 == 1) //------ Odd position numbers
 		{
 			cout << digit << " ";
 		}

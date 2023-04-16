@@ -133,7 +133,7 @@ string encrypt_text(string key_string, string text)
 	return cipher;
 }
 // Swap works in such a way where we get the value of the character we want to swap example H = 72 in the ASCII table,
-// to get the position in the key of the corresponding letter to swap with we just subbtract 72 with the upper 'A' or lower case 'a'
+// to get the position in the key of the corresponding letter to swap with we just subtract 72 with the upper 'A' or lower case 'a'
 // 72 - 65 = 7, so in our key_string we swap it with that location key_string[7], why because our key_string is a 26 character string and it corresponds with each letter in the alphabet
 int swap(char character, int upperOrlower)
 {

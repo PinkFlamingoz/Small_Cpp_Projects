@@ -26,11 +26,6 @@ class Force
 		acceleration = 0;
 	}
 
-	// Destructor
-	~Force()
-	{
-	}
-
 	// Print distance
 	void print_force_variables()
 	{

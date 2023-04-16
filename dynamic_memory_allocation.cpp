@@ -11,7 +11,7 @@ int main()
 	int size = get_input(); // Get the size of the memory we want to allocate
 
 	//* C++ Style -----------------------------------------------------------------------------------------------------------------------
-	int *p = nullptr; //------- Set the pointer to null if it doesnt point to anything
+	int *p = nullptr; //------- Set the pointer to null if it doesn't point to anything
 
 	p = new int[size]; //------ Dynamically allocate memory for array
 
@@ -22,7 +22,7 @@ int main()
 	//* C++ Style -----------------------------------------------------------------------------------------------------------------------
 
 	//* C Style -------------------------------------------------------------------------------------------------------------------------
-	int *cp = nullptr; //---------------------- Set the pointer to null if it doesnt point to anything
+	int *cp = nullptr; //---------------------- Set the pointer to null if it doesn't point to anything
 
 	cp = (int *)malloc(size * sizeof(int)); //- Dynamically allocate memory for array
 

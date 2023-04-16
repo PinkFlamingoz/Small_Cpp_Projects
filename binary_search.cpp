@@ -79,7 +79,7 @@ bool binary_search(int number)
 }
 
 // O(log n)
-// Worst-case scenario: We have to divide a list of n elementsin half repeatedly to find the target element, either because division or doesnt exist in the array at all
+// Worst-case scenario: We have to divide a list of n elements in half repeatedly to find the target element, either because division or doesn't exist in the array at all
 
 // Ω(1)
 // Best-case scenario: The target element is at the midpoint of the full array, and so we can stop looking immediately after we start

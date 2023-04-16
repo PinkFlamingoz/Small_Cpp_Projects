@@ -60,7 +60,7 @@ string get_user_text()
 	return text;
 }
 
-// Caeser algorithm
+// Caesar algorithm
 string encrypt_text(string text, int key)
 {
 	string cipher = "";
@@ -96,8 +96,8 @@ string encrypt_text(string text, int key)
 // Why % 26 well if we have the example of letter H to encrypt with the shift of 42 then we would get,
 // Pi = ( 72 - 65( this is the ASCII value of 'A' ) ) = 7 We calculate this to get the position of the H character in the alphabet, and we know H is the 7th letter in the alphabet.
 // Now we can shift that letter by the key and know in which position it will end up in the alphabet.
-// 7 + 42 = 49 but 49 is the character 1 in the ASCII table so we need to mod it by 26 becuase thats how many letters we have in the alphabet and we get
-// 49 % 26 = 23 and we have it H becomes X but not so fast to get the ASCII value of X we need to add the character of 'A' which is 65 that we subtraceted in the first place to get the position of H
+// 7 + 42 = 49 but 49 is the character 1 in the ASCII table so we need to mod it by 26 because thats how many letters we have in the alphabet and we get
+// 49 % 26 = 23 and we have it H becomes X but not so fast to get the ASCII value of X we need to add the character of 'A' which is 65 that we subtracted in the first place to get the position of H
 // 23 + 65 = 88 and we finally have our answer.
 
 // Rotate by the given KEY
