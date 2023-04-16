@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
 	}
 
 	// Get the bits of the image
-	int height = abs(bitmap_info_header.biHeight); //---------------------- Set hight for allocating memmory
-	int width = bitmap_info_header.biWidth; //----------------------------- Set width for allocating memmory
+	int height = abs(bitmap_info_header.biHeight); //---------------------- Set hight for allocating memory
+	int width = bitmap_info_header.biWidth; //----------------------------- Set width for allocating memory
 	RGBTRIPLE **image = nullptr;
 	allocate_memory_2D_array<RGBTRIPLE, int, int>(image, height, width); // Allocate Memory for image
 
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 // Check input for options
 bool check_correct_filter(string option)
 {
-	// Make sure user enters correct filter, find will return the last element in the vector array if it doesnt find the value that the user inputed
+	// Make sure user enters correct filter, find will return the last element in the vector array if it doesn't find the value that the user inputed
 	transform(option.begin(), option.end(), option.begin(), ::tolower);
 	if (find(FILTERS.begin(), FILTERS.end(), option) == FILTERS.end())
 	{
@@ -233,7 +233,7 @@ void copy_image_pixels(int height, int width, RGBTRIPLE **&image, RGBTRIPLE **&i
 // If the red, green, and blue values are all set to 0x00 (hexadecimal for 0), then the pixel is black.
 // And if all values are set to 0xff (hexadecimal for 255), then the pixel is white.
 // So long as the red, green, and blue values are all equal, the result will be varying shades of gray along the black-white spectrum, with higher values meaning lighter shades (closer to white) and lower values meaning darker shades (closer to black).
-// To ensure each pixel of the new image still has the same general brightness or darkness as the old image, we can take the average of the red, green, and blue values to determine what shade of grey to make the new pixel.
+// To ensure each pixel of the new image still has the same general brightness or darkness as the old image, we can take the average of the red, green, and blue values to determine what shade of gray to make the new pixel.
 void grayscale(int height, int width, RGBTRIPLE **&image)
 {
 	for (int i = 0; i < height; i++)
@@ -390,7 +390,7 @@ void edges(int height, int width, RGBTRIPLE **&image)
 			int new_red = round(sqrt(pow(reds_x, 2) + pow(reds_y, 2))); //-------------------------------- Compute all the gathered reds, greens and blues for the pixel location at image_copy[i][j]
 			int new_green = round(sqrt(pow(greens_x, 2) + pow(greens_y, 2)));
 			int new_blue = round(sqrt(pow(blues_x, 2) + pow(blues_y, 2)));
-			cap_to_max_value(new_red, new_green, new_blue); //-------------------------------------------- Cap the values so we don't get anything abouve 255
+			cap_to_max_value(new_red, new_green, new_blue); //-------------------------------------------- Cap the values so we don't get anything above 255
 			set_the_new_RGB_values(new_red, new_green, new_blue, i, j, image); //------------------------- Set the new values of that pixel in the original image
 		}
 	}
@@ -401,7 +401,7 @@ void edges(int height, int width, RGBTRIPLE **&image)
 // We set a nested for loop to loop around the target  going -1 and +1 directions
 // We can use an if statement to check if the pixel exists, to check if its in the bounds of the array we can just see if the indexes go over or match the height or width or fall below 0, if any pixel matches these statements, we skip this pixel
 //
-// T = Target, G = Get these pixels, X = Pixles don't exist, C - Current check
+// T = Target, G = Get these pixels, X = Pixels don't exist, C - Current check
 //
 //     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5           |     0  1  2  3  4  5           |     0  1  2  3  4  5           |     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5          |     0  1  2  3  4  5
 //   X X  X                      |        X  X  X                |                 X  X X         |                                |                                |                               |                               |                               |                               |
@@ -413,7 +413,7 @@ void edges(int height, int width, RGBTRIPLE **&image)
 //                               |                               |                                |                                |                 X  X X         |           X  X  X             |   X X  X                      |                               |                               |
 // If target is at 00:           | If target is at 02:           | If target is at 05:
 // i = 0; j = 0;                 | i = 0; j = 2;                 | i = 0; j = 5;
-// We need the pixles:           | We need the pixles:           | We need the pixles:
+// We need the pixels:           | We need the pixels:           | We need the pixels:
 // 00, 01                        | 01, 02, 03                    | 04, 05
 // 10, 11                        | 11, 12, 13                    | 14, 15
 //                               |                               |
@@ -424,7 +424,7 @@ void edges(int height, int width, RGBTRIPLE **&image)
 // d = -1; d < 2;                | d = -1; d < 2;                | d = -1; d < 2;
 //                               |                               |
 // Check if exists               | Check if exists               | Check if exists
-// pixle [c + i][d + j]          | pixle [c + i][d + j]          | pixle [c + i][d + j]
+// pixel [c + i][d + j]          | pixel [c + i][d + j]          | pixel [c + i][d + j]
 // All have to be F              | All have to be F              | All have to be F
 //                               |                               |
 // [c + i] = -1 + 0 = -1;        | [c + i] = -1 + 0 = -1;        | [c + i] = -1 + 0 = -1;
