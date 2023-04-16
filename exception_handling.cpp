@@ -19,7 +19,7 @@ int main()
 	}
 	catch (float b)
 	{
-		cerr << "Cant devide by 0! You entered: " << b << endl;
+		cerr << "Cant divide by 0! You entered: " << b << endl;
 	}
 
 	cout << "Result: " << c << endl;

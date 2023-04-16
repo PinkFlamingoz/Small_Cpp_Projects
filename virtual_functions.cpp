@@ -6,14 +6,6 @@ using namespace std;
 // When we refer to a derived class object using a pointer or a reference of the base class, we can call a virtual function for that object and execute the derived class version of the function.
 // The resolving of function call is done at run time.
 // They are declared with the key word virtual before the function.
-//
-// A pure virtual function is a function (abstract function) a virtual function for which we don't have implementation we only declare it.
-// It is declared by assigning 0, example: virtual void myfunction() = 0;
-//
-// A class that has at least one pure virtual function is called an abstract class.
-// We can have pointers and references of abstract class types, but we cannot create an object of an abstract class type aka instantiate it.
-// If we do not override the pure virtual function in the derived class then the derived class also becomes abstract.
-//
 
 // Classes
 class Animal

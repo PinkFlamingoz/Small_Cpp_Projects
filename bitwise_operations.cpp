@@ -20,7 +20,7 @@ int main()
 	ior = num1 | num2;
 	ixor = num1 ^ num2;
 	shift1 = num1 << 1; // Multiply
-	shift2 = num1 >> 1; // Devide
+	shift2 = num1 >> 1; // Divide
 	complement = ~num1; // NOT
 
 	mul = multiply_two_numbers(num1, num2);
@@ -29,7 +29,7 @@ int main()
 	cout << num1 << " OR " << num2 << " is " << ior << endl;
 	cout << num1 << " XOR " << num2 << " is " << ixor << endl;
 	cout << num1 << " Multiply by itself: " << shift1 << endl;
-	cout << num1 << " Devide by itself: " << shift2 << endl;
+	cout << num1 << " Divide by itself: " << shift2 << endl;
 	cout << num1 << " Complement " << complement << endl;
 	cout << num1 << " * " << num2 << " is " << mul << endl;
 

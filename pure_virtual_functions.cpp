@@ -5,6 +5,13 @@
 #include <algorithm>
 
 using namespace std;
+// A pure virtual function is a function (abstract function) a virtual function for which we don't have implementation we only declare it.
+// It is declared by assigning 0, example: virtual void myfunction() = 0;
+//
+// A class that has at least one pure virtual function is called an abstract class.
+// We can have pointers and references of abstract class types, but we cannot create an object of an abstract class type aka instantiate it.
+// If we do not override the pure virtual function in the derived class then the derived class also becomes abstract.
+//
 // Types of inheritance
 //
 // Single level inheritance
@@ -670,55 +677,55 @@ void calculator(Shape *shape, string choice);
 
 int main()
 {
-	bool done = false;
+	bool done = false; //---------------------------------- Create a loop variable, set it to false when we are done and exit the program
 
-	while (!done)
+	while (!done) //--------------------------------------- Begin the program
 	{
-		string choice = select_option();
+		string choice = select_option(); //---------------- Get from the user the choice of what he wants to do
 
-		Shape *shape = nullptr;
+		Shape *shape = nullptr; //------------------------- Make a pointer of a shape class
 
-		switch (choice[0])
+		switch (choice[0]) //------------------------------ Based on what the user wants do the correct thing
 		{
 			case 'r':
-				calculator<Rectangle>(shape, choice);
+				calculator<Rectangle>(shape, choice); //--- Calculate Rectangle functions
 				break;
 			case 't':
-				calculator<Triangle>(shape, choice);
+				calculator<Triangle>(shape, choice); //---- Calculate Triangle functions
 				break;
 			case 'c':
 				if (choice == "circle")
 				{
-					calculator<Circle>(shape, choice);
+					calculator<Circle>(shape, choice); //-- Calculate Circle functions
 				}
 				else if (choice == "cube")
 				{
-					calculator<Cube>(shape, choice);
+					calculator<Cube>(shape, choice); //---- Calculate Cube functions
 				}
 				else if (choice == "cylinder")
 				{
-					calculator<Cylinder>(shape, choice);
+					calculator<Cylinder>(shape, choice); // Calculate Cylinder functions
 				}
 				else
 				{
-					calculator<Cone>(shape, choice);
+					calculator<Cone>(shape, choice); //---- Calculate Cone functions
 				}
 				break;
 			case 's':
 				if (choice == "square")
 				{
-					calculator<Square>(shape, choice);
+					calculator<Square>(shape, choice); //-- Calculate Square functions
 				}
 				else
 				{
-					calculator<Sphere>(shape, choice);
+					calculator<Sphere>(shape, choice); //-- Calculate Sphere functions
 				}
 				break;
 			case 'e':
-				calculator<Ellipse>(shape, choice);
+				calculator<Ellipse>(shape, choice); //----- Calculate Ellipse functions
 				break;
 			case'd':
-				done = true;
+				done = true; //---------------------------- Change the loop variable to true
 				break;
 			default:
 				cout << endl << "Try again! " << endl;
@@ -726,10 +733,10 @@ int main()
 		}
 	}
 
-	return 0;
+	return 0; //------------------------------------------- Success
 }
 
-// Select what to calculate
+// Select what to calculate, prompt the user until he enters the string thats in the vector choices array
 string select_option()
 {
 	vector<string> choices = { "rectangle", "triangle", "circle", "square", "cube", "sphere", "cylinder", "cone", "ellipse", "done" };

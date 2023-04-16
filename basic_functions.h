@@ -104,7 +104,7 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 // \v Vertical Tab    011 Performs a vertical tab
 // \f Form feed       012
 // \r Carriage return 013 Causes a carriage return
-// \" Doubl Quote     034 Displays a quotation mark(")
+// \" Double Quote     034 Displays a quotation mark(")
 // \' Apostrophe      039 Displays an apostrophe (')
 // \? Question mark   063 Displays a question mark
 // \\ Backslash       092 Displays a backslash(\)
