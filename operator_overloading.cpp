@@ -4,6 +4,14 @@
 #include "basic_functions.h"
 
 using namespace std;
+// NOTE: We can specify more than one definition for an operator in the same scope, which is called operator overloading.
+// Its a type of polymorphism in which an operator is overloaded to give user defined meaning to it.
+// Operators that cant be overloaded:
+// scope operator ::
+// size of
+// member selector .
+// member pointer selector *
+// ternary operator ?:
 
 // Classes
 class Complex
@@ -223,6 +231,42 @@ class Complex
 	// The overloaded >> operator takes two arguments : an istream object(e.g.cin) and a Complex &object to be filled with the input.
 	// It returns the istream object to enable chaining.In this function, the real and imaginary parts of the complex number are read from the input stream using the >> operator.
 
+	// Pre increment, where we increment the value first then apply operations
+	// Example: x = 0; y = ++x; y here will have 1;
+	Complex &operator ++()
+	{
+		++real;
+		++imaginary;
+		return *this;
+	}
+
+	// Post increment, where we increment the value after the operations
+	// Example: x = 0; y = x++; y here will have 0;
+	Complex &operator ++(int)
+	{
+		real++;
+		imaginary++;
+		return *this;
+	}
+
+	// Pre decrement, where we decrement the value first then apply operations
+	// Example: x = 0; y = --x; y here will have -1;
+	Complex &operator --()
+	{
+		--real;
+		--imaginary;
+		return *this;
+	}
+
+	// Post decrement, where we decrement the value after the operations
+	// Example: x = 0; y = x-- y here will have 0;
+	Complex &operator --(int)
+	{
+		real--;
+		imaginary--;
+		return *this;
+	}
+
 	// Add function
 	static Complex add(const Complex &a, const Complex &b)
 	{
@@ -393,6 +437,30 @@ class Complex
 			return false;
 		}
 	}
+
+	// Pre increment function
+	static Complex pre_increment(Complex &n)
+	{
+		return ++n;
+	}
+
+	// Post increment function
+	static Complex post_increment(Complex &n)
+	{
+		return n++;
+	}
+
+	// Pre decrement function
+	static Complex pre_decrement(Complex &n)
+	{
+		return --n;
+	}
+
+	// Pre decrement function
+	static Complex post_decrement(Complex &n)
+	{
+		return n--;
+	}
 };
 
 // Globals
@@ -411,6 +479,7 @@ int get_choice();
 void print_created_complex_numbers();
 int get_choice_for_temp();
 void add_or_clear_temp(Complex n);
+void clear_temp();
 void print_result(Complex n);
 
 int main()
@@ -483,12 +552,27 @@ int main()
 				Complex::NOT(select_from_hash_table());
 				break;
 			case 21:
-				print_created_complex_numbers();
+				print_result(Complex::pre_increment(select_from_hash_table()));
 				break;
 			case 22:
-				print_menu();
+				print_result(Complex::post_increment(select_from_hash_table()));
 				break;
 			case 23:
+				print_result(Complex::pre_decrement(select_from_hash_table()));
+				break;
+			case 24:
+				print_result(Complex::post_decrement(select_from_hash_table()));
+				break;
+			case 25:
+				clear_temp();
+				break;
+			case 26:
+				print_created_complex_numbers();
+				break;
+			case 27:
+				print_menu();
+				break;
+			case 28:
 				done = true;
 				break;
 			default:
@@ -599,9 +683,15 @@ void print_menu()
 	cout << "19. Less than or equal    ,operator: (<=) " << endl;
 	cout << "20. NOT                   ,operator: (!) " << endl;
 
-	cout << "21. Print Complex Numbers" << endl;
-	cout << "22. Print Menu" << endl;
-	cout << "23. DONE " << endl;
+	cout << "21. Pre Increment         ,operator: (++n) " << endl;
+	cout << "22. Post Increment        ,operator: (n++)  " << endl;
+	cout << "23. Pre Decrement         ,operator: (--n) " << endl;
+	cout << "24. Post Decrement        ,operator: (n--) " << endl;
+
+	cout << "25. Clear temp" << endl;
+	cout << "26. Print Complex Numbers" << endl;
+	cout << "27. Print Menu" << endl;
+	cout << "28. DONE " << endl;
 }
 
 // Get choice for the menu
@@ -611,7 +701,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 1 || choice > 23);
+	} while (choice < 1 || choice > 27);
 	return choice;
 }
 
@@ -650,6 +740,28 @@ void add_or_clear_temp(Complex n)
 			break;
 		case 2:
 
+			temp = new_temp;
+			break;
+		case 3:
+			cout << "SKIP" << endl;
+			break;
+	}
+
+	cout << "Temp: " << temp << endl;
+}
+
+// Options for the temp complex number
+void clear_temp()
+{
+	cout << "1: CLEAR, 2: CLEAR, 3: SKIP" << endl;
+	Complex new_temp(0, 0);
+	int choice = get_choice_for_temp();
+	switch (choice)
+	{
+		case 1:
+			temp = new_temp;
+			break;
+		case 2:
 			temp = new_temp;
 			break;
 		case 3:
