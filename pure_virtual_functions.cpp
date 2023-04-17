@@ -97,6 +97,14 @@ const double PI = 3.14159265358979323846;
 // Classes
 class Shape
 {
+	private:
+	// Member variables
+	static int count_shapes;
+	// Static member variables are shared by all objects of the class.
+	// All static data is initialized to zero when the program starts, before any objects are created, if no other initialization is present.
+	// We cant put it in the class definition but it can be initialized outside the class using the scope resolution operator "::" to identify which class it belongs to.
+	// When we declare a member of a class static it means no matter how many objects of the class are created, there is only one copy of the static member, all instances of the class share the same static member variable.
+
 	protected:
 	// Member variables
 	double default_variable;
@@ -114,7 +122,19 @@ class Shape
 		default_message_perimeter = "This shape has no perimeter.\n";
 		default_message_volume = "This shape has no volume.\n";
 		default_message_curvature = "This shape has no curvature.\n";
+		count_shapes++;
 	}
+
+	// Static function get counter
+	static int get_count()
+	{
+		return count_shapes;
+	}
+	// By declaring a member function as static, we make it independent of any particular object of the class.
+	// A static member function can be called even if no objects of the class exist and the static functions are accessed using only the class name and the scope resolution operator "::".
+	// A static member function can only access static data members, other static member functions and any other functions from outside the class.
+	// Static member functions have a class scope and they do not have access to the "this->" pointer of the class.
+	// We can use this to determine wheaten some objects of the class have been created or not!
 
 	// Area function!
 	virtual double get_area() = 0;
@@ -669,6 +689,9 @@ class Ellipse : public Shape_3D_spherical
 	}
 };
 
+// Initialize static member variables
+int Shape::count_shapes = 0;
+
 //Functions
 string select_option();
 
@@ -677,6 +700,10 @@ void calculator(Shape *shape, string choice);
 
 int main()
 {
+	// Shape::print_area(Shape::get_area()); -------------- This is not allowed because its not a static member function
+	// Rectangle::print_area(Rectangle::get_area()); ------ This is not allowed because its not a static member function
+	Shape::get_count(); //--------------------------------- This is allowed because the function is a static member function
+
 	bool done = false; //---------------------------------- Create a loop variable, set it to false when we are done and exit the program
 
 	while (!done) //--------------------------------------- Begin the program
@@ -776,4 +803,6 @@ void calculator(Shape *shape, string choice)
 
 	double curvature = shape->get_curvature();
 	shape->print_curvature(curvature);
+
+	cout << "Total shapes created: " << Shape::get_count() << "!" << endl;
 }

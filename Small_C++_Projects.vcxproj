@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="adventure_time.cpp" />
+    <ClCompile Include="ambiguity.cpp" />
     <ClCompile Include="average_score.cpp" />
     <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="caeser_cipher.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="license_plates.cpp" />
     <ClCompile Include="linear_search.cpp" />
     <ClCompile Include="max_and_min.cpp" />
+    <ClCompile Include="operator_overloading.cpp" />
     <ClCompile Include="palindrome.cpp" />
     <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="pointers_addresses_references.cpp" />

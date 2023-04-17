@@ -33,15 +33,15 @@ string get_user_text()
 // Converting Algorithm
 void convert_decimal_to_binary(string text)
 {
-	int devide = 0;
+	int divide = 0;
 	int structure[EIGHT_BITS]{};
 	int length = text.length();
 	for (int i = 0; i < length; i++)
 	{
-		devide = text[i]; //----------------------- Put the first character in this divide aka its ASCII value
+		divide = text[i]; //----------------------- Put the first character in this divide aka its ASCII value
 		for (int j = 0; j < EIGHT_BITS; j++)
 		{
-			if (devide % 2 == 0) //---------------- Check if that value has a mod of 0
+			if (divide % 2 == 0) //---------------- Check if that value has a mod of 0
 			{
 				structure[j] = 0;
 			}
@@ -49,7 +49,7 @@ void convert_decimal_to_binary(string text)
 			{
 				structure[j] = 1;
 			}
-			devide = devide / 2; //---------------- Get the new value to check the mod
+			divide = divide / 2; //---------------- Get the new value to check the mod
 		}
 
 		reverse_the_bits(EIGHT_BITS, structure); // Reverse the bits because we get the opposite way

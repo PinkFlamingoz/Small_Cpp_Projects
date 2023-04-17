@@ -29,6 +29,8 @@ class Cars
 	// Its a special member function, it has the same name of the class, they don't have a return type, if we don't specify a constructor the compiler generates a default constructor for us(with no parameters and has an empty body).
 
 	// Default Constructor does not take any arguments, it has no parameters.
+	// Or we can use initialization lists in constructors
+	// Cars() : company("Company"), model("Default Model"), fuel_type("Default Fuel Type"), mileage(0), price(0){ }
 	Cars()
 	{
 		cout << "Default Constructor called!" << endl;
