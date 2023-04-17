@@ -159,6 +159,7 @@
     <ClCompile Include="is_it_in_alphabetical_order.cpp" />
     <ClCompile Include="license_plates.cpp" />
     <ClCompile Include="linear_search.cpp" />
+    <ClCompile Include="macros.cpp" />
     <ClCompile Include="max_and_min.cpp" />
     <ClCompile Include="operator_overloading.cpp" />
     <ClCompile Include="palindrome.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="pure_virtual_functions.cpp" />
     <ClCompile Include="recover_jpg_images.cpp" />
     <ClCompile Include="reverse_wav_audio.cpp" />
+    <ClCompile Include="storage_classes.cpp" />
     <ClCompile Include="swap_values.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
     <ClCompile Include="power_up_array.cpp" />

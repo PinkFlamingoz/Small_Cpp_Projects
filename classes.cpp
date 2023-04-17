@@ -6,6 +6,15 @@ using namespace std;
 // The "this" pointer is used to access the member variables and member functions of the current object.
 // The -> operator is used to access members of an object pointed to by a pointer.
 // When used together with this, it is used to access the members of the current object through the "this" pointer.
+//
+// Every object in C++ has access to its own address through an important pointer called "this" pointer.
+// The "this" pointer is an implicit parameter to all member functions. Therefore, inside a member function, "this" may be used to refer to the invoking object.
+// "this" pointer can also be used to return its own reference.
+// Fiend functions do not have a "this" pointer, because friends are not members of a class. Only member functions have a "this" pointer.
+// "this" pointer is not available in static member functions as static member functions can be called without any object(with class name).
+// Following are the situations where 'this' pointer is used :
+// When local variable's name is same as member's name.
+// To return reference to the calling object.
 
 // Classes
 class Cars

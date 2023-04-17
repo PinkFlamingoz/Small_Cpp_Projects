@@ -2,6 +2,8 @@
 #include "basic_functions.h"
 
 using namespace std;
+// NOTE: We can also have friend classes, when we create a friend class then all the member functions of the friend class also become the friend of the other class.
+// This requires the condition that the friend becoming class must be first declared or defined.
 
 // Classes
 class Force
