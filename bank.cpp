@@ -6,6 +6,9 @@
 
 using namespace std;
 
+// Globals
+static int counter = 0;
+
 // Classes
 class Account
 {
@@ -43,8 +46,9 @@ class Account
 void Account::create_account()
 {
 	cout << "\n================== Create account ==================\n";
-	account_number = get_valid_input<int>("Enter account number: ");
-	cout << "Enter the name of the client: ";
+	counter++;
+	account_number = counter;
+	cout << "\nEnter the name of the client: ";
 	cin.getline(name, 50);
 	do
 	{
@@ -130,6 +134,7 @@ void modify_account(int);
 void delete_account(int);
 void display_all();
 void deposit_withdraw(int, int);
+static int count_accounts();
 
 int main()
 {
@@ -141,6 +146,7 @@ int main()
 		switch (choice)
 		{
 			case 1:
+				counter = count_accounts();
 				write_account();
 				break;
 			case 2:
@@ -428,4 +434,27 @@ void deposit_withdraw(int n, int option)
 	{
 		cout << endl << "Account does not exist!" << endl;
 	}
+}
+
+// Get the last index of the user in the file
+static int count_accounts()
+{
+	Account account;
+	int counter = 0;
+
+	ifstream input_file("account.dat", ios::binary);  //-------------------------------------------- Open the input file for reading in binary mode
+	if (!input_file.is_open())
+	{
+		cerr << "Cant open file! with name account.dat" << endl;
+		return counter;
+	}
+
+	while (input_file.read(reinterpret_cast<char *> (&account), sizeof(Account))) //---------------- Loop through the file, adding the account index to the counter
+	{
+		counter = account.get_account_number();
+	}
+
+	input_file.close();
+
+	return counter;
 }
