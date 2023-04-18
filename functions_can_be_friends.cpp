@@ -29,7 +29,7 @@ class Force
 	}
 
 	// Print distance
-	void print_force_variables()
+	void print_force_variables() const
 	{
 		cout << "The body mass is: " << body_mass << endl;
 		cout << "Time it took:     " << time << endl;

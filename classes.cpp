@@ -110,7 +110,7 @@ class Cars
 	//}
 
 	// Display the data of a car
-	void display_data()
+	void display_data() const
 	{
 		cout << "Company name:  " << company << endl;
 		cout << "Car model:     " << model << endl;

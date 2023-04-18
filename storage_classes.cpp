@@ -42,7 +42,6 @@
 // They are visible throughout the program and its lifetime is same as the lifetime of the program where it is declared.
 // This visible to all the functions present in the program.
 // Example of External Storage Class :
-//
 int test = 100; // assigning value to test
 void multiply(int n)
 {
@@ -85,8 +84,8 @@ int main()
 // When this is done, it causes that variable's scope to be restricted to the file in which it is declared.
 // In C++, when static is used on a class data member, it causes only one copy of that member to be shared by all objects of its class.
 // Example of Static Storage Class:
-//
 #include <iostream>
+
 // Function declaration
 void func(void);
 static int count1 = 10; // Global variable
@@ -108,7 +107,6 @@ void func(void)
 	std::cout << "i is " << i;
 	std::cout << " and count1 is " << count1 << std::endl;
 }
-
 // i is 6 and count is 9
 // i is 7 and count is 8
 // i is 8 and count is 7
@@ -148,8 +146,8 @@ void func(void)
 // This doesn’t allow the data members of the class object to be modified during program execution.
 // But, there are cases when some data members of this constant object must be changed.
 // Example of Mutable Storage Class:
-//
 #include<iostream>
+
 using namespace std;
 
 class test1
@@ -187,7 +185,6 @@ int main()
 	x.display();
 	return 0;
 }
-
 // A class test is defined in the program.
 // It consists of a mutable data member a.
 // A constant object x of class test is created and the value of data members are initialized using user-defined constructor.

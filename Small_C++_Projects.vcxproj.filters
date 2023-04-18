@@ -225,6 +225,18 @@
     <ClCompile Include="storage_classes.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
+    <ClCompile Include="linear_equation.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="cut_string.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="quadratic.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">

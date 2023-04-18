@@ -333,7 +333,7 @@ class Complex
 		return a %= b;
 	}
 
-	// Compare two complex numbers
+	// Compare two complex numbers function
 	static bool compare(const Complex &a, const Complex &b)
 	{
 		if (a == b)
@@ -348,7 +348,7 @@ class Complex
 		}
 	}
 
-	// Compare if they are not equal
+	// Compare if they are not equal function
 	static bool compare_NOT(const Complex &a, const Complex &b)
 	{
 		if (a != b)
@@ -481,6 +481,7 @@ int get_choice_for_temp();
 void add_or_clear_temp(Complex n);
 void clear_temp();
 void print_result(Complex n);
+bool check_if_empty_hash_table();
 
 int main()
 {
@@ -495,78 +496,174 @@ int main()
 				create_complex_number();
 				break;
 			case 2:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				delete_complex_number();
 				break;
 			case 3:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::add(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 4:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::sub(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 5:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::multiply(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 6:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::divide(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 7:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::mod(select_from_hash_table(), get_valid_input<double>("Enter Mod: ")));
 				break;
 			case 8:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::assign(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 9:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::add_assign(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 10:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::sub_assign(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 11:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::multiply_assign(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 12:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::divide_assign(select_from_hash_table(), select_from_hash_table()));
 				break;
 			case 13:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::mod_assign(select_from_hash_table(), get_valid_input<double>("Enter Mod: ")));
 				break;
 			case 14:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::compare(select_from_hash_table(), select_from_hash_table());
 				break;
 			case 15:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::compare_NOT(select_from_hash_table(), select_from_hash_table());
 				break;
 			case 16:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::compare_greater(select_from_hash_table(), select_from_hash_table());
 				break;
 			case 17:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::compare_greater_or_equal(select_from_hash_table(), select_from_hash_table());
 				break;
 			case 18:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::compare_less(select_from_hash_table(), select_from_hash_table());
 				break;
 			case 19:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::compare_less_or_equal(select_from_hash_table(), select_from_hash_table());
 				break;
 			case 20:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				Complex::NOT(select_from_hash_table());
 				break;
 			case 21:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::pre_increment(select_from_hash_table()));
 				break;
 			case 22:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::post_increment(select_from_hash_table()));
 				break;
 			case 23:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::pre_decrement(select_from_hash_table()));
 				break;
 			case 24:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_result(Complex::post_decrement(select_from_hash_table()));
 				break;
 			case 25:
 				clear_temp();
 				break;
 			case 26:
+				if (check_if_empty_hash_table())
+				{
+					break;
+				}
 				print_created_complex_numbers();
 				break;
 			case 27:
@@ -603,12 +700,6 @@ void create_complex_number()
 // Delete a complex number in the hash table
 void delete_complex_number()
 {
-	if (c_numbers.empty()) //----------------------------------------------------------------------------- Check if the hash table is empty
-	{
-		cerr << "No complex numbers created." << endl;
-		return;
-	}
-
 	string name = get_valid_input<string>("Enter the name of the complex number you want to delete: "); // Get the name we want to delete
 
 	auto it = c_numbers.find(name); //-------------------------------------------------------------------- Get the name we want to find
@@ -628,13 +719,6 @@ void delete_complex_number()
 // Select a complex number from the hash table
 Complex &select_from_hash_table()
 {
-	if (c_numbers.empty()) //------------------------------------------ Check if the hash table is empty
-	{
-		cerr << "No complex numbers created." << endl;
-		static Complex dummy; //--------------------------------------- Return a static dummy Complex object as a reference
-		return dummy;
-	}
-
 	string name = get_valid_input<string>("Select a complex number: ");
 
 	auto it = c_numbers.find(name); //--------------------------------- Get the key aka name
@@ -658,7 +742,7 @@ void print_menu()
 {
 	cout << "Chose operations: " << endl;
 
-	cout << "1. Create a complex number" << endl;
+	cout << "1. Create a complex number " << endl;
 	cout << "2. Remove a complex number " << endl;
 
 	cout << "3. Add                    ,operator: (+) " << endl;
@@ -688,9 +772,9 @@ void print_menu()
 	cout << "23. Pre Decrement         ,operator: (--n) " << endl;
 	cout << "24. Post Decrement        ,operator: (n--) " << endl;
 
-	cout << "25. Clear temp" << endl;
-	cout << "26. Print Complex Numbers" << endl;
-	cout << "27. Print Menu" << endl;
+	cout << "25. Clear temp " << endl;
+	cout << "26. Print Complex Numbers " << endl;
+	cout << "27. Print Menu " << endl;
 	cout << "28. DONE " << endl;
 }
 
@@ -730,6 +814,7 @@ int get_choice_for_temp()
 // Options for the temp complex number
 void add_or_clear_temp(Complex n)
 {
+	cout << "Add in temp? " << endl;
 	cout << "1: ADD, 2: CLEAR, 3: SKIP" << endl;
 	Complex new_temp(0, 0);
 	int choice = get_choice_for_temp();
@@ -739,7 +824,6 @@ void add_or_clear_temp(Complex n)
 			temp += n;
 			break;
 		case 2:
-
 			temp = new_temp;
 			break;
 		case 3:
@@ -753,22 +837,8 @@ void add_or_clear_temp(Complex n)
 // Options for the temp complex number
 void clear_temp()
 {
-	cout << "1: CLEAR, 2: CLEAR, 3: SKIP" << endl;
 	Complex new_temp(0, 0);
-	int choice = get_choice_for_temp();
-	switch (choice)
-	{
-		case 1:
-			temp = new_temp;
-			break;
-		case 2:
-			temp = new_temp;
-			break;
-		case 3:
-			cout << "SKIP" << endl;
-			break;
-	}
-
+	temp = new_temp;
 	cout << "Temp: " << temp << endl;
 }
 
@@ -776,6 +846,16 @@ void clear_temp()
 void print_result(Complex n)
 {
 	cout << "Result: " << n << endl;
-
 	add_or_clear_temp(n);
+}
+
+// Check if the hash table is empty
+bool check_if_empty_hash_table()
+{
+	if (c_numbers.empty())
+	{
+		cerr << "Create a matrix first! " << endl;
+		return true;
+	}
+	return false;
 }

@@ -29,19 +29,19 @@ class Complex_Numbers
 	}
 
 	// Display the number
-	void display_number()
+	void display_number() const
 	{
 		cout << "Complex number: " << real_part << " + " << imaginary_part << "i" << endl;
 	}
 
 	// Get real_part
-	int get_real_part()
+	int get_real_part() const
 	{
 		return real_part;
 	}
 
 	// Get imaginary_part
-	float get_imaginary_part()
+	float get_imaginary_part() const
 	{
 		return imaginary_part;
 	}

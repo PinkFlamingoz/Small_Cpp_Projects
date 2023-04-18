@@ -38,6 +38,32 @@ int main()
 	count_set_bits(num1);
 	swap_values(num1, num2);
 
+	// AND operator
+	cout << "****AND(&)****\n";
+	cout << "* A B A&B *\n";
+	cout << "* 1 0  " << (1 & 0) << " *\n";
+	cout << "* 0 1  " << (0 & 1) << " *\n";
+	cout << "* 0 0  " << (0 & 0) << " *\n";
+	cout << "* 1 1  " << (1 & 1) << " *\n";
+	cout << "**************\n";
+	// OR operator
+	cout << "\n****OR (|)****\n";
+	cout << "* A B A|B *\n";
+	cout << "* 1 0  " << (1 | 0) << " *\n";
+	cout << "* 0 1  " << (0 | 1) << " *\n";
+	cout << "* 0 0  " << (0 | 0) << " *\n";
+	cout << "* 1 1  " << (1 | 1) << " *\n";
+	cout << "**************\n";
+
+	// XOR operator
+	cout << "\n****XOR(^)****\n";
+	cout << "* A B A^B *\n";
+	cout << "* 1 0  " << (1 ^ 0) << " *\n";
+	cout << "* 0 1  " << (0 ^ 1) << " *\n";
+	cout << "* 0 0  " << (0 ^ 0) << " *\n";
+	cout << "* 1 1  " << (1 ^ 1) << " *\n";
+	cout << "**************\n";
+
 	return 0;
 }
 

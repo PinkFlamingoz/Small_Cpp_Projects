@@ -133,6 +133,7 @@ void delete_from_file(string name_to_delete)
 	if (!temp_file.is_open())
 	{
 		cerr << "Error: Failed to open output file temp.txt" << endl;
+		file.close();
 		return;
 	}
 

@@ -45,28 +45,47 @@ using namespace std;
 //
 // If we want to specify that a catch block should handle any type of exception that is thrown in a try block, we must put an ellipsis, …, between the parentheses enclosing the exception.
 
-// Classes
+// Classes that inherit from the exception class
 class MyException : public exception
 {
 	public:
+	// Member functions
+
+	// Exception
 	const char *what()
 	{
 		return  "C++ Exception";
 	}
 };
 
-class OverSpeed : public exception
+class Over_speed : public exception
 {
+	private:
+	// Member variables
 	int speed;
+
 	public:
+	// Member functions
+
+	//Constructor
+	Over_speed()
+	{
+		speed = 0;
+	}
+
+	// Exception
 	const char *what()
 	{
 		return "TOP SPEED";
 	}
 };
 
+// Functions
+int divide(int a, int b);
+
 int main()
 {
+	//* Program 1 ---------------------------------------------------------------------------
 	float a = get_valid_input<float>("Enter Numerator: ");
 	float b = get_valid_input<float>("Enter Denominator: ");
 	float c = 0;
@@ -78,66 +97,92 @@ int main()
 			throw b; // This is being sent to the catch block! or throw "Division by zero condition!";
 		}
 		c = a / b;
+		cout << "Result: " << c << endl;
 	}
 	catch (float b)
 	{
 		cerr << "Cant divide by 0! You entered: " << b << endl;
 	}
+	//* Program 1 ---------------------------------------------------------------------------
 
-	cout << "Result: " << c << endl;
+	//* Program 2 ---------------------------------------------------------------------------
+	try
+	{
+		int result = divide(a, b);
+		cout << "Result: " << result << endl;
+	}
+	catch (const char *msg)
+	{
+		cerr << "Error: " << msg << endl;
+	}
+	//* Program 2 ---------------------------------------------------------------------------
 
+	//* Program 3 ---------------------------------------------------------------------------
 	string d = get_valid_input<string>("Enter number to convert to integer: ");
 	int number = 0;
 
 	try
 	{
 		number = stoi(d);
+		cout << "Concerted number: " << number << endl;
 	}
 	catch (const invalid_argument &e)
 	{
 		cerr << "Cant convert letters or characters! " << e.what() << endl;
 	}
-
-	cout << "Concerted number: " << number << endl;
+	//* Program 3 ---------------------------------------------------------------------------
 
 	// There maybe situations where you want to generate some user/program specific exceptions which are not pre-defined in C++.
 	// In such cases C++ provided us with the mechanism to create our own exceptions by inheriting the exception class in C++ and overriding its functionality according to our needs.
-	// Let us see an example of user-defined exception:
+
+	//* Program 4 ---------------------------------------------------------------------------
 	try
 	{
 		throw MyException();
 	}
 	catch (MyException &e)
 	{
-		cout << "MyException caught" << endl;
-		cout << e.what() << endl;
+		cerr << "MyException caught" << endl;
+		cerr << e.what() << endl;
 	}
 	catch (exception &e)
 	{
 	//Other errors
 	}
+	//* Program 4 ---------------------------------------------------------------------------
 
-	// Let us see an example of user-defined exception:
-	int carspeed = 0;
+	//* Program 5 ---------------------------------------------------------------------------
+	int car_speed = 0;
+
 	try
 	{
-		while (1)
+		while (true)
 		{
-			carspeed += 10;
-			if (carspeed > 100)
+			car_speed += 10;
+			if (car_speed > 100)
 			{
-				OverSpeed s;
+				Over_speed s;
 				throw s;
 			}
-			cout << "Carspeed: " << carspeed << endl;
+			cout << "Car speed: " << car_speed << endl;
 		}
 	}
-	catch (OverSpeed &ex)
+	catch (Over_speed &e)
 	{
-		cout << ex.what();
+		cout << e.what();
 	}
+	//* Program 5 ---------------------------------------------------------------------------
 
 	return 0;
+}
+
+int divide(int a, int b)
+{
+	if (b == 0)
+	{
+		throw (const char *)"Cant divide by 0";
+	}
+	return a / b;
 }
 // Exception	         Description
 // std::exception		 An exception and parent class of all the standard C++ exceptions.
