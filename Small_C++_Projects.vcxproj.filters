@@ -231,11 +231,14 @@
     <ClCompile Include="cut_string.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
-    <ClCompile Include="quadratic.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
     <ClCompile Include="matrix.cpp">
-      <Filter>Source Files\Bonus</Filter>
+      <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="quadratic.cpp">
+      <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="bank.cpp">
+      <Filter>Source Files\OOP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +321,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="card.raw">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="account.dat">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

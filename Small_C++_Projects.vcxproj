@@ -133,6 +133,7 @@
     <ClCompile Include="adventure_time.cpp" />
     <ClCompile Include="ambiguity.cpp" />
     <ClCompile Include="average_score.cpp" />
+    <ClCompile Include="bank.cpp" />
     <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="caeser_cipher.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
@@ -228,6 +229,7 @@
     <Image Include="yard.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="account.dat" />
     <None Include="card.raw" />
     <None Include="test.pdf" />
   </ItemGroup>
