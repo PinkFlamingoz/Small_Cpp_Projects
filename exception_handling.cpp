@@ -9,7 +9,7 @@ using namespace std;
 // C++ exception handling is built upon three keywords : try, catch, and throw.
 //
 // try : A block of code which may cause an exception is typically placed inside the try block.
-// It’s followed by one or more catch blocks.If an exception occurs, it is thrown from the try block.
+// It's followed by one or more catch blocks.If an exception occurs, it is thrown from the try block.
 //
 // catch : this block catches the exception thrown from the try block.
 // Code to handle the exception is written inside this catch block.

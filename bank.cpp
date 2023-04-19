@@ -168,14 +168,17 @@ int main()
 				modify_account(get_valid_input<int>("\t\t   Enter account number: "));
 				break;
 			case 8:
+				system("cls");
+				break;
+			case 9:
 				cout << "\n\tThank you for using this bank system";
 				break;
 			default:
 				cout << "\a";
 				break;
 		}
-		cin.get(); // For a pause every new operation
-	} while (choice != 8);
+		cout << "\n\t\t"; system("pause"); // or cin.get(); // For a pause every new operation
+	} while (choice != 9);
 
 	return 0;
 }
@@ -191,7 +194,8 @@ void print_menu()
 	cout << "\n\n\t\t   5. Print users";
 	cout << "\n\n\t\t   6. Close account";
 	cout << "\n\n\t\t   7. Change account";
-	cout << "\n\n\t\t   8. Close\n";
+	cout << "\n\n\t\t   8. Clear screen";
+	cout << "\n\n\t\t   9. Close\n";
 	cout << "\n====================================================\n";
 }
 
@@ -202,7 +206,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("\n\t\t   Enter choice: ");
-	} while (choice < 1 || choice > 8);
+	} while (choice < 1 || choice > 9);
 	return choice;
 }
 

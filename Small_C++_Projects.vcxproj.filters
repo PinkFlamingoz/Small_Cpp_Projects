@@ -34,6 +34,9 @@
     <Filter Include="Source Files\OOP">
       <UniqueIdentifier>{97921328-ad95-4a63-aa9f-8035d3d213bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Data_structures">
+      <UniqueIdentifier>{4998c473-6fc4-48b1-b8f7-ff8bb1232fe8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="adventure_time.cpp">
@@ -108,9 +111,6 @@
     <ClCompile Include="wordle.cpp">
       <Filter>Source Files\Week_2</Filter>
     </ClCompile>
-    <ClCompile Include="sorting.cpp">
-      <Filter>Source Files\Week_3</Filter>
-    </ClCompile>
     <ClCompile Include="string_to_integer_recursive.cpp">
       <Filter>Source Files\Week_3</Filter>
     </ClCompile>
@@ -127,12 +127,6 @@
       <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="candidates.cpp">
-      <Filter>Source Files\Week_3</Filter>
-    </ClCompile>
-    <ClCompile Include="binary_search.cpp">
-      <Filter>Source Files\Week_3</Filter>
-    </ClCompile>
-    <ClCompile Include="linear_search.cpp">
       <Filter>Source Files\Week_3</Filter>
     </ClCompile>
     <ClCompile Include="plurality_vote.cpp">
@@ -186,13 +180,7 @@
     <ClCompile Include="reverse_wav_audio.cpp">
       <Filter>Source Files\Week_4</Filter>
     </ClCompile>
-    <ClCompile Include="data_structures.cpp">
-      <Filter>Source Files\Week_5</Filter>
-    </ClCompile>
     <ClCompile Include="exception_handling.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
-    <ClCompile Include="palindrome.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
     <ClCompile Include="bitwise_operations.cpp">
@@ -225,12 +213,6 @@
     <ClCompile Include="storage_classes.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
-    <ClCompile Include="linear_equation.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
-    <ClCompile Include="cut_string.cpp">
-      <Filter>Source Files\Bonus</Filter>
-    </ClCompile>
     <ClCompile Include="matrix.cpp">
       <Filter>Source Files\OOP</Filter>
     </ClCompile>
@@ -239,6 +221,42 @@
     </ClCompile>
     <ClCompile Include="bank.cpp">
       <Filter>Source Files\OOP</Filter>
+    </ClCompile>
+    <ClCompile Include="linear_equation.cpp">
+      <Filter>Source Files\Week_1</Filter>
+    </ClCompile>
+    <ClCompile Include="palindrome.cpp">
+      <Filter>Source Files\Week_1</Filter>
+    </ClCompile>
+    <ClCompile Include="cut_string.cpp">
+      <Filter>Source Files\Week_1</Filter>
+    </ClCompile>
+    <ClCompile Include="enumeration.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="unions.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
+    <ClCompile Include="stack_array.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="queue_array.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="data_structures.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="sorting.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="linear_search.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="binary_search.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="circular_queue_array.cpp">
+      <Filter>Source Files\Data_structures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

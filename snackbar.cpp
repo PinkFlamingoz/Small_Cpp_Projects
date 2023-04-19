@@ -19,6 +19,7 @@ struct Menu
 void get_menu(Menu menu[]);
 int get_size_of_menu(Menu menu[]);
 void print_menu(int size, Menu menu[]);
+void print_options();
 void modify_array(int &size, Menu *&menu);
 int get_choice();
 void add_element(int &size, Menu *&menu);
@@ -108,18 +109,26 @@ void print_menu(int size, Menu menu[])
 		"   .      .      .         .      .      .      .         .      .      .   \n\n";
 }
 
+void print_options()
+{
+	cout << "            |__*__|      1) Edit an item        |__*__|" << endl;
+	cout << "            |__*__|      2) Add an item         |__*__|" << endl;
+	cout << "            |__*__|      3) Delete an item      |__*__|" << endl;
+	cout << "            |__*__|      4) Get total price     |__*__|" << endl;
+	cout << "            |__*__|      5) Clear screen        |__*__|" << endl;
+	cout << "            |__*__|      6) Done editing        |__*__|" << endl;
+}
+
 // Modify the array by the set of options we are giving to the user
 void modify_array(int &size, Menu *&menu)
 {
 	bool done = false;
 	while (!done)
 	{
-		cout << "            |__*__|      1) Edit an item        |__*__|" << endl;
-		cout << "            |__*__|      2) Add an item         |__*__|" << endl;
-		cout << "            |__*__|      3) Delete an item      |__*__|" << endl;
-		cout << "            |__*__|      4) Get total price     |__*__|" << endl;
-		cout << "            |__*__|      5) Print Menu          |__*__|" << endl;
-		cout << "            |__*__|      6) Done editing        |__*__|" << endl;
+		cout << endl;
+		print_menu(size, menu);
+		cout << endl;
+		print_options();
 		int answer = get_choice();
 		switch (answer)
 		{
@@ -154,9 +163,7 @@ void modify_array(int &size, Menu *&menu)
 			}
 			case 5:
 			{
-				cout << endl;
-				print_menu(size, menu);
-				cout << endl;
+				system("cls");
 				break;
 			}
 			case 6:
@@ -172,6 +179,7 @@ void modify_array(int &size, Menu *&menu)
 				break;
 			}
 		}
+		cout << "\n\t\t"; system("pause"); // or cin.get(); // For a pause every new operation
 	}
 }
 

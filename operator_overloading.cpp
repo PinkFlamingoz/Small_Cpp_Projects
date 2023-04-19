@@ -486,9 +486,9 @@ bool check_if_empty_hash_table();
 int main()
 {
 	bool done = false;
-	print_menu();
 	while (!done)
 	{
+		print_menu();
 		int choice = get_choice();
 		switch (choice)
 		{
@@ -667,7 +667,7 @@ int main()
 				print_created_complex_numbers();
 				break;
 			case 27:
-				print_menu();
+				system("cls");
 				break;
 			case 28:
 				done = true;
@@ -676,6 +676,7 @@ int main()
 				cout << "Try again!" << endl;
 				break;
 		}
+		cout << "\n\t\t"; system("pause"); // or cin.get(); // For a pause every new operation
 	}
 
 	return 0;
@@ -774,7 +775,7 @@ void print_menu()
 
 	cout << "25. Clear temp " << endl;
 	cout << "26. Print Complex Numbers " << endl;
-	cout << "27. Print Menu " << endl;
+	cout << "27. Clear screen " << endl;
 	cout << "28. DONE " << endl;
 }
 
@@ -785,7 +786,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 1 || choice > 27);
+	} while (choice < 1 || choice > 28);
 	return choice;
 }
 

@@ -441,9 +441,9 @@ bool check_if_empty_hash_table();
 int main()
 {
 	bool done = false;
-	print_menu();
 	while (!done)
 	{
+		print_menu();
 		int choice = get_choice();
 		switch (choice)
 		{
@@ -529,7 +529,7 @@ int main()
 				print_created_matrices();
 				break;
 			case 13:
-				print_menu();
+				system("cls");
 				break;
 			case 14:
 				done = true;
@@ -538,6 +538,7 @@ int main()
 				cout << "Try again!" << endl;
 				break;
 		}
+		cout << "\n\t\t"; system("pause"); // or cin.get(); // For a pause every new operation
 	}
 	return 0;
 }
@@ -617,7 +618,7 @@ void print_menu()
 
 	cout << "11. Clear temp " << endl;
 	cout << "12. Print Matrices " << endl;
-	cout << "13. Print Menu " << endl;
+	cout << "13. Clear screen " << endl;
 	cout << "14. DONE " << endl;
 }
 

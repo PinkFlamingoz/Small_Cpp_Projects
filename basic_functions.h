@@ -36,7 +36,7 @@ T get_valid_input(const string &prompt, const string &helper_string1 = "", int n
 		if (cin.fail())
 		{
 			// Input is not valid
-			cerr << "Error: Please enter a valid input." << endl;
+			cerr << "\nError: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
@@ -85,7 +85,7 @@ string get_valid_input<string>(const string &prompt, const string &helper_string
 		if (cin.fail() || input.empty())
 		{
 			// Input is not valid
-			cerr << "Error: Please enter a valid input." << endl;
+			cerr << "\nError: Please enter a valid input." << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}

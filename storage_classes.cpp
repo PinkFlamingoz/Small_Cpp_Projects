@@ -125,7 +125,7 @@ void func(void)
 //
 //
 // Register Storage Class
-// Register storage assigns a variable’s storage in the CPU registers rather than primary memory.
+// Register storage assigns a variable's storage in the CPU registers rather than primary memory.
 // It has its lifetime and visibility same as automatic variable.
 // The purpose of creating register variable is to increase access speed and makes program run faster.
 // If there is no space available in register, these variables are stored in main memory and act similar to variables of automatic storage class.
@@ -143,7 +143,7 @@ void func(void)
 //
 // Mutable Storage Class
 // In C++, a class object can be kept constant using keyword const.
-// This doesn’t allow the data members of the class object to be modified during program execution.
+// This doesn't allow the data members of the class object to be modified during program execution.
 // But, there are cases when some data members of this constant object must be changed.
 // Example of Mutable Storage Class:
 #include<iostream>
@@ -188,7 +188,7 @@ int main()
 // A class test is defined in the program.
 // It consists of a mutable data member a.
 // A constant object x of class test is created and the value of data members are initialized using user-defined constructor.
-// Since, b is a normal data member, its value can’t be changed after initialization.
+// Since, b is a normal data member, its value can't be changed after initialization.
 // However a being mutable, its value can be changed which is done by invoking square_a() method.
 // display() method is used to display the value the data members.
 //

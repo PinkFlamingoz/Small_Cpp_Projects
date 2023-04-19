@@ -22,14 +22,14 @@ using namespace std;
 // '#define' is followed by the name of the macro and then the token sequence it should be an abbreviation for, which is variously referred to as the macro's body, expansion or replacement list.
 // For example,
 #define PI 3.14
-//
+
 // Function - like macros resemble function calls.
 // We can also define macros whose use looks like a function call.
 // These are called function - like macros.
 // To define a function - like macro, we use the same '#define' directive, but we put a pair of parentheses immediately after the macro name.
 // For example,
 #define getmax(a,b) a>b?a:b
-//
+
 //Conditional Compilation
 // There are several directives, which can use to compile selectively portions of our program's source code.
 // This process is called conditional compilation.

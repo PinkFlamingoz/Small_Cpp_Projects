@@ -141,6 +141,7 @@
     <ClCompile Include="candidates.cpp" />
     <ClCompile Include="change_pixel_color_of_bmp.cpp" />
     <ClCompile Include="change_volume_of_wav.cpp" />
+    <ClCompile Include="circular_queue_array.cpp" />
     <ClCompile Include="classes.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="complex_numbers.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="data_structures.cpp" />
     <ClCompile Include="decimal_to_binary.cpp" />
     <ClCompile Include="dynamic_memory_allocation.cpp" />
+    <ClCompile Include="enumeration.cpp" />
     <ClCompile Include="exception_handling.cpp" />
     <ClCompile Include="filter.cpp" />
     <ClCompile Include="flip_bmp_images.cpp" />
@@ -171,8 +173,10 @@
     <ClCompile Include="pointers_addresses_references.cpp" />
     <ClCompile Include="pure_virtual_functions.cpp" />
     <ClCompile Include="quadratic.cpp" />
+    <ClCompile Include="queue_array.cpp" />
     <ClCompile Include="recover_jpg_images.cpp" />
     <ClCompile Include="reverse_wav_audio.cpp" />
+    <ClCompile Include="stack_array.cpp" />
     <ClCompile Include="storage_classes.cpp" />
     <ClCompile Include="swap_values.cpp" />
     <ClCompile Include="population_time_growth.cpp" />
@@ -193,6 +197,7 @@
     <ClCompile Include="temperature.cpp" />
     <ClCompile Include="tideman_vote.cpp" />
     <ClCompile Include="triangle_check.cpp" />
+    <ClCompile Include="unions.cpp" />
     <ClCompile Include="validate_file.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />
     <ClCompile Include="virtual_functions.cpp" />
