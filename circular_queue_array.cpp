@@ -2,6 +2,14 @@
 #include "basic_functions.h"
 
 using namespace std;
+// • Arrays
+//  • Insertion is bad – lots of shifting to fit an element in the middle
+//  • Deletion is bad – lots of shifting after removing an element
+//  • Lookup is great – random access, constant time
+//  • Relatively easy to sort
+//  • Relatively small size - wise
+//  • Stuck with a fixed size, no flexibility
+
 // Definition –
 // Circular queue is a linear data structure in which the operations are performed based on FIFO(First In First Out) principle and the last position is connected back to the first position to make a circle.
 // It is also called 'Ring Buffer'.
@@ -17,8 +25,8 @@ class Circular_queue
 {
 	private:
 	// Member variables
-	int front;
-	int rear;
+	int front; // The front represents the front of the queue, the value we have to delete for example
+	int rear; // The rear represents the back of the queue, the value we have to insert
 	int size;
 	int item_count;
 	T *arr;

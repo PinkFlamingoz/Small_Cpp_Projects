@@ -538,18 +538,18 @@ void delete_sll_element_first_occurrence(sll_node<T> *&list, T value)
 template <typename T>
 bool find_value_in_sll(sll_node<T> *list, T value)
 {
-	sll_node<T> *temp = list; //------------------------------------------------------ Create a traversal pointer pointing to the list's head.
+	sll_node<T> *temp = list; //------------------------------------------------------ Create a traversal pointer pointing to the list's head
 	while (temp != nullptr)
 	{
-		if (temp->value == value) //-------------------------------------------------- If the current node's value field is what we're looking for, report success.
+		if (temp->value == value) //-------------------------------------------------- If the current node's value field is what we're looking for, report success
 		{
 			cout << "Found value: " << temp->value << " At address: " << temp << endl;
 			return true;
 		}
-		temp = temp->next; //--------------------------------------------------------- If not, set the traversal pointer to the next pointer in the list.
+		temp = temp->next; //--------------------------------------------------------- If not, set the traversal pointer to the next pointer in the list
 	}
 	cout << "Value: " << value << " is not in the list! " << endl;
-	return false; //------------------------------------------------------------------ If you've reached the end of the list, report failure.
+	return false; //------------------------------------------------------------------ If you've reached the end of the list, report failure
 }
 
 // Find all of the same values in the singly linked list
@@ -557,19 +557,19 @@ template <typename T>
 void find_all_same_values_in_sll(sll_node<T> *list, T value)
 {
 	bool found = false;
-	sll_node<T> *temp = list; //------------------------------------------------------ Create a traversal pointer pointing to the list's head.
+	sll_node<T> *temp = list; //------------------------------------------------------ Create a traversal pointer pointing to the list's head
 	while (temp != nullptr)
 	{
-		if (temp->value == value) //-------------------------------------------------- If the current node's value field is what we're looking for, report success.
+		if (temp->value == value) //-------------------------------------------------- If the current node's value field is what we're looking for, report success
 		{
 			cout << "Found value: " << temp->value << " At address: " << temp << endl;
 			found = true;
 		}
-		temp = temp->next; //--------------------------------------------------------- If not, set the traversal pointer to the next pointer in the list.
+		temp = temp->next; //--------------------------------------------------------- If not, set the traversal pointer to the next pointer in the list
 	}
 	if (!found)
 	{
-		cout << "Value: " << value << " is not in the list! " << endl; //-------------- If you've reached the end of the list, report failure.
+		cout << "Value: " << value << " is not in the list! " << endl; //-------------- If you've reached the end of the list, report failure
 	}
 }
 

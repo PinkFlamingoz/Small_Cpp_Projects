@@ -176,6 +176,7 @@
     <ClCompile Include="queue_array.cpp" />
     <ClCompile Include="recover_jpg_images.cpp" />
     <ClCompile Include="reverse_wav_audio.cpp" />
+    <ClCompile Include="singly_linked_list.cpp" />
     <ClCompile Include="stack_array.cpp" />
     <ClCompile Include="storage_classes.cpp" />
     <ClCompile Include="swap_values.cpp" />

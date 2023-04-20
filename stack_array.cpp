@@ -2,6 +2,14 @@
 #include "basic_functions.h"
 
 using namespace std;
+// • Arrays
+//  • Insertion is bad – lots of shifting to fit an element in the middle
+//  • Deletion is bad – lots of shifting after removing an element
+//  • Lookup is great – random access, constant time
+//  • Relatively easy to sort
+//  • Relatively small size - wise
+//  • Stuck with a fixed size, no flexibility
+
 // Definition –
 // Stack is a linear data structure which operates in a LIFO(Last In First Out) or FILO(First In Last Out) pattern.
 // It is named stack as it behaves like a real - world stack, for example – a deck of cards or a pile of plates, etc.

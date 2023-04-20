@@ -7,7 +7,7 @@ using namespace std;
 // - Changing a member of the union affects the rest of the members and you cannot store values for the members independently of each other.
 
 // Unions
-union unija
+union Union1
 {
 	char id;
 	float salary;
@@ -17,7 +17,7 @@ union unija
 
 int main()
 {
-	unija U;
+	Union1 U;
 
 	cout << sizeof(U) << " B \n";
 	system("pause");

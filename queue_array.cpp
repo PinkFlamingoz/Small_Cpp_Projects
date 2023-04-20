@@ -2,6 +2,14 @@
 #include "basic_functions.h"
 
 using namespace std;
+// • Arrays
+//  • Insertion is bad – lots of shifting to fit an element in the middle
+//  • Deletion is bad – lots of shifting after removing an element
+//  • Lookup is great – random access, constant time
+//  • Relatively easy to sort
+//  • Relatively small size - wise
+//  • Stuck with a fixed size, no flexibility
+
 // Definition –
 // Queue is a linear data structure which operates in a First IN First OUT or Last IN Last OUT.
 // It is named queue as it behaves like a real - world queue, for example – queue(line) of cars in a single lane, queue of people waiting at food counter etc.
@@ -27,8 +35,8 @@ class Queue
 {
 	private:
 	// Member variables
-	int front;
-	int rear;
+	int front; // The front represents the front of the queue, the value we have to delete for example
+	int rear; // The rear represents the back of the queue, the value we have to insert
 	int size;
 	T *arr;
 
