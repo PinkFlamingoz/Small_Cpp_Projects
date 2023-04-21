@@ -18,6 +18,7 @@ class Node
 	K key;
 	D data;
 	Node<K, D> *next;
+	Node<K, D> *previous;
 	public:
 	// Member functions
 
@@ -27,6 +28,7 @@ class Node
 		key = K();
 		data = D();
 		next = nullptr;
+		previous = nullptr;
 	}
 
 	// Parameter constructor
@@ -54,6 +56,12 @@ class Node
 		return next;
 	}
 
+	// Get previous
+	Node<K, D> *get_previous() const
+	{
+		return previous;
+	}
+
 	// Set the key
 	void set_key(K key)
 	{
@@ -71,10 +79,16 @@ class Node
 	{
 		this->next = next;
 	}
+
+	// Set previous
+	void set_previous(Node<K, D> *previous)
+	{
+		this->previous = previous;
+	}
 };
 
 template <typename K, typename D>
-class Singly_linked_list
+class Doubly_linked_list
 {
 	private:
 	// Member variables
@@ -84,19 +98,19 @@ class Singly_linked_list
 	// Member functions
 
 	// Constructor
-	Singly_linked_list()
+	Doubly_linked_list()
 	{
 		head = nullptr;
 	}
 
 	// Parameter constructor
-	Singly_linked_list(Node<K, D> *new_head) // Having a default parameter would allow creating an empty list without having to provide a dummy node
+	Doubly_linked_list(Node<K, D> *new_head) // Having a default parameter would allow creating an empty list without having to provide a dummy node
 	{
 		head = new_head;
 	}
 
 	// Destructor
-	~Singly_linked_list()
+	~Doubly_linked_list()
 	{
 		delete_list();
 	}
@@ -142,10 +156,18 @@ class Singly_linked_list
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
 			return;
 		}
-
-		new_node->set_next(head); //------------------------------------------------------- Important: To set the new node to point at whatever the head is pointing so we don't lose whatever the head is pointing to
-		head = new_node; //---------------------------------------------------------------- Then we make the head point at this new node
-		cout << "\nNode prepended\n";
+		if (head == nullptr) //------------------------------------------------------------ CASE 1: If this list is empty we make this new node the whole list, aka we set the head to point at this new node
+		{
+			head = new_node;
+			cout << "\nNode prepended\n";
+		}
+		else //---------------------------------------------------------------------------- CASE 2: There are already elements in the list so we set the previous pointer of the head to point at the new node and then set the node to point at the head finally set the head to point at the new node making it the new head
+		{
+			head->set_previous(new_node);
+			new_node->set_next(head); //--------------------------------------------------- Important: To set the new node to point at whatever the head is pointing so we don't lose whatever the head is pointing to
+			head = new_node; //------------------------------------------------------------ Then we make the head point at this new node
+			cout << "\nNode prepended\n";
+		}
 	}
 
 	// Append a node, aka add it at the end
@@ -162,12 +184,13 @@ class Singly_linked_list
 			head = new_node;
 			cout << "\nNode appended\n";
 		}
-		else //------------------------------------------------------------------------------------ CASE 2: There are already elements in the list so we traverse till the end of the list and we make the last node point at the new node
+		else //------------------------------------------------------------------------------------ CASE 2: There are already elements in the list so we traverse till the end of the list and we make the last node point at the new node and the new node point back at the current node
 		{
 			for (Node<K, D> *trav_ptr = head; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next())
 			{
 				if (trav_ptr->get_next() == nullptr) //-------------------------------------------- If the next pointer of the node points at nullptr we know this is now the last element
 				{
+					new_node->set_previous(trav_ptr);
 					trav_ptr->set_next(new_node);
 					cout << "\nNode appended\n";
 					break; //---------------------------------------------------------------------- We break because each time a new node is added the traversal pointer will get the that new node next point, and if we don't break it will add it again because that new node points at nullptr, hence the traversal pointer will never be nullptr. If we use a while loop we don't have to break here
@@ -179,8 +202,8 @@ class Singly_linked_list
 	// We insert a node after a certain key
 	void insert_node_after(K key, Node<K, D> *new_node)
 	{
-		Node<K, D> *temp = node_exists(key); //-------------------------------------------- Get the node with that key
-		if (temp == nullptr) //------------------------------------------------------------ We must check if a node exist with the key that we want to insert after it, with this we also check if the list is empty
+		Node<K, D> *temp = node_exists(key); //------------------------------------------------ Get the node with that key
+		if (temp == nullptr) //---------------------------------------------------------------- We must check if a node exist with the key that we want to insert after it, with this we also check if the list is empty
 		{
 			cerr << "\nThere is no node with that key: " << key << endl;
 			return;
@@ -192,10 +215,20 @@ class Singly_linked_list
 			return;
 		}
 
-		//--------------------------------------------------------------------------------- Basically prepend
-		new_node->set_next(temp->get_next()); //------------------------------------------- Important: To set the new node to point at whatever the node with that key is pointing so we don't lose whatever the node with that key is pointing to
-		temp->set_next(new_node); //------------------------------------------------------- Then we make the key with that key point at this new node
-		cout << "\nNode inserted after node with key: " << key << endl;
+		if (temp->get_next() == nullptr) //-------------------------------- CASE 1: When we insert it at the end of the list we make the last element point at the new node and the new node point back at the current node
+		{
+			new_node->set_previous(temp);
+			temp->set_next(new_node);
+			cout << "\nNode inserted after node with key: " << key << endl;
+		}
+		else //------------------------------------------------------------ CASE 2: When we insert it at the middle we make the new node point back at the current node and also to point at the node that the current node is pointing at, next we make the node after the current node point back at the new node and finally the make current node to point at the new node
+		{
+			new_node->set_previous(temp);
+			new_node->set_next(temp->get_next());
+			temp->get_next()->set_previous(new_node);
+			temp->set_next(new_node);
+			cout << "\nNode inserted after node with key: " << key << endl;
+		}
 	}
 
 	// Insert node before a certain key
@@ -214,26 +247,21 @@ class Singly_linked_list
 			return;
 		}
 
-		Node<K, D> *previous = nullptr;
-		Node<K, D> *current = head;
-
-		while (current->get_key() != key) //---------------------------- We use this loop to find the previous pointer of the current node
+		if (temp->get_previous() == nullptr) //-------------------------------------------- CASE 1: If the node with the given key is the head of the list we make the head point back at the new node and the new node to point at whatever the head is pointing at, then we make the new node the new head
 		{
-			previous = current;
-			current = current->get_next();
-		}
-
-		if (previous == nullptr) //------------------------------------- CASE 1: If the node with the given key is the head of the list
-		{
+			head->set_previous(new_node);
+			new_node->set_next(head);
 			head = new_node;
+			cout << "\nNode inserted before node with key: " << key << endl;
 		}
-		else //--------------------------------------------------------- CASE 2: If its not
+		else //---------------------------------------------------------------------------- CASE 2: If its not we set the new node to point back at the whatever the current node is pointing back at, then we make the new node to point at the current node, then we set the node before the current node to point at the new node and finally we make the current node point back at the new node
 		{
-			previous->set_next(new_node); //---------------------------- Set the previous node point at the new node
+			new_node->set_previous(temp->get_previous());
+			new_node->set_next(temp);
+			temp->get_previous()->set_next(new_node);
+			temp->set_previous(new_node);
+			cout << "\nNode inserted before node with key: " << key << endl;
 		}
-
-		new_node->set_next(current); //--------------------------------- Set the new node to point at the current node
-		cout << "\nNode inserted before node with key: " << key << endl;
 	}
 
 	// Insert sorted
@@ -252,6 +280,7 @@ class Singly_linked_list
 		}
 		else if (new_node->get_data() < head->get_data()) //------------------------------------------ CASE 2(Basically prepend): If the new node belongs at beginning of list
 		{
+			head->set_previous(new_node); //---------------------------------------------------------- Set the head of the list to point back to the new node
 			new_node->set_next(head); //-------------------------------------------------------------- Set the new node to point at the current head node
 			head = new_node; //----------------------------------------------------------------------- Set list to point at the last inserted node aka making it the new head
 			cout << "\nNode inserted sorted at the beginning!\n";
@@ -262,14 +291,18 @@ class Singly_linked_list
 			{
 				if (trav_ptr->get_next() == nullptr) //----------------------------------------------- CASE 3.1 (Basically append): If at end of list
 				{
-					trav_ptr->set_next(new_node); //-------------------------------------------------- Set the last node of the sll to point at the new node
+					new_node->set_previous(trav_ptr); //---------------------------------------------- Set the new node to point back at the node that will be behind it
+					trav_ptr->set_next(new_node); //-------------------------------------------------- Set the last node of the dll to point at the new node
 					cout << "\nNode inserted sorted at the end!\n";
 					break;
 				}
 				if (new_node->get_data() < trav_ptr->get_next()->get_data()) //----------------------- CASE 3.2 (Basically insert after): If in middle of list, if the new node value is smaller than the next node value
 				{
+					new_node->set_previous(trav_ptr); //---------------------------------------------- Set the new node to point back at the node that will be behind it
 					new_node->set_next(trav_ptr->get_next()); //-------------------------------------- Set the new node to point at the current node pointer, aka the node after the current node
-					trav_ptr->set_next(new_node); //-------------------------------------------------- Set the current node to point at the new node and this new node also points to the rest of the values in the singly linked list
+					trav_ptr->get_next()->set_previous(new_node); //---------------------------------- Set the node after the current node to point back at the new node
+					trav_ptr->set_next(new_node); //-------------------------------------------------- Set the current node to point at the new node and this new node also points to the rest of the values in the doubly linked list
+
 					cout << "\nNode inserted sorted in the middle of the list!\n";
 					break;
 				}
@@ -286,14 +319,13 @@ class Singly_linked_list
 			return;
 		}
 
-		Node<K, D> *previous = nullptr;
 		Node<K, D> *current = head;
 
 		while (current != nullptr)
 		{
 			if (current->get_key() == key)
 			{
-				if (previous == nullptr) //-------------------------------------------- CASE 1: If the first node matches
+				if (current->get_previous() == nullptr) //----------------------------- CASE 1: If the first node matches
 				{
 					if (current->get_next() == nullptr) //----------------------------- CASE 1.1: If the list has only one element
 					{
@@ -302,11 +334,17 @@ class Singly_linked_list
 					else //------------------------------------------------------------ CASE 1.2: If the list has more than one element
 					{
 						head = current->get_next(); //--------------------------------- Set the head of the list to point at the next node in the list
+						head->set_previous(nullptr); //-------------------------------- Set the head of the list to point back at nothing because we deleted that node
 					}
 				}
-				else //---------------------------------------------------------------- CASE 2: If a non-first node matches
+				else if (current->get_next() == nullptr) //---------------------------- CASE 2: If the last node matches
 				{
-					previous->set_next(current->get_next());  //----------------------- Set the previous node pointer to point at the node that the current pointer points at
+					current->get_previous()->set_next(nullptr); //--------------------- Set the node behind the last one to point at nothing because we deleted the last one
+				}
+				else //---------------------------------------------------------------- CASE 3: If a non-first node matches
+				{
+					current->get_previous()->set_next(current->get_next());  //-------- Set the previous node pointer to point at the node that the current pointer points at
+					current->get_next()->set_previous(current->get_previous()); //----- Set the next node to point back at the node before the deleted node
 				}
 				cout << "\nNode: " << current << " with key: " << key << " deleted!\n";
 				delete current;
@@ -314,7 +352,6 @@ class Singly_linked_list
 			}
 			else //-------------------------------------------------------------------- If the current node doesn't match go to the next nodes
 			{
-				previous = current;
 				current = current->get_next();
 			}
 		}
@@ -359,7 +396,7 @@ class Singly_linked_list
 
 		for (Node<K, D> *trav_ptr = head; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next())
 		{
-			cout << trav_ptr << " : [ " << trav_ptr->get_key() << " ] = [ " << trav_ptr->get_data() << " ] [ " << trav_ptr->get_next() << " ] ---> ";
+			cout << trav_ptr->get_previous() << " <--- " << trav_ptr << " : [ " << trav_ptr->get_key() << " ] = [ " << trav_ptr->get_data() << " ] [ " << trav_ptr->get_next() << " ] ---> ";
 		}
 	}
 
@@ -407,7 +444,7 @@ int get_choice();
 
 int main()
 {
-	Singly_linked_list<int, int> list;
+	Doubly_linked_list<int, int> list;
 	int choice = 0;
 	int key = 0;
 	do
@@ -421,30 +458,30 @@ int main()
 			case 1:
 				cout << "\n================= Prepend node operation =================\n";
 				cout << "Enter key & data of the node to be prepended\n";
-				list.prepend_node(Singly_linked_list<int, int>::create_node());
+				list.prepend_node(Doubly_linked_list<int, int>::create_node());
 				cout << "==========================================================\n";
 				break;
 			case 2:
 				cout << "\n================= Append node operation =================\n";
 				cout << "Enter key & data of the node to be appended\n";
-				list.append_node(Singly_linked_list<int, int>::create_node());
+				list.append_node(Doubly_linked_list<int, int>::create_node());
 				cout << "=========================================================\n";
 				break;
 			case 3:
 				cout << "\n================= Insert node after operation =================\n";
 				// Change this if the key is not a integer type
-				list.insert_node_after(get_valid_input<int>("Enter key of existing node after which you want to insert this new node: "), Singly_linked_list<int, int>::create_node());
+				list.insert_node_after(get_valid_input<int>("Enter key of existing node after which you want to insert this new node: "), Doubly_linked_list<int, int>::create_node());
 				cout << "===============================================================\n";
 				break;
 			case 4:
 				cout << "\n================= Insert node before operation =================\n";
 				// Change this if the key is not a integer type
-				list.insert_node_before(get_valid_input<int>("Enter key of existing node before which you want to insert this new node: "), Singly_linked_list<int, int>::create_node());
+				list.insert_node_before(get_valid_input<int>("Enter key of existing node before which you want to insert this new node: "), Doubly_linked_list<int, int>::create_node());
 				cout << "================================================================\n";
 				break;
 			case 5:
 				cout << "\n================= Insert node sorted operation =================\n";
-				list.insert_node_sorted(Singly_linked_list<int, int>::create_node());
+				list.insert_node_sorted(Doubly_linked_list<int, int>::create_node());
 				cout << "================================================================\n";
 				break;
 			case 6:

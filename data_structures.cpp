@@ -283,7 +283,7 @@ void insert_sorted_sll(sll_node<T> *&list, T value)
 	}
 	else if (node->value < list->value) //----------------------------------- If the new node belongs at beginning of list
 	{
-		node->next = list; //------------------------------------------------ Set the new node's next field, to point at the current head node
+		node->next = list; //------------------------------------------------ Set the new node to point at the current head node
 		list = node; //------------------------------------------------------ Set list to point at the last inserted node aka making it the new head
 	}
 	else //------------------------------------------------------------------ If the new node belongs later in list
@@ -515,7 +515,7 @@ void delete_sll_element_first_occurrence(sll_node<T> *&list, T value)
 			}
 			else //------------------------------------------------------------------------------------------ If a non-first node matches
 			{
-				previous->next = current->next; //----------------------------------------------------------- We set the previous node pointer to point at the node that the current pointer points at
+				previous->next = current->next; //----------------------------------------------------------- Set the previous node pointer to point at the node that the current pointer points at
 			}
 			cout << "Node: " << current << " With value: " << current->value << " Deleted! " << endl;
 			delete current;
@@ -613,7 +613,7 @@ void prepend_dll(dll_node<T> *&list, T value)
 	else //-------------------------------- If the list has some nodes already
 	{
 		list->previous = node; //---------- Set the head of the list to point back to the new node
-		node->next = list; //-------------- Set the new node's next field, to point at the current head node
+		node->next = list; //-------------- Set the new node to point at the current head node
 		list = node; //-------------------- Set list to point at the last inserted node aka making it the new head
 	}
 }
@@ -661,7 +661,7 @@ void insert_sorted_dll(dll_node<T> *&list, T value)
 	else if (node->value < list->value) //----------------------------------- If the new node belongs at beginning of list
 	{
 		list->previous = node; //-------------------------------------------- Set the head of the list to point back to the new node
-		node->next = list; //------------------------------------------------ Set the new node's next field, to point at the current head node
+		node->next = list; //------------------------------------------------ Set the new node to point at the current head node
 		list = node; //------------------------------------------------------ Set list to point at the last inserted node aka making it the new head
 	}
 	else //------------------------------------------------------------------ If the new node belongs later in list
@@ -676,9 +676,9 @@ void insert_sorted_dll(dll_node<T> *&list, T value)
 			}
 			if (node->value < temp->next->value) //-------------------------- If in middle of list, if the new node value is smaller than the next node value
 			{
-				node->previous = temp; //------------------------------------ Set the new node to point back at the node that will be behind it
-				temp->next->previous = node; //------------------------------ Set the node after the current node to point back at the new node
+				node->previous = temp; //------------------------------------ Set the new node to point back at the node that will be behind it'
 				node->next = temp->next; //---------------------------------- Set the new node to point at the current node pointer aka the node after the current node
+				temp->next->previous = node; //------------------------------ Set the node after the current node to point back at the new node
 				temp->next = node; //---------------------------------------- Set the current node to point at the new node and this new node also points to the rest of the values in the doubly linked list
 				break;
 			}
