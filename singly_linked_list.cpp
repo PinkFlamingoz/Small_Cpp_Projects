@@ -90,7 +90,7 @@ class Singly_linked_list
 	}
 
 	// Parameter constructor
-	Singly_linked_list(Node<K, D> *new_head) // Having a default parameter would allow creating an empty list without having to provide a dummy node
+	Singly_linked_list(Node<K, D> *new_head)
 	{
 		head = new_head;
 	}
@@ -134,7 +134,7 @@ class Singly_linked_list
 		return temp;
 	}
 
-	// Prepend a node, aka add it at the front
+	// Prepend a node, aka add it at the front // NO CASES
 	void prepend_node(Node<K, D> *new_node)
 	{
 		if (node_exists(new_node->get_key()) != nullptr)
@@ -148,7 +148,7 @@ class Singly_linked_list
 		cout << "\nNode prepended\n";
 	}
 
-	// Append a node, aka add it at the end
+	// Append a node, aka add it at the end // CASE 1: LIST IS EMPTY, CASE 2: ADD AT THE END
 	void append_node(Node<K, D> *new_node)
 	{
 		if (node_exists(new_node->get_key()) != nullptr)
@@ -176,7 +176,7 @@ class Singly_linked_list
 		}
 	}
 
-	// We insert a node after a certain key
+	// We insert a node after a certain key // NO CASES
 	void insert_node_after(K key, Node<K, D> *new_node)
 	{
 		Node<K, D> *temp = node_exists(key); //-------------------------------------------- Get the node with that key
@@ -194,11 +194,11 @@ class Singly_linked_list
 
 		//--------------------------------------------------------------------------------- Basically prepend
 		new_node->set_next(temp->get_next()); //------------------------------------------- Important: To set the new node to point at whatever the node with that key is pointing so we don't lose whatever the node with that key is pointing to
-		temp->set_next(new_node); //------------------------------------------------------- Then we make the key with that key point at this new node
+		temp->set_next(new_node); //------------------------------------------------------- Then we make the node with that key point at this new node
 		cout << "\nNode inserted after node with key: " << key << endl;
 	}
 
-	// Insert node before a certain key
+	// Insert node before a certain key // CASE 1: ADD AT THE FRONT, CASE 2: ADD ANYWHERE ELSE
 	void insert_node_before(K key, Node<K, D> *new_node)
 	{
 		Node<K, D> *temp = node_exists(key);
@@ -225,7 +225,7 @@ class Singly_linked_list
 
 		if (previous == nullptr) //------------------------------------- CASE 1: If the node with the given key is the head of the list
 		{
-			head = new_node;
+			head = new_node; //----------------------------------------- Set the head to point at the new node
 		}
 		else //--------------------------------------------------------- CASE 2: If its not
 		{
@@ -236,7 +236,7 @@ class Singly_linked_list
 		cout << "\nNode inserted before node with key: " << key << endl;
 	}
 
-	// Insert sorted
+	// Insert sorted // CASE 1: EMPTY LIST, CASE 2: ADD IT AT THE FRONT, CASE 3: ADD IT AT THE END, CASE 4: ADD IT ANYWHERE ELSE
 	void insert_node_sorted(Node<K, D> *new_node)
 	{
 		if (node_exists(new_node->get_key()) != nullptr)
@@ -277,7 +277,7 @@ class Singly_linked_list
 		}
 	}
 
-	// Delete node by key
+	// Delete node by key // CASE 1:IF ITS THE FIRST NODE AND ITS THE ONLY NODE, CASE 2: IF ITS THE FIRST NODE AND THERE ARE MORE NODES, CASE 3: IF ITS ANY OTHER NODE
 	void delete_node_by_key(K key)
 	{
 		if (node_exists(key) == nullptr)
@@ -376,7 +376,7 @@ class Singly_linked_list
 	}
 
 	// Delete list recursive
-	void delete_list_recursive()
+	void delete_list_recursive(Node<K, D> *head)
 	{
 		// Base case
 		if (head == nullptr)

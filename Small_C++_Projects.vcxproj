@@ -141,6 +141,7 @@
     <ClCompile Include="candidates.cpp" />
     <ClCompile Include="change_pixel_color_of_bmp.cpp" />
     <ClCompile Include="change_volume_of_wav.cpp" />
+    <ClCompile Include="circular_linked_list.cpp" />
     <ClCompile Include="circular_queue_array.cpp" />
     <ClCompile Include="classes.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
