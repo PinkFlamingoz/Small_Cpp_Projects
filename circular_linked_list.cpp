@@ -145,7 +145,7 @@ class Circular_linked_list
 	}
 
 	// Get last node
-	Node<K, D> *get_last_node()
+	Node<K, D> *get_last_node() const
 	{
 		Node<K, D> *trav_ptr = head;
 		while (trav_ptr->get_next() != head)
