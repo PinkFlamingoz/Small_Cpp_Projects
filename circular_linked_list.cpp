@@ -441,8 +441,6 @@ int get_choice();
 int main()
 {
 	Circular_linked_list<int, int> list;
-	Node<int, int> n1;
-	list.prepend_node(&n1);
 	int choice = 0;
 	int key = 0;
 	do
