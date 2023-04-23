@@ -217,22 +217,22 @@ class Singly_linked_list
 		Node<K, D> *previous = nullptr;
 		Node<K, D> *current = head;
 
-		while (current->get_key() != key) //---------------------------- We use this loop to find the previous pointer of the current node
+		while (current->get_key() != key) //----------------------------------------------- We use this loop to find the previous pointer of the current node
 		{
 			previous = current;
 			current = current->get_next();
 		}
 
-		if (previous == nullptr) //------------------------------------- CASE 1: If the node with the given key is the head of the list
+		if (previous == nullptr) //-------------------------------------------------------- CASE 1: If the node with the given key is the head of the list
 		{
-			head = new_node; //----------------------------------------- Set the head to point at the new node
+			head = new_node; //------------------------------------------------------------ Set the head to point at the new node
 		}
-		else //--------------------------------------------------------- CASE 2: If its not
+		else //---------------------------------------------------------------------------- CASE 2: If its not
 		{
-			previous->set_next(new_node); //---------------------------- Set the previous node point at the new node
+			previous->set_next(new_node); //----------------------------------------------- Set the previous node point at the new node
 		}
 
-		new_node->set_next(current); //--------------------------------- Set the new node to point at the current node
+		new_node->set_next(current); //---------------------------------------------------- Set the new node to point at the current node
 		cout << "\nNode inserted before node with key: " << key << endl;
 	}
 

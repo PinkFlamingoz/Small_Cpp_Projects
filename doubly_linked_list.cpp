@@ -202,8 +202,8 @@ class Doubly_linked_list
 	// We insert a node after a certain key // CASE 1: ADD AT THE END, CASE 2: ADD ANYWHERE ELSE
 	void insert_node_after(K key, Node<K, D> *new_node)
 	{
-		Node<K, D> *temp = node_exists(key); //------------------------------------------------ Get the node with that key
-		if (temp == nullptr) //---------------------------------------------------------------- We must check if a node exist with the key that we want to insert after it, with this we also check if the list is empty
+		Node<K, D> *temp = node_exists(key); //-------------------------------------------- Get the node with that key
+		if (temp == nullptr) //------------------------------------------------------------ We must check if a node exist with the key that we want to insert after it, with this we also check if the list is empty
 		{
 			cerr << "\nThere is no node with that key: " << key << endl;
 			return;

@@ -121,7 +121,7 @@ class Circular_linked_list
 	// All that we do here is make a traversal pointer and use that pointer to check all the nodes in the linked list for the same key because the last node will point at the first node we must use a do while loop
 	Node<K, D> *node_exists(K key) const
 	{
-		Node<K, D> *temp = nullptr; //------------------------------------------------------------ We create a temp pointer so we can store the address of the node that exists with that key
+		Node<K, D> *temp = nullptr; //------ We create a temp pointer so we can store the address of the node that exists with that key
 
 		if (is_empty())
 		{
@@ -164,18 +164,18 @@ class Circular_linked_list
 			return;
 		}
 
-		if (head == nullptr) //---------------------------------------------------------------- CASE 1: If this list is empty we make this new node the whole list, aka we set the head to point at this new node
+		if (head == nullptr) //------------------------------------------------------------ CASE 1: If this list is empty we make this new node the whole list, aka we set the head to point at this new node
 		{
 			head = new_node;
-			new_node->set_next(head); //------------------------------------------------------- We set the last node which here is also the first to point back at itself
+			new_node->set_next(head); //--------------------------------------------------- We set the last node which here is also the first to point back at itself
 			cout << "\nNode prepended\n";
 		}
-		else //-------------------------------------------------------------------------------- CASE 2: There are already elements in the list so we traverse till the end of the list and we make the last node point at the new node
+		else //---------------------------------------------------------------------------- CASE 2: There are already elements in the list so we traverse till the end of the list and we make the last node point at the new node
 		{
 			Node<K, D> *last_node = get_last_node();
-			last_node->set_next(new_node); //-------------------------------------------------- We set the last node to point back at the head
-			new_node->set_next(head); //------------------------------------------------------- Important: To set the new node to point at whatever the head is pointing so we don't lose whatever the head is pointing to
-			head = new_node; //---------------------------------------------------------------- Then we make the head point at this new node
+			last_node->set_next(new_node); //---------------------------------------------- We set the last node to point back at the head
+			new_node->set_next(head); //--------------------------------------------------- Important: To set the new node to point at whatever the head is pointing so we don't lose whatever the head is pointing to
+			head = new_node; //------------------------------------------------------------ Then we make the head point at this new node
 			cout << "\nNode prepended\n";
 		}
 	}
@@ -189,17 +189,17 @@ class Circular_linked_list
 			return;
 		}
 
-		if (head == nullptr) //-------------------------------------------------------------------- CASE 1: If this list is empty we make this new node the whole list, aka we set the head to point at this new node
+		if (head == nullptr) //------------------------------------------------------------ CASE 1: If this list is empty we make this new node the whole list, aka we set the head to point at this new node
 		{
 			head = new_node;
-			new_node->set_next(head); //----------------------------------------------------------- We set the last node which here is also the first to point back at itself
+			new_node->set_next(head); //--------------------------------------------------- We set the last node which here is also the first to point back at itself
 			cout << "\nNode appended\n";
 		}
-		else //------------------------------------------------------------------------------------ CASE 2: There are already elements in the list so we traverse till the end of the list and we make the last node point at the new node
+		else //---------------------------------------------------------------------------- CASE 2: There are already elements in the list so we traverse till the end of the list and we make the last node point at the new node
 		{
 			Node<K, D> *last_node = get_last_node();
 			last_node->set_next(new_node);
-			new_node->set_next(head); //----------------------------------------------------------- We set the last node to point back at the head
+			new_node->set_next(head); //--------------------------------------------------- We set the last node to point back at the head
 			cout << "\nNode appended\n";
 		}
 	}
@@ -244,7 +244,7 @@ class Circular_linked_list
 		Node<K, D> *previous = nullptr;
 		Node<K, D> *current = head;
 
-		do //--------------------------------------------------------------- We use this loop to find the previous pointer of the current node
+		do //------------------------------------------------------------------------------ We use this loop to find the previous pointer of the current node
 		{
 			if (current->get_key() == key)
 			{
@@ -254,18 +254,18 @@ class Circular_linked_list
 			current = current->get_next();
 		} while (current->get_next() != head);
 
-		if (previous == nullptr) //----------------------------------------- CASE 1: If the node with the given key is the head of the list
+		if (previous == nullptr) //-------------------------------------------------------- CASE 1: If the node with the given key is the head of the list
 		{
 			Node<K, D> *last_node = get_last_node();
-			last_node->set_next(new_node); //------------------------------- We set the last node to point back at the head
-			new_node->set_next(head); //------------------------------------ Important: To set the new node to point at whatever the head is pointing so we don't lose whatever the head is pointing to
-			head = new_node; //--------------------------------------------- Then we make the head point at this new node
+			last_node->set_next(new_node); //---------------------------------------------- We set the last node to point back at the head
+			new_node->set_next(head); //--------------------------------------------------- Important: To set the new node to point at whatever the head is pointing so we don't lose whatever the head is pointing to
+			head = new_node; //------------------------------------------------------------ Then we make the head point at this new node
 			cout << "\nNode inserted before node with key: " << key << endl;
 		}
-		else //------------------------------------------------------------- CASE 2: If it's not the head of the list
+		else //---------------------------------------------------------------------------- CASE 2: If it's not the head of the list
 		{
-			previous->set_next(new_node); //-------------------------------- Set the previous node to point to the new node
-			new_node->set_next(current); //--------------------------------- Set the new node to point at the current node
+			previous->set_next(new_node); //----------------------------------------------- Set the previous node to point to the new node
+			new_node->set_next(current); //------------------------------------------------ Set the new node to point at the current node
 			cout << "\nNode inserted before node with key: " << key << endl;
 		}
 	}
@@ -279,37 +279,37 @@ class Circular_linked_list
 			return;
 		}
 
-		if (head == nullptr) //----------------------------------------------------------------------- CASE 1: If the list is empty
+		if (head == nullptr) //------------------------------------------------------------ CASE 1: If the list is empty
 		{
-			head = new_node; //----------------------------------------------------------------------- This node is the whole list
-			new_node->set_next(head); //-------------------------------------------------------------- We set the last node which here is also the first to point back at itself
+			head = new_node; //------------------------------------------------------------ This node is the whole list
+			new_node->set_next(head); //--------------------------------------------------- We set the last node which here is also the first to point back at itself
 			cout << "\nNode inserted sorted in the empty list!\n";
 		}
-		else if (new_node->get_data() < head->get_data()) //------------------------------------------ CASE 2(Basically prepend): If the new node belongs at beginning of list
+		else if (new_node->get_data() < head->get_data()) //------------------------------- CASE 2(Basically prepend): If the new node belongs at beginning of list
 		{
 			Node<K, D> *last_node = get_last_node();
-			last_node->set_next(new_node); //--------------------------------------------------------- We set the last node to point back at the head
-			new_node->set_next(head); //-------------------------------------------------------------- Set the new node to point at the current head node
-			head = new_node; //----------------------------------------------------------------------- Set list to point at the last inserted node aka making it the new head
+			last_node->set_next(new_node); //---------------------------------------------- We set the last node to point back at the head
+			new_node->set_next(head); //--------------------------------------------------- Set the new node to point at the current head node
+			head = new_node; //------------------------------------------------------------ Set list to point at the last inserted node aka making it the new head
 			cout << "\nNode inserted sorted at the beginning!\n";
 		}
-		else //--------------------------------------------------------------------------------------- CASE 3: If the new node belongs later in list
+		else //---------------------------------------------------------------------------- CASE 3: If the new node belongs later in list
 		{
 			Node<K, D> *trav_ptr = head;
-			do //------------------------------------------------------------------------------------- Iterate over nodes in the list till the end
+			do //-------------------------------------------------------------------------- Iterate over nodes in the list till the end
 			{
-				if (trav_ptr->get_next() == head) //-------------------------------------------------- CASE 3.1 (Basically append): If at end of list
+				if (trav_ptr->get_next() == head) //--------------------------------------- CASE 3.1 (Basically append): If at end of list
 				{
 					Node<K, D> *last_node = get_last_node();
-					last_node->set_next(new_node); //------------------------------------------------- Set the last node of the csll to point at the new node
-					new_node->set_next(head); //------------------------------------------------------ We set the last node to point back at the head
+					last_node->set_next(new_node); //-------------------------------------- Set the last node of the csll to point at the new node
+					new_node->set_next(head); //------------------------------------------- We set the last node to point back at the head
 					cout << "\nNode inserted sorted at the end!\n";
 					break;
 				}
-				if (new_node->get_data() < trav_ptr->get_next()->get_data()) //----------------------- CASE 3.2 (Basically insert after): If in middle of list, if the new node value is smaller than the next node value
+				if (new_node->get_data() < trav_ptr->get_next()->get_data()) //------------ CASE 3.2 (Basically insert after): If in middle of list, if the new node value is smaller than the next node value
 				{
-					new_node->set_next(trav_ptr->get_next()); //-------------------------------------- Set the new node to point at the current node pointer, aka the node after the current node
-					trav_ptr->set_next(new_node); //-------------------------------------------------- Set the current node to point at the new node and this new node also points to the rest of the values in the circular singly linked list
+					new_node->set_next(trav_ptr->get_next()); //--------------------------- Set the new node to point at the current node pointer, aka the node after the current node
+					trav_ptr->set_next(new_node); //--------------------------------------- Set the current node to point at the new node and this new node also points to the rest of the values in the circular singly linked list
 					cout << "\nNode inserted sorted in the middle of the list!\n";
 					break;
 				}
