@@ -346,4 +346,5 @@ void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // Worst-case scenario: Suppose, an array is in ascending order, and you want to sort it in descending order. In this case, worst case complexity occurs. Each element has to be compared with each of the other elements so, for every nth element, (n - 1) number of comparisons are made. Thus, the total number of comparisons = n * (n - 1) ~n2
 
 // Ω(n)
-// Best-case scenario: When the array is already sorted, the outer loop runs for n number of times whereas the inner loop does not run at all. So, there are only n number of comparisons. Thus, complexity is linear.
+// Best-case scenario: When the array is already sorted, the outer loop runs for n number of times whereas the inner loop does not run at all. So, there are only n number of comparisons. Thus, complexity is linear.\
+//
