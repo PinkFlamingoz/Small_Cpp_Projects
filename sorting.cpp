@@ -228,7 +228,7 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // Ω(n^2)
 // Best-case scenario: Exactly the same! There's no way to guarantee the array is sorted until we go through this process for all the elements
 
-//* Merge Sort
+//* Merge sort
 // Merge two sorted subarrays into a single sorted subarray
 void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[])
 {
