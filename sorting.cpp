@@ -347,4 +347,3 @@ void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[])
 
 // Ω(n)
 // Best-case scenario: When the array is already sorted, the outer loop runs for n number of times whereas the inner loop does not run at all. So, there are only n number of comparisons. Thus, complexity is linear.\
-//
