@@ -115,8 +115,8 @@ class Stack
 		}
 		else
 		{
-			top++; //--------- Each time we add a value we increment top fist, firstly because top is -1, aka pointing at nothing, and the rest because top always is the index of the current top element in the stack
-			arr[top] = value; // Add value to the current top position;
+			top++; //----------------------- Each time we add a value we increment top fist, firstly because top is -1, aka pointing at nothing, and the rest because top always is the index of the current top element in the stack
+			arr[top] = value; //------------ Add value to the current top position;
 		}
 	}
 
@@ -130,9 +130,9 @@ class Stack
 		}
 		else
 		{
-			T pop_value = arr[top]; //-- Get the top value
-			arr[top] = T(); //---------- Replace the top value with the default
-			top--; //------------------- Decrement the top to point at the value below it, aka keep track of the stack size
+			T pop_value = arr[top]; //-------- Get the top value
+			arr[top] = T(); //---------------- Replace the top value with the default
+			top--; //------------------------- Decrement the top to point at the value below it, aka keep track of the stack size
 			return pop_value;
 		}
 	}

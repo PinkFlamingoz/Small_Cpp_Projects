@@ -5,6 +5,27 @@
 #include "basic_functions.h"
 
 using namespace std;
+// Time complexity = input length, number of steps
+// Space complexity = volume of memory, space complexity is input size + auxiliary space
+// Auxiliary space is the temporary space excluding the (input size) allocated by the algorithm to solve the problem, with respect to the input size.
+// NOTE: How to find the big O notation
+// 1. Find the fastest growing variable term
+// 2. Eliminate the co-efficients/constant terms
+// Example:
+//
+// function sum(N)
+// {
+//		sum=0; -------------- + 1 msek
+//		for(i=0 to N) ------- + 1 msek
+//		{
+//			sum = sum + 1; -- + N msek
+//		}
+//		return sum; --------- + 1 msek
+// }
+//
+// Time complexity = N + 3 msek // N is the variable 3 msek is the constant // if we had (2 * N + 3 msek) 2 would be the coefficient
+// T = N
+// O(n)
 
 // Globals
 constexpr auto GREEN = "\e[38;2;255;255;255;1m\e[48;2;106;170;100;1m";
@@ -18,8 +39,8 @@ void random_array(int MAXSIZE, int RANDOM_ARRAY[]);
 void print_array(int MAXSIZE, int RANDOM_ARRAY[]);
 void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]);
-void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[]);
-void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[]);
+void merge(int start, int mid, int end, int RANDOM_ARRAY[]);
+void merge_sort(int start, int end, int RANDOM_ARRAY[]);
 void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 
 int main()
@@ -159,6 +180,10 @@ void print_array(int MAXSIZE, int RANDOM_ARRAY[])
 }
 
 // Bubble Sort
+// Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.
+// This algorithm is suitable for small data sets.
+// Its average and worst case complexity are O(n^2) where n is the number of items.
+// It is known as bubble sort, because with every complete iteration the largest element bubbles up towards the last place or the highest index just like a water bubble rises up to the water surface.
 void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[])
 {
 	int counter = 0;
@@ -193,6 +218,13 @@ void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // Best-case scenario: The array is already perfectly sorted, and we make no swaps on the first pass
 
 // Selection Sort
+// Selection sort is a sorting algorithm, specifically an in - place comparison sort.
+// It has O(n^2) time complexity, making it inefficient on large lists.
+// The algorithm divides the input list into two parts:
+//  - the sublist of items already sorted, which is built up from left to right at the front(left) of the list,
+//  - and the sublist of items remaining to be sorted that occupy the rest of the list.
+// Initially, the sorted sublist is empty and the unsorted sublist is the entire input list.
+// The algorithm proceeds by finding the smallest(or largest, depending on sorting order) element in the unsorted sublist, exchanging(swapping) it with the leftmost unsorted element(putting it in sorted order), and moving the sublist boundaries one element to the right.
 void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 {
 	int counter = 0;
@@ -228,73 +260,71 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // Ω(n^2)
 // Best-case scenario: Exactly the same! There's no way to guarantee the array is sorted until we go through this process for all the elements
 
-//* Merge sort
+//* Merge Sort
 // Merge two sorted subarrays into a single sorted subarray
-void merge(int start_point, int mid_point, int end_point, int RANDOM_ARRAY[])
+void merge(int start, int mid, int end, int RANDOM_ARRAY[])
 {
 	int counter = 0;
-	int left_index = start_point;
-	int right_index = mid_point + 1;
-	int help_index = 0;
-	int help_size = end_point - start_point + 1;
-	int *help = new int[help_size]; //---------------------------- Allocate helper array for merging
+	int left = start; //------------------------------ Starting index of left subarray
+	int right = mid + 1; //--------------------------- Starting index of right subarray
+	int help_index = 0; //---------------------------- Starting index of helper array
+	int help_size = end - start + 1;
+	int *help = new int[help_size]; //---------------- Allocate helper array for merging
 
-	while (left_index <= mid_point && right_index <= end_point) // Merge the two subarrays by selecting the smallest element from each and adding it to the helper array
+	while (left <= mid && right <= end) //------------ Make sure the subarrays don't go over the size of the full array and merge the two subarrays by selecting the smallest element from each and adding it to the helper array
 	{
-		if (RANDOM_ARRAY[left_index] <= RANDOM_ARRAY[right_index])
+		if (RANDOM_ARRAY[left] <= RANDOM_ARRAY[right])
 		{
-			help[help_index] = RANDOM_ARRAY[left_index];
-			left_index++;
-			help_index++;
-			counter++;
+			help[help_index] = RANDOM_ARRAY[left];
+			left++; //-------------------------------- Increase the index of the left subarray so we point to the next element
 		}
 		else
 		{
-			help[help_index] = RANDOM_ARRAY[right_index];
-			right_index++;
-			help_index++;
-			counter++;
+			help[help_index] = RANDOM_ARRAY[right];
+			right++; //------------------------------- Increase the index of the right subarray so we point to the next element
 		}
-	}
-
-	while (left_index <= mid_point) //---------------------------- Copy any remaining elements from the left subarray to the helper array
-	{
-		help[help_index] = RANDOM_ARRAY[left_index];
-		left_index++;
 		help_index++;
 		counter++;
 	}
 
-	while (right_index <= end_point)  //-------------------------- Copy any remaining elements from the right subarray to the helper array
+	while (left <= mid) //---------------------------- Copy any remaining elements from the left subarray to the helper array
 	{
-		help[help_index] = RANDOM_ARRAY[right_index];
-		right_index++;
+		help[help_index] = RANDOM_ARRAY[left];
+		left++;
 		help_index++;
 		counter++;
 	}
 
-	for (int i = start_point; i <= end_point; i++) //------------- Copy the merged subarray from the helper array back to the original array
+	while (right <= end)  //-------------------------- Copy any remaining elements from the right subarray to the helper array
 	{
-		RANDOM_ARRAY[i] = help[i - start_point];
+		help[help_index] = RANDOM_ARRAY[right];
+		right++;
+		help_index++;
+		counter++;
 	}
-	delete[] help; // Free the memory used by the helper array
+
+	for (int i = start; i <= end; i++) //------------- Copy the merged subarray from the helper array back to the original array
+	{
+		RANDOM_ARRAY[i] = help[i - start];
+	}
+
+	delete[] help; //--------------------------------- Free the memory used by the helper array
 
 	// DEBUG PRINT
 	cout << "Step " << counter << ":         ";
-	print_array(end_point + 1, RANDOM_ARRAY);
+	print_array(end + 1, RANDOM_ARRAY);
 	cout << endl;
 }
 
 // Recursively sort an array using the merge sort algorithm
-void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[])
+void merge_sort(int start, int end, int RANDOM_ARRAY[])
 {
-	int mid_point = 0;
-	if (start_point < end_point) //---------------------------- If the subarray contains more than one element, recursively split it into two halves and merge them
+	if (start < end) //---------------------------- If the subarray contains more than one element, recursively split it into two halves and merge them
 	{
-		mid_point = (start_point + end_point) / 2;
-		merge_sort(start_point, mid_point, RANDOM_ARRAY);
-		merge_sort(mid_point + 1, end_point, RANDOM_ARRAY);
-		merge(start_point, mid_point, end_point, RANDOM_ARRAY);
+		int mid = start + (end - start) / 2;
+		merge_sort(start, mid, RANDOM_ARRAY);
+		merge_sort(mid + 1, end, RANDOM_ARRAY);
+		merge(start, mid, end, RANDOM_ARRAY);
 	}
 }
 // Unsorted array: 66, 92, 86, 96, 75, | 61, 31, 84, 98, 92,
@@ -314,9 +344,14 @@ void merge_sort(int start_point, int end_point, int RANDOM_ARRAY[])
 
 // Ω(n log n)
 // Best-case scenario: The array is already perfectly sorted. But we still have to split and recombine it back together with this algorithm
-//* Merge sort
+//* Merge Sort
 
 // Insertion Sort
+// Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands.
+// Insertion sort is a simple sorting algorithm that builds the final sorted array(or list) one item at a time.
+// Time Complexity: O(n^2)
+// Efficient for (quite) small data sets, much like other quadratic sorting algorithms
+// More efficient in practice than most other simple quadratic(i.e., O(n^2)) algorithms such as selection sort or bubble sort
 void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[])
 {
 	int counter = 0;

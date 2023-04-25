@@ -48,7 +48,7 @@ int main()
 
 	print(contacts, contacts_array, line_count); //----------------------------------------------- Print the contents of the vector array and dynamic array
 
-	delete[]contacts_array; //-------------------------------------------------------------------- Free up the allocated memory
+	delete[] contacts_array; //------------------------------------------------------------------- Free up the allocated memory
 
 	file.close(); //------------------------------------------------------------------------------ Close the file to free up memory
 

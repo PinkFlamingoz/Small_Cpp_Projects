@@ -37,7 +37,7 @@ int get_number()
 	do
 	{
 		number = get_valid_input<int>("Enter number: ");
-	} while (number < 1 || number > MAXSIZE);
+	} while (number < 0 || number > MAXSIZE);
 	return number;
 }
 
@@ -53,25 +53,25 @@ void sorted_array()
 // Binary search algorithm (Divide and Conquer)
 bool binary_search(int number)
 {
-	int start_point = 0;
-	int end_point = MAXSIZE - 1;
+	int start = 0;
+	int end = MAXSIZE - 1;
 
-	while (start_point <= end_point) //----------------------------- Repeat until the (sub)array is of size 0
+	while (start <= end) //-------------------------------- Repeat until the (sub)array is of size 0
 	{
-		int middle_point = (start_point + end_point) / 2; //-------- Calculate the middle point of the current (sub)array
+		int mid = start + (end - start) / 2; //------------ Calculate the middle point of the current (sub)array
 
-		if (SORTED_ARRAY[middle_point] == number) //---------------- If the target is at the middle, stop
+		if (SORTED_ARRAY[mid] == number) //---------------- If the target is at the middle, stop
 		{
-			cout << "Found: " << SORTED_ARRAY[middle_point] << endl;
+			cout << "Found: " << SORTED_ARRAY[mid] << endl;
 			return true;
 		}
-		else if (SORTED_ARRAY[middle_point] < number) //------------ Otherwise, if the target is greater than what's at the middle, repeat, changing the start point to be just to the right of the middle
+		else if (SORTED_ARRAY[mid] < number) //------------ Otherwise, if the target is greater than what's at the middle, repeat, changing the start point to be just to the right of the middle
 		{
-			start_point = middle_point + 1;
+			start = mid + 1;
 		}
-		else if (SORTED_ARRAY[middle_point] > number) //------------ Otherwise, if the target is less than whats at the middle, repeat, changing the end point to be just to the left of the middle
+		else if (SORTED_ARRAY[mid] > number) //------------ Otherwise, if the target is less than whats at the middle, repeat, changing the end point to be just to the left of the middle
 		{
-			end_point = middle_point - 1;
+			end = mid - 1;
 		}
 	}
 	cout << "Not found! " << endl;
@@ -83,3 +83,11 @@ bool binary_search(int number)
 
 // Ω(1)
 // Best-case scenario: The target element is at the midpoint of the full array, and so we can stop looking immediately after we start
+
+// The reason people calculate the midpoint of an array as mid = start + (end - start) / 2 instead of mid = (start + end) / 2 is to avoid potential integer overflow when adding start and end together.
+// When adding two integers together, there is a risk that the result may be larger than the maximum value that can be represented by an integer data type.
+// This is called integer overflow, and it can result in unexpected behavior in your program.
+// To avoid integer overflow when calculating the midpoint of an array, the expression end - start is first evaluated.
+// This calculates the distance between the end and start indices of the array, which is always a non - negative integer.
+// Then, this value is divided by 2 and added to the start index to obtain the midpoint.
+// By using this formula, you can ensure that the midpoint of the array is always calculated correctly, regardless of the size of the array or the values of the start and end indices.

@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 
 		print_word(guess, WORDSIZE, status); //-------------------- Print the guess
 
-		if (score == EXACT * WORDSIZE) //------------------------ If they guessed it exactly right, terminate loop
+		if (score == EXACT * WORDSIZE) //-------------------------- If they guessed it exactly right, terminate loop
 		{
 			won = true;
 			break;

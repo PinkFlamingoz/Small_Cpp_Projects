@@ -37,7 +37,7 @@ int get_number()
 	do
 	{
 		number = get_valid_input<int>("Enter number: ");
-	} while (number < 1 || number > MAXSIZE);
+	} while (number < 0 || number > MAXSIZE);
 	return number;
 }
 
@@ -58,7 +58,7 @@ bool linear_search(int number)
 	{
 		if (RANDOM_ARRAY[i] == number)
 		{
-			cout << "Found: " << RANDOM_ARRAY[i] << endl;
+			cout << "Found: " << RANDOM_ARRAY[i] << " at location " << i << endl;
 			return true;
 		}
 	}
