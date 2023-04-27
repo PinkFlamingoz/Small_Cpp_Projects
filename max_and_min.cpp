@@ -58,7 +58,7 @@ char get_max_or_min()
 int max(int size, int array[])
 {
 	int max = array[0];
-	for (int i = 0; i < size; i++)
+	for (int i = 1; i < size; i++)
 	{
 		if (max < array[i])
 		{
@@ -72,7 +72,7 @@ int max(int size, int array[])
 int min(int size, int array[])
 {
 	int min = array[0];
-	for (int i = 0; i < size; i++)
+	for (int i = 1; i < size; i++)
 	{
 		if (min > array[i])
 		{

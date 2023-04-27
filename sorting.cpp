@@ -42,6 +42,13 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 void merge(int start, int mid, int end, int RANDOM_ARRAY[]);
 void merge_sort(int start, int end, int RANDOM_ARRAY[]);
 void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]);
+int partition(int start, int end, int RANDOM_ARRAY[]);
+void quick_sort(int start, int end, int RANDOM_ARRAY[]);
+void counting_sort(int MAXSIZE, int range, int RANDOM_ARRAY[]);
+void radix_sort(int MAXSIZE, int RANDOM_ARRAY[]);
+int max(int size, int array[]);
+void counting_sort_radix(int MAXSIZE, int range, int divide, int RANDOM_ARRAY[]);
+void shell_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 
 int main()
 {
@@ -94,29 +101,6 @@ int main()
 
 	cout << endl << "Time took selection sort: " << elapsed_seconds2 << endl;
 
-	// Merge -----------------------------------------------------------------------------------------------------
-	cout << endl;
-	cout << "---------------- Merge ------------------------------------------------------------------------------------------------------" << endl;
-	cout << endl;
-
-	random_array(size, RANDOM_ARRAY);
-	cout << "Unsorted array: ";
-	print_array(size, RANDOM_ARRAY);
-	cout << endl;
-
-	auto start3 = chrono::high_resolution_clock::now();
-
-	merge_sort(0, size - 1, RANDOM_ARRAY);
-
-	auto end3 = chrono::high_resolution_clock::now();
-
-	auto elapsed_seconds3 = chrono::duration_cast<chrono::duration<double>>(end3 - start3).count();
-
-	cout << "Sorted array:   ";
-	print_array(size, RANDOM_ARRAY);
-
-	cout << endl << "Time took for merge sort: " << elapsed_seconds3 << endl;
-
 	// Insertion -----------------------------------------------------------------------------------------------------
 	cout << endl;
 	cout << "---------------- Insertion --------------------------------------------------------------------------------------------------" << endl;
@@ -127,9 +111,32 @@ int main()
 	print_array(size, RANDOM_ARRAY);
 	cout << endl;
 
-	auto start4 = chrono::high_resolution_clock::now();
+	auto start3 = chrono::high_resolution_clock::now();
 
 	insertion_sort(size, RANDOM_ARRAY);
+
+	auto end3 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds3 = chrono::duration_cast<chrono::duration<double>>(end3 - start3).count();
+
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds3 << endl;
+
+	// Merge -----------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Merge ------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	auto start4 = chrono::high_resolution_clock::now();
+
+	merge_sort(0, size - 1, RANDOM_ARRAY);
 
 	auto end4 = chrono::high_resolution_clock::now();
 
@@ -139,6 +146,98 @@ int main()
 	print_array(size, RANDOM_ARRAY);
 
 	cout << endl << "Time took for merge sort: " << elapsed_seconds4 << endl;
+
+	// Quick -----------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Quick ------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	auto start5 = chrono::high_resolution_clock::now();
+
+	quick_sort(0, size - 1, RANDOM_ARRAY);
+
+	auto end5 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds5 = chrono::duration_cast<chrono::duration<double>>(end5 - start5).count();
+
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds5 << endl;
+
+	// Count -----------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Count ------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	auto start6 = chrono::high_resolution_clock::now();
+
+	counting_sort(size, 100, RANDOM_ARRAY);
+
+	auto end6 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds6 = chrono::duration_cast<chrono::duration<double>>(end6 - start6).count();
+
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds6 << endl;
+
+	// Radix -----------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Radix ------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	auto start7 = chrono::high_resolution_clock::now();
+
+	radix_sort(size, RANDOM_ARRAY);
+
+	auto end7 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds7 = chrono::duration_cast<chrono::duration<double>>(end7 - start7).count();
+
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds7 << endl;
+
+	// Shell -----------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Shell ------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	auto start8 = chrono::high_resolution_clock::now();
+
+	shell_sort(size, RANDOM_ARRAY);
+
+	auto end8 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds8 = chrono::duration_cast<chrono::duration<double>>(end8 - start8).count();
+
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds8 << endl;
 
 	delete[] RANDOM_ARRAY;
 
@@ -172,10 +271,10 @@ void print_array(int MAXSIZE, int RANDOM_ARRAY[])
 	for (int i = 0; i < MAXSIZE; i++)
 	{
 		cout << RANDOM_ARRAY[i] << ", ";
-		if (i == (MAXSIZE - 1) / 2)
-		{
-			cout << GREEN << "|" << RESET << " ";
-		}
+		//if (i == (MAXSIZE - 1) / 2)
+		//{
+			//cout << GREEN << "|" << RESET << " ";
+		//}
 	}
 }
 
@@ -186,7 +285,9 @@ void print_array(int MAXSIZE, int RANDOM_ARRAY[])
 // It is known as bubble sort, because with every complete iteration the largest element bubbles up towards the last place or the highest index just like a water bubble rises up to the water surface.
 void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[])
 {
+	// DEBUG COUNTER
 	int counter = 0;
+
 	int swap_counter = -1; //------------------------------ Set swap counter to a non-zero value
 	int help = 0;
 	while (swap_counter != 0) //--------------------------- Repeat until the swap counter is 0
@@ -202,15 +303,13 @@ void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[])
 				swap_counter++; //------------------------- Add one to the swap counter
 
 				// DEBUG PRINT
-				counter++;
-				cout << "Step " << counter << ":         ";
+				cout << "Step " << ++counter << ":         ";
 				print_array(MAXSIZE, RANDOM_ARRAY);
 				cout << endl;
 			}
 		}
 	}
 }
-
 // O(n^2)
 // Worst-case scenario: The array is in reverse order; we have to "bubble" each of the n elements all the way across the array, and since we can only fully bubble one element into position per pass, we must do this n times
 
@@ -227,7 +326,9 @@ void bubble_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // The algorithm proceeds by finding the smallest(or largest, depending on sorting order) element in the unsorted sublist, exchanging(swapping) it with the leftmost unsorted element(putting it in sorted order), and moving the sublist boundaries one element to the right.
 void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 {
+	// DEBUG COUNTER
 	int counter = 0;
+
 	int smallest_value = 0;
 	int help = 0;
 	for (int i = 0; i < MAXSIZE; i++)
@@ -247,8 +348,7 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 			RANDOM_ARRAY[smallest_value] = help;
 
 			// DEBUG PRINT
-			counter++;
-			cout << "Step " << counter << ":         ";
+			cout << "Step " << ++counter << ":         ";
 			print_array(MAXSIZE, RANDOM_ARRAY);
 			cout << endl;
 		}
@@ -260,11 +360,50 @@ void selection_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // Ω(n^2)
 // Best-case scenario: Exactly the same! There's no way to guarantee the array is sorted until we go through this process for all the elements
 
+// Insertion Sort
+// Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands.
+// Insertion sort is a simple sorting algorithm that builds the final sorted array(or list) one item at a time.
+// Time Complexity: O(n^2)
+// Efficient for (quite) small data sets, much like other quadratic sorting algorithms
+// More efficient in practice than most other simple quadratic(i.e., O(n^2)) algorithms such as selection sort or bubble sort
+void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[])
+{
+	// DEBUG COUNTER
+	int counter = 0;
+
+	int previous_element = 0;
+	int holder = 0;
+
+	for (int i = 1; i < MAXSIZE; i++)
+	{
+		holder = RANDOM_ARRAY[i]; //----------------------------------------------- Get next element in array
+		previous_element = i - 1; //----------------------------------------------- Get the index of the previous element in the array
+		while (previous_element >= 0 && RANDOM_ARRAY[previous_element] > holder) // Check if the index of the previous element is in the bounds of the array and check if the previous element is bigger than the next one
+		{
+			RANDOM_ARRAY[previous_element + 1] = RANDOM_ARRAY[previous_element]; // If they are swap them
+			previous_element = previous_element - 1; //---------------------------- Decrement to get the previous element and to check for the other elements behind it
+		}
+		RANDOM_ARRAY[previous_element + 1] = holder; //---------------------------- Place the next element in the place of the smaller element that was behind it
+
+		// DEBUG PRINT
+		cout << "Step " << ++counter << ":         ";
+		print_array(MAXSIZE, RANDOM_ARRAY);
+		cout << endl;
+	}
+}
+// O(n^2)
+// Worst-case scenario: Suppose, an array is in ascending order, and you want to sort it in descending order. In this case, worst case complexity occurs. Each element has to be compared with each of the other elements so, for every nth element, (n - 1) number of comparisons are made. Thus, the total number of comparisons = n * (n - 1) ~n2
+
+// Ω(n)
+// Best-case scenario: When the array is already sorted, the outer loop runs for n number of times whereas the inner loop does not run at all. So, there are only n number of comparisons. Thus, complexity is linear.
+
 //* Merge Sort
 // Merge two sorted subarrays into a single sorted subarray
 void merge(int start, int mid, int end, int RANDOM_ARRAY[])
 {
+	// DEBUG COUNTER
 	int counter = 0;
+
 	int left = start; //------------------------------ Starting index of left subarray
 	int right = mid + 1; //--------------------------- Starting index of right subarray
 	int help_index = 0; //---------------------------- Starting index of helper array
@@ -284,6 +423,8 @@ void merge(int start, int mid, int end, int RANDOM_ARRAY[])
 			right++; //------------------------------- Increase the index of the right subarray so we point to the next element
 		}
 		help_index++;
+
+		// DEBUG COUNTER
 		counter++;
 	}
 
@@ -292,6 +433,8 @@ void merge(int start, int mid, int end, int RANDOM_ARRAY[])
 		help[help_index] = RANDOM_ARRAY[left];
 		left++;
 		help_index++;
+
+		// DEBUG COUNTER
 		counter++;
 	}
 
@@ -300,6 +443,8 @@ void merge(int start, int mid, int end, int RANDOM_ARRAY[])
 		help[help_index] = RANDOM_ARRAY[right];
 		right++;
 		help_index++;
+
+		// DEBUG COUNTER
 		counter++;
 	}
 
@@ -319,12 +464,12 @@ void merge(int start, int mid, int end, int RANDOM_ARRAY[])
 // Recursively sort an array using the merge sort algorithm
 void merge_sort(int start, int end, int RANDOM_ARRAY[])
 {
-	if (start < end) //---------------------------- If the subarray contains more than one element, recursively split it into two halves and merge them
+	if (start < end) //--------------------------- If the subarray contains more than one element, recursively split it into two halves and merge them
 	{
 		int mid = start + (end - start) / 2;
-		merge_sort(start, mid, RANDOM_ARRAY);
-		merge_sort(mid + 1, end, RANDOM_ARRAY);
-		merge(start, mid, end, RANDOM_ARRAY);
+		merge_sort(start, mid, RANDOM_ARRAY); //-- Partition left side
+		merge_sort(mid + 1, end, RANDOM_ARRAY); // Partition right side
+		merge(start, mid, end, RANDOM_ARRAY); //-- Merge the subarrays
 	}
 }
 // Unsorted array: 66, 92, 86, 96, 75, | 61, 31, 84, 98, 92,
@@ -338,7 +483,7 @@ void merge_sort(int start, int end, int RANDOM_ARRAY[])
 // Step 5 :        66, 75, 86, 92, 96, | 31, 61, 84, 92, 98,
 // Step 10 :       31, 61, 66, 75, 84, | 86, 92, 92, 96, 98,
 // Sorted array :  31, 61, 66, 75, 84, | 86, 92, 92, 96, 98,
-//
+
 // O(n log n)
 // Worst-case scenario: We have to split n elements up and then recombine them, effectively doubling the sorted subarrays as we build them up. (combining sorted 1 - element arrays into 2 - element arrays, combining sorted 2 - element arrays into 4 - element arrays…)
 
@@ -346,39 +491,442 @@ void merge_sort(int start, int end, int RANDOM_ARRAY[])
 // Best-case scenario: The array is already perfectly sorted. But we still have to split and recombine it back together with this algorithm
 //* Merge Sort
 
-// Insertion Sort
-// Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands.
-// Insertion sort is a simple sorting algorithm that builds the final sorted array(or list) one item at a time.
-// Time Complexity: O(n^2)
-// Efficient for (quite) small data sets, much like other quadratic sorting algorithms
-// More efficient in practice than most other simple quadratic(i.e., O(n^2)) algorithms such as selection sort or bubble sort
-void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[])
+//* Quick Sort
+// Partition
+int partition(int start, int end, int RANDOM_ARRAY[])
 {
+	// DEBUG COUNTER
 	int counter = 0;
-	int previous_element = 0;
-	int holder = 0;
 
-	for (int i = 1; i < MAXSIZE; i++)
+	int pivot = RANDOM_ARRAY[end]; //------------- Get the last element in the array as the pivot
+	int index = start; //------------------------- Get the first element to compare with the pivot
+
+	for (int i = start; i < end; i++) //---------- Compare each element with the pivot element
 	{
-		holder = RANDOM_ARRAY[i]; //----------------------------------------------- Get next element in array
-		previous_element = i - 1; //----------------------------------------------- Get the index of the previous element in the array
-		while (previous_element >= 0 && RANDOM_ARRAY[previous_element] > holder) // Check if the index of the previous element is in the bounds of the array and check if the previous element is bigger than the next one
+		if (RANDOM_ARRAY[i] <= pivot) //---------- If any element is smaller or equal than the pivot, swap that element with the index element (aka put the smaller element to the left)
 		{
-			RANDOM_ARRAY[previous_element + 1] = RANDOM_ARRAY[previous_element]; // If they are swap them
-			previous_element = previous_element - 1; //---------------------------- Decrement to get the previous element and to check for the other elements behind it
-		}
-		RANDOM_ARRAY[previous_element + 1] = holder; //---------------------------- Place the next element in the place of the smaller element that was behind it
+			int help = RANDOM_ARRAY[i];
+			RANDOM_ARRAY[i] = RANDOM_ARRAY[index];
+			RANDOM_ARRAY[index] = help;
 
-		// DEBUG PRINT
-		counter++;
-		cout << "Step " << counter << ":         ";
-		print_array(MAXSIZE, RANDOM_ARRAY);
-		cout << endl;
+			index++; //--------------------------- Get the next element to compare with the pivot
+
+			// DEBUG COUNTER
+			counter++;
+		}
 	}
+
+	//-------------------------------------------- Swap the pivot with the last swapped element (aka putting it in the middle (aka after the last smallest element to the pivot))
+	int help = RANDOM_ARRAY[end];
+	RANDOM_ARRAY[end] = RANDOM_ARRAY[index];
+	RANDOM_ARRAY[index] = help;
+
+	// DEBUG PRINT
+	cout << "Step " << counter << ":         ";
+	print_array(end + 1, RANDOM_ARRAY);
+	cout << endl;
+
+	return index; //------------------------------ Return the next pivot to separates the array
 }
 
+// Recursively sort an array using the quick sort algorithm
+void quick_sort(int start, int end, int RANDOM_ARRAY[])
+{
+	if (start < end) //------------------------------------ If the subarray contains more than one element, recursively split it into two halves and merge them
+	{
+		int pivot = partition(start, end, RANDOM_ARRAY); // Find the pivot (aka the element to separate the next array into a smaller one) and sort by putting all the smaller elements compared to the pivot to the left and the bigger values to the right
+		quick_sort(start, pivot - 1, RANDOM_ARRAY); //----- Partition left side
+		quick_sort(pivot + 1, end, RANDOM_ARRAY); //------- Partition right side
+	}
+}
 // O(n^2)
-// Worst-case scenario: Suppose, an array is in ascending order, and you want to sort it in descending order. In this case, worst case complexity occurs. Each element has to be compared with each of the other elements so, for every nth element, (n - 1) number of comparisons are made. Thus, the total number of comparisons = n * (n - 1) ~n2
+// Worst-case scenario
 
-// Ω(n)
-// Best-case scenario: When the array is already sorted, the outer loop runs for n number of times whereas the inner loop does not run at all. So, there are only n number of comparisons. Thus, complexity is linear.\
+// Ω(n log n)
+// Best-case scenario
+//* Quick Sort
+
+//* Counting Sort
+// Counting sort is a sorting algorithm that sorts the elements of an array by counting the number of occurrences of each unique element in the array / list / data structure.
+// The count is stored in an auxiliary array and the sorting is done by mapping the count as an index of the auxiliary array.
+// This mapping is done by performing arithmetic calculations on those counts to determine the positions of each key value(unique element) in the output sequence.
+// Its running time is linear in the number of items and the difference between the maximum and minimum key values, so it is only suitable for direct use in situations where the variation in keys is not significantly greater than the number of items.
+// It is often used as a subroutine in another sorting algorithm, radix sort, that can handle larger keys more efficiently.
+// Because counting sort uses key values as indexes into an array, it is not a comparison sort, and the Ω(n log n) lower bound for comparison sorting does not apply to it.
+// Time Complexity: O(n + k) where n is the number of elements in input array and k is the range of input.
+// Auxiliary Space: O(n + k)
+//
+// Unsorted array:     9, 0, 2, 2, 3, 3, 7, 1, 4, 9,
+// Count array:        1, 1, 2, 2, 1, 0, 0, 1, 0, 2,
+// Count array summed: 1, 2, 4, 6, 7, 7, 7, 8, 8, 10,
+// Output array:       0, 1, 2, 2, 3, 3, 4, 7, 9, 9,
+// Sorted array:       0, 1, 2, 2, 3, 3, 4, 7, 9, 9,
+//
+// Unsorted array:     9, 0, 4, 5, 6, 6, 9,
+// Count array:        1, 0, 0, 0, 1, 1, 2, 0, 0, 2, // from 0 - 10 is our range of values that we can have // so each index (aka the size of this array) represents a value that can show up in our unsorted array, we simply increase the value for each occurrence of that value, so if 9 shows up 2 times on the 9th position of the this array we input 2
+// Count array summed: 1, 1, 1, 1, 2, 3, 5, 5, 5, 7, // we cumulative sum of these counts // example: for the first element its always the same as the above ( here 1 ), next we have pos = ith element + ith - 1 element; position 2: 0 + 1 = 1; position 3: 0 + 1 = 1; position 4: 1 + 1 = 2; position 5: 1 + 2 = 3; position 6: 2 + 3 = 5; position 7: 5 + 0 = 5; position 8: 5 + 0 = 5; position 9: 5 + 2 = 7;
+// Output array:       0, 4, 5, 6, 6, 9, 9,
+// For the output array we have the values of the unsorted array represent the indexes of the count array summed, and the values of count array summed represent the index(position) where to place the sorted value
+
+// So if we have 9 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[9              ]] = 9;
+//                                  output_array[--7                           ] = 9;
+//                                  output_array[6                             ] = 9;
+// So at the 6th index(position) of the output array place the value 9
+// Output array:       0, 0, 0, 0, 0, 0, 9,
+// Count array summed: 1, 1, 1, 1, 2, 3, 5, 5, 5, 7,
+// Count array summed: 1, 1, 1, 1, 2, 3, 5, 5, 5, 6,
+
+// So if we have 0 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[0              ]] = 0;
+//                                  output_array[--1                           ] = 0;
+//                                  output_array[0                             ] = 0;
+// So at the 0th index(position) of the output array place the value 0
+// Output array:       0, 0, 0, 0, 0, 0, 9,
+// Count array summed: 1, 1, 1, 1, 2, 3, 5, 5, 5, 6,
+// Count array summed: 0, 1, 1, 1, 2, 3, 5, 5, 5, 6,
+
+// So if we have 4 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[4              ]] = 4;
+//                                  output_array[--2                           ] = 4;
+//                                  output_array[1                             ] = 4;
+// So at the 1th index(position) of the output array place the value 4
+// Output array:       0, 4, 0, 0, 0, 0, 9,
+// Count array summed: 0, 1, 1, 1, 2, 3, 5, 5, 5, 6,
+// Count array summed: 0, 1, 1, 1, 1, 3, 5, 5, 5, 6,
+
+// So if we have 5 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[5              ]] = 5;
+//                                  output_array[--3                           ] = 5;
+//                                  output_array[2                             ] = 5;
+// So at the 2th index(position) of the output array place the value 5
+// Output array:       0, 4, 5, 0, 0, 0, 9,
+// Count array summed: 0, 1, 1, 1, 1, 3, 5, 5, 5, 6,
+// Count array summed: 0, 1, 1, 1, 1, 2, 5, 5, 5, 6,
+
+// So if we have 6 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[6              ]] = 6;
+//                                  output_array[--5                           ] = 6;
+//                                  output_array[4                             ] = 6;
+// So at the 4th index(position) of the output array place the value 6
+// Output array:       0, 4, 5, 0, 6, 0, 9,
+// Count array summed: 0, 1, 1, 1, 1, 2, 5, 5, 5, 6,
+// Count array summed: 0, 1, 1, 1, 1, 2, 4, 5, 5, 6,
+
+// So if we have 6 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[6              ]] = 6;
+//                                  output_array[--4                           ] = 6;
+//                                  output_array[3                             ] = 6;
+// So at the 3th index(position) of the output array place the value 6
+// Output array:       0, 4, 5, 6, 6, 0, 9,
+// Count array summed: 0, 1, 1, 1, 1, 2, 4, 5, 5, 6,
+// Count array summed: 0, 1, 1, 1, 1, 2, 3, 5, 5, 6,
+
+// So if we have 9 value of unsorted array
+// Index of count array summed says output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+//                                  output_array[--count_array[9              ]] = 9;
+//                                  output_array[--6                           ] = 9;
+//                                  output_array[5                             ] = 9;
+// So at the 5th index(position) of the output array place the value 9
+// Output array:       0, 4, 5, 6, 6, 9, 9,
+// Count array summed: 0, 1, 1, 1, 1, 2, 3, 5, 5, 6,
+// Count array summed: 0, 1, 1, 1, 1, 2, 3, 5, 5, 5,
+void counting_sort(int MAXSIZE, int range, int RANDOM_ARRAY[])
+{
+	int *output_array = new int[MAXSIZE];
+
+	int *count_array = new int[range];
+	for (int i = 0; i < range; i++) //--------------------------------- Initialize count array with zeros
+	{
+		count_array[i] = 0;
+	}
+
+	for (int i = 0; i < MAXSIZE; i++) //------------------------------- Count the number of occurrences of each value
+	{
+		++count_array[RANDOM_ARRAY[i]];
+	}
+
+	// DEBUG PRINT
+	cout << "Count array: ";
+	print_array(range, count_array);
+	cout << endl;
+
+	for (int i = 1; i < range; i++) //--------------------------------- Modify the count array to contain the cumulative sum of counts, to get the positions of elements to be stored in the output array
+	{
+		count_array[i] = count_array[i] + count_array[i - 1];
+	}
+
+	// DEBUG PRINT
+	cout << "Count array: ";
+	print_array(range, count_array);
+	cout << endl;
+
+	for (int i = 0; i < MAXSIZE; i++) //------------------------------- Place the values in the output array in sorted order
+	{
+		output_array[--count_array[RANDOM_ARRAY[i]]] = RANDOM_ARRAY[i];
+	}
+
+	// DEBUG PRINT
+	cout << "Output array: ";
+	print_array(MAXSIZE, output_array);
+	cout << endl;
+
+	for (int i = 0; i < MAXSIZE; i++)  //------------------------------ Copy the sorted values back into the original array
+	{
+		RANDOM_ARRAY[i] = output_array[i];
+	}
+
+	delete[] output_array;
+	delete[] count_array;
+}
+
+void counting_sort_positive_negative(int MAXSIZE, int min_val, int max_val, int RANDOM_ARRAY[])
+{
+	int *output_array = new int[MAXSIZE];
+
+	int range = max_val - min_val + 1;
+	int *count_array = new int[range];
+	for (int i = 0; i < range; i++) //------------------------------------------- Initialize count array with zeros
+	{
+		count_array[i] = 0;
+	}
+
+	for (int i = 0; i < MAXSIZE; i++) //----------------------------------------- Count the number of occurrences of each value
+	{
+		++count_array[RANDOM_ARRAY[i] - min_val];
+	}
+
+	for (int i = 1; i < range; i++) //------------------------------------------- Modify the count array to contain the cumulative sum of counts, to get the positions of elements to be stored in the output array
+	{
+		count_array[i] += count_array[i - 1];
+	}
+
+	for (int i = MAXSIZE - 1; i >= 0; i--) 	//----------------------------------- Place the values in the output array in sorted order
+	{
+		output_array[--count_array[RANDOM_ARRAY[i] - min_val]] = RANDOM_ARRAY[i];
+	}
+
+	for (int i = 0; i < MAXSIZE; i++) //----------------------------------------- Copy the sorted values back into the original array
+	{
+		RANDOM_ARRAY[i] = output_array[i];
+	}
+
+	delete[] output_array;
+	delete[] count_array;
+}
+// O(n+k)
+// Worst-case scenario
+
+// O(n+k)
+// Best-case scenario
+//* Counting Sort
+
+//* Radix Sort
+// Radix sort is a non-comparative sorting algorithm.
+// It avoids comparison by creating and distributing elements into buckets according to their radix.
+// For elements with more than one significant digit, this bucketing process is repeated for each digit, while preserving the ordering of the prior step, until all digits have been considered.
+// For this reason, radix sort has also been called bucket sort and digital sort.
+// Typically Radix sort uses counting sort as a subroutine to sort.
+// Radix sort has linear time complexity which is better than O(n log n) of comparative sorting algorithms.
+// Time complexity : O(d(n + k))
+// Where d is the no. of max digits of the largest no. in the digit, n is the no. of elements in the list and k is the range of unique elements.
+
+// Radix Sort
+void radix_sort(int MAXSIZE, int RANDOM_ARRAY[])
+{
+	int m = max(MAXSIZE, RANDOM_ARRAY);
+
+	for (int divide = 1; m / divide > 0; divide *= 10)
+	{
+		counting_sort_radix(MAXSIZE, 10, divide, RANDOM_ARRAY);
+	}
+}
+// If m = 802;
+// 802 / 1 = 802 > 0;
+// 802 / 10 = 80 > 0;
+// 802 / 100 = 8 > 0;
+// 802 / 1000 = 0 > 0;
+
+// Counting sort radix
+void counting_sort_radix(int MAXSIZE, int range, int divide, int RANDOM_ARRAY[])
+{
+	cout << endl;
+
+	int *output_array = new int[MAXSIZE];
+
+	int *count_array = new int[range];
+	for (int i = 0; i < range; i++) //--------------------------------------------------- Initialize count array with zeros
+	{
+		count_array[i] = 0;
+	}
+
+	for (int i = 0; i < MAXSIZE; i++) //------------------------------------------------- Count the number of occurrences of each value
+	{
+		count_array[(RANDOM_ARRAY[i] / divide) % 10]++;
+	}
+
+	// DEBUG PRINT
+	cout << "Count array: ";
+	print_array(range, count_array);
+	cout << endl;
+
+	for (int i = 1; i < range; i++) //--------------------------------------------------- Modify the count array to contain the cumulative sum of counts, to get the positions of elements to be stored in the output array
+	{
+		count_array[i] = count_array[i] + count_array[i - 1];
+	}
+
+	// DEBUG PRINT
+	cout << "Count array: ";
+	print_array(range, count_array);
+	cout << endl;
+
+	for (int i = MAXSIZE - 1; i >= 0; i--) //-------------------------------------------- Place the values in the output array in sorted order
+	{
+		output_array[count_array[(RANDOM_ARRAY[i] / divide) % 10] - 1] = RANDOM_ARRAY[i];
+		count_array[(RANDOM_ARRAY[i] / divide) % 10]--;
+	}
+
+	// DEBUG PRINT
+	cout << "Output array: ";
+	print_array(MAXSIZE, output_array);
+	cout << endl << endl;
+
+	for (int i = 0; i < MAXSIZE; i++)  //------------------------------------------------ Copy the sorted values back into the original array
+	{
+		RANDOM_ARRAY[i] = output_array[i];
+	}
+
+	delete[] output_array;
+	delete[] count_array;
+}
+// output_array[count_array[(RANDOM_ARRAY[i] / divide) % 10] - 1] = RANDOM_ARRAY[i];
+// output_array[count_array[(802             / 1     ) % 10] - 1] = 802;
+// output_array[count_array[(802                     ) % 10] - 1] = 802;
+// output_array[count_array[2                              ] - 1] = 802;
+
+// output_array[count_array[(RANDOM_ARRAY[i] / divide) % 10] - 1] = RANDOM_ARRAY[i];
+// output_array[count_array[(802             / 10    ) % 10] - 1] = 802;
+// output_array[count_array[(80                      ) % 10] - 1] = 802;
+// output_array[count_array[0                              ] - 1] = 802;
+
+// output_array[count_array[(RANDOM_ARRAY[i] / divide) % 10] - 1] = RANDOM_ARRAY[i];
+// output_array[count_array[(802             / 100   ) % 10] - 1] = 802;
+// output_array[count_array[(8                       ) % 10] - 1] = 802;
+// output_array[count_array[8                              ] - 1] = 802;
+
+// Get the max element in the array
+int max(int size, int array[])
+{
+	int max = array[0];
+	for (int i = 1; i < size; i++)
+	{
+		if (max < array[i])
+		{
+			max = array[i];
+		}
+	}
+	return max;
+}
+// O(n+k)
+// Worst-case scenario
+
+// O(n+k)
+// Best-case scenario
+//* Radix Sort
+
+// Shell Sort
+// ShellSort is an in-place comparison sort.
+// It is mainly a variation of sorting by exchange (bubble sort) or sorting by insertion (insertion sort).
+// This algorithm avoids large shifts as in case of insertion sort, if the smaller value is to the far right and has to be moved to the far left.
+// The idea of shell sort is to allow exchange of far items.
+// This spacing is termed as interval or gap.
+// ShellSort is more efficient compared to Insertion Sort or Bubble sort specially when –
+// 1. Smaller value elements are towards the end of the array / list
+// 2. Large sized array / list
+// 3. Efficiency depends on how we select the GAP / interval
+void shell_sort(int MAXSIZE, int RANDOM_ARRAY[])
+{
+	// DEBUG COUNTER
+	int counter = 0;
+
+	for (int gap = MAXSIZE / 2; gap > 0; gap /= 2) //------------------------- Initialize the value of gap/interval( aka do this until the gap is 0) If we have size = 10, we will iterate until 10 / 2 = 5; 5 / 2 = 2; 2 / 2 = 1; 1 / 2 = 0;
+	{
+		for (int j = gap; j < MAXSIZE; j += 1) //----------------------------- Compare two elements at the distance of the gap at every iteration (start from the gap, increase it by 1 for the next element)
+		{
+			int temp = RANDOM_ARRAY[j];
+			int i = 0;
+
+			for (i = j; i >= gap && RANDOM_ARRAY[i - gap] > temp; i -= gap) // If element at the left is larger than the element at the right preform swap
+			{
+				RANDOM_ARRAY[i] = RANDOM_ARRAY[i - gap];
+
+				// DEBUG PRINT
+				cout << "Step " << ++counter << ":         ";
+				print_array(MAXSIZE, RANDOM_ARRAY);
+				cout << endl;
+			}
+
+			RANDOM_ARRAY[i] = temp;
+		}
+	}
+}
+// THERE IS ALWAYS A GAP OF SOME VALUE BETWEEN ELEMENT COMPARISONS
+// i = j; i >= gap && RANDOM_ARRAY[i - gap] > temp[j]; i -= gap
+// RANDOM_ARRAY[i] = RANDOM_ARRAY[i - gap];
+// RANDOM_ARRAY[i] = temp;
+
+// GAP = 5; j = 5;
+// i = 5; 5 >= 5   && RANDOM_ARRAY[0]       > temp[5]; 0;
+// RANDOM_ARRAY[5] = RANDOM_ARRAY[0]; IF ABOVE TRUE THEN SWAP
+// i = 0; 0 >= 5 X
+// RANDOM_ARRAY[0] = temp[5]; WHEN WE FINISH THE INNER LOOP
+
+// GAP = 5; j = 6;
+// i = 6; 6 >= 5   && RANDOM_ARRAY[1]       > temp[6]; 1;
+// RANDOM_ARRAY[6] = RANDOM_ARRAY[1];
+// i = 1; 1 >= 5 X
+// RANDOM_ARRAY[1] = temp[6];
+
+// GAP = 5; j = 7;
+// i = 7; 7 >= 5   && RANDOM_ARRAY[2]       > temp[7]; 2;
+// RANDOM_ARRAY[7] = RANDOM_ARRAY[2];
+// i = 2; 2 >= 5 X
+// RANDOM_ARRAY[2] = temp[7];
+
+// GAP = 5; j = 9;
+// i = 9; 9 >= 5   && RANDOM_ARRAY[4]       > temp[9]; 4;
+// RANDOM_ARRAY[9] = RANDOM_ARRAY[4];
+// i = 4; 4 >= 5 X
+// RANDOM_ARRAY[4] = temp[9];
+
+// GAP = 2; j = 2;
+// i = 2; 2 >= 2   && RANDOM_ARRAY[0]       > temp[2]; 0;
+// RANDOM_ARRAY[2] = RANDOM_ARRAY[0];
+// i = 0; 0 >= 2 X
+// RANDOM_ARRAY[0] = temp[2];
+
+// GAP = 2; j = 3;
+// i = 3; 3 >= 2   && RANDOM_ARRAY[1]       > temp[3]; 1;
+// RANDOM_ARRAY[3] = RANDOM_ARRAY[1];
+// i = 1; 1 >= 2 X
+// RANDOM_ARRAY[1] = temp[3];
+
+// GAP = 2; j = 4;
+// i = 4; 4 >= 2   && RANDOM_ARRAY[2]       > temp[4]; 2;
+// RANDOM_ARRAY[4] = RANDOM_ARRAY[2];
+// i = 2; 2 >= 2   && RANDOM_ARRAY[0]       > temp[4]; 0;
+// RANDOM_ARRAY[2] = RANDOM_ARRAY[0];
+// i = 0; 0 >= 2 X
+// RANDOM_ARRAY[0] = temp[4];
+
+// O(n^2)
+// Worst-case scenario
+
+// O(n log n)
+// Best-case scenario
