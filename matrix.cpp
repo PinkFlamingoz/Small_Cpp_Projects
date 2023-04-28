@@ -137,7 +137,7 @@ class Matrix
 		catch (const invalid_argument &e)
 		{
 			cerr << e.what() << endl;
-			static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+			static Matrix dummy; //-------------------------------------- Return a static dummy Matrix object as a reference
 			return dummy;
 		}
 
@@ -165,7 +165,7 @@ class Matrix
 		catch (const invalid_argument &e)
 		{
 			cerr << e.what() << endl;
-			static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+			static Matrix dummy; //-------------------------------------- Return a static dummy Matrix object as a reference
 			return dummy;
 		}
 
@@ -193,7 +193,7 @@ class Matrix
 		catch (const invalid_argument &e)
 		{
 			cerr << e.what() << endl;
-			static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+			static Matrix dummy; //------------------------------------------------------------------------------------------------- Return a static dummy Matrix object as a reference
 			return dummy;
 		}
 
@@ -238,7 +238,7 @@ class Matrix
 		catch (const invalid_argument &e)
 		{
 			cerr << e.what() << endl;
-			static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+			static Matrix dummy; //------------------------- Return a static dummy Matrix object as a reference
 			return dummy;
 		}
 
@@ -317,7 +317,7 @@ class Matrix
 		catch (const invalid_argument &e)
 		{
 			cerr << e.what() << endl;
-			static double dummy = 0; //--------------------------------------- Return a static dummy double as a reference
+			static double dummy = 0; //------------------------------------------------- Return a static dummy double as a reference
 			return dummy;
 		}
 
@@ -354,13 +354,13 @@ class Matrix
 		catch (const invalid_argument &e)
 		{
 			cerr << e.what() << endl;
-			static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+			static Matrix dummy; //------------------------------------------------ Return a static dummy Matrix object as a reference
 			return dummy;
 		}
 		catch (const runtime_error &e)
 		{
 			cerr << e.what() << endl;
-			static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+			static Matrix dummy; //------------------------------------------------ Return a static dummy Matrix object as a reference
 			return dummy;
 		}
 
@@ -585,15 +585,15 @@ Matrix &select_from_hash_table()
 {
 	string name = get_valid_input<string>("Select a matrix: ");
 
-	auto it = matrices.find(name); //--------------------------------- Get the key aka name
+	auto it = matrices.find(name); //-------------------------- Get the key aka name
 	if (it != matrices.end())
 	{
-		return it->second; //----------------------------------------- Return a reference to the value in the map
+		return it->second; //---------------------------------- Return a reference to the value in the map
 	}
 	else
 	{
 		cerr << "Invalid matrix name: " + name << endl;
-		static Matrix dummy; //--------------------------------------- Return a static dummy Matrix object as a reference
+		static Matrix dummy; //-------------------------------- Return a static dummy Matrix object as a reference
 		return dummy;
 	}
 }

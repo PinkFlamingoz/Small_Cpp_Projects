@@ -60,18 +60,8 @@ class MyException : public exception
 
 class Over_speed : public exception
 {
-	private:
-	// Member variables
-	int speed;
-
 	public:
 	// Member functions
-
-	//Constructor
-	Over_speed()
-	{
-		speed = 0;
-	}
 
 	// Exception
 	const char *what()
@@ -124,7 +114,7 @@ int main()
 	try
 	{
 		number = stoi(d);
-		cout << "Concerted number: " << number << endl;
+		cout << "Converted number: " << number << endl;
 	}
 	catch (const invalid_argument &e)
 	{
@@ -180,7 +170,7 @@ int divide(int a, int b)
 {
 	if (b == 0)
 	{
-		throw (const char *)"Cant divide by 0";
+		throw (const char *)"Cant divide by 0!!";
 	}
 	return a / b;
 }

@@ -173,6 +173,7 @@
     <ClCompile Include="palindrome.cpp" />
     <ClCompile Include="plurality_vote.cpp" />
     <ClCompile Include="pointers_addresses_references.cpp" />
+    <ClCompile Include="prefix_infix_postfix.cpp" />
     <ClCompile Include="pure_virtual_functions.cpp" />
     <ClCompile Include="quadratic.cpp" />
     <ClCompile Include="queue_array.cpp" />

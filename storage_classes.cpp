@@ -41,7 +41,7 @@
 // extern keyword is used to declare external variables.
 // They are visible throughout the program and its lifetime is same as the lifetime of the program where it is declared.
 // This visible to all the functions present in the program.
-// Example of External Storage Class :
+// Example of External Storage Class:
 int test = 100; // assigning value to test
 void multiply(int n)
 {
@@ -131,7 +131,6 @@ void func(void)
 // If there is no space available in register, these variables are stored in main memory and act similar to variables of automatic storage class.
 // So only those variables which requires fast access should be made register.
 // For example:
-//
 // register int id;
 // register char a;
 //
@@ -193,7 +192,7 @@ int main()
 // display() method is used to display the value the data members.
 //
 // Output
-// Total Objects : 1
+// Total Objects: 1
 // Initial value
 // a = 2
 // b = 3

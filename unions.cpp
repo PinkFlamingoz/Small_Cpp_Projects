@@ -28,7 +28,7 @@ int main()
 
 	cout << "ID:" << U.id << " Salary: " << U.salary << " Years: " << U.years << "\n";
 	cout << sizeof(U) << " B \n";
-	// Printing correct value for last updated element (U.godini=30)!
+	// Printing correct value for last updated element (U.years=30)!
 	system("pause");
 	return 0;
 }
