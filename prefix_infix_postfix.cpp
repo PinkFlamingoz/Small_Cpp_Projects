@@ -6,7 +6,7 @@
 using namespace std;
 
 // INFIX TO POSTFIX:
-// 1.  Scan Expression from Left to Right.
+// 1.  Scan Expression from LEFT to RIGHT.
 //
 // 2.  Print OPERANDs as the arrive.
 //
@@ -32,10 +32,10 @@ using namespace std;
 //
 // 10. If TOP of stack is '(' PUSH OPERATOR on Stack.
 
-// INFIX TO PREFIX ( Same as INFIX TO POSTFIX BUT RULE 6 IS SWAPED )
+// INFIX TO PREFIX ( Same as INFIX TO POSTFIX BUT RULE 6 IS SWAPED ):
 // 0.  Reverse infix expression & swap '(' to ')' & ')' to '('.
 //
-// 1.  Scan Expression from Left to Right.
+// 1.  Scan Expression from LEFT to RIGHT.
 //
 // 2.  Print OPERANDs as the arrive.
 //
@@ -61,6 +61,36 @@ using namespace std;
 //
 // 0.  At the end Reverse output string again.
 
+// POSTFIX TO INFIX:
+// 1. Scan POSTFIX expression from LEFT to RIGHT.
+//
+// 2. If the incoming symbol is an OPERAND, PUSH it onto the Stack.
+//
+// 3. If the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in between the 2 OPERANDs, ADD '(' & ')' to the whole expression & PUSH this whole new expression string back into the Stack.
+//
+// 4. At the end POP and PRINT the full INFIX expression from the Stack.
+
+// PREFIX TO INFIX:
+// 1. Scan PREFIX expression from RIGHT to LEFT or REVERSE the PREFIX expression and scan it from LEFT to RIGHT.
+//
+// 2. If the incoming symbol is an OPERAND, PUSH it onto the Stack.
+//
+// 3. If the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in between the 2 OPERANDs, ADD '(' & ')' to the whole expression & PUSH this whole new expression string back into the Stack.
+//
+// 4. At the end POP and PRINT the full INFIX expression from the Stack.
+
+// POSTFIX TO PREFIX:
+// 1. Scan POSTFIX expression from LEFT to RIGHT
+// 2. If the incoming symbol is an OPERAND, PUSH it onto the Stack.
+// 3. If the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in before the 2 OPERANDs & PUSH this whole new expression string back into the Stack.
+// 4. At the end POP and PRINT the full PREFIX expression from the Stack.
+
+// PREFIX TO POSTFIX:
+// 1. Scan PREFIX expression from RIGHT to LEFT
+// 2. IF the incoming symbol is an OPERAND, PUSH it onto the Stack.
+// 3. IF the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in before the 2 OPERANDs & PUSH this whole new expression string back into the Stack.
+// 4. At the end POP and PRINT the full POSTFIX expression from the Stack.
+
 // Functions
 void print_menu();
 int get_choice();
@@ -69,6 +99,11 @@ int precedence(char c);
 string infix_to_postfix(stack<char> container, string infix);
 void swap_parentheses(int length, string &infix);
 string infix_to_prefix(stack<char> container, string infix);
+bool is_operand(char c);
+string postfix_to_infix(string postfix);
+string prefix_to_infix(string prefix);
+string postfix_to_prefix(string postfix);
+string prefix_to_postfix(string prefix);
 
 int main()
 {
@@ -98,12 +133,28 @@ int main()
 				cout << "Prefix = " << prefix << endl;
 				break;
 			case 3: //--------------------------------------- POSTFIX TO INFIX
+				postfix = infix_to_postfix(container, infix);
+				infix = postfix_to_infix(postfix);
+				cout << "Postfix = " << postfix << endl;
+				cout << "Infix   = " << infix << endl;
 				break;
-			case 4: //--------------------------------------- PREFIX TO INFIX
+			case 4: //--------------------------------------- PREFIX TO INFI
+				prefix = infix_to_prefix(container, infix);
+				infix = prefix_to_infix(prefix);
+				cout << "Prefix = " << prefix << endl;
+				cout << "Infix   = " << infix << endl;
 				break;
 			case 5: //--------------------------------------- POSTFIX TO PREFIX
+				postfix = infix_to_postfix(container, infix);
+				prefix = postfix_to_prefix(postfix);
+				cout << "Postfix = " << postfix << endl;
+				cout << "Prefix  = " << prefix << endl;
 				break;
 			case 6: //--------------------------------------- PREFIX TO POSTFIX
+				prefix = infix_to_prefix(container, infix);
+				postfix = prefix_to_postfix(prefix);
+				cout << "Prefix  = " << prefix << endl;
+				cout << "Postfix = " << postfix << endl;
 				break;
 			case 7:
 				system("cls");
@@ -177,9 +228,9 @@ int precedence(char c)
 string infix_to_postfix(stack<char> container, string infix)
 {
 	string postfix = "";
-
 	int length = infix.length();
-	for (int i = 0; i < length; i++)
+
+	for (int i = 0; i < length; i++) //----------------------------------------------------------------- 1.  Scan Expression from LEFT to RIGHT.
 	{
 		if (isalnum(infix[i]) || infix[i] == '~') //---------------------------------------------------- 2.  Print OPERANDs as the arrive.
 		{
@@ -265,7 +316,7 @@ string infix_to_prefix(stack<char> container, string infix)
 	reverse(infix.begin(), infix.end()); //------------------------------------------------------------- 0.  Reverse infix expression & swap '(' to ')' & ')' to '('.
 	swap_parentheses(length, infix);
 
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < length; i++) //----------------------------------------------------------------- 1.  Scan Expression from LEFT to RIGHT.
 	{
 		if (isalnum(infix[i]) || infix[i] == '~') //---------------------------------------------------- 2.  Print OPERANDs as the arrive.
 		{
@@ -301,9 +352,9 @@ string infix_to_prefix(stack<char> container, string infix)
 					container.push(infix[i]);
 				}
 				else if (precedence(infix[i]) == precedence(container.top()) && (infix[i] == '^'))    // 6.  If incoming OPERATOR has EQUAL precedence with TOP of Stack, use ASSOCIATIVITY Rules.
-				{
-					while (precedence(infix[i]) == precedence(container.top()) && infix[i] == '^')    // 6.1 For ASSOCIATIVITY of LEFT to RIGHT – for operators '^'.
-					{                                                                                 //     POP and print the TOP of stack, then PUSH the incoming OPERATOR.
+				{																					  // 6.1 For ASSOCIATIVITY of LEFT to RIGHT – for operators '^'.
+					while (precedence(infix[i]) == precedence(container.top()) && infix[i] == '^')    //     POP and print the TOP of stack, then PUSH the incoming OPERATOR.
+					{
 						prefix += container.top();
 						container.pop();
 					}
@@ -335,4 +386,118 @@ string infix_to_prefix(stack<char> container, string infix)
 	reverse(prefix.begin(), prefix.end()); //----------------------------------------------------------- 0.  At the end Reverse output string again.
 
 	return prefix;
+}
+
+// Is it an operand
+bool is_operand(char c)
+{
+	if (isalnum(c))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+// POSTFIX TO INFIX
+string postfix_to_infix(string postfix)
+{
+	stack<string> container;
+	int length = postfix.length();
+
+	for (int i = 0; i < length; i++) //------------------------------------ 1. Scan POSTFIX expression from LEFT to RIGHT.
+	{
+		if (is_operand(postfix[i])) //------------------------------------- 2. If the incoming symbol is an OPERAND, PUSH it onto the Stack.
+		{
+			string operand(1, postfix[i]); //------------------------------ We must use this constructor because if we simply string operand = postfix[i]; we get a error!
+			container.push(operand);
+		}
+		else //------------------------------------------------------------ 3. If the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in between the 2 OPERANDs, ADD '(' & ')' to the whole expression & PUSH this whole new expression string back into the Stack.
+		{
+			string operand_1 = container.top();
+			container.pop();
+			string operand_2 = container.top();
+			container.pop();
+			container.push("(" + operand_2 + postfix[i] + operand_1 + ")");
+		}
+	}
+
+	return container.top();
+}
+
+// PREFIX TO INFIX
+string prefix_to_infix(string prefix)
+{
+	stack<string> container;
+	int length = prefix.length();
+
+	for (int i = length - 1; i >= 0; i--) //------------------------------ 1. Scan PREFIX expression from RIGHT to LEFT or REVERSE the PREFIX expression and scan it from LEFT to RIGHT.
+	{
+		if (is_operand(prefix[i])) //------------------------------------- 2. If the incoming symbol is an OPERAND, PUSH it onto the Stack.
+		{
+			string operand(1, prefix[i]); //------------------------------ We must use this constructor because if we simply string operand = prefix[i]; we get a error!
+			container.push(operand);
+		}
+		else //----------------------------------------------------------- 3. If the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in between the 2 OPERANDs, ADD '(' & ')' to the whole expression & PUSH this whole new expression string back into the Stack.
+		{
+			string operand_1 = container.top();
+			container.pop();
+			string operand_2 = container.top();
+			container.pop();
+			container.push("(" + operand_1 + prefix[i] + operand_2 + ")");
+		}
+	}
+
+	return container.top();
+}
+
+// POSTFIX TO PREFIX
+string postfix_to_prefix(string postfix)
+{
+	stack<string> container;
+	int length = postfix.length();
+
+	for (int i = 0; i < length; i++) //------------------------ 1. Scan POSTFIX expression from LEFT to RIGHT
+	{
+		if (is_operand(postfix[i])) //------------------------- 2. If the incoming symbol is an OPERAND, PUSH it onto the Stack.
+		{
+			string operand(1, postfix[i]);
+			container.push(operand);
+		}
+		else //------------------------------------------------ 3. IF the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in before the 2 OPERANDs & PUSH this whole new expression string back into the Stack.
+		{
+			string operand_1 = container.top();
+			container.pop();
+			string operand_2 = container.top();
+			container.pop();
+			container.push(postfix[i] + operand_2 + operand_1);
+		}
+	}
+	return container.top();
+}
+
+// PREFIX TO POSTFIX
+string prefix_to_postfix(string prefix)
+{
+	stack<string> container;
+	int length = prefix.length();
+
+	for (int i = length - 1; i >= 0; i--) //------------------ 1. Scan PREFIX expression from RIGHT to LEFT
+	{
+		if (is_operand(prefix[i])) //------------------------- 2. IF the incoming symbol is an OPERAND, PUSH it onto the Stack.
+		{
+			string operand(1, prefix[i]);
+			container.push(operand);
+		}
+		else //----------------------------------------------- 3. IF the incoming symbol is an OPERATOR, POP 2 OPERANDs from the Stack, ADD this incoming OPERATOR in before the 2 OPERANDs & PUSH this whole new expression string back into the Stack.
+		{
+			string operand_1 = container.top();
+			container.pop();
+			string operand_2 = container.top();
+			container.pop();
+			container.push(operand_1 + operand_2 + prefix[i]);
+		}
+	}
+
+	return container.top();
 }
