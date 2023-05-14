@@ -161,6 +161,7 @@ class Stack
 		if (top == nullptr)
 		{
 			top = new_node;
+			cout << "New node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " pushed successfully!" << endl;
 		}
 		else
 		{
@@ -237,12 +238,10 @@ class Stack
 			return;
 		}
 
-		int i = 0;
 		cout << "All items in the Stack are: " << endl;
 		for (Node<K, D> *trav_ptr = top; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next())
 		{
-			cout << "Position " << i << " -> " << "[" << trav_ptr << "] Key[" << trav_ptr->get_key() << "] data: " << trav_ptr->get_data() << " ---> [" << trav_ptr->get_next() << "]" << endl;
-			i++;
+			cout << "[" << trav_ptr << "] Key[" << trav_ptr->get_key() << "] data: " << trav_ptr->get_data() << " ---> [" << trav_ptr->get_next() << "]" << endl;
 		}
 	}
 
