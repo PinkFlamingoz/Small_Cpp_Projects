@@ -411,6 +411,12 @@ class Circular_linked_list
 	// Delete list
 	void delete_list()
 	{
+		if (is_empty())
+		{
+			cout << "\nList is empty!\n";
+			return;
+		}
+
 		Node<K, D> *temp = head;
 		do
 		{
