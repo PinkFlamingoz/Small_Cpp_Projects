@@ -16,7 +16,7 @@ using namespace std;
 // It is a type of Queue data structure which overcomes some drawback of the simple queue data structure.
 // In a Linear queue, once the queue is completely full, it's not possible to insert more elements.
 // Even if we dequeue the queue to remove some of the elements, until the queue is reset, no new elements can be inserted.
-// When we dequeue any element to remove it from the queue, we are actually moving the front of the queue forward, thereby reducing the overall size of the queue.And we cannot insert new elements, because the rear pointer is still at the end of the queue.
+// When we dequeue any element to remove it from the queue, we are actually moving the front of the queue forward, thereby reducing the overall size of the queue. And we cannot insert new elements, because the rear pointer is still at the end of the queue.
 // The only way is to reset the linear queue, for a fresh start.
 
 // Classes

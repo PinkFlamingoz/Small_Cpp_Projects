@@ -129,7 +129,6 @@ class Circular_linked_list
 		}
 
 		Node<K, D> *trav_ptr = head;
-
 		do
 		{
 			if (trav_ptr->get_key() == key)
@@ -243,7 +242,6 @@ class Circular_linked_list
 
 		Node<K, D> *previous = nullptr;
 		Node<K, D> *current = head;
-
 		do //------------------------------------------------------------------------------ We use this loop to find the previous pointer of the current node
 		{
 			if (current->get_key() == key)
@@ -374,7 +372,7 @@ class Circular_linked_list
 
 		temp->set_data(data);
 
-		cout << "Data for node with key: " << key << " updated! \n";
+		cout << "Data for node with key: " << key << " updated!\n";
 	}
 
 	// Peek node by key

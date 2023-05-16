@@ -143,6 +143,7 @@
     <ClCompile Include="change_volume_of_wav.cpp" />
     <ClCompile Include="circular_linked_list.cpp" />
     <ClCompile Include="circular_queue_array.cpp" />
+    <ClCompile Include="circular_queue_linked_list.cpp" />
     <ClCompile Include="classes.cpp" />
     <ClCompile Include="command_line_arguments.cpp" />
     <ClCompile Include="complex_numbers.cpp" />

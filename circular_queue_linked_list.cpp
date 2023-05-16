@@ -10,22 +10,13 @@ using namespace std;
 //  • Relatively small size - wise(not as small as arrays)
 
 // Definition –
-// Queue is a linear data structure which operates in a First IN First OUT or Last IN Last OUT.
-// It is named queue as it behaves like a real - world queue, for example – queue(line) of cars in a single lane, queue of people waiting at food counter etc.
-// Queue is an abstract data type with a bounded(predefined) capacity.
-// It is a simple data structure that allows adding and removing elements in a particular order.
-// The order is FIFO(First IN First OUT) or LILO(Last In Last Out).
-
-// Standard Queue Operations –
-// enqueue() – Add item to the queue from the REAR.
-// dequeue() – Remove item from the queue from the FRONT.
-// is_empty() – Check if queue empty or not.
-// count() – Get number of items in the queue.
-
-// Some types of Queue(We will discuss them in detail in other articles) -
-// Simple Queue
-// Circular queue
-// Priority Queue
+// Circular queue is a linear data structure in which the operations are performed based on FIFO(First In First Out) principle and the last position is connected back to the first position to make a circle.
+// It is also called 'Ring Buffer'.
+// It is a type of Circular queue data structure which overcomes some drawback of the simple queue data structure.
+// In a Linear queue, once the queue is completely full, it's not possible to insert more elements.
+// Even if we dequeue the queue to remove some of the elements, until the queue is reset, no new elements can be inserted.
+// When we dequeue any element to remove it from the queue, we are actually moving the front of the queue forward, thereby reducing the overall size of the queue. And we cannot insert new elements, because the rear pointer is still at the end of the queue.
+// The only way is to reset the linear queue, for a fresh start.
 
 // Classes
 template <typename K, typename D>
@@ -92,7 +83,7 @@ class Node
 };
 
 template <typename K, typename D>
-class Queue
+class Circular_queue
 {
 	private:
 	// Member variables
@@ -103,21 +94,21 @@ class Queue
 	// Member functions
 
 	// Constructor
-	Queue()
+	Circular_queue()
 	{
 		front = nullptr;
 		rear = nullptr;
 	}
 
 	// Parameter constructor
-	Queue(Node<K, D> *new_front, Node<K, D> *new_rear)
+	Circular_queue(Node<K, D> *new_front, Node<K, D> *new_rear)
 	{
 		front = new_front;
 		rear = new_rear;
 	}
 
 	// Destructor
-	~Queue()
+	~Circular_queue()
 	{
 		delete_queue();
 	}
@@ -135,19 +126,28 @@ class Queue
 	}
 
 	// Check if node exists
-	// All that we do here is make a traversal pointer and use that pointer to check all the nodes in the linked list for the same key
+	// All that we do here is make a traversal pointer and use that pointer to check all the nodes in the linked list for the same key because the last node will point at the first node we must use a do while loop
 	Node<K, D> *node_exists(K key) const
 	{
-		Node<K, D> *temp = nullptr; //----------------------------------------------------------- We create a temp pointer so we can store the address of the node that exists with that key
+		Node<K, D> *temp = nullptr; //------ We create a temp pointer so we can store the address of the node that exists with that key
 
-		for (Node<K, D> *trav_ptr = front; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next()) // We create a traversal pointer pointing to the queue's front, and after a cycle has been completed we set that traversal pointer to point at the next node, until we reach the end, aka at the end of the list its always a nullptr (We do this because we don't want the front to change whats it pointing at, if we change the front here we will lose the list)
+		if (is_empty())
 		{
-			if (trav_ptr->get_key() == key) //--------------------------------------------------- If the keys match
-			{
-				temp = trav_ptr; //-------------------------------------------------------------- Then make temp point at the address that the traversal pointer points at, aka we get the node with the same key
-				break;
-			}
+			return temp;
 		}
+
+		Node<K, D> *trav_ptr = front;
+
+		do
+		{
+			if (trav_ptr->get_key() == key)
+			{
+				temp = trav_ptr;
+				return temp;
+			}
+
+			trav_ptr = trav_ptr->get_next();
+		} while (trav_ptr != front);
 
 		return temp;
 	}
@@ -175,12 +175,14 @@ class Queue
 		{
 			front = new_node;
 			rear = new_node;
+			rear->set_next(new_node);
 			cout << "\nNew node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " enqueued successfully!" << endl;
 		}
 		else
 		{
 			rear->set_next(new_node);
 			rear = new_node;
+			new_node->set_next(front);
 			cout << "\nNew node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " enqueued successfully!" << endl;
 		}
 	}
@@ -190,7 +192,7 @@ class Queue
 	{
 		if (is_empty())
 		{
-			cerr << "\nQueue is empty!" << endl;
+			cerr << "\nCircular queue is empty!" << endl;
 			return;
 		}
 
@@ -207,6 +209,7 @@ class Queue
 		{
 			Node<K, D> *temp = front;
 			front = front->get_next();
+			rear->set_next(front);
 
 			cout << "\nNode with key[" << temp->get_key() << "] and data: " << temp->get_data() << " dequeued!" << endl;
 			delete temp;
@@ -216,11 +219,21 @@ class Queue
 	// Count how many elements in the queue
 	int count() const
 	{
+		if (is_empty())
+		{
+			cout << "\nCircular queue is empty!" << endl;
+			return 0;
+		}
+
 		int count = 0;
-		for (Node<K, D> *trav_ptr = front; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next())
+
+		Node<K, D> *trav_ptr = front;
+		do
 		{
 			count++;
-		}
+
+			trav_ptr = trav_ptr->get_next();
+		} while (trav_ptr != front);
 
 		return count;
 	}
@@ -258,28 +271,39 @@ class Queue
 	{
 		if (is_empty())
 		{
-			cout << "\nQueue is empty!" << endl;
+			cout << "\nCircular queue is empty!" << endl;
 			return;
 		}
 
-		cout << "\nAll items in the Queue are: " << endl;
-		for (Node<K, D> *trav_ptr = front; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next())
+		cout << "\nAll items in the Circular queue are: " << endl;
+		Node<K, D> *trav_ptr = front;
+		do
 		{
 			cout << "[" << trav_ptr << "] Key[" << trav_ptr->get_key() << "] data: " << trav_ptr->get_data() << " ---> [" << trav_ptr->get_next() << "]";
-		}
+
+			trav_ptr = trav_ptr->get_next();
+		} while (trav_ptr != front);
 	}
 
 	// Delete queue
 	void delete_queue()
 	{
-		while (front != nullptr)
+		if (is_empty())
 		{
-			Node<K, D> *temp = front;
-			front = front->get_next();
-			delete temp;
+			cout << "\nCircular queue is empty!\n";
+			return;
 		}
+
+		Node<K, D> *temp = front;
+		do
+		{
+			Node<K, D> *next = temp->get_next(); // Grab the next pointer before deleting this one!
+			delete temp;
+			temp = next;
+		} while (temp != front); //---------------- Continue until we reach the end of the list or encounter a null pointer
+		front = nullptr;
 		rear = nullptr;
-		cout << "\nQueue deleted!\n";
+		cout << "\nCircular queue deleted!\n";
 	}
 
 	// Create a node
@@ -300,7 +324,7 @@ int get_choice();
 
 int main()
 {
-	Queue<int, int> q1;
+	Circular_queue<int, int> q1;
 	int choice = 0;
 	int key = 0;
 	do
@@ -312,7 +336,7 @@ int main()
 			case 0:
 				break;
 			case 1:
-				q1.enqueue(Queue<int, int>::create_node());
+				q1.enqueue(Circular_queue<int, int>::create_node());
 				break;
 			case 2:
 				q1.dequeue();
@@ -320,15 +344,15 @@ int main()
 			case 3:
 				if (q1.is_empty())
 				{
-					cout << "Queue is empty!" << endl;
+					cout << "Circular queue is empty!" << endl;
 				}
 				else
 				{
-					cout << "Queue is not empty!" << endl;
+					cout << "Circular queue is not empty!" << endl;
 				}
 				break;
 			case 4:
-				cout << "Number of items in Queue are: " << q1.count() << endl;
+				cout << "Number of items in Circular queue are: " << q1.count() << endl;
 				break;
 			case 5:
 				key = get_valid_input<int>("Enter key of the item you want to peek: ");
@@ -343,7 +367,7 @@ int main()
 			case 8:
 				if (q1.is_empty())
 				{
-					cout << "Queue is empty!" << endl;
+					cout << "Circular queue is empty!" << endl;
 				}
 				else
 				{
@@ -353,7 +377,7 @@ int main()
 			case 9:
 				if (q1.is_empty())
 				{
-					cout << "Queue is empty!" << endl;
+					cout << "Circular queue is empty!" << endl;
 				}
 				else
 				{

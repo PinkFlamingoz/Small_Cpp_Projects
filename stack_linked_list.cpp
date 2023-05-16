@@ -162,14 +162,14 @@ class Stack
 		if (top == nullptr)
 		{
 			top = new_node;
-			cout << "New node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " pushed successfully!" << endl;
+			cout << "\nNew node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " pushed successfully!" << endl;
 		}
 		else
 		{
 			Node<K, D> *temp = top;
 			top = new_node;
 			new_node->set_next(temp);
-			cout << "New node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " pushed successfully!" << endl;
+			cout << "\nNew node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " pushed successfully!" << endl;
 		}
 	}
 
@@ -178,7 +178,7 @@ class Stack
 	{
 		if (is_empty())
 		{
-			cerr << "Stack underflow!" << endl;
+			cerr << "\nStack underflow!" << endl;
 			return;
 		}
 
@@ -186,7 +186,7 @@ class Stack
 		temp = top;
 		top = top->get_next();
 
-		cout << "Node with key[" << temp->get_key() << "] and data: " << temp->get_data() << " popped!" << endl;
+		cout << "\nNode with key[" << temp->get_key() << "] and data: " << temp->get_data() << " popped!" << endl;
 		delete temp;
 	}
 
@@ -227,7 +227,7 @@ class Stack
 
 		temp->set_data(data);
 
-		cout << "Data for node with key: " << key << " updated! \n";
+		cout << "\nData for node with key: " << key << " updated! \n";
 	}
 
 	// Display all of the stack
@@ -235,11 +235,11 @@ class Stack
 	{
 		if (is_empty())
 		{
-			cout << "Stack is empty!" << endl;
+			cout << "\nStack is empty!" << endl;
 			return;
 		}
 
-		cout << "All items in the Stack are: " << endl;
+		cout << "\nAll items in the Stack are: " << endl;
 		for (Node<K, D> *trav_ptr = top; trav_ptr != nullptr; trav_ptr = trav_ptr->get_next())
 		{
 			cout << "[" << trav_ptr << "] Key[" << trav_ptr->get_key() << "] data: " << trav_ptr->get_data() << " ---> [" << trav_ptr->get_next() << "]" << endl;
@@ -255,7 +255,7 @@ class Stack
 			delete top;
 			top = temp;
 		}
-		cout << "Stack deleted!\n";
+		cout << "\nStack deleted!\n";
 	}
 
 	// Create a node
