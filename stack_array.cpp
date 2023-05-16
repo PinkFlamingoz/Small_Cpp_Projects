@@ -111,12 +111,12 @@ class Stack
 	{
 		if (is_full())
 		{
-			cerr << "Sack overflow" << endl;
+			cerr << "Sack overflow!" << endl;
 		}
 		else
 		{
-			top++; //----------------------- Each time we add a value we increment top fist, firstly because top is -1, aka pointing at nothing, and the rest because top always is the index of the current top element in the stack
-			arr[top] = value; //------------ Add value to the current top position;
+			top++; //------------------------ Each time we add a value we increment top fist, firstly because top is -1, aka pointing at nothing, and the rest because top always is the index of the current top element in the stack
+			arr[top] = value; //------------- Add value to the current top position;
 		}
 	}
 
@@ -125,14 +125,14 @@ class Stack
 	{
 		if (is_empty())
 		{
-			cerr << "Stack underflow" << endl;
+			cerr << "Stack underflow!" << endl;
 			return T();
 		}
 		else
 		{
-			T pop_value = arr[top]; //-------- Get the top value
-			arr[top] = T(); //---------------- Replace the top value with the default
-			top--; //------------------------- Decrement the top to point at the value below it, aka keep track of the stack size
+			T pop_value = arr[top]; //--------- Get the top value
+			arr[top] = T(); //----------------- Replace the top value with the default
+			top--; //-------------------------- Decrement the top to point at the value below it, aka keep track of the stack size
 			return pop_value;
 		}
 	}
@@ -208,21 +208,21 @@ int main()
 			case 3:
 				if (s1.is_empty())
 				{
-					cout << "Stack is empty" << endl;
+					cout << "Stack is empty!" << endl;
 				}
 				else
 				{
-					cout << "Stack is not empty" << endl;
+					cout << "Stack is not empty!" << endl;
 				}
 				break;
 			case 4:
 				if (s1.is_full())
 				{
-					cout << "Stack is full" << endl;
+					cout << "Stack is full!" << endl;
 				}
 				else
 				{
-					cout << "Stack is not full" << endl;
+					cout << "Stack is not full!" << endl;
 				}
 				break;
 			case 5:

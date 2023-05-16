@@ -82,7 +82,7 @@ class Circular_queue
 		return rear;
 	}
 
-	// Is the queue empty
+	// Is the queue empty!
 	bool is_empty() const
 	{
 		if (front == -1 && rear == -1)
@@ -95,7 +95,7 @@ class Circular_queue
 		}
 	}
 
-	// Is the queue full
+	// Is the queue full!
 	bool is_full() const
 	{
 		if ((rear + 1) % size == front)
@@ -126,7 +126,7 @@ class Circular_queue
 	{
 		if (is_full())
 		{
-			cout << "Circular queue full" << endl;
+			cerr << "Circular queue full!" << endl;
 			return;
 		}
 		else if (is_empty()) //------------------- We check if its the first element in the queue in this case we have to increase rear and front +1 because they are both -1
@@ -157,7 +157,7 @@ class Circular_queue
 		T x{};
 		if (is_empty())
 		{
-			cout << "Circular queue is empty" << endl;
+			cerr << "Circular queue is empty!" << endl;
 			return x;
 		}
 		else if (front == rear) //-------------------- We check if the rear and front are equal which means that the queue has come to an end and we have to re-set it to position -1, aka empty
@@ -259,25 +259,25 @@ int main()
 			case 3:
 				if (q1.is_empty())
 				{
-					cout << "Circular queue is empty" << endl;
+					cout << "Circular queue is empty!" << endl;
 				}
 				else
 				{
-					cout << "Circular queue is not empty" << endl;
+					cout << "Circular queue is not empty!" << endl;
 				}
 				break;
 			case 4:
 				if (q1.is_full())
 				{
-					cout << "Circular queue is full" << endl;
+					cout << "Circular queue is full!" << endl;
 				}
 				else
 				{
-					cout << "Circular queue is not full" << endl;
+					cout << "Circular queue is not full!" << endl;
 				}
 				break;
 			case 5:
-				cout << "Number of items in Circular queue: " << q1.count() << endl;
+				cout << "Number of items in Circular queue are: " << q1.count() << endl;
 				break;
 			case 6:
 				position = get_valid_input<int>("Enter position of item you want to peek: ");

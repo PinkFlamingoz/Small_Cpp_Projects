@@ -142,6 +142,7 @@ class Doubly_linked_list
 			if (trav_ptr->get_key() == key) //---------------------------------------------------- If the keys match
 			{
 				temp = trav_ptr; //--------------------------------------------------------------- Then make temp point at the address that the traversal pointer points at, aka we get the node with the same key
+				break;
 			}
 		}
 

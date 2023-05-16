@@ -90,7 +90,7 @@ class Queue
 		return rear;
 	}
 
-	// Is the queue empty
+	// Is the queue empty!
 	bool is_empty() const
 	{
 		if (front == -1 && rear == -1)
@@ -103,7 +103,7 @@ class Queue
 		}
 	}
 
-	// Is the queue full
+	// Is the queue full!
 	bool is_full() const
 	{
 		if (rear == size - 1)
@@ -121,7 +121,7 @@ class Queue
 	{
 		if (is_full())
 		{
-			cout << "Queue full" << endl;
+			cerr << "Queue full!" << endl;
 			return;
 		}
 		else if (is_empty()) //---------- We check if its the first element in the queue in this case we have to increase rear and front +1 because they are both -1
@@ -143,7 +143,7 @@ class Queue
 		T x{};
 		if (is_empty())
 		{
-			cout << "Queue is empty" << endl;
+			cerr << "Queue is empty!" << endl;
 			return x;
 		}
 		else if (front == rear) //--------------------- We check if the rear and front are equal which means that the queue has come to an end and we have to re-set it to position -1, aka empty
@@ -178,7 +178,7 @@ class Queue
 		}
 	}
 
-	// See what value is at a current position of a stack
+	// See what value is at a current position of a queue
 	T peek(int possition) const
 	{
 		if (possition > rear || possition < front || possition < 0)
@@ -192,7 +192,7 @@ class Queue
 		}
 	}
 
-	// Change a value in a current position of a stack
+	// Change a value in a current position of a queue
 	void change(int possition, T value)
 	{
 		if (possition > rear || possition < front || possition < 0)
@@ -243,25 +243,25 @@ int main()
 			case 3:
 				if (q1.is_empty())
 				{
-					cout << "Queue is empty" << endl;
+					cout << "Queue is empty!" << endl;
 				}
 				else
 				{
-					cout << "Queue is not empty" << endl;
+					cout << "Queue is not empty!" << endl;
 				}
 				break;
 			case 4:
 				if (q1.is_full())
 				{
-					cout << "Queue is full" << endl;
+					cout << "Queue is full!" << endl;
 				}
 				else
 				{
-					cout << "Queue is not full" << endl;
+					cout << "Queue is not full!" << endl;
 				}
 				break;
 			case 5:
-				cout << "Number of items in Queue: " << q1.count() << endl;
+				cout << "Number of items in Queue are: " << q1.count() << endl;
 				break;
 			case 6:
 				position = get_valid_input<int>("Enter position of item you want to peek: ");

@@ -133,13 +133,14 @@ class Stack
 			if (trav_ptr->get_key() == key) //--------------------------------------------------- If the keys match
 			{
 				temp = trav_ptr; //-------------------------------------------------------------- Then make temp point at the address that the traversal pointer points at, aka we get the node with the same key
+				break;
 			}
 		}
 
 		return temp;
 	}
 
-	// Is the stack empty
+	// Is the stack empty!
 	bool is_empty() const
 	{
 		if (top == nullptr)
@@ -172,12 +173,12 @@ class Stack
 		}
 	}
 
-	// Take out an element of a stack, don't take out if the stack is empty
+	// Take out an element of a stack, don't take out if the stack is empty!
 	void pop()
 	{
 		if (is_empty())
 		{
-			cerr << "Stack underflow" << endl;
+			cerr << "Stack underflow!" << endl;
 			return;
 		}
 
@@ -234,7 +235,7 @@ class Stack
 	{
 		if (is_empty())
 		{
-			cerr << "Stack is empty!" << endl;
+			cout << "Stack is empty!" << endl;
 			return;
 		}
 
@@ -295,11 +296,11 @@ int main()
 			case 3:
 				if (s1.is_empty())
 				{
-					cout << "Stack is empty" << endl;
+					cout << "Stack is empty!" << endl;
 				}
 				else
 				{
-					cout << "Stack is not empty" << endl;
+					cout << "Stack is not empty!" << endl;
 				}
 				break;
 			case 4:
@@ -316,7 +317,14 @@ int main()
 				s1.display();
 				break;
 			case 8:
-				cout << "Top is node with key: " << s1.get_top()->get_key() << endl;
+				if (s1.is_empty())
+				{
+					cout << "Stack is empty!" << endl;
+				}
+				else
+				{
+					cout << "Top is node with key: " << s1.get_top()->get_key() << endl;
+				}
 				break;
 			case 9:
 				s1.delete_stack();
