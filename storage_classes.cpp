@@ -153,6 +153,7 @@ class test1
 {
 	mutable int a;
 	int b;
+
 	public:
 	test1(int x, int y)
 	{

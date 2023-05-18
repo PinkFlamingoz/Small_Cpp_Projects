@@ -15,6 +15,7 @@ class Force
 	float start_speed;
 	float end_speed;
 	float acceleration;
+
 	public:
 	// Member functions
 

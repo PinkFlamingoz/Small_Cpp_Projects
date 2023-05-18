@@ -19,6 +19,7 @@ class Node
 	D data;
 	Node<K, D> *next;
 	Node<K, D> *previous;
+
 	public:
 	// Member functions
 

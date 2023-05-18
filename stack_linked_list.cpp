@@ -33,6 +33,7 @@ class Node
 	K key;
 	D data;
 	Node<K, D> *next;
+
 	public:
 	// Member functions
 

@@ -12,6 +12,7 @@ class Quadratic_EQ
 	float a;
 	float b;
 	float c;
+
 	public:
 	// Member functions
 
