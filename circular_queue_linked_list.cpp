@@ -126,6 +126,16 @@ class Circular_queue
 		return rear;
 	}
 
+	// Is the queue empty!
+	bool is_empty() const
+	{
+		if (front == nullptr && rear == nullptr)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	// Check if node exists
 	// All that we do here is make a traversal pointer and use that pointer to check all the nodes in the linked list for the same key because the last node will point at the first node we must use a do while loop
 	Node<K, D> *node_exists(K key) const
@@ -151,16 +161,6 @@ class Circular_queue
 		} while (trav_ptr != front);
 
 		return temp;
-	}
-
-	// Is the queue empty!
-	bool is_empty() const
-	{
-		if (front == nullptr && rear == nullptr)
-		{
-			return true;
-		}
-		return false;
 	}
 
 	// Add to the queue

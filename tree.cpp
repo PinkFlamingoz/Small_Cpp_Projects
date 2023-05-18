@@ -157,6 +157,35 @@ class Binary_Search_Tree
 	// Destructor
 	~Binary_Search_Tree()
 	{}
+
+	// Get the root of the tree
+	Node<K, D> *get_head() const
+	{
+		return root;
+	}
+
+	// Check if the tree is empty
+	bool is_empty() const
+	{
+		if (root == nullptr)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	// Check if node exists
+
+	// Create a node
+	static Node<K, D> *create_node()
+	{
+		Node<K, D> *node = new Node<K, D>;
+		cout << "\n================= Create node =================\n";
+		node->set_key(get_valid_input<K>("Set key: "));
+		node->set_data(get_valid_input<D>("Set the data: "));
+		cout << "===============================================\n";
+		return node;
+	}
 };
 
 // Functions

@@ -123,6 +123,16 @@ class Stack
 		return top;
 	}
 
+	// Is the stack empty!
+	bool is_empty() const
+	{
+		if (top == nullptr)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	// Check if node exists
 	// All that we do here is make a traversal pointer and use that pointer to check all the nodes in the linked list for the same key
 	Node<K, D> *node_exists(K key) const
@@ -139,16 +149,6 @@ class Stack
 		}
 
 		return temp;
-	}
-
-	// Is the stack empty!
-	bool is_empty() const
-	{
-		if (top == nullptr)
-		{
-			return true;
-		}
-		return false;
 	}
 
 	// Add an element in the stack
