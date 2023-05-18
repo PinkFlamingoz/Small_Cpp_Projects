@@ -158,6 +158,7 @@ class Doubly_linked_list
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
 			return;
 		}
+
 		if (head == nullptr) //------------------------------------------------------------ CASE 1: If this list is empty we make this new node the whole list, aka we set the head to point at this new node
 		{
 			head = new_node;

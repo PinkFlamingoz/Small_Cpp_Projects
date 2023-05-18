@@ -279,6 +279,9 @@
     <ClCompile Include="circular_queue_linked_list.cpp">
       <Filter>Source Files\Data_structures</Filter>
     </ClCompile>
+    <ClCompile Include="binary_tree.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">

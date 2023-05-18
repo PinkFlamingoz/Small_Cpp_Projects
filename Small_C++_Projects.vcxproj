@@ -135,6 +135,7 @@
     <ClCompile Include="average_score.cpp" />
     <ClCompile Include="bank.cpp" />
     <ClCompile Include="binary_search.cpp" />
+    <ClCompile Include="binary_tree.cpp" />
     <ClCompile Include="caeser_cipher.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />
     <ClCompile Include="calculator_testing.cpp" />

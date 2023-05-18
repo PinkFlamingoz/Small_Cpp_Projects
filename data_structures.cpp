@@ -8,6 +8,7 @@ using namespace std;
 //  • Relatively easy to sort
 //  • Relatively small size - wise
 //  • Stuck with a fixed size, no flexibility
+//	• Behind the scenes an array jumps to a index using the formula BASE ADDRES + ( INDEX POSITION * SIZE OF ELEMENT )
 //
 // • Linked lists
 //  • Insertion is easy – just tack onto the front
