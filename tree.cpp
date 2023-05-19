@@ -268,7 +268,7 @@ class Binary_Search_Tree
 		return root;
 	}
 
-	// Print tree
+	// Print tree rotated 90 deg
 	void print_tree_2D(Node<K,D>*root, int space) const
 	{
 		if(is_empty())
