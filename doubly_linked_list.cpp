@@ -313,15 +313,9 @@ class Doubly_linked_list
 		}
 	}
 
-	// Delete node by key // CASE 1:IF ITS THE FIRST NODE AND ITS THE ONLY NODE, CASE 2: IF ITS THE FIRST NODE AND THERE ARE MORE NODES, CASE 3: IF IT IS AT THE END, CASE 4: IF ITS ANY OTHER NODE
+	// Delete node by key // CASE 1: IF ITS THE FIRST NODE AND ITS THE ONLY NODE, CASE 2: IF ITS THE FIRST NODE AND THERE ARE MORE NODES, CASE 3: IF IT IS AT THE END, CASE 4: IF ITS ANY OTHER NODE
 	void delete_node_by_key(K key)
 	{
-		if (node_exists(key) == nullptr)
-		{
-			cerr << "\nThere is no node with that key: " << key << endl;
-			return;
-		}
-
 		Node<K, D> *current = head;
 
 		while (current != nullptr)
@@ -351,13 +345,16 @@ class Doubly_linked_list
 				}
 				cout << "\nNode: " << current << " with key: " << key << " deleted!\n";
 				delete current;
-				break;
+				return;
 			}
 			else //-------------------------------------------------------------------- If the current node doesn't match go to the next nodes
 			{
 				current = current->get_next();
 			}
 		}
+
+		cerr << "\nThere is no node with that key: " << key << endl;
+		return;
 	}
 
 	// Update node by key

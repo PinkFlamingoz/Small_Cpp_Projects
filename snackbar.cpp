@@ -5,15 +5,15 @@
 
 using namespace std;
 
-// Globals
-const int DEFAULT = 10;
-
 // Structures
 struct Menu
 {
 	string item = "";
 	float price = 0;
 };
+
+// Globals
+const int DEFAULT = 10;
 
 // Functions
 void get_menu(Menu menu[]);

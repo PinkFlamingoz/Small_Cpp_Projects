@@ -26,7 +26,7 @@ class Account
 	Account()
 	{
 		account_number = 0;
-		strcpy(name, "");
+		strcpy_s(name, "");
 		deposit = 0;
 		type = 'D';
 	}

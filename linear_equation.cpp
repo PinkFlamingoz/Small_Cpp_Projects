@@ -6,7 +6,7 @@ using namespace std;
 // Functions
 int system_linear_EQ(float &x, float &y, float a1, float a2, float b1, float b2, float c1, float c2);
 
-main()
+int main()
 {
 	// Variables in use
 	float x = 0;

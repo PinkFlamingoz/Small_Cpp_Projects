@@ -90,7 +90,7 @@ int main()
 void func(void);
 static int count1 = 10; // Global variable
 
-main()
+int main()
 {
 	while (count1--)
 	{

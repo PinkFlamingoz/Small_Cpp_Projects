@@ -6,6 +6,14 @@
 
 using namespace std;
 
+// Structures
+struct Candidate
+{
+	string name = "";
+	int votes = 0;
+	bool eliminated = false;
+};
+
 // Globals
 const int MAX_CANDIDATES = 9;
 const int MAX_VOTERS = 100;
@@ -15,14 +23,6 @@ int preferences[MAX_VOTERS][MAX_CANDIDATES];
 
 int candidate_count = 0;
 int voter_count = 0;
-
-// Structures
-struct Candidate
-{
-	string name = "";
-	int votes = 0;
-	bool eliminated = false;
-};
 
 // Functions
 bool check_if_candidates_are_different(int argc, char *argv[]);

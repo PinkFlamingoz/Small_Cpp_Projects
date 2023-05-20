@@ -4,18 +4,18 @@
 
 using namespace std;
 
-// Globals
-const int MAX = 10;
-int candidate_count = 0;
-
-Candidate candidates[MAX];
-
 // Structures
 struct Candidate
 {
 	string name = "";
 	int votes = 0;
 };
+
+// Globals
+const int MAX = 10;
+int candidate_count = 0;
+
+Candidate candidates[MAX];
 
 // Functions
 void get_candidates(char *argv[]);

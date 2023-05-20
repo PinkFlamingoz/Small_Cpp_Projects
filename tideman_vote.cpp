@@ -6,6 +6,13 @@
 
 using namespace std;
 
+// Structure
+struct Pair
+{
+	int winner;
+	int loser;
+};
+
 // Globals
 const int MAX_CANDIDATES = 9;
 const int MAX_VOTERS = 100;
@@ -20,13 +27,6 @@ Pair pairs[MAX_CANDIDATES * (MAX_CANDIDATES - 1) / 2];
 int pair_count = 0;
 int candidate_count = 0;
 int voter_count = 0;
-
-// Structure
-struct Pair
-{
-	int winner;
-	int loser;
-};
 
 // Functions
 bool check_if_candidates_are_different(int argc, char *argv[]);

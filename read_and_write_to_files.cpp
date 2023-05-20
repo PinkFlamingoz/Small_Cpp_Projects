@@ -6,15 +6,15 @@
 
 using namespace std;
 
-// Globals
-string file_name = "test.txt";
-
 // Structures
 struct Contact
 {
 	string name = "";
 	long long phone = 0;
 };
+
+// Globals
+string file_name = "test.txt";
 
 // Functions
 Contact get_contact(string prompt);

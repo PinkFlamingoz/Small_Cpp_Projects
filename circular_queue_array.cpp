@@ -129,14 +129,14 @@ class Circular_queue
 			cerr << "Circular queue full!" << endl;
 			return;
 		}
-		else if (is_empty()) //------------------- We check if its the first element in the queue in this case we have to increase rear and front +1 because they are both -1
+		else if (is_empty()) //-------------------- We check if its the first element in the queue in this case we have to increase rear and front +1 because they are both -1
 		{
 			rear = 0;
 			front = 0;
 			arr[rear] = value;
 			item_count++;
 		}
-		else //----------------------------------- If we already have elements in the queue then we simply increase the rear and add the value there at the new rear index
+		else //------------------------------------ If we already have elements in the queue then we simply increase the rear and add the value there at the new rear index
 		{
 			rear = (rear + 1) % size;
 			arr[rear] = value;
@@ -160,7 +160,7 @@ class Circular_queue
 			cerr << "Circular queue is empty!" << endl;
 			return x;
 		}
-		else if (front == rear) //-------------------- We check if the rear and front are equal which means that the queue has come to an end and we have to re-set it to position -1, aka empty
+		else if (front == rear) //--------------------- We check if the rear and front are equal which means that the queue has come to an end and we have to re-set it to position -1, aka empty
 		{
 			cout << "front value: " << front << " -> ";
 			x = arr[front];
@@ -170,7 +170,7 @@ class Circular_queue
 			item_count--;
 			return x;
 		}
-		else //--------------------------------------- If we are not at the end of the queue we simply get the value at the front, replace that position with the default and increase the front to point at the next in line
+		else //---------------------------------------- If we are not at the end of the queue we simply get the value at the front, replace that position with the default and increase the front to point at the next in line
 		{
 			cout << "front value: " << front << " -> ";
 			x = arr[front];

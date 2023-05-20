@@ -203,8 +203,7 @@ class Singly_linked_list
 	// Insert node before a certain key // CASE 1: ADD AT THE FRONT, CASE 2: ADD ANYWHERE ELSE
 	void insert_node_before(K key, Node<K, D> *new_node)
 	{
-		Node<K, D> *temp = node_exists(key);
-		if (temp == nullptr)
+		if (node_exists(key) == nullptr)
 		{
 			cerr << "\nThere is no node with that key: " << key << endl;
 			return;
@@ -279,15 +278,9 @@ class Singly_linked_list
 		}
 	}
 
-	// Delete node by key // CASE 1:IF ITS THE FIRST NODE AND ITS THE ONLY NODE, CASE 2: IF ITS THE FIRST NODE AND THERE ARE MORE NODES, CASE 3: IF ITS ANY OTHER NODE
+	// Delete node by key // CASE 1: IF ITS THE FIRST NODE AND ITS THE ONLY NODE, CASE 2: IF ITS THE FIRST NODE AND THERE ARE MORE NODES, CASE 3: IF ITS ANY OTHER NODE
 	void delete_node_by_key(K key)
 	{
-		if (node_exists(key) == nullptr)
-		{
-			cerr << "\nThere is no node with that key: " << key << endl;
-			return;
-		}
-
 		Node<K, D> *previous = nullptr;
 		Node<K, D> *current = head;
 
@@ -312,7 +305,7 @@ class Singly_linked_list
 				}
 				cout << "\nNode: " << current << " with key: " << key << " deleted!\n";
 				delete current;
-				break;
+				return;
 			}
 			else //-------------------------------------------------------------------- If the current node doesn't match go to the next nodes
 			{
@@ -320,6 +313,9 @@ class Singly_linked_list
 				current = current->get_next();
 			}
 		}
+
+		cerr << "\nThere is no node with that key: " << key << endl;
+		return;
 	}
 
 	// Update node by key

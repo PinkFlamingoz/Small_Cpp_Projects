@@ -195,7 +195,7 @@ class Queue
 			return;
 		}
 
-		if (front == rear) //----------------------------------------------------------------------------------------- If we have one element in the queue
+		if (front == rear) //------------------------------------------------------------------------------------------- If we have one element in the queue
 		{
 			Node<K, D> *temp = front;
 			front = nullptr;
@@ -204,7 +204,7 @@ class Queue
 			cout << "\nNode with key[" << temp->get_key() << "] and data: " << temp->get_data() << " dequeued!" << endl;
 			delete temp;
 		}
-		else //------------------------------------------------------------------------------------------------------- If we have more than one element in the queue
+		else //--------------------------------------------------------------------------------------------------------- If we have more than one element in the queue
 		{
 			Node<K, D> *temp = front;
 			front = front->get_next();

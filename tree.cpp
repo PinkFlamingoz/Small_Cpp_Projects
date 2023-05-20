@@ -1,26 +1,26 @@
 #include <iostream>
 #include "basic_functions.h"
-#define SPACE 10
+
 using namespace std;
 // A tree is a non linear data structure that simulates a hierarchical tree structure with a root value and sub trees of children with parent node, represented as set of linked nodes.
 //
-// Tree terms �
-// Root � Root is a special node in a tree. The entire tree is referenced through it.It does not have a parent.
-// Parent Node � Parent node is an immediate predecessor of a node.
-// Child Node � All immediate successors of a node are its children.
-// Siblings � Nodes with the same parent are called Siblings.
-// Leaf � Last node in the tree. There is no node after this node.
-// Edge � Edge is a connection between one node to another. It is a line between two nodes or a node and a leaf.
-// Path � Path is a number of successive edges from source node to destination node.
+// Tree terms -
+// Root - Root is a special node in a tree. The entire tree is referenced through it.It does not have a parent.
+// Parent Node - Parent node is an immediate predecessor of a node.
+// Child Node - All immediate successors of a node are its children.
+// Siblings - Nodes with the same parent are called Siblings.
+// Leaf - Last node in the tree. There is no node after this node.
+// Edge - Edge is a connection between one node to another. It is a line between two nodes or a node and a leaf.
+// Path - Path is a number of successive edges from source node to destination node.
 //
-// Tree terms / properties �
+// Tree terms / properties -
 // Tree can be termed as a RECURSIVE data structure.
 // In a valid tree for N Nodes we have N - 1 Edges / Links
-// Depth of Node � Depth of a node represents the number of edges from the tree's root node to the node.
-// Height of Node � Height of a node is the number of edges on the longest path between that node & a leaf.
-// Height of Tree � Height of tree represents the height of its root node.
+// Depth of Node - Depth of a node represents the number of edges from the tree's root node to the node.
+// Height of Node - Height of a node is the number of edges on the longest path between that node & a leaf.
+// Height of Tree - Height of tree represents the height of its root node.
 //
-// Types of Trees �
+// Types of Trees -
 // General Tree
 // Binary Tree
 // Binary Search Tree
@@ -33,16 +33,16 @@ using namespace std;
 // Binary Tree
 // A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child(LC) and the right child(RC).
 //
-// Important Binary Tree Terms & Properties �
+// Important Binary Tree Terms & Properties -
 // A binary tree is called STRICT / PROPER binary tree when each node has 2 or 0 children.
 // A binary tree is called COMPLETE binary tree if all levels except the last are completely filled and all nodes are as left as possible.
 // A binary tree is called PERFECT binary tree if all levels are completely filled with 2 children each.
 // Max number of nodes at a given level 'x' = 2 ^ x
-// For a binary tree, maximum number of nodes with height 'h' = 2 ^ (h + 1) � 1
+// For a binary tree, maximum number of nodes with height 'h' = 2 ^ (h + 1) - 1
 // A binary tree is called BALANCE binary tree, if the difference between the height of left subtree and right subtree for every node is not more than k(usually k = 1).
 //
-// Sparse vs Dense Binary Tree �
-// A dense binary tree is close to perfect(it has close to 2 ^ (h + 1) � 1 nodes).
+// Sparse vs Dense Binary Tree -
+// A dense binary tree is close to perfect(it has close to 2 ^ (h + 1) - 1 nodes).
 // A sparse binary tree is closer to a linked list(it has close to h nodes).
 //
 // A binary tree can be implemented as an array with the LC formula 2 * i + 1 and RC formula 2 * i + 1, i being the index of the current node
@@ -50,12 +50,12 @@ using namespace std;
 // Binary search tree (BST)
 // BST is a binary tree data structure, in which the values in the left sub-trees of every node are smaller and the values in the right sub-trees of every node are larger.
 //
-// Average Time Complexity of Binary Search Tree Operations(balanced) is � Big O(log N).
+// Average Time Complexity of Binary Search Tree Operations(balanced) is - Big O(log N).
 // Hence the searching is much more fast &efficient in BST compared to a linear Data Structure like linked list or array.
 //
-// Binary tree traversal can be categorized mainly in 2 types - 
+// Binary tree traversal can be categorized mainly in 2 types -
 // 1) Depth First Search(DFS) - These searches are referred to as depth-first search (DFS), since the search tree is deepened as much as possible on each child before going to the next sibling.
-//    a) Pre-order (NLR)(node - left - right) - 
+//    a) Pre-order (NLR)(node - left - right) -
 //       - Access the data part of the current node.
 //       - Traverse the left subtree by recursively calling the pre-order function.
 //       - Traverse the right subtree by recursively calling the pre-order function.
@@ -70,8 +70,11 @@ using namespace std;
 //       - Traverse the right subtree by recursively calling the post-order function.
 //       - Access the data part of the current node.
 //
-// 2) Breadth First Search - Trees can also be traversed in level-order, where we visit every node on a level before going to a lower level. 
+// 2) Breadth First Search - Trees can also be traversed in level-order, where we visit every node on a level before going to a lower level.
 // This search is referred to as breadth-first search (BFS), as the search tree is broadened as much as possible on each depth before going to the next depth
+
+// Constants
+#define SPACE 10 // or we can use constexpr auto SPACE = 10;
 
 // Classes
 template <typename K, typename D>
@@ -194,92 +197,101 @@ class Binary_Search_Tree
 		return false;
 	}
 
-	// Insert node in tree
-	void insert(Node<K,D> *new_node)
+	// Check if the leafs are empty
+	bool is_empty_leaf(Node<K, D> *&root) const
 	{
-		if(root == nullptr)
+		if (root == nullptr)
 		{
-			root == new_node;
+			return true;
+		}
+		return false;
+	}
+
+	// Insert node in tree //CASE 1: IF THE TREE IS EMPTY, CASE 2: IF WE HAVE THE SAME VALUES, CASE 3: IF ITS SMALLER, CASE 4: IF ITS BIGGER
+	void insert(Node<K, D> *new_node)
+	{
+		if (root == nullptr) //--------------------------------------------------------------------------------------------------------------- CASE 1: If the tree is empty
+		{
+			root = new_node;
 			cout << "\nNew node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " added successfully!" << endl;
 		}
 		else
 		{
-			Node<K,D> *trav_ptr - root;
-			while(trav_ptr != nullptr)
+			Node<K, D> *trav_ptr = root;
+			while (trav_ptr != nullptr)
 			{
-				if(new_node->get_data() == trav_ptr->get_data())
+				if (new_node->get_data() == trav_ptr->get_data()) //-------------------------------------------------------------------------- CASE 2.1: If we have the same data
 				{
 					cerr << "\nNode already exists with this data: " << new_node->get_data() << endl;
 					return;
 				}
-				else if(new_node->get_key() == trav_ptr->get_key())
+				else if (new_node->get_key() == trav_ptr->get_key()) //----------------------------------------------------------------------- CASE 2.2: If we have the same key
 				{
 					cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
 					return;
 				}
 
-				if((new_node->get_value() < trav_ptr->get_value() && (trav_ptr->get_left() == nullptr)))
+				if ((new_node->get_data() < trav_ptr->get_data() && (trav_ptr->get_left() == nullptr))) //------------------------------------ CASE 3: If the data is smaller then the previous data and its a leaf node
 				{
 					trav_ptr->set_left(new_node);
 					cout << "\nNode inserted to the left of: [" << trav_ptr->get_key() << "]: " << trav_ptr->get_data() << endl;
 					break;
 				}
-				else if(new_node->get_value() < trav_ptr->get_value())
+				else if (new_node->get_data() < trav_ptr->get_data()) //---------------------------------------------------------------------- CASE 3.1: If the data is smaller then the previous data and its not a leaf node
 				{
 					trav_ptr = trav_ptr->get_left();
 				}
-				else if((new_node->get_value() > trav_ptr->get_value() && (trav_ptr->get_right() == nullptr)))
+				else if ((new_node->get_data() > trav_ptr->get_data() && (trav_ptr->get_right() == nullptr))) //------------------------------ CASE 4: If the data is bigger then the previous data and its a leaf node
 				{
 					trav_ptr->set_right(new_node);
 					cout << "\nNode inserted to the right of: [" << trav_ptr->get_key() << "]: " << trav_ptr->get_data() << endl;
 					break;
 				}
-				else if(new_node->get_value() > trav_ptr->get_value())
+				else if (new_node->get_data() > trav_ptr->get_data()) //---------------------------------------------------------------------- CASE 4.1: If the data is bigger then the previous data and its not a leaf node
 				{
 					trav_ptr = trav_ptr->get_right();
 				}
 			}
 		}
 	}
-	
+
 	// Insert node in tree with recursion
-	Node<K,D> *insert_recursive(Node<K,D> *root, Node<K,D> *new_node)
+	Node<K, D> *insert_recursive(Node<K, D> *root, Node<K, D> *new_node)
 	{
-		if(root == NULL)
+		if (root == nullptr)
 		{
 			root = new_node;
 			cout << "Insertion successful" << endl;
 			return root;
 		}
-	
-		if(new_node->get_data() < root->get_data())
+
+		if (new_node->get_data() < root->get_data())
 		{
-			root->set_left(insertRecursive(root->get_left(), new_node));
+			root->set_left(insert_recursive(root->get_left(), new_node));
 		}
-		else if (new_node->value > root->get_data())  
-	    {
-			root->set_right(insertRecursive(root->get_right(),new_node));
-	    }
-	    else
-	    {
-	     	cout << "No duplicate values allowed!" << endl;
-	     	return root; 
-	    }
+		else if (new_node->value > root->get_data())
+		{
+			root->set_right(insert_recursive(root->get_right(), new_node));
+		}
+		else
+		{
+			cout << "No duplicate values allowed!" << endl;
+			return root;
+		}
 		return root;
 	}
 
-	// Print tree rotated 90 deg
-	void print_tree_2D(Node<K,D>*root, int space) const
+	// Print tree rotated 90 deg, this is just reverse in_order but with spaces and new lines in between
+	void print_tree_2D(Node<K, D> *root, int space) const
 	{
-		if(is_empty())
+		if (root == nullptr) // or use is_empty_leaf in recursive cases
 		{
-			retrun;
+			return;
 		}
 
 		space += SPACE;
+		print_tree_2D(root->get_right(), space);
 
-		print_tree_2D(root->get_right(),space);
-		
 		cout << endl;
 		for (int i = SPACE; i < space; i++)
 		{
@@ -287,51 +299,51 @@ class Binary_Search_Tree
 		}
 		cout << root->get_data() << endl;
 
-		print_tree_2D(root->get_left(),space);
+		print_tree_2D(root->get_left(), space);
 	}
 
 	// Print pre_order (NLR)
-	void print_pre_order(Node<K,D> *root)
+	void print_pre_order(Node<K, D> *root)
 	{
 		// Base case
-		if(root == nullptr)
+		if (root == nullptr)
 		{
 			return;
 		}
 		// Recursive case
-		cout << " [" << root->get_key() << "]: " << root->get_data() << endl;
+		cout << " [" << root->get_left() << "] <--- [" << root << "][" << root->get_key() << "]: " << root->get_data() << " ---> [" << root->get_right() << "] ";
 		print_pre_order(root->get_left());
 		print_pre_order(root->get_right());
 	}
 
-	// Print in_order (LNR)
-	void print_in_order(Node<K,D> *root)
+	// Print in_order (LNR), just reverse R and L if we wanna get the reverse in_order version of this aka it will print in descending order
+	void print_in_order(Node<K, D> *root)
 	{
 		// Base case
-		if(root == nullptr)
+		if (root == nullptr)
 		{
 			return;
 		}
 		// Recursive case
 		print_in_order(root->get_left());
-		cout << " [" << root->get_key() << "]: " << root->get_data() << endl;
+		cout << " [" << root->get_left() << "] <--- [" << root << "][" << root->get_key() << "]: " << root->get_data() << " ---> [" << root->get_right() << "] ";
 		print_in_order(root->get_right());
 	}
-	
+
 	// Print post_order (LRN)
-	void print_post_order(Node<K,D> *root)
+	void print_post_order(Node<K, D> *root)
 	{
 		// Base case
-		if(root == nullptr)
+		if (root == nullptr)
 		{
 			return;
 		}
 		// Recursive case
 		print_post_order(root->get_left());
 		print_post_order(root->get_right());
-		cout << " [" << root->get_key() << "]: " << root->get_data() << endl;
+		cout << " [" << root->get_left() << "] <--- [" << root << "][" << root->get_key() << "]: " << root->get_data() << " ---> [" << root->get_right() << "] ";
 	}
-	
+
 	// Create a node
 	static Node<K, D> *create_node()
 	{
@@ -350,7 +362,7 @@ int get_choice();
 
 int main()
 {
-	BST<int, int> bst1;
+	Binary_Search_Tree<int, int> bst1;
 	int choice = 0;
 	int key = 0;
 	do
@@ -362,14 +374,14 @@ int main()
 			case 0:
 				break;
 			case 1:
-				bst1.insert(BST<int, int>::create_node());
+				bst1.insert(Binary_Search_Tree<int, int>::create_node());
 				break;
 			case 2:
 				break;
 			case 3:
 				break;
 			case 4:
-				bst1.print_tree_2D(bst1.get_root(),5);
+				bst1.print_tree_2D(bst1.get_root(), 5);
 				break;
 			case 5:
 				bst1.print_pre_order(bst1.get_root());
@@ -412,6 +424,8 @@ void print_menu()
 	// show children of a node,
 	// show leafs,
 	// print path to a node from root,
+	// is empty
+	// insert recursive
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Insert Node" << endl;
 	cout << "2. Search Node" << endl;
