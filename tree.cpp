@@ -333,16 +333,13 @@ class Binary_Search_Tree
 		{
 			return;
 		}
+		else if (level == 0)
+		{
+			cout << root->get_data() << " "; //--------- Reached the desired level, print the value
+		}
 		// Recursive case
-		if (level == 0)
-		{
-			cout << root->get_data() << " ";
-		}
-		else
-		{
-			print_given_level(root->get_left(), level - 1);
-			print_given_level(root->get_right(), level - 1);
-		}
+		print_given_level(root->get_left(), level - 1);
+		print_given_level(root->get_right(), level - 1);
 	}
 
 	// Print tree in Breadth First Search
@@ -388,7 +385,7 @@ class Binary_Search_Tree
 		return;
 	}
 
-	// Show parent of a node
+	// Show parent of a node test for node thats not in tree
 	void show_parent(Node<D> *root, Node<D> *node) const
 	{
 		Node<D> *parent = find_parent(root, node);
@@ -409,23 +406,27 @@ class Binary_Search_Tree
 		// Base case
 		if (root == nullptr || root == node)
 		{
-			return nullptr;  //------------------------------------ Node not found or root node reached
+			return nullptr;  //-------------------------------------- Node not found or root node reached
 		}
 
-		// Recursive case
 		if (root->get_left() == node || root->get_right() == node)
 		{
-			return root; //---------------------------------------- Found the parent node
+			return root; //------------------------------------------ Found the parent node
 		}
-
-		// Recursively search in the left and right subtrees
+		// Recursive case
 		Node<D> *left_parent = find_parent(root->get_left(), node);
 		if (left_parent != nullptr)
 		{
-			return left_parent; //--------------------------------- Found parent in the left subtree
+			return left_parent; //----------------------------------- Found parent in the left subtree
 		}
 
-		return find_parent(root->get_right(), node); //------------ Search in the right subtree
+		Node<D> *right_parent = find_parent(root->get_right(), node);
+		if (right_parent != nullptr)
+		{
+			return right_parent; //---------------------------------- Found parent in the right subtree
+		}
+
+		return nullptr; //------------------------------------------- Parent not found
 	}
 
 	// Show children of a node
@@ -527,12 +528,11 @@ class Binary_Search_Tree
 		{
 			return 0;
 		}
-		// Recursive case
 		else if (level == 0)
 		{
-			// Reached the desired level, return 1 for the current node
-			return 1;
+			return 1; //----------------------------------------------------- Reached the desired level, return 1 for the current node
 		}
+		// Recursive case
 		int left_count = count_nodes_on_level(root->get_left(), level - 1);
 		int right_count = count_nodes_on_level(root->get_right(), level - 1);
 
@@ -542,16 +542,16 @@ class Binary_Search_Tree
 	// Print leaf nodes of a tree
 	void print_leaf_nodes(Node<D> *root) const
 	{
+		// Base case
 		if (root == nullptr)
 		{
 			return;
 		}
-
-		if (root->get_left() == nullptr && root->get_right() == nullptr)
+		else if(root->get_left() == nullptr && root->get_right() == nullptr)
 		{
 			cout << root->get_data() << " ";
 		}
-
+		// Recursive case
 		print_leaf_nodes(root->get_left());
 		print_leaf_nodes(root->get_right());
 	}
@@ -631,11 +631,12 @@ class Binary_Search_Tree
 	// Delete the sub tree
 	void delete_subtree(Node<D> *node)
 	{
+		// Base case
 		if (node == nullptr)
 		{
 			return;
 		}
-
+		// Recursive case
 		delete_subtree(node->get_left());
 		delete_subtree(node->get_right());
 
@@ -809,29 +810,27 @@ int main()
 				}
 				break;
 			case 16:
-				cout << "Root of tree is: " << bst1.get_root() << endl;
+				cout << "Root of tree is: " << bst1.get_root() << endl; // Check if empty
 				break;
 			case 17:
-				cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl;
+				cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl; // Check if empty
 				break;
 			case 18:
-				cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl;
+				cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl; // Check if empty
 				break;
 			case 19:
-				cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl;
+				cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl; // Check if empty
 				break;
 			case 20:
 				level = get_level();
-				cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level);
+				cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level); // Check if empty and level out of bounds
 				break;
 			case 21:
 				level = get_level();
-				cout << "Nodes on level " << level << ": ";
-				bst1.print_given_level(bst1.get_root(), level);
+				cout << "Nodes on level " << level << ": " << bst1.print_given_level(bst1.get_root(), level); // Check if empty and level out of bounds
 				break;
 			case 22:
-				cout << "Leafs in the tree are: ";
-				bst1.print_leaf_nodes(bst1.get_root());
+				cout << "Leafs in the tree are: " << bst1.print_leaf_nodes(bst1.get_root()); // Check if empty
 				break;
 			case 23:
 				if (bst1.is_it_complete_tree())
@@ -914,7 +913,7 @@ int get_choice()
 	return choice;
 }
 
-// Get the level of a tree
+// Get the level of a tree maybe add tree hight to the max here
 int get_level()
 {
 	int level = 0;
