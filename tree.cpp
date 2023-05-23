@@ -276,7 +276,7 @@ class Binary_Search_Tree
 			return nullptr;
 		}
 		// Recursive case
-		else if (data < root->get_data()) //---------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree
+		else if (data < root->get_data()) //----------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree
 		{
 			root->set_left(delete_node(root->get_left(), data));
 		}
@@ -284,8 +284,8 @@ class Binary_Search_Tree
 		{
 			root->set_right(delete_node(root->get_right(), data));
 		}
-		else //--------------------------------------------------------------------- If key is same as root's key, then this is the node to be deleted
-		{ //------------------------------------------------------------------------ CASE 1 & 2: Node with only one child or no child
+		else //---------------------------------------------------------------------- If key is same as root's key, then this is the node to be deleted
+		{ //------------------------------------------------------------------------- CASE 1 & 2: Node with only one child or no child
 			if (root->get_left() == nullptr) //-------------------------------------- Node with only right child or no child
 			{
 				Node<D> *temp = root->get_right();
@@ -298,15 +298,15 @@ class Binary_Search_Tree
 				delete root;
 				return temp;
 			}
-			else //----------------------------------------------------------------- CASE 3: Node with two children
+			else //------------------------------------------------------------------ CASE 3: Node with two children
 			{
-				Node<D> *temp = min_node(root->get_right()); //--------------------- Get the inorder successor (smallest in the right subtree)
-				root->set_data(temp->get_data()); //-------------------------------- Copy the inorder successor's content to this node
-				root->set_right(delete_node(root->get_right(), temp->get_data())); // Delete the inorder successor
+				Node<D> *temp = min_node(root->get_right()); //---------------------- Get the in_order successor (smallest in the right subtree)
+				root->set_data(temp->get_data()); //--------------------------------- Copy the in_order successor's content to this node
+				root->set_right(delete_node(root->get_right(), temp->get_data())); // Delete the in_order successor
 
-				// Node<D> *temp = max_node(root->get_left()); //-------------------- Get the inorder successor (smallest in the left subtree)
-				// root->set_data(temp->get_data()); //------------------------------ Copy the inorder successor's content to this node
-				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the inorder successor
+				// Node<D> *temp = max_node(root->get_left()); //-------------------- Get the in_order successor (smallest in the left subtree)
+				// root->set_data(temp->get_data()); //------------------------------ Copy the in_order successor's content to this node
+				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the in_order successor
 			}
 		}
 
