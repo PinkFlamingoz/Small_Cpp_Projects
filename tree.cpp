@@ -176,6 +176,12 @@ class Binary_Search_Tree
 		return root;
 	}
 
+	// Set root
+	void set_root(Node<D> *root)
+	{
+		this->root = root;
+	}
+
 	// Check if the tree is empty
 	bool is_empty() const
 	{
@@ -265,52 +271,53 @@ class Binary_Search_Tree
 	Node<D> *delete_node(Node<D> *root, D data)
 	{
 		// Base case
-		if(root == nullptr)
+		if (root == nullptr)
 		{
 			return nullptr;
 		}
 		// Recursive case
-		else if (data < root->get_data()) //---------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree 
+		else if (data < root->get_data()) //---------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree
 		{
-			root->set_left(delete_node(root->get_left(),data));
+			root->set_left(delete_node(root->get_left(), data));
 		}
-		else if(data > root->get_data()) //----------------------------------------- If the key to be deleted is greater than the root's key, then it lies in right subtree 
+		else if (data > root->get_data()) //----------------------------------------- If the key to be deleted is greater than the root's key, then it lies in right subtree
 		{
-			root->set_right(delete_node(root->get_right(),data));
+			root->set_right(delete_node(root->get_right(), data));
 		}
-		else //--------------------------------------------------------------------- If key is same as root's key, then this is the node to be deleted 
-		{ //------------------------------------------------------------------------ CASE 1 & 2: Node with only one child or no child 
-			if(root->get_left() == nullptr) //-------------------------------------- Node with only right child or no child
+		else //--------------------------------------------------------------------- If key is same as root's key, then this is the node to be deleted
+		{ //------------------------------------------------------------------------ CASE 1 & 2: Node with only one child or no child
+			if (root->get_left() == nullptr) //-------------------------------------- Node with only right child or no child
 			{
 				Node<D> *temp = root->get_right();
 				delete root;
 				return temp;
 			}
-			else if(root->get_right() == nullptr) //-------------------------------- Node with only left child
+			else if (root->get_right() == nullptr) //-------------------------------- Node with only left child
 			{
 				Node<D> *temp = root->get_left();
 				delete root;
 				return temp;
 			}
-			else //----------------------------------------------------------------- CASE 3: Node with two children 
+			else //----------------------------------------------------------------- CASE 3: Node with two children
 			{
-				Node<D> *temp = min_node(root->get_right()); //--------------------- Get the inorder successor (smallest in the right subtree)   
+				Node<D> *temp = min_node(root->get_right()); //--------------------- Get the inorder successor (smallest in the right subtree)
 				root->set_data(temp->get_data()); //-------------------------------- Copy the inorder successor's content to this node
-				root->set_right(delete_node(root->get_right(),temp->get_data())); // Delete the inorder successor 
+				root->set_right(delete_node(root->get_right(), temp->get_data())); // Delete the inorder successor
 
-				// Node<D> *temp = max_node(root->get_left()); //-------------------- Get the inorder successor (smallest in the left subtree)   
+				// Node<D> *temp = max_node(root->get_left()); //-------------------- Get the inorder successor (smallest in the left subtree)
 				// root->set_data(temp->get_data()); //------------------------------ Copy the inorder successor's content to this node
-				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the inorder successor 
+				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the inorder successor
 			}
 		}
+
 		return root;
 	}
-	
+
 	// Get the min node by going down to find the left most leaf
 	Node<D> *min_node(Node<D> *node)
 	{
 		Node<D> *current = node;
-		while(current->get_left() != nullptr)
+		while (current->get_left() != nullptr)
 		{
 			current = current->get_left();
 		}
@@ -321,7 +328,7 @@ class Binary_Search_Tree
 	Node<D> *max_node(Node<D> *node)
 	{
 		Node<D> *current = node;
-		while(current->get_right() != nullptr)
+		while (current->get_right() != nullptr)
 		{
 			current = current->get_right();
 		}
@@ -359,7 +366,7 @@ class Binary_Search_Tree
 			return;
 		}
 		// Recursive case
-		cout << " [" << root->get_left() << "] <--- [" << root << "]: " << root->get_data() << " ---> [" << root->get_right() << "] " << endl;
+		cout << " [" << root->get_left() << "] <--- [" << root << "]: " << root->get_data() << " ---> [" << root->get_right() << "] ";
 		print_pre_order(root->get_left());
 		print_pre_order(root->get_right());
 	}
@@ -374,7 +381,7 @@ class Binary_Search_Tree
 		}
 		// Recursive case
 		print_in_order(root->get_left());
-		cout << " [" << root->get_left() << "] <--- [" << root << "]: " << root->get_data() << " ---> [" << root->get_right() << "] " << endl;
+		cout << " [" << root->get_left() << "] <--- [" << root << "]: " << root->get_data() << " ---> [" << root->get_right() << "] ";
 		print_in_order(root->get_right());
 	}
 
@@ -389,7 +396,7 @@ class Binary_Search_Tree
 		// Recursive case
 		print_post_order(root->get_left());
 		print_post_order(root->get_right());
-		cout << " [" << root->get_left() << "] <--- [" << root << "]: " << root->get_data() << " ---> [" << root->get_right() << "] " << endl;
+		cout << " [" << root->get_left() << "] <--- [" << root << "]: " << root->get_data() << " ---> [" << root->get_right() << "] ";
 	}
 
 	// Print nodes at a given level
@@ -424,12 +431,6 @@ class Binary_Search_Tree
 	// Print path from root to node
 	void print_path_to_node(D data) const
 	{
-		if (search(data) == nullptr)
-		{
-			cerr << "\nThere is no node with that data: " << data << endl;
-			return;
-		}
-
 		Node<D> *temp = root;
 		while (temp != nullptr)
 		{
@@ -614,7 +615,7 @@ class Binary_Search_Tree
 		{
 			return;
 		}
-		else if(root->get_left() == nullptr && root->get_right() == nullptr)
+		else if (root->get_left() == nullptr && root->get_right() == nullptr)
 		{
 			cout << root->get_data() << " ";
 		}
@@ -693,6 +694,7 @@ class Binary_Search_Tree
 	{
 		delete_subtree(root);
 		root = nullptr;
+		cout << "\nTree deleted!" << endl;
 	}
 
 	// Delete the sub tree
@@ -724,7 +726,7 @@ class Binary_Search_Tree
 // Functions
 void print_menu();
 int get_choice();
-int get_level();
+int get_level(int hight);
 
 int main()
 {
@@ -732,6 +734,7 @@ int main()
 	Node<int> *bst_node = nullptr;
 	int choice = 0;
 	int level = 0;
+	int bst_node_data = 0;
 	do
 	{
 		print_menu();
@@ -747,7 +750,10 @@ int main()
 				bst_node = bst1.search(get_valid_input<int>("Enter data to search for: "));
 				if (bst_node != nullptr)
 				{
-					cout << "Found node: " << " [" << bst_node->get_left() << "] <--- [" << bst_node << "]: " << bst_node->get_data() << " ---> [" << bst_node->get_right() << "] " << endl;
+					bst1.show_parent(bst1.get_root(), bst_node);
+					cout << endl;
+					cout << "Found node: " << "[" << bst_node << "]: " << bst_node->get_data() << endl;
+					bst1.show_children(bst_node);
 				}
 				else
 				{
@@ -755,7 +761,17 @@ int main()
 				}
 				break;
 			case 3:
-				bst1.delete_node(bst1.get_root(),get_valid_input<int>("Enter data to delete: ")); // Check if empty or out of bounds, we have to use the search but still see what happens
+				bst_node_data = get_valid_input<int>("Enter data to delete: ");
+				bst_node = bst1.search(bst_node_data);
+				if (bst_node != nullptr)
+				{
+					bst1.set_root(bst1.delete_node(bst1.get_root(), bst_node_data));
+					cout << "Node deleted!" << endl;
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
 				break;
 			case 4:
 				if (bst1.is_empty())
@@ -808,7 +824,16 @@ int main()
 				}
 				break;
 			case 9:
-				bst1.print_path_to_node(get_valid_input<int>("Enter data to print path for: "));
+				bst_node_data = get_valid_input<int>("Enter data to print path for: ");
+				bst_node = bst1.search(bst_node_data);
+				if (bst_node != nullptr)
+				{
+					bst1.print_path_to_node(bst_node_data);
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
 				break;
 			case 10:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see parent of: "));
@@ -878,33 +903,98 @@ int main()
 				}
 				break;
 			case 16:
-				cout << "Root of tree is: " << bst1.get_root() << endl; // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Root of tree is: [" << bst1.get_root() << "]: " << bst1.get_root()->get_data() << endl;
+				}
 				break;
 			case 17:
-				cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl; // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl;
+				}
 				break;
 			case 18:
-				cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl; // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl;
+				}
 				break;
 			case 19:
-				cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl; // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl;
+				}
 				break;
 			case 20:
-				level = get_level();
-				cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level); // Check if empty and level out of bounds
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					level = get_level(bst1.get_height(bst1.get_root()));
+					cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level);
+				}
 				break;
 			case 21:
-				level = get_level();
-				cout << "Nodes on level " << level << ": " << bst1.print_given_level(bst1.get_root(), level); // Check if empty and level out of bounds
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					level = get_level(bst1.get_height(bst1.get_root()));
+					cout << "Nodes on level " << level << ": ";
+					bst1.print_given_level(bst1.get_root(), level);
+				}
 				break;
 			case 22:
-				cout << "Leafs in the tree are: " << bst1.print_leaf_nodes(bst1.get_root()); // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Leafs in the tree are: ";
+					bst1.print_leaf_nodes(bst1.get_root());
+				}
 				break;
 			case 23:
-				cout << "Min node in the tree is: " << bst1.min_node(bst1.get_root()); // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Min node in the tree is: [" << bst1.min_node(bst1.get_root()) << "]: " << bst1.min_node(bst1.get_root())->get_data();
+				}
 				break;
 			case 24:
-				cout << "Max node in the tree is: " << bst1.max_node(bst1.get_root()); // Check if empty
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Max node in the tree is: [" << bst1.max_node(bst1.get_root()) << "]: " << bst1.max_node(bst1.get_root())->get_data();
+				}
 				break;
 			case 25:
 				if (bst1.is_it_complete_tree())
@@ -989,13 +1079,14 @@ int get_choice()
 	return choice;
 }
 
-// Get the level of a tree maybe add tree hight to the max here
-int get_level()
+// Get the level of a tree
+int get_level(int hight)
 {
 	int level = 0;
 	do
 	{
+		cout << "Max hight is: " << hight << endl;
 		level = get_valid_input<int>("Enter the given level: ");
-	} while (level < 0);
+	} while (level < 0 || level > hight);
 	return level;
 }
