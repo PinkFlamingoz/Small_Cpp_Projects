@@ -1,28 +1,28 @@
 #include <iostream>
 #include "basic_functions.h"
 
-// • Linked lists
-//  • Insertion is easy – just tack onto the front
-//  • Deletion is easy – once you find the element
-//  • Lookup is bad – have to rely on linear search
-//  • Relatively difficult to sort – unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  • Relatively small size - wise(not as small as arrays)
+// - Linked lists
+//  - Insertion is easy - just tack onto the front
+//  - Deletion is easy - once you find the element
+//  - Lookup is bad - have to rely on linear search
+//  - Relatively difficult to sort - unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  - Relatively small size - wise(not as small as arrays)
 
-// Definition –
+// Definition -
 // Stack is a linear data structure which operates in a LIFO(Last In First Out) or FILO(First In Last Out) pattern.
-// It is named stack as it behaves like a real - world stack, for example – a deck of cards or a pile of plates, etc.
+// It is named stack as it behaves like a real - world stack, for example - a deck of cards or a pile of plates, etc.
 // Stack is an abstract data type with a bounded(predefined) capacity.
 // It is a simple data structure that allows adding and removing elements in a particular order.
 // The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 
-// Standard Stack Operations –
-// push() –      Place an item onto the stack. If there is no place for new item, stack is in overflow state.
-// pop() –       Return the item at the top of the stack and then remove it. If pop is called when stack is empty, it is in an underflow state.
-// is_empty() –  Tells if the stack is empty or not
-// peek() –      Access the item at the i position
-// count() –     Get the number of items in the stack
-// change() –    Change the item at the i position
-// display() –   Display all items in the stack
+// Standard Stack Operations -
+// push() -      Place an item onto the stack. If there is no place for new item, stack is in overflow state.
+// pop() -       Return the item at the top of the stack and then remove it. If pop is called when stack is empty, it is in an underflow state.
+// is_empty() -  Tells if the stack is empty or not
+// peek() -      Access the item at the i position
+// count() -     Get the number of items in the stack
+// change() -    Change the item at the i position
+// display() -   Display all items in the stack
 
 // Classes
 template <typename K, typename D>

@@ -261,6 +261,73 @@ class Binary_Search_Tree
 		return nullptr;
 	}
 
+	// Delete node in tree // CASE 1: DELETE A LEAF NODE, CASE 2: DELETE A NODE WITH ONE CHILD, CASE 3: DELETE A NODE WITH TWO CHILDREN
+	Node<D> *delete_node(Node<D> *root, D data)
+	{
+		// Base case
+		if(root == nullptr)
+		{
+			return nullptr;
+		}
+		// Recursive case
+		else if (data < root->get_data()) //---------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree 
+		{
+			root->set_left(delete_node(root->get_left(),data));
+		}
+		else if(data > root->get_data()) //----------------------------------------- If the key to be deleted is greater than the root's key, then it lies in right subtree 
+		{
+			root->set_right(delete_node(root->get_right(),data));
+		}
+		else //--------------------------------------------------------------------- If key is same as root's key, then this is the node to be deleted 
+		{ //------------------------------------------------------------------------ CASE 1 & 2: Node with only one child or no child 
+			if(root->get_left() == nullptr) //-------------------------------------- Node with only right child or no child
+			{
+				Node<D> *temp = root->get_right();
+				delete root;
+				return temp;
+			}
+			else if(root->get_right() == nullptr) //-------------------------------- Node with only left child
+			{
+				Node<D> *temp = root->get_left();
+				delete root;
+				return temp;
+			}
+			else //----------------------------------------------------------------- CASE 3: Node with two children 
+			{
+				Node<D> *temp = min_node(root->get_right()); //--------------------- Get the inorder successor (smallest in the right subtree)   
+				root->set_data(temp->get_data()); //-------------------------------- Copy the inorder successor's content to this node
+				root->set_right(delete_node(root->get_right(),temp->get_data())); // Delete the inorder successor 
+
+				// Node<D> *temp = max_node(root->get_left()); //-------------------- Get the inorder successor (smallest in the left subtree)   
+				// root->set_data(temp->get_data()); //------------------------------ Copy the inorder successor's content to this node
+				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the inorder successor 
+			}
+		}
+		return root;
+	}
+	
+	// Get the min node by going down to find the left most leaf
+	Node<D> *min_node(Node<D> *node)
+	{
+		Node<D> *current = node;
+		while(current->get_left() != nullptr)
+		{
+			current = current->get_left();
+		}
+		return current;
+	}
+
+	// Get the max node by going down to find the right most leaf
+	Node<D> *max_node(Node<D> *node)
+	{
+		Node<D> *current = node;
+		while(current->get_right() != nullptr)
+		{
+			current = current->get_right();
+		}
+		return current;
+	}
+
 	// Print tree rotated 90 deg, this is just reverse in_order but with spaces and new lines in between
 	void print_tree_2D(Node<D> *root, int space) const
 	{
@@ -688,6 +755,7 @@ int main()
 				}
 				break;
 			case 3:
+				bst1.delete_node(bst1.get_root(),get_valid_input<int>("Enter data to delete: ")); // Check if empty or out of bounds, we have to use the search but still see what happens
 				break;
 			case 4:
 				if (bst1.is_empty())
@@ -833,6 +901,12 @@ int main()
 				cout << "Leafs in the tree are: " << bst1.print_leaf_nodes(bst1.get_root()); // Check if empty
 				break;
 			case 23:
+				cout << "Min node in the tree is: " << bst1.min_node(bst1.get_root()); // Check if empty
+				break;
+			case 24:
+				cout << "Max node in the tree is: " << bst1.max_node(bst1.get_root()); // Check if empty
+				break;
+			case 25:
 				if (bst1.is_it_complete_tree())
 				{
 					cout << "The tree is complete!" << endl;
@@ -842,7 +916,7 @@ int main()
 					cout << "The tree is not complete!" << endl;
 				}
 				break;
-			case 24:
+			case 26:
 				if (bst1.is_it_perfect_tree(bst1.get_root()))
 				{
 					cout << "The tree is perfect!" << endl;
@@ -852,10 +926,10 @@ int main()
 					cout << "The tree is not perfect!" << endl;
 				}
 				break;
-			case 25:
+			case 27:
 				bst1.delete_tree();
 				break;
-			case 26:
+			case 28:
 				system("cls");
 				break;
 			default:
@@ -896,10 +970,12 @@ void print_menu()
 	cout << "20. Count nodes on a specific level" << endl;
 	cout << "21. Print nodes on a specific level" << endl;
 	cout << "22. Print leaf nodes in Tree" << endl;
-	cout << "23. Is it a complete Tree" << endl;
-	cout << "24. Is it a perfect Tree" << endl;
-	cout << "25. Delete Tree" << endl;
-	cout << "26. Clear Screen" << endl << endl;
+	cout << "23. Print Min node in Tree" << endl;
+	cout << "24. Print Max node in Tree" << endl;
+	cout << "25. Is it a complete Tree" << endl;
+	cout << "26. Is it a perfect Tree" << endl;
+	cout << "27. Delete Tree" << endl;
+	cout << "28. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -909,7 +985,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 26);
+	} while (choice < 0 || choice > 28);
 	return choice;
 }
 
