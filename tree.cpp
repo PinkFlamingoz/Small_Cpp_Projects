@@ -205,7 +205,7 @@ class Binary_Search_Tree
 	// Insert node in tree // CASE 1: IF THE TREE IS EMPTY, CASE 2: IF WE HAVE THE SAME VALUES, CASE 3: IF ITS SMALLER, CASE 4: IF ITS BIGGER
 	void insert(Node<D> *new_node)
 	{
-		if (root == nullptr) //--------------------------------------------------------------------------------------------------------------- CASE 1: If the tree is empty
+		if (root == nullptr) //--------------------------------------------------------------------------------- CASE 1: If the tree is empty
 		{
 			root = new_node;
 			cout << "\nNew node with data: " << new_node->get_data() << " added successfully!" << endl;
@@ -215,29 +215,29 @@ class Binary_Search_Tree
 			Node<D> *trav_ptr = root;
 			while (trav_ptr != nullptr)
 			{
-				if (new_node->get_data() == trav_ptr->get_data()) //-------------------------------------------------------------------------- CASE 2: If we have the same data
+				if (new_node->get_data() == trav_ptr->get_data()) //-------------------------------------------- CASE 2: If we have the same data
 				{
 					cerr << "\nNode already exists with this data: " << new_node->get_data() << endl;
 					return;
 				}
 
-				if ((new_node->get_data() < trav_ptr->get_data() && (trav_ptr->get_left() == nullptr))) //------------------------------------ CASE 3: If the data is smaller then the previous data and its a leaf node
+				if ((new_node->get_data() < trav_ptr->get_data() && (trav_ptr->get_left() == nullptr))) //------ CASE 3: If the data is smaller then the previous data and its a leaf node
 				{
 					trav_ptr->set_left(new_node);
 					cout << "\nNode inserted to the left of: " << trav_ptr->get_data() << endl;
 					break;
 				}
-				else if (new_node->get_data() < trav_ptr->get_data()) //---------------------------------------------------------------------- CASE 3.1: If the data is smaller then the previous data and its not a leaf node
+				else if (new_node->get_data() < trav_ptr->get_data()) //---------------------------------------- CASE 3.1: If the data is smaller then the previous data and its not a leaf node
 				{
 					trav_ptr = trav_ptr->get_left();
 				}
-				else if ((new_node->get_data() > trav_ptr->get_data() && (trav_ptr->get_right() == nullptr))) //------------------------------ CASE 4: If the data is bigger then the previous data and its a leaf node
+				else if ((new_node->get_data() > trav_ptr->get_data() && (trav_ptr->get_right() == nullptr))) // CASE 4: If the data is bigger then the previous data and its a leaf node
 				{
 					trav_ptr->set_right(new_node);
 					cout << "\nNode inserted to the right of: " << trav_ptr->get_data() << endl;
 					break;
 				}
-				else if (new_node->get_data() > trav_ptr->get_data()) //---------------------------------------------------------------------- CASE 4.1: If the data is bigger then the previous data and its not a leaf node
+				else if (new_node->get_data() > trav_ptr->get_data()) //---------------------------------------- CASE 4.1: If the data is bigger then the previous data and its not a leaf node
 				{
 					trav_ptr = trav_ptr->get_right();
 				}
