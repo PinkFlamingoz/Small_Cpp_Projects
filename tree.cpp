@@ -290,6 +290,32 @@ class Binary_Search_Tree
 		}
 	}
 
+	// Insert node in tree recursive // CASE 1: IF THE TREE IS EMPTY, CASE 2: IF WE HAVE THE SAME VALUES, CASE 3: IF ITS SMALLER, CASE 4: IF ITS BIGGER
+	Node<D> *insert_recursive(Node<D> *root, Node<D> *new_node)
+	{
+		// Base case
+		if(root == nullptr) //--------------------------------------------------------------- CASE 1: If the tree is empty
+		{
+			root = new_node;
+			return root;
+		}
+		// Recursive case
+		if (new_node->get_data() < root->get_data()) //-------------------------------------- CASE 3: If the data is smaller then the previous data
+		{
+			root->set_left(insert_recursive(root->get_left(), new_node));
+		}
+		else if (new_node->get_data() > root->get_data()) //--------------------------------- CASE 4: If the data is bigger then the previous data
+		{
+			root->set_right(insert_recursive(root->get_right(), new_node));
+		}
+		else //------------------------------------------------------------------------------ CASE 2: If we have the same data
+		{
+			cerr << "\nNode already exists with this data: " << new_node->get_data() << endl;
+			return root;
+		}
+		return root;
+	}
+
 	// Search (Divide and Conquer)
 	Node<D> *search(D data) const
 	{
@@ -311,6 +337,25 @@ class Binary_Search_Tree
 		}
 		return nullptr;
 	}
+
+	Node<D> *search_recursive(Node<D> * root, D data) 
+	{
+		// Base case
+		if (root == nullptr || root->get_data() == data)
+		{
+			return root;
+		}
+		// Recursive case
+		if (data < root->get_data())
+		{
+			return search_recursive(root->get_left(), data);
+		}
+		else
+		{
+			return search_recursive(root->get_right(), data);
+		}
+  	}
+
 
 	// Delete node in tree // CASE 1: DELETE A LEAF NODE, CASE 2: DELETE A NODE WITH ONE CHILD, CASE 3: DELETE A NODE WITH TWO CHILDREN
 	Node<D> *delete_node(Node<D> *root, D data)
@@ -354,7 +399,6 @@ class Binary_Search_Tree
 				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the in_order successor
 			}
 		}
-
 		return root;
 	}
 
@@ -806,6 +850,23 @@ int main()
 				}
 				break;
 			case 3:
+				bst1.set_root(bst1.insert_recursive(bst1.get_root(), Binary_Search_Tree<int>::create_node()));
+				break;
+			case 4:
+				bst_node = bst1.search_recursive(bst1.get_root(), get_valid_input<int>("Enter data to search for: "));
+				if (bst_node != nullptr)
+				{
+					bst1.show_parent(bst1.get_root(), bst_node);
+					cout << endl;
+					cout << "Found node: " << "[" << bst_node << "]: " << bst_node->get_data() << endl;
+					bst1.show_children(bst_node);
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 5:
 				bst_node_data = get_valid_input<int>("Enter data to delete: ");
 				bst_node = bst1.search(bst_node_data);
 				if (bst_node != nullptr)
@@ -818,7 +879,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 4:
+			case 6:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -828,7 +889,7 @@ int main()
 					bst1.print_tree_2D(bst1.get_root(), 5);
 				}
 				break;
-			case 5:
+			case 7:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -838,7 +899,7 @@ int main()
 					bst1.print_pre_order(bst1.get_root());
 				}
 				break;
-			case 6:
+			case 8:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -848,7 +909,7 @@ int main()
 					bst1.print_in_order(bst1.get_root());
 				}
 				break;
-			case 7:
+			case 9:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -858,7 +919,7 @@ int main()
 					bst1.print_post_order(bst1.get_root());
 				}
 				break;
-			case 8:
+			case 10:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -868,7 +929,7 @@ int main()
 					bst1.print_BFS_tree(bst1.get_root());
 				}
 				break;
-			case 9:
+			case 11:
 				bst_node_data = get_valid_input<int>("Enter data to print path for: ");
 				bst_node = bst1.search(bst_node_data);
 				if (bst_node != nullptr)
@@ -880,7 +941,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 10:
+			case 12:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see parent of: "));
 				if (bst_node != nullptr)
 				{
@@ -891,7 +952,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 11:
+			case 13:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see siblings for: "));
 				if (bst_node != nullptr)
 				{
@@ -904,7 +965,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 12:
+			case 14:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see children for: "));
 				if (bst_node != nullptr)
 				{
@@ -915,7 +976,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 13:
+			case 15:
 				bst_node = bst1.search(get_valid_input<int>("Enter data of to see depth for: "));
 				if (bst_node != nullptr)
 				{
@@ -926,7 +987,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 14:
+			case 16:
 				bst_node = bst1.search(get_valid_input<int>("Enter data of to see height for: "));
 				if (bst_node != nullptr)
 				{
@@ -937,7 +998,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 15:
+			case 17:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -947,7 +1008,7 @@ int main()
 					cout << "Tree is not empty!" << endl;
 				}
 				break;
-			case 16:
+			case 18:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -957,7 +1018,7 @@ int main()
 					cout << "Root of tree is: [" << bst1.get_root() << "]: " << bst1.get_root()->get_data() << endl;
 				}
 				break;
-			case 17:
+			case 19:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -967,7 +1028,7 @@ int main()
 					cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl;
 				}
 				break;
-			case 18:
+			case 20:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -977,7 +1038,7 @@ int main()
 					cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl;
 				}
 				break;
-			case 19:
+			case 21:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -987,7 +1048,7 @@ int main()
 					cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl;
 				}
 				break;
-			case 20:
+			case 22:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -998,7 +1059,7 @@ int main()
 					cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level);
 				}
 				break;
-			case 21:
+			case 23:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1010,7 +1071,7 @@ int main()
 					bst1.print_given_level(bst1.get_root(), level);
 				}
 				break;
-			case 22:
+			case 24:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1021,7 +1082,7 @@ int main()
 					bst1.print_leaf_nodes(bst1.get_root());
 				}
 				break;
-			case 23:
+			case 25:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1031,7 +1092,7 @@ int main()
 					cout << "Min node in the tree is: [" << bst1.min_node(bst1.get_root()) << "]: " << bst1.min_node(bst1.get_root())->get_data();
 				}
 				break;
-			case 24:
+			case 26:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1041,7 +1102,7 @@ int main()
 					cout << "Max node in the tree is: [" << bst1.max_node(bst1.get_root()) << "]: " << bst1.max_node(bst1.get_root())->get_data();
 				}
 				break;
-			case 25:
+			case 27:
 				if (bst1.is_it_complete_tree())
 				{
 					cout << "The tree is complete!" << endl;
@@ -1051,7 +1112,7 @@ int main()
 					cout << "The tree is not complete!" << endl;
 				}
 				break;
-			case 26:
+			case 28:
 				if (bst1.is_it_perfect_tree(bst1.get_root()))
 				{
 					cout << "The tree is perfect!" << endl;
@@ -1061,10 +1122,10 @@ int main()
 					cout << "The tree is not perfect!" << endl;
 				}
 				break;
-			case 27:
+			case 29:
 				bst1.delete_tree();
 				break;
-			case 28:
+			case 30:
 				system("cls");
 				break;
 			default:
@@ -1080,37 +1141,38 @@ int main()
 // Print the menu
 void print_menu()
 {
-	// recursive search
-	// recursive insert
+	// delete not recursive
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Insert Node" << endl;
 	cout << "2. Search Node" << endl;
-	cout << "3. Delete Node" << endl;
-	cout << "4. Print/Traversal BST 2D" << endl;
-	cout << "5. Print/Traversal BST PRE  ORDER" << endl;
-	cout << "6. Print/Traversal BST IN   ORDER" << endl;
-	cout << "7. Print/Traversal BST POST ORDER" << endl;
-	cout << "8. Print/Traversal BST BFS ORDER" << endl;
-	cout << "9. Print path to node" << endl;
-	cout << "10. Show parent of a node" << endl;
-	cout << "11. Show siblings of a node" << endl;
-	cout << "12. Show children of a node" << endl;
-	cout << "13. Show depth of a node" << endl;
-	cout << "14. Show hight of a node" << endl;
-	cout << "15. Is the Tree empty" << endl;
-	cout << "16. Root of Tree" << endl;
-	cout << "17. Height of Tree" << endl;
-	cout << "18. Count levels in Tree" << endl;
-	cout << "19. Count nodes in Tree" << endl;
-	cout << "20. Count nodes on a specific level" << endl;
-	cout << "21. Print nodes on a specific level" << endl;
-	cout << "22. Print leaf nodes in Tree" << endl;
-	cout << "23. Print Min node in Tree" << endl;
-	cout << "24. Print Max node in Tree" << endl;
-	cout << "25. Is it a complete Tree" << endl;
-	cout << "26. Is it a perfect Tree" << endl;
-	cout << "27. Delete Tree" << endl;
-	cout << "28. Clear Screen" << endl << endl;
+	cout << "3. Insert Node Recursive" << endl;
+	cout << "4. Search Node Recursive" << endl;
+	cout << "5. Delete Node" << endl;
+	cout << "6. Print/Traversal BST 2D" << endl;
+	cout << "7. Print/Traversal BST PRE  ORDER" << endl;
+	cout << "8. Print/Traversal BST IN   ORDER" << endl;
+	cout << "9. Print/Traversal BST POST ORDER" << endl;
+	cout << "10. Print/Traversal BST BFS ORDER" << endl;
+	cout << "11. Print path to node" << endl;
+	cout << "12. Show parent of a node" << endl;
+	cout << "13. Show siblings of a node" << endl;
+	cout << "14. Show children of a node" << endl;
+	cout << "15. Show depth of a node" << endl;
+	cout << "16. Show hight of a node" << endl;
+	cout << "17. Is the Tree empty" << endl;
+	cout << "18. Root of Tree" << endl;
+	cout << "19. Height of Tree" << endl;
+	cout << "20. Count levels in Tree" << endl;
+	cout << "21. Count nodes in Tree" << endl;
+	cout << "22. Count nodes on a specific level" << endl;
+	cout << "23. Print nodes on a specific level" << endl;
+	cout << "24. Print leaf nodes in Tree" << endl;
+	cout << "25. Print Min node in Tree" << endl;
+	cout << "26. Print Max node in Tree" << endl;
+	cout << "27. Is it a complete Tree" << endl;
+	cout << "28. Is it a perfect Tree" << endl;
+	cout << "29. Delete Tree" << endl;
+	cout << "30. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -1120,7 +1182,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 28);
+	} while (choice < 0 || choice > 30);
 	return choice;
 }
 
