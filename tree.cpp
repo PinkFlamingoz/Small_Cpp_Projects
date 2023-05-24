@@ -192,8 +192,8 @@ class Binary_Search_Tree
 		return false;
 	}
 
-	// Check if the leafs are empty
-	bool is_empty_leaf(Node<D> *&root) const
+	// Check if the current node are empty
+	bool is_empty_node(Node<D> *&root) const
 	{
 		if (root == nullptr)
 		{
