@@ -76,7 +76,8 @@ using namespace std;
 // This search is referred to as breadth-first search (BFS), as the search tree is broadened as much as possible on each depth before going to the next depth
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // AVL Tree
-// AVL tree is a self-balancing Binary Search Tree (BST) where the difference between heights of left and right subtrees cannot be more than one(1) for all nodes. This difference is called the Balance Factor.
+// AVL tree is a self-balancing Binary Search Tree (BST) where the difference between heights of left and right subtrees cannot be more than one(1) for all nodes. 
+// This difference is called the Balance Factor. BF = ( LEFT SUB TREE HEIGHT - RIGHT SUB TREE HEIGHT ) == { -1, 0, 1}
 //
 // To maintain the balance in AVL tree, we perform Rotations. Depending on different imbalance cases, we have 4 basic types of rotations –
 // LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
