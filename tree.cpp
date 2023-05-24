@@ -77,7 +77,7 @@ using namespace std;
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // AVL Tree
 // AVL tree is a self-balancing Binary Search Tree (BST) where the difference between heights of left and right subtrees cannot be more than one(1) for all nodes. 
-// This difference is called the Balance Factor. BF = ( LEFT SUB TREE HEIGHT - RIGHT SUB TREE HEIGHT ) == { -1, 0, 1}
+// This difference is called the Balance Factor. BF = ( LEFT SUB TREE HEIGHT - RIGHT SUB TREE HEIGHT ) == { -1, 0, 1 }
 // 
 // NOTE: We always start by calculating the BF for all nodes and then we start balancing on the lowest level imbalanced node, after each operation we check the BF again for each node.
 // When we balance a tree, we always consider three nodes from the node where the imbalance is happening, and if we have more nodes with imbalance we first balance the node at the lowest level.
