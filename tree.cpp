@@ -25,7 +25,7 @@ using namespace std;
 // Breadth - The number of leaves.
 // Forest - A set of one or more disjoint trees.
 // 
-//Tree terms / properties -
+// Tree terms / properties -
 // Tree can be termed as a RECURSIVE data structure.
 // In a valid tree for N Nodes we have N - 1 Edges / Links
 // Depth of Node - Depth of a node represents the number of edges from the tree's root node to the node.
@@ -1283,6 +1283,10 @@ int main()
 void print_menu()
 {
 	// Finding the lowest common ancestor of two nodes
+	// Count leafs
+	// Ancestor
+	// Decendent
+	// Distance between 2 nodes
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Insert Node NOTE: This will not add a balanced node" << endl;
 	cout << "2. Search Node" << endl;
