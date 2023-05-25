@@ -14,8 +14,18 @@ using namespace std;
 // Leaf - Last node in the tree. There is no node after this node.
 // Edge - Edge is a connection between one node to another. It is a line between two nodes or a node and a leaf.
 // Path - Path is a number of successive edges from source node to destination node.
-//
-// Tree terms / properties -
+// Neighbor - Parent or child.
+// Ancestor - A node reachable by repeated proceeding from child to parent.
+// Descendant - A node reachable by repeated proceeding from parent to child. Also known as subchild.
+// Degree - For a given node, its number of children. A leaf has necessarily degree zero.
+// Degree of tree - The degree of a tree is the maximum degree of a node in the tree.
+// Distance - The number of edges along the shortest path between two nodes.
+// Level - The level of a node is the number of edges along the unique path between it and the root node. This is the same as depth.
+// Width - The number of nodes in a level.
+// Breadth - The number of leaves.
+// Forest - A set of one or more disjoint trees.
+// 
+//Tree terms / properties -
 // Tree can be termed as a RECURSIVE data structure.
 // In a valid tree for N Nodes we have N - 1 Edges / Links
 // Depth of Node - Depth of a node represents the number of edges from the tree's root node to the node.
@@ -1272,6 +1282,7 @@ int main()
 // Print the menu
 void print_menu()
 {
+	// Finding the lowest common ancestor of two nodes
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Insert Node NOTE: This will not add a balanced node" << endl;
 	cout << "2. Search Node" << endl;
