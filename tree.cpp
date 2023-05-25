@@ -247,6 +247,122 @@ class Binary_Search_Tree
 		return false;
 	}
 
+	// Rotate left
+	Node<D> *rotate_left(Node<D> *node)
+	{
+		Node<D> *right = node->get_right(); //----- Get the right node of the parent aka this node will now be in the place of the parent
+		Node<D> *left_child = right->get_left(); // Get the left children if that node has any because in that place we will set the previous parent
+
+		//----------------------------------------- Perform the rotation
+		right->set_left(node); //------------------ Set the previous parent to the new location
+		node->set_right(left_child); //-------------- Set the left children of the right node to be the right children of the previous parent
+
+		return right;
+	}
+
+	// Rotate right
+	Node<D> *rotate_right(Node<D> *node)
+	{
+		Node<D> *left = node->get_left(); //-------- Get the left node of the parent aka this node will now be in the place of the parent
+		Node<D> *right_child = left->get_right(); // Get the right children if that node has any because in that place we will set the previous parent
+
+		//------------------------------------------ Perform the rotation
+		left->set_right(node); //------------------- Set the previous parent to the new location
+		node->set_left(right_child); //------------- Set the right children of the left node to be the left children of the previous parent
+
+		return left;
+	}
+
+	// Get balance factor for each node
+	int get_balance_factor(Node<D> *node)
+	{
+		if (node == nullptr)
+		{
+			return -1;
+		}
+		return (height(node->get_left() - height(node->get_right())));
+	}
+	
+	// Is tree balanced
+	bool is_tree_balanced(Node<D> *root)
+	{	
+		// Base case
+		if (root == nullptr)
+		{
+        	return true;
+    	}
+		// Recursive case
+		int left_height = height(root->get_left());
+    	int right_height = height(root->get_right());
+   		// Check if current node is balanced and recursively check for left and right subtrees
+    	return abs(leftHeight - rightHeight) <= 1 && is_tree_balanced(root->get_left()) && is_tree_balanced(root->get_right());
+	}
+
+	// Balance a tree when inserting a node
+	Node<D> *balance_tree_when_inserting(Node<D> *root, Node<D> *new_node)
+	{
+		int bf = get_balance_factor(root);
+		if (bf == 1 || bf == -1 || bf == 0)
+		{
+			return root;
+		}
+
+		if (bf > 1 && new_node-get_value() < root->get_left()->get_value()) //-- LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
+		{
+			return rotate_right(root);
+		}
+
+		if (bf < -1 && new_node-get_value() > root->get_right()->get_value()) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)
+		{
+			return rotate_left(root);
+		}
+
+		if (bf > 1 && new_node-get_value() > root->get_left()->get_value()) //-- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation) 
+		{
+			root->set_left(rotate_left(root->get_left()));
+			return rotate_right(root);
+		}
+
+		if (bf < -1 && new_node-get_value() < root->get_right()->get_value()) // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
+		{
+			root->set_right(rotate_right(root->get_right()));
+			return rotate_left(root);
+		}
+	}
+
+	// Balance a tree when deleting a node
+	Node<D> *balance_tree_when_deleting(Node<D> *root, Node<D> *new_node)
+	{
+		int bf = get_balance_factor(root);
+		if (bf == 1 || root == -1 || root == 0)
+		{
+			return root;
+		}
+
+		if (bf == 2 && get_balance_factor(root->get_left()) >= 0) //-- LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
+		{
+			return rotate_right(root);
+		}
+
+		if (bf == -2 && get_balance_factor(root->get_right()) <= 0) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation) 
+		{
+			return rotate_left(root);	
+		}
+
+		if (bf == 2 && get_balance_factor(root->get_left()) == -1) //- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation) 
+		{
+			root->set_left(rotate_left(root->get_left()));
+			return rotate_right(root);
+			
+		}
+
+		if (bf == -2 && get_balance_factor(root->get_right()) == 1) // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
+		{
+			root->set_right(rotate_right(root->get_right()));
+			return rotate_left(root);
+		}
+	}
+
 	// Insert node in tree // CASE 1: IF THE TREE IS EMPTY, CASE 2: IF WE HAVE THE SAME VALUES, CASE 3: IF ITS SMALLER, CASE 4: IF ITS BIGGER
 	void insert(Node<D> *new_node)
 	{
@@ -313,6 +429,9 @@ class Binary_Search_Tree
 			cerr << "\nNode already exists with this data: " << new_node->get_data() << endl;
 			return root;
 		}
+
+		root = balance_tree_when_inserting(root, new_node);
+
 		return root;
 	}
 
@@ -356,7 +475,6 @@ class Binary_Search_Tree
 		}
   	}
 
-
 	// Delete node in tree // CASE 1: DELETE A LEAF NODE, CASE 2: DELETE A NODE WITH ONE CHILD, CASE 3: DELETE A NODE WITH TWO CHILDREN
 	Node<D> *delete_node(Node<D> *root, D data)
 	{
@@ -399,6 +517,9 @@ class Binary_Search_Tree
 				// root->set_left(delete_node(root->get_left(),temp->get_data())); // Delete the in_order successor
 			}
 		}
+
+		root = balance_tree_when_deleting(root, new_node);
+
 		return root;
 	}
 
@@ -1122,6 +1243,16 @@ int main()
 					cout << "The tree is not perfect!" << endl;
 				}
 				break;
+			case 28:
+				if (bst1.is_tree_balanced(bst1.get_root()))
+				{
+					cout << "The tree is balanced!" << endl;
+				}
+				else
+				{
+					cout << "The tree is not balanced!" << endl;
+				}
+				break;
 			case 29:
 				bst1.delete_tree();
 				break;
@@ -1141,9 +1272,8 @@ int main()
 // Print the menu
 void print_menu()
 {
-	// delete not recursive
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
-	cout << "1. Insert Node" << endl;
+	cout << "1. Insert Node NOTE: This will not add a balanced node" << endl;
 	cout << "2. Search Node" << endl;
 	cout << "3. Insert Node Recursive" << endl;
 	cout << "4. Search Node Recursive" << endl;
@@ -1171,8 +1301,9 @@ void print_menu()
 	cout << "26. Print Max node in Tree" << endl;
 	cout << "27. Is it a complete Tree" << endl;
 	cout << "28. Is it a perfect Tree" << endl;
-	cout << "29. Delete Tree" << endl;
-	cout << "30. Clear Screen" << endl << endl;
+	cout << "29. Is it a balanced Tree" << endl;
+	cout << "30. Delete Tree" << endl;
+	cout << "31. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -1182,7 +1313,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 30);
+	} while (choice < 0 || choice > 31);
 	return choice;
 }
 
