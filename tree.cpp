@@ -274,7 +274,7 @@ class Binary_Search_Tree
 	}
 
 	// Get balance factor for each node
-	int get_balance_factor(Node<D> *node)
+	int get_balance_factor(Node<D> *node) const
 	{
 		if (node == nullptr)
 		{
@@ -284,7 +284,7 @@ class Binary_Search_Tree
 	}
 	
 	// Is tree balanced
-	bool is_tree_balanced(Node<D> *root)
+	bool is_tree_balanced(Node<D> *root) const
 	{	
 		// Base case
 		if (root == nullptr)
@@ -457,7 +457,7 @@ class Binary_Search_Tree
 		return nullptr;
 	}
 
-	Node<D> *search_recursive(Node<D> * root, D data) 
+	Node<D> *search_recursive(Node<D> * root, D data) const
 	{
 		// Base case
 		if (root == nullptr || root->get_data() == data)
@@ -524,7 +524,7 @@ class Binary_Search_Tree
 	}
 
 	// Get the min node by going down to find the left most leaf
-	Node<D> *min_node(Node<D> *node)
+	Node<D> *min_node(Node<D> *node) const
 	{
 		Node<D> *current = node;
 		while (current->get_left() != nullptr)
@@ -535,7 +535,7 @@ class Binary_Search_Tree
 	}
 
 	// Get the max node by going down to find the right most leaf
-	Node<D> *max_node(Node<D> *node)
+	Node<D> *max_node(Node<D> *node) const
 	{
 		Node<D> *current = node;
 		while (current->get_right() != nullptr)
