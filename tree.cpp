@@ -1287,6 +1287,7 @@ void print_menu()
 	// Ancestor
 	// Decendent
 	// Distance between 2 nodes
+	// Remove part of tree
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Insert Node NOTE: This will not add a balanced node" << endl;
 	cout << "2. Search Node" << endl;
