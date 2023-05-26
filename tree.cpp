@@ -290,7 +290,7 @@ class Binary_Search_Tree
 		{
 			return -1;
 		}
-		return (height(node->get_left() - height(node->get_right())));
+		return (get_height(node->get_left() - get_height(node->get_right())));
 	}
 	
 	// Is tree balanced
@@ -302,10 +302,10 @@ class Binary_Search_Tree
         	return true;
     	}
 		// Recursive case
-		int left_height = height(root->get_left());
-    	int right_height = height(root->get_right());
+		int left_height = get_height(root->get_left());
+    	int right_height = get_height(root->get_right());
    		// Check if current node is balanced and recursively check for left and right subtrees
-    	return abs(leftHeight - rightHeight) <= 1 && is_tree_balanced(root->get_left()) && is_tree_balanced(root->get_right());
+    	return abs(left_height - right_height) <= 1 && is_tree_balanced(root->get_left()) && is_tree_balanced(root->get_right());
 	}
 
 	// Balance a tree when inserting a node
@@ -317,34 +317,36 @@ class Binary_Search_Tree
 			return root;
 		}
 
-		if (bf > 1 && new_node-get_value() < root->get_left()->get_value()) //-- LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
+		if (bf > 1 && new_node->get_data() < root->get_left()->get_data()) //-- LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
 		{
 			return rotate_right(root);
 		}
 
-		if (bf < -1 && new_node-get_value() > root->get_right()->get_value()) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)
+		if (bf < -1 && new_node->get_data() > root->get_right()->get_data()) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)
 		{
 			return rotate_left(root);
 		}
 
-		if (bf > 1 && new_node-get_value() > root->get_left()->get_value()) //-- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation) 
+		if (bf > 1 && new_node->get_data() > root->get_left()->get_data()) //-- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation) 
 		{
 			root->set_left(rotate_left(root->get_left()));
 			return rotate_right(root);
 		}
 
-		if (bf < -1 && new_node-get_value() < root->get_right()->get_value()) // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
+		if (bf < -1 && new_node->get_data() < root->get_right()->get_data()) // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
 		{
 			root->set_right(rotate_right(root->get_right()));
 			return rotate_left(root);
 		}
+
+		return root;
 	}
 
 	// Balance a tree when deleting a node
-	Node<D> *balance_tree_when_deleting(Node<D> *root, Node<D> *new_node)
+	Node<D> *balance_tree_when_deleting(Node<D> *root)
 	{
 		int bf = get_balance_factor(root);
-		if (bf == 1 || root == -1 || root == 0)
+		if (bf == 1 || bf == -1 || bf == 0)
 		{
 			return root;
 		}
@@ -371,6 +373,8 @@ class Binary_Search_Tree
 			root->set_right(rotate_right(root->get_right()));
 			return rotate_left(root);
 		}
+
+		return root;
 	}
 
 	// Insert node in tree // CASE 1: IF THE TREE IS EMPTY, CASE 2: IF WE HAVE THE SAME VALUES, CASE 3: IF ITS SMALLER, CASE 4: IF ITS BIGGER
@@ -528,7 +532,7 @@ class Binary_Search_Tree
 			}
 		}
 
-		root = balance_tree_when_deleting(root, new_node);
+		root = balance_tree_when_deleting(root);
 
 		return root;
 	}
@@ -1253,7 +1257,7 @@ int main()
 					cout << "The tree is not perfect!" << endl;
 				}
 				break;
-			case 28:
+			case 29:
 				if (bst1.is_tree_balanced(bst1.get_root()))
 				{
 					cout << "The tree is balanced!" << endl;
@@ -1263,10 +1267,10 @@ int main()
 					cout << "The tree is not balanced!" << endl;
 				}
 				break;
-			case 29:
+			case 30:
 				bst1.delete_tree();
 				break;
-			case 30:
+			case 31:
 				system("cls");
 				break;
 			default:
