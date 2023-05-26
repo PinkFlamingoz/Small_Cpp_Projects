@@ -1,5 +1,7 @@
 #include <iostream>
 #include <queue>
+#include <stack>
+#include <iomanip>
 #include <math.h>
 #include "basic_functions.h"
 
@@ -24,7 +26,7 @@ using namespace std;
 // Width - The number of nodes in a level.
 // Breadth - The number of leaves.
 // Forest - A set of one or more disjoint trees.
-// 
+//
 // Tree terms / properties -
 // Tree can be termed as a RECURSIVE data structure.
 // In a valid tree for N Nodes we have N - 1 Edges / Links
@@ -86,49 +88,49 @@ using namespace std;
 // This search is referred to as breadth-first search (BFS), as the search tree is broadened as much as possible on each depth before going to the next depth
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // AVL Tree
-// AVL tree is a self-balancing Binary Search Tree (BST) where the difference between heights of left and right subtrees cannot be more than one(1) for all nodes. 
+// AVL tree is a self-balancing Binary Search Tree (BST) where the difference between heights of left and right subtrees cannot be more than one(1) for all nodes.
 // This difference is called the Balance Factor. BF = ( LEFT SUB TREE HEIGHT - RIGHT SUB TREE HEIGHT ) == { -1, 0, 1 }
-// 
+//
 // NOTE: We always start by calculating the BF for all nodes and then we start balancing on the lowest level imbalanced node, after each operation we check the BF again for each node.
 // When we balance a tree, we always consider three nodes from the node where the imbalance is happening, and if we have more nodes with imbalance we first balance the node at the lowest level.
 // Then we recalculate the balance for every node, usually the other nodes sometimes balance out, that's why we balance the lowest level imbalanced node first.
-// 
+//
 // To maintain the balance in AVL tree, we perform Rotations. Depending on different imbalance cases, we have 4 basic types of rotations –
 // LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
-//		 z                     y      
-//		/ \                   / \  
-//	   y  T4                 x   z    
+//		 z                     y
+//		/ \                   / \
+//	   y  T4                 x   z
 //    / \                   / \ / \
 //	 x	T3                T1 T2 T3 T4
 //  / \
-// T1  T2   
+// T1  T2
 //
 // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)
-//   z                         y    
-//  / \                       / \     
-// T1  y                     z   x      
-//    / \                   / \ / \                            
-//   T2  x                T1 T2 T3 T4                             
+//   z                         y
+//  / \                       / \
+// T1  y                     z   x
+//    / \                   / \ / \
+//   T2  x                T1 T2 T3 T4
 //      / \
 //     T3 T4
 //
 // LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation)
-//     z         		 z                x                
-//    / \         		/ \              / \             
-//   y  T4             x  T4            y   z                
-//  / \               / \              / \ / \         
-// T1  x          	 y	T3           T1 T2 T3 T4          
-//    / \           / \                   
-//   T2 T3         T1  T2                       
+//     z         		 z                x
+//    / \         		/ \              / \
+//   y  T4             x  T4            y   z
+//  / \               / \              / \ / \
+// T1  x          	 y	T3           T1 T2 T3 T4
+//    / \           / \
+//   T2 T3         T1  T2
 //
 // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
-//   z                   z                x      
-//  / \                 / \              / \       
-// T1   y              T1  x            z   y        
-//     / \                / \          / \ / \        
-//    x  T4              T2  y       T1 T2 T3 T4       
-//   / \                    / \            
-//  T2 T3                  T3 T4             
+//   z                   z                x
+//  / \                 / \              / \
+// T1   y              T1  x            z   y
+//     / \                / \          / \ / \
+//    x  T4              T2  y       T1 T2 T3 T4
+//   / \                    / \
+//  T2 T3                  T3 T4
 
 // Constants
 #define SPACE 10 // or we can use constexpr auto SPACE = 10;
@@ -290,22 +292,22 @@ class Binary_Search_Tree
 		{
 			return -1;
 		}
-		return (get_height(node->get_left() - get_height(node->get_right())));
+		return (get_height(node->get_left()) - get_height(node->get_right()));
 	}
-	
+
 	// Is tree balanced
 	bool is_tree_balanced(Node<D> *root) const
-	{	
+	{
 		// Base case
 		if (root == nullptr)
 		{
-        	return true;
-    	}
+			return true;
+		}
 		// Recursive case
 		int left_height = get_height(root->get_left());
-    	int right_height = get_height(root->get_right());
-   		// Check if current node is balanced and recursively check for left and right subtrees
-    	return abs(left_height - right_height) <= 1 && is_tree_balanced(root->get_left()) && is_tree_balanced(root->get_right());
+		int right_height = get_height(root->get_right());
+		// Check if current node is balanced and recursively check for left and right subtrees
+		return abs(left_height - right_height) <= 1 && is_tree_balanced(root->get_left()) && is_tree_balanced(root->get_right());
 	}
 
 	// Balance a tree when inserting a node
@@ -319,22 +321,26 @@ class Binary_Search_Tree
 
 		if (bf > 1 && new_node->get_data() < root->get_left()->get_data()) //-- LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
 		{
+			cout << "LEFT LEFT Imbalance/case ---> (RIGHT Rotation)" << endl;
 			return rotate_right(root);
 		}
 
 		if (bf < -1 && new_node->get_data() > root->get_right()->get_data()) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)
 		{
+			cout << "RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)" << endl;
 			return rotate_left(root);
 		}
 
-		if (bf > 1 && new_node->get_data() > root->get_left()->get_data()) //-- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation) 
+		if (bf > 1 && new_node->get_data() > root->get_left()->get_data()) //-- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation)
 		{
+			cout << "LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation)" << endl;
 			root->set_left(rotate_left(root->get_left()));
 			return rotate_right(root);
 		}
 
 		if (bf < -1 && new_node->get_data() < root->get_right()->get_data()) // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
 		{
+			cout << "RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)" << endl;
 			root->set_right(rotate_right(root->get_right()));
 			return rotate_left(root);
 		}
@@ -353,23 +359,26 @@ class Binary_Search_Tree
 
 		if (bf == 2 && get_balance_factor(root->get_left()) >= 0) //-- LEFT LEFT Imbalance/case ---> (RIGHT Rotation)
 		{
+			cout << "LEFT LEFT Imbalance/case ---> (RIGHT Rotation)" << endl;
 			return rotate_right(root);
 		}
 
-		if (bf == -2 && get_balance_factor(root->get_right()) <= 0) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation) 
+		if (bf == -2 && get_balance_factor(root->get_right()) <= 0) // RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)
 		{
-			return rotate_left(root);	
+			cout << "RIGHT RIGHT Imbalance/case ---> (LEFT Rotation)" << endl;
+			return rotate_left(root);
 		}
 
-		if (bf == 2 && get_balance_factor(root->get_left()) == -1) //- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation) 
+		if (bf == 2 && get_balance_factor(root->get_left()) == -1) //- LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation)
 		{
+			cout << "LEFT RIGHT Imbalance/case ---> (LEFT RIGHT Rotation)" << endl;
 			root->set_left(rotate_left(root->get_left()));
 			return rotate_right(root);
-			
 		}
 
 		if (bf == -2 && get_balance_factor(root->get_right()) == 1) // RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)
 		{
+			cout << "RIGHT LEFT Imbalance/case ---> (RIGHT LEFT Rotation)" << endl;
 			root->set_right(rotate_right(root->get_right()));
 			return rotate_left(root);
 		}
@@ -424,7 +433,7 @@ class Binary_Search_Tree
 	Node<D> *insert_recursive(Node<D> *root, Node<D> *new_node)
 	{
 		// Base case
-		if(root == nullptr) //--------------------------------------------------------------- CASE 1: If the tree is empty
+		if (root == nullptr) //--------------------------------------------------------------- CASE 1: If the tree is empty
 		{
 			root = new_node;
 			return root;
@@ -459,7 +468,8 @@ class Binary_Search_Tree
 			{
 				return temp;
 			}
-			else if (data < temp->get_data())
+
+			if (data < temp->get_data())
 			{
 				temp = temp->get_left();
 			}
@@ -471,7 +481,7 @@ class Binary_Search_Tree
 		return nullptr;
 	}
 
-	Node<D> *search_recursive(Node<D> * root, D data) const
+	Node<D> *search_recursive(Node<D> *root, D data) const
 	{
 		// Base case
 		if (root == nullptr || root->get_data() == data)
@@ -487,7 +497,7 @@ class Binary_Search_Tree
 		{
 			return search_recursive(root->get_right(), data);
 		}
-  	}
+	}
 
 	// Delete node in tree // CASE 1: DELETE A LEAF NODE, CASE 2: DELETE A NODE WITH ONE CHILD, CASE 3: DELETE A NODE WITH TWO CHILDREN
 	Node<D> *delete_node(Node<D> *root, D data)
@@ -498,7 +508,7 @@ class Binary_Search_Tree
 			return nullptr;
 		}
 		// Recursive case
-		else if (data < root->get_data()) //----------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree
+		if (data < root->get_data()) //---------------------------------------------- If the key to be deleted is smaller than the root's key, then it lies in left subtree
 		{
 			root->set_left(delete_node(root->get_left(), data));
 		}
@@ -576,7 +586,7 @@ class Binary_Search_Tree
 		{
 			cout << " ";
 		}
-		cout << root->get_data() << endl;
+		cout << root->get_data() << "[" << get_balance_factor(root) << "]" << endl;
 
 		print_tree_2D(root->get_left(), space);
 	}
@@ -631,7 +641,8 @@ class Binary_Search_Tree
 		{
 			return;
 		}
-		else if (level == 0)
+
+		if (level == 0)
 		{
 			cout << root->get_data() << " "; //--------- Reached the desired level, print the value
 		}
@@ -663,7 +674,8 @@ class Binary_Search_Tree
 				cout << "[" << temp << "]: " << temp->get_data() << endl;
 				return;
 			}
-			else if (data < temp->get_data())
+
+			if (data < temp->get_data())
 			{
 				cout << "[" << temp << "]: " << temp->get_data() << " ---> ";
 				temp = temp->get_left();
@@ -820,7 +832,8 @@ class Binary_Search_Tree
 		{
 			return 0;
 		}
-		else if (level == 0)
+
+		if (level == 0)
 		{
 			return 1; //----------------------------------------------------- Reached the desired level, return 1 for the current node
 		}
@@ -832,6 +845,26 @@ class Binary_Search_Tree
 	}
 
 	// Print leaf nodes of a tree
+	int count_leaf_nodes(Node<D> *root) const
+	{
+		// Base case
+		if (root == nullptr)
+		{
+			return 0;
+		}
+
+		if (root->get_left() == nullptr && root->get_right() == nullptr)
+		{
+			return 1;
+		}
+		// Recursive case
+		int left_leafs = count_leaf_nodes(root->get_left());
+		int right_leafs = count_leaf_nodes(root->get_right());
+
+		return left_leafs + right_leafs;
+	}
+
+	// Print leaf nodes of a tree
 	void print_leaf_nodes(Node<D> *root) const
 	{
 		// Base case
@@ -839,13 +872,186 @@ class Binary_Search_Tree
 		{
 			return;
 		}
-		else if (root->get_left() == nullptr && root->get_right() == nullptr)
+
+		if (root->get_left() == nullptr && root->get_right() == nullptr)
 		{
 			cout << root->get_data() << " ";
 		}
 		// Recursive case
 		print_leaf_nodes(root->get_left());
 		print_leaf_nodes(root->get_right());
+	}
+
+	// Lowest common ancestor of two given nodes
+	Node<D> *find_LCA(Node<D> *root, Node<D> *n1, Node<D> *n2) const
+	{
+		// Base case
+		if (root == nullptr)
+		{
+			return nullptr;
+		}
+
+		if (root->get_data() == n1->get_data() || root->get_data() == n2->get_data()) // If the current node (root) is one of the nodes we're looking for, then it could be an ancestor of the other node. So, we return it.
+		{
+			return root;
+		}
+		// Recursive case //------------------------------------------------------------ Recursively call the same function for the left and right children of the current node. The idea is to see if the nodes we're looking for are in the left subtree or the right subtree.
+		Node<D> *left_lca = find_LCA(root->get_left(), n1, n2);
+		Node<D> *right_lca = find_LCA(root->get_right(), n1, n2);
+
+		if (left_lca && right_lca) //--------------------------------------------------- If the nodes we're looking for were found in both the left and right subtrees, then this current node is their LCA.
+		{
+			return root;
+		}
+
+		return (left_lca != nullptr) ? left_lca : right_lca; //------------------------- If one of the nodes was found in either the left or right subtree, then the node found is the LCA. If none of the nodes were found, then this function returns NULL.
+	}
+
+	// Find on what level is a node
+	int find_level_of_node(Node<D> *root, Node<D> *node, int level) const
+	{
+		// Base case
+		if (root == nullptr)
+		{
+			return -1;
+		}
+
+		if (root->get_data() == node->get_data())
+		{
+			return level;
+		}
+
+		// Recursive case
+		int left = find_level_of_node(root->get_left(), node, level + 1);
+		if (left != -1)
+		{
+			return left;
+		}
+
+		int right = find_level_of_node(root->get_right(), node, level + 1);
+		if (right != -1)
+		{
+			return right;
+		}
+
+		return -1;
+	}
+
+	// Find the distance between two nodes by first finding their lowest common ancestor and then counting on what level each node is from that ancestor node
+	int find_distance_between_two_nodes(Node<D> *root, Node<D> *n1, Node<D> *n2) const
+	{
+		Node<D> *lca = find_LCA(root, n1, n2);
+
+		if (lca != nullptr)
+		{
+			return find_level_of_node(lca, n1, 0) + find_level_of_node(lca, n2, 0);
+		}
+
+		return -1;
+	}
+
+	// Find path from root node to given node of the tree,
+	// Stores the path in a vector path[], returns true if path exists otherwise false
+	bool find_path_between_two_nodes(Node<D> *root, vector<D> &path, Node<D> *node)
+	{
+		// Base case
+		if (root == nullptr)
+		{
+			return false;
+		}
+
+		// Store this node in path
+		path.push_back(root->get_data());
+
+		// Check if the nodes data is same as root's data
+		if (root->get_data() == node->get_data())
+		{
+			return true;
+		}
+
+		// Check if the node is present in left or right sub-tree
+		if ((root->get_left() && find_path_between_two_nodes(root->get_left(), path, node)) || (root->get_right() && find_path_between_two_nodes(root->get_right(), path, node)))
+		{
+			return true;
+		}
+
+		// If not present in subtree rooted with root, remove root from path and return false
+		path.pop_back();
+		return false;
+	}
+
+	// Print path between two nodes in a binary tree
+	void print_path_between_nodes(Node<D> *root, Node<D> *n1, Node<D> *n2)
+	{
+		// Vector to store the path
+		vector<D> path1, path2;
+
+		// Find paths from root to n1 and root to n1. If either n1 or n2 is not present, return -1
+		if (!find_path_between_two_nodes(root, path1, n1) || !find_path_between_two_nodes(root, path2, n2))
+		{
+			cout << "No path exists";
+			return;
+		}
+
+		// Compare the paths to get the first different value
+		int i;
+		for (i = 0; i < path1.size() && i < path2.size(); i++)
+		{
+			if (path1[i] != path2[i])
+			{
+				break;
+			}
+		}
+
+		// Print path from n1 to LCA
+		for (int j = path1.size() - 1; j >= i; j--)
+		{
+			cout << path1[j] << " ---> ";
+		}
+
+		// Print path from LCA to n2.
+		for (int j = i; j < path2.size(); j++)
+		{
+			cout << path2[j] << " ---> ";
+		}
+	}
+
+	// Print ancestors of a node
+	void print_ancestors(Node<D> *root, Node<D> *node)
+	{
+		if (root == nullptr)
+		{
+			return;
+		}
+		// Create an empty stack and push the root node
+		stack<Node<D> *> s;
+		s.push(root);
+		// Traverse until stack is empty
+		while (!s.empty())
+		{
+			Node<D> *current = s.top();
+			s.pop();
+			// If this is the node we're looking for, we're done
+			if (current->get_data() == node->get_data())
+			{
+				while (!s.empty())
+				{
+					current = s.top();
+					s.pop();
+					cout << "[" << current << "]: " << current->get_data() << endl;
+				}
+				return;
+			}
+			// Otherwise, add the children to the stack
+			if (current->get_right() != nullptr)
+			{
+				s.push(current->get_right());
+			}
+			if (current->get_left() != nullptr)
+			{
+				s.push(current->get_left());
+			}
+		}
 	}
 
 	// Check if the tree is complete
@@ -956,8 +1162,11 @@ int main()
 {
 	Binary_Search_Tree<int> bst1;
 	Node<int> *bst_node = nullptr;
+	Node<int> *bst_node2 = nullptr;
+	Node<int> *bst_node3 = nullptr;
 	int choice = 0;
 	int level = 0;
+	int distance = 0;
 	int bst_node_data = 0;
 	do
 	{
@@ -988,7 +1197,7 @@ int main()
 				bst1.set_root(bst1.insert_recursive(bst1.get_root(), Binary_Search_Tree<int>::create_node()));
 				break;
 			case 4:
-				bst_node = bst1.search_recursive(bst1.get_root(), get_valid_input<int>("Enter data to search for: "));
+				bst_node = bst1.search_recursive(bst1.get_root(), get_valid_input<int>("Enter data to delete subtree: "));
 				if (bst_node != nullptr)
 				{
 					bst1.show_parent(bst1.get_root(), bst_node);
@@ -1015,13 +1224,27 @@ int main()
 				}
 				break;
 			case 6:
-				if (bst1.is_empty())
+				bst_node = bst1.search_recursive(bst1.get_root(), get_valid_input<int>("Enter data to search for: "));
+				if (bst_node != nullptr)
 				{
-					cout << "Tree is empty!" << endl;
+					bst_node2 = bst1.find_parent(bst1.get_root(), bst_node);
+					if (bst_node == bst_node2->get_left())
+					{
+						bst_node2->set_left(nullptr);
+					}
+					else if (bst_node == bst_node2->get_right())
+					{
+						bst_node2->set_right(nullptr);
+					}
+
+					bst1.set_root(bst1.balance_tree_when_deleting(bst1.get_root()));
+					bst1.delete_subtree(bst_node);
+
+					cout << "Sub Tree deleted!" << endl;
 				}
 				else
 				{
-					bst1.print_tree_2D(bst1.get_root(), 5);
+					cout << "No node with that data exists!" << endl;
 				}
 				break;
 			case 7:
@@ -1031,7 +1254,7 @@ int main()
 				}
 				else
 				{
-					bst1.print_pre_order(bst1.get_root());
+					bst1.print_tree_2D(bst1.get_root(), 5);
 				}
 				break;
 			case 8:
@@ -1041,7 +1264,7 @@ int main()
 				}
 				else
 				{
-					bst1.print_in_order(bst1.get_root());
+					bst1.print_pre_order(bst1.get_root());
 				}
 				break;
 			case 9:
@@ -1051,7 +1274,7 @@ int main()
 				}
 				else
 				{
-					bst1.print_post_order(bst1.get_root());
+					bst1.print_in_order(bst1.get_root());
 				}
 				break;
 			case 10:
@@ -1061,10 +1284,20 @@ int main()
 				}
 				else
 				{
-					bst1.print_BFS_tree(bst1.get_root());
+					bst1.print_post_order(bst1.get_root());
 				}
 				break;
 			case 11:
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					bst1.print_BFS_tree(bst1.get_root());
+				}
+				break;
+			case 12:
 				bst_node_data = get_valid_input<int>("Enter data to print path for: ");
 				bst_node = bst1.search(bst_node_data);
 				if (bst_node != nullptr)
@@ -1076,7 +1309,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 12:
+			case 13:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see parent of: "));
 				if (bst_node != nullptr)
 				{
@@ -1087,7 +1320,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 13:
+			case 14:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see siblings for: "));
 				if (bst_node != nullptr)
 				{
@@ -1100,7 +1333,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 14:
+			case 15:
 				bst_node = bst1.search(get_valid_input<int>("Enter data to see children for: "));
 				if (bst_node != nullptr)
 				{
@@ -1111,7 +1344,29 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 15:
+			case 16:
+				bst_node = bst1.search(get_valid_input<int>("Enter data to see ancestors for: "));
+				if (bst_node != nullptr)
+				{
+					bst1.print_ancestors(bst1.get_root(), bst_node);
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 17:
+				bst_node = bst1.search(get_valid_input<int>("Enter data to see descendants for: "));
+				if (bst_node != nullptr)
+				{
+					bst1.print_pre_order(bst_node);
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 18:
 				bst_node = bst1.search(get_valid_input<int>("Enter data of to see depth for: "));
 				if (bst_node != nullptr)
 				{
@@ -1122,7 +1377,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 16:
+			case 19:
 				bst_node = bst1.search(get_valid_input<int>("Enter data of to see height for: "));
 				if (bst_node != nullptr)
 				{
@@ -1133,7 +1388,7 @@ int main()
 					cout << "No node with that data exists!" << endl;
 				}
 				break;
-			case 17:
+			case 20:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1143,7 +1398,7 @@ int main()
 					cout << "Tree is not empty!" << endl;
 				}
 				break;
-			case 18:
+			case 21:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1153,7 +1408,7 @@ int main()
 					cout << "Root of tree is: [" << bst1.get_root() << "]: " << bst1.get_root()->get_data() << endl;
 				}
 				break;
-			case 19:
+			case 22:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1163,7 +1418,7 @@ int main()
 					cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl;
 				}
 				break;
-			case 20:
+			case 23:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1173,7 +1428,7 @@ int main()
 					cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl;
 				}
 				break;
-			case 21:
+			case 24:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1183,7 +1438,17 @@ int main()
 					cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl;
 				}
 				break;
-			case 22:
+			case 25:
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					cout << "Total number of leafs in the tree: " << bst1.count_leaf_nodes(bst1.get_root()) << endl;
+				}
+				break;
+			case 26:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1194,7 +1459,7 @@ int main()
 					cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level);
 				}
 				break;
-			case 23:
+			case 27:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1206,7 +1471,7 @@ int main()
 					bst1.print_given_level(bst1.get_root(), level);
 				}
 				break;
-			case 24:
+			case 28:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
@@ -1217,27 +1482,79 @@ int main()
 					bst1.print_leaf_nodes(bst1.get_root());
 				}
 				break;
-			case 25:
+			case 29:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
 				}
 				else
 				{
-					cout << "Min node in the tree is: [" << bst1.min_node(bst1.get_root()) << "]: " << bst1.min_node(bst1.get_root())->get_data();
+					bst_node = bst1.min_node(bst1.get_root());
+					cout << "Min node in the tree is: [" << bst_node << "]: " << bst_node->get_data();
 				}
 				break;
-			case 26:
+			case 30:
 				if (bst1.is_empty())
 				{
 					cout << "Tree is empty!" << endl;
 				}
 				else
 				{
-					cout << "Max node in the tree is: [" << bst1.max_node(bst1.get_root()) << "]: " << bst1.max_node(bst1.get_root())->get_data();
+					bst_node = bst1.max_node(bst1.get_root());
+					cout << "Max node in the tree is: [" << bst_node << "]: " << bst_node->get_data();
 				}
 				break;
-			case 27:
+			case 31:
+				bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
+				bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
+				if (bst_node != nullptr && bst_node2 != nullptr)
+				{
+					bst_node3 = bst1.find_LCA(bst1.get_root(), bst_node, bst_node2);
+					cout << "Lowest common ancestor is: [" << bst_node3 << "]: " << bst_node3->get_data();
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 32:
+				bst_node = bst1.search(get_valid_input<int>("Enter data of node to find on what level it is: "));
+				if (bst_node != nullptr)
+				{
+					level = bst1.find_level_of_node(bst1.get_root(), bst_node, 0);
+					cout << "Node [" << bst_node << "]: " << bst_node->get_data() << " is on level: " << level << endl;
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 33:
+				bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
+				bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
+				if (bst_node != nullptr && bst_node2 != nullptr)
+				{
+					distance = bst1.find_distance_between_two_nodes(bst1.get_root(), bst_node, bst_node2);
+					cout << "Distance between: [" << bst_node << "]: " << bst_node->get_data() << " and [" << bst_node2 << "]: " << bst_node2->get_data() << " is: " << distance << endl;
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 34:
+				bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
+				bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
+				if (bst_node != nullptr && bst_node2 != nullptr)
+				{
+					bst1.print_path_between_nodes(bst1.get_root(), bst_node, bst_node2);
+				}
+				else
+				{
+					cout << "No node with that data exists!" << endl;
+				}
+				break;
+			case 35:
 				if (bst1.is_it_complete_tree())
 				{
 					cout << "The tree is complete!" << endl;
@@ -1247,7 +1564,7 @@ int main()
 					cout << "The tree is not complete!" << endl;
 				}
 				break;
-			case 28:
+			case 36:
 				if (bst1.is_it_perfect_tree(bst1.get_root()))
 				{
 					cout << "The tree is perfect!" << endl;
@@ -1257,7 +1574,7 @@ int main()
 					cout << "The tree is not perfect!" << endl;
 				}
 				break;
-			case 29:
+			case 37:
 				if (bst1.is_tree_balanced(bst1.get_root()))
 				{
 					cout << "The tree is balanced!" << endl;
@@ -1267,10 +1584,10 @@ int main()
 					cout << "The tree is not balanced!" << endl;
 				}
 				break;
-			case 30:
+			case 38:
 				bst1.delete_tree();
 				break;
-			case 31:
+			case 39:
 				system("cls");
 				break;
 			default:
@@ -1286,44 +1603,29 @@ int main()
 // Print the menu
 void print_menu()
 {
-	// Finding the lowest common ancestor of two nodes
-	// Count leafs
-	// Ancestor
-	// Decendent
-	// Distance between 2 nodes
-	// Remove part of tree
-	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
-	cout << "1. Insert Node NOTE: This will not add a balanced node" << endl;
-	cout << "2. Search Node" << endl;
-	cout << "3. Insert Node Recursive" << endl;
-	cout << "4. Search Node Recursive" << endl;
-	cout << "5. Delete Node" << endl;
-	cout << "6. Print/Traversal BST 2D" << endl;
-	cout << "7. Print/Traversal BST PRE  ORDER" << endl;
-	cout << "8. Print/Traversal BST IN   ORDER" << endl;
-	cout << "9. Print/Traversal BST POST ORDER" << endl;
-	cout << "10. Print/Traversal BST BFS ORDER" << endl;
-	cout << "11. Print path to node" << endl;
-	cout << "12. Show parent of a node" << endl;
-	cout << "13. Show siblings of a node" << endl;
-	cout << "14. Show children of a node" << endl;
-	cout << "15. Show depth of a node" << endl;
-	cout << "16. Show hight of a node" << endl;
-	cout << "17. Is the Tree empty" << endl;
-	cout << "18. Root of Tree" << endl;
-	cout << "19. Height of Tree" << endl;
-	cout << "20. Count levels in Tree" << endl;
-	cout << "21. Count nodes in Tree" << endl;
-	cout << "22. Count nodes on a specific level" << endl;
-	cout << "23. Print nodes on a specific level" << endl;
-	cout << "24. Print leaf nodes in Tree" << endl;
-	cout << "25. Print Min node in Tree" << endl;
-	cout << "26. Print Max node in Tree" << endl;
-	cout << "27. Is it a complete Tree" << endl;
-	cout << "28. Is it a perfect Tree" << endl;
-	cout << "29. Is it a balanced Tree" << endl;
-	cout << "30. Delete Tree" << endl;
-	cout << "31. Clear Screen" << endl << endl;
+	int width = 60;
+	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit.\n" << endl;
+
+	cout << setw(width) << left << "1. Insert Node NOTE: This will not add a balanced node" << "20. Is the Tree empty" << endl;
+	cout << setw(width) << "2. Search Node" << "21. Root of Tree" << endl;
+	cout << setw(width) << "3. Insert Node Recursive" << "22. Height of Tree" << endl;
+	cout << setw(width) << "4. Search Node Recursive" << "23. Count levels in Tree" << endl;
+	cout << setw(width) << "5. Delete Node" << "24. Count nodes in Tree" << endl;
+	cout << setw(width) << "6. Remove a subtree" << "25. Count leafs in Tree" << endl;
+	cout << setw(width) << "7. Print/Traversal BST 2D" << "26. Count nodes on a specific level" << endl;
+	cout << setw(width) << "8. Print/Traversal BST PRE  ORDER" << "27. Print nodes on a specific level" << endl;
+	cout << setw(width) << "9. Print/Traversal BST IN   ORDER" << "28. Print leaf nodes in Tree" << endl;
+	cout << setw(width) << "10. Print/Traversal BST POST ORDER" << "29. Print Min node in Tree" << endl;
+	cout << setw(width) << "11. Print/Traversal BST BFS ORDER" << "30. Print Max node in Tree" << endl;
+	cout << setw(width) << "12. Print path to node" << "31. Find the lowest common ancestor of two nodes" << endl;
+	cout << setw(width) << "13. Show parent of a node" << "32. Find the level of a node" << endl;
+	cout << setw(width) << "14. Show siblings of a node" << "33. Find the distance between two nodes" << endl;
+	cout << setw(width) << "15. Show children of a node" << "34. Print the path between two nodes" << endl;
+	cout << setw(width) << "16. Show ancestors of a node" << "35. Is it a complete Tree" << endl;
+	cout << setw(width) << "17. Show decedents of a node" << "36. Is it a perfect Tree" << endl;
+	cout << setw(width) << "18. Show depth of a node" << "37. Is it a balanced Tree" << endl;
+	cout << setw(width) << "19. Show height of a node" << "38. Delete Tree" << endl;
+	cout << setw(width) << right << endl << "39. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -1333,7 +1635,7 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 31);
+	} while (choice < 0 || choice > 39);
 	return choice;
 }
 
