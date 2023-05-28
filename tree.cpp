@@ -1619,7 +1619,14 @@ int main()
 				}
 				break;
 			case 38:
-				bst1.set_root(bst1.balance_tree(bst1.get_root()));
+				if (bst1.is_empty())
+				{
+					cout << "Tree is empty!" << endl;
+				}
+				else
+				{
+					bst1.set_root(bst1.balance_tree(bst1.get_root()));
+				}
 				break;
 			case 39:
 				bst1.delete_tree();
