@@ -133,7 +133,7 @@ using namespace std;
 //  T2 T3                  T3 T4
 
 // Constants
-#define SPACE 30 // or we can use constexpr auto SPACE = 10;
+#define SPACE 30 // or we can use constexpr auto SPACE = 30;
 
 // Classes
 template <typename D>
