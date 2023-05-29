@@ -369,7 +369,7 @@ class Doubly_linked_list
 
 		temp->set_data(data);
 
-		cout << "Data for node with key: " << key << " updated! \n";
+		cout << "\nData for node with key: " << key << " updated! \n";
 	}
 
 	// Peek node by key
@@ -409,7 +409,7 @@ class Doubly_linked_list
 			delete head;
 			head = temp;
 		}
-		cout << "List deleted!\n";
+		cout << "\nList deleted!\n";
 	}
 
 	// Delete list recursive

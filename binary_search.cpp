@@ -56,20 +56,20 @@ bool binary_search(int number)
 	int start = 0;
 	int end = MAXSIZE - 1;
 
-	while (start <= end) //-------------------------------- Repeat until the (sub)array is of size 0
+	while (start <= end) //---------------------------------------------------------- Repeat until the (sub)array is of size 0
 	{
-		int mid = start + (end - start) / 2; //------------ Calculate the middle point of the current (sub)array
+		int mid = start + (end - start) / 2; //-------------------------------------- Calculate the middle point of the current (sub)array
 
-		if (SORTED_ARRAY[mid] == number) //---------------- If the target is at the middle, stop
+		if (SORTED_ARRAY[mid] == number) //------------------------------------------ If the target is at the middle, stop
 		{
-			cout << "Found: " << SORTED_ARRAY[mid] << endl;
+			cout << "Found: " << SORTED_ARRAY[mid] << " at location " << mid << endl;
 			return true;
 		}
-		else if (SORTED_ARRAY[mid] < number) //------------ Otherwise, if the target is greater than what's at the middle, repeat, changing the start point to be just to the right of the middle
+		else if (SORTED_ARRAY[mid] < number) //-------------------------------------- Otherwise, if the target is greater than what's at the middle, repeat, changing the start point to be just to the right of the middle
 		{
 			start = mid + 1;
 		}
-		else if (SORTED_ARRAY[mid] > number) //------------ Otherwise, if the target is less than whats at the middle, repeat, changing the end point to be just to the left of the middle
+		else if (SORTED_ARRAY[mid] > number) //-------------------------------------- Otherwise, if the target is less than whats at the middle, repeat, changing the end point to be just to the left of the middle
 		{
 			end = mid - 1;
 		}

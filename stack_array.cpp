@@ -144,30 +144,30 @@ class Stack
 	}
 
 	// See what value is at a current position of a stack
-	T peek(int possition) const
+	T peek(int position) const
 	{
-		if (possition > top || possition < 0)
+		if (position > top || position < 0)
 		{
 			cerr << "Stack out of bounds!" << endl;
 			return T();
 		}
 		else
 		{
-			return arr[possition];
+			return arr[position];
 		}
 	}
 
 	// Change a value in a current position of a stack
-	void change(int possition, T value)
+	void change(int position, T value)
 	{
-		if (possition > top || possition < 0)
+		if (position > top || position < 0)
 		{
 			cerr << "Stack out of bounds!" << endl;
 		}
 		else
 		{
-			arr[possition] = value;
-			cout << "Value changed at location: " << possition << endl;
+			arr[position] = value;
+			cout << "Value changed at location: " << position << endl;
 		}
 	}
 

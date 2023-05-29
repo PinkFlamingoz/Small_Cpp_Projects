@@ -375,7 +375,7 @@ class Circular_linked_list
 
 		temp->set_data(data);
 
-		cout << "Data for node with key: " << key << " updated!\n";
+		cout << "\nData for node with key: " << key << " updated!\n";
 	}
 
 	// Peek node by key
@@ -426,7 +426,7 @@ class Circular_linked_list
 			temp = next;
 		} while (temp != head); //----------------- Continue until we reach the end of the list or encounter a null pointer
 		head = nullptr;
-		cout << "List deleted!\n";
+		cout << "\nList deleted!\n";
 	}
 
 	// Create a node

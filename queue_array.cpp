@@ -179,30 +179,30 @@ class Queue
 	}
 
 	// See what value is at a current position of a queue
-	T peek(int possition) const
+	T peek(int position) const
 	{
-		if (possition > rear || possition < front || possition < 0)
+		if (position > rear || position < front || position < 0)
 		{
 			cerr << "Queue out of bounds!" << endl;
 			return T();
 		}
 		else
 		{
-			return arr[possition];
+			return arr[position];
 		}
 	}
 
 	// Change a value in a current position of a queue
-	void change(int possition, T value)
+	void change(int position, T value)
 	{
-		if (possition > rear || possition < front || possition < 0)
+		if (position > rear || position < front || position < 0)
 		{
 			cerr << "Queue out of bounds!" << endl;
 		}
 		else
 		{
-			arr[possition] = value;
-			cout << "Value changed at location: " << possition << endl;
+			arr[position] = value;
+			cout << "Value changed at location: " << position << endl;
 		}
 	}
 

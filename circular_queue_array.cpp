@@ -28,8 +28,8 @@ class Circular_queue
 	int front; // The front represents the front of the queue, the value we have to delete for example
 	int rear; //- The rear represents the back of the queue, the value we have to insert
 	int size;
-	int item_count;
 	T *arr;
+	int item_count;
 
 	public:
 	// Member functions
@@ -39,13 +39,13 @@ class Circular_queue
 	{
 		front = -1;
 		rear = -1;
-		item_count = 0;
 		size = get_queue_size();
 		arr = new T[size];
 		for (int i = 0; i < size; i++)
 		{
 			arr[i] = T();
 		}
+		item_count = 0;
 	}
 
 	// Destructor
@@ -195,30 +195,30 @@ class Circular_queue
 	}
 
 	// See what value is at a current position of a stack
-	T peek(int possition) const
+	T peek(int position) const
 	{
-		if (possition > rear || possition < front || possition < 0)
+		if (position > rear || position < front || position < 0)
 		{
 			cerr << "Circular queue out of bounds!" << endl;
 			return T();
 		}
 		else
 		{
-			return arr[possition];
+			return arr[position];
 		}
 	}
 
 	// Change a value in a current position of a stack
-	void change(int possition, T value)
+	void change(int position, T value)
 	{
-		if (possition > rear || possition < front || possition < 0)
+		if (position > rear || position < front || position < 0)
 		{
 			cerr << "Circular queue out of bounds!" << endl;
 		}
 		else
 		{
-			arr[possition] = value;
-			cout << "Value changed at location: " << possition << endl;
+			arr[position] = value;
+			cout << "Value changed at location: " << position << endl;
 		}
 	}
 
