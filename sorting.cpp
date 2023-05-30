@@ -1,7 +1,9 @@
 ﻿#include <iostream>
 #include <chrono>
 #include <ctime>
+#include <algorithm>
 #include <cstdlib>
+#include <vector>
 #include "basic_functions.h"
 
 using namespace std;
@@ -45,10 +47,19 @@ void insertion_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 int partition(int start, int end, int RANDOM_ARRAY[]);
 void quick_sort(int start, int end, int RANDOM_ARRAY[]);
 void counting_sort(int MAXSIZE, int range, int RANDOM_ARRAY[]);
+void counting_sort_positive_negative(int MAXSIZE, int min_val, int max_val, int RANDOM_ARRAY[]);
 void radix_sort(int MAXSIZE, int RANDOM_ARRAY[]);
 int max(int size, int array[]);
+int min(int size, int array[]);
 void counting_sort_radix(int MAXSIZE, int range, int divide, int RANDOM_ARRAY[]);
 void shell_sort(int MAXSIZE, int RANDOM_ARRAY[]);
+void swap(int &value1, int &value2);
+int left_child(int i);
+int right_child(int i);
+void min_heapify(int i, int MAXSIZE, int RANDOM_ARRAY[]);
+void heapify(int MAXSIZE, int RANDOM_ARRAY[]);
+int extract_min(int &MAXSIZE, int RANDOM_ARRAY[]);
+void heap_sort(int &MAXSIZE, int RANDOM_ARRAY[]);
 
 int main()
 {
@@ -182,7 +193,7 @@ int main()
 
 	auto start6 = chrono::high_resolution_clock::now();
 
-	counting_sort(size, 100, RANDOM_ARRAY);
+	counting_sort_positive_negative(size, min(size, RANDOM_ARRAY), max(size, RANDOM_ARRAY), RANDOM_ARRAY);
 
 	auto end6 = chrono::high_resolution_clock::now();
 
@@ -249,22 +260,23 @@ int main()
 	print_array(size, RANDOM_ARRAY);
 	cout << endl;
 
-	heapify(size,RANDOM_ARRAY);
+	heapify(size, RANDOM_ARRAY);
 	cout << "Heapify array: ";
 	print_array(size, RANDOM_ARRAY);
+	cout << endl;
 
-	auto start8 = chrono::high_resolution_clock::now();
+	auto start9 = chrono::high_resolution_clock::now();
 
 	heap_sort(size, RANDOM_ARRAY);
-	
-	auto end8 = chrono::high_resolution_clock::now();
-	
-	auto elapsed_seconds8 = chrono::duration_cast<chrono::duration<double>>(end8 - start8).count();
-	
+
+	auto end9 = chrono::high_resolution_clock::now();
+
+	auto elapsed_seconds9 = chrono::duration_cast<chrono::duration<double>>(end9 - start9).count();
+
 	cout << "Sorted array:   ";
 	print_array(size, RANDOM_ARRAY);
-	
-	cout << endl << "Time took for merge sort: " << elapsed_seconds8 << endl;
+
+	cout << endl << "Time took for merge sort: " << elapsed_seconds9 << endl;
 
 	delete[] RANDOM_ARRAY;
 
@@ -282,13 +294,13 @@ int get_size()
 	return number;
 }
 
-// Initialize the random array with values from 0 to 99
+// Initialize the random array with values from -99 to 99
 void random_array(int MAXSIZE, int RANDOM_ARRAY[])
 {
 	srand(time(nullptr));
 	for (int i = 0; i < MAXSIZE; i++)
 	{
-		RANDOM_ARRAY[i] = rand() % 100;
+		RANDOM_ARRAY[i] = rand() % 199 - 100;
 	}
 }
 
@@ -713,6 +725,7 @@ void counting_sort(int MAXSIZE, int range, int RANDOM_ARRAY[])
 	delete[] count_array;
 }
 
+// For negative and positive numbers, it does this by subtracting the minimum value from each number before counting it, and then adding the minimum value back when placing the number in the output array.
 void counting_sort_positive_negative(int MAXSIZE, int min_val, int max_val, int RANDOM_ARRAY[])
 {
 	int *output_array = new int[MAXSIZE];
@@ -764,14 +777,59 @@ void counting_sort_positive_negative(int MAXSIZE, int min_val, int max_val, int 
 // Time complexity : O(d(n + k))
 // Where d is the no. of max digits of the largest no. in the digit, n is the no. of elements in the list and k is the range of unique elements.
 
+// This version of the radix_sort function first finds the minimum and maximum values in the array.
+// If the minimum value is non-negative, it applies the counting_sort_radix function as before.
+// If the minimum value is negative, it splits the array into positive and negative numbers, sorts each of these arrays separately using radix sort, and then combines the sorted arrays.
+// When it combines the sorted arrays, it negates the negative numbers again to restore their original sign, and arranges them in decreasing order so that they precede the positive numbers in the sorted array.
+
 // Radix Sort
 void radix_sort(int MAXSIZE, int RANDOM_ARRAY[])
 {
-	int m = max(MAXSIZE, RANDOM_ARRAY);
+	//int m = max(MAXSIZE, RANDOM_ARRAY);
 
-	for (int divide = 1; m / divide > 0; divide *= 10)
+	//for (int divide = 1; m / divide > 0; divide *= 10)
+	//{
+	//	counting_sort_radix(MAXSIZE, 10, divide, RANDOM_ARRAY);
+	//}
+
+	int min_val = *min_element(RANDOM_ARRAY, RANDOM_ARRAY + MAXSIZE);
+	int max_val = *max_element(RANDOM_ARRAY, RANDOM_ARRAY + MAXSIZE);
+
+	if (min_val >= 0) //---------------------------------------------- If array contains only positive numbers
 	{
-		counting_sort_radix(MAXSIZE, 10, divide, RANDOM_ARRAY);
+		for (int divide = 1; max_val / divide > 0; divide *= 10)
+		{
+			counting_sort_radix(MAXSIZE, 10, divide, RANDOM_ARRAY);
+		}
+	}
+	else
+	{
+		vector<int> negatives, positives;
+
+		for (int i = 0; i < MAXSIZE; i++) //-------------------------- Split the array into positive and negative numbers
+		{
+			if (RANDOM_ARRAY[i] < 0)
+			{
+				negatives.push_back(-RANDOM_ARRAY[i]); //------------- Radix sort is unable to handle negative numbers directly because it operates on individual digits, starting from the least significant digit. For negative numbers, it is unclear what it means to sort by individual digits. To resolve this, we take the absolute value of each negative number when storing it in the negatives vector. We do this by applying the unary minus operator - to RANDOM_ARRAY[i]
+			}
+			else
+			{
+				positives.push_back(RANDOM_ARRAY[i]);
+			}
+		}
+		//------------------------------------------------------------ Sort the positive and negative arrays
+		radix_sort(positives.size(), positives.data());
+		radix_sort(negatives.size(), negatives.data());
+		//------------------------------------------------------------ Combine sorted arrays
+		for (int i = 0; i < negatives.size(); i++)
+		{
+			RANDOM_ARRAY[i] = -negatives[negatives.size() - 1 - i]; // We use -negatives[negatives.size() - 1 - i] to take the negative of each number (i.e., restore its original sign) and to index the negatives vector in reverse order (i.e., from the largest to the smallest number). The reason we order the negatives in reverse is because, after sorting, the largest negative number (which is closest to zero) should be placed first in the sorted array, and the smallest negative number (which is furthest from zero) should be placed last among the negative numbers.
+		}
+
+		for (int i = 0; i < positives.size(); i++)
+		{
+			RANDOM_ARRAY[i + negatives.size()] = positives[i];
+		}
 	}
 }
 // If m = 802;
@@ -779,6 +837,11 @@ void radix_sort(int MAXSIZE, int RANDOM_ARRAY[])
 // 802 / 10 = 80 > 0;
 // 802 / 100 = 8 > 0;
 // 802 / 1000 = 0 > 0;
+
+// The - sign in -negatives[negatives.size() - 1 - i] is used to restore the original negative sign of the numbers.
+// This was initially reversed in the line negatives.push_back(-RANDOM_ARRAY[i]) to make sorting of negative numbers possible.
+// The expression negatives.size() - 1 - i inside the square brackets is used to index the negatives vector in reverse order.
+// The negatives.size() - 1 expression gives you the last index in the negatives vector(since array indices in C++ start from 0), and -i is used to traverse the vector backwards from the last index to the first index as i increases from 0 to negatives.size() - 1.
 
 // Counting sort radix
 void counting_sort_radix(int MAXSIZE, int range, int divide, int RANDOM_ARRAY[])
@@ -832,6 +895,7 @@ void counting_sort_radix(int MAXSIZE, int range, int divide, int RANDOM_ARRAY[])
 	delete[] output_array;
 	delete[] count_array;
 }
+
 // output_array[count_array[(RANDOM_ARRAY[i] / divide) % 10] - 1] = RANDOM_ARRAY[i];
 // output_array[count_array[(802             / 1     ) % 10] - 1] = 802;
 // output_array[count_array[(802                     ) % 10] - 1] = 802;
@@ -859,6 +923,20 @@ int max(int size, int array[])
 		}
 	}
 	return max;
+}
+
+// Get the min element in the array
+int min(int size, int array[])
+{
+	int min = array[0];
+	for (int i = 1; i < size; i++)
+	{
+		if (min > array[i])
+		{
+			min = array[i];
+		}
+	}
+	return min;
 }
 // O(n+k)
 // Worst-case scenario
@@ -968,13 +1046,13 @@ void swap(int &value1, int &value2)
 }
 
 // Get the index of a left child
-int left_child(int i) const
+int left_child(int i)
 {
 	return  (2 * i) + 1;
 }
 
 // Get the index of a right child
-int right_child(int i) const
+int right_child(int i)
 {
 	return (2 * i) + 2;
 }
@@ -999,14 +1077,14 @@ void min_heapify(int i, int MAXSIZE, int RANDOM_ARRAY[])
 	if (smallest != i) //-------------------------------------------------------------- Check if the smallest value is at the root position
 	{
 		swap(RANDOM_ARRAY[i], RANDOM_ARRAY[smallest]);
-		min_heapify(smallest); //------------------------------------------------------ Recursively call the same function but for the swapped element, keep in mind after the swap we have now on the position of the smallest the value that was previously on the root
+		min_heapify(smallest, MAXSIZE, RANDOM_ARRAY); //------------------------------- Recursively call the same function but for the swapped element, keep in mind after the swap we have now on the position of the smallest the value that was previously on the root
 	}
 }
 
 // Heapify the array before sorting
 void heapify(int MAXSIZE, int RANDOM_ARRAY[])
 {
-	for(int i = MAXSIZE / 2 - 1; i >= 0; i--)
+	for (int i = MAXSIZE / 2 - 1; i >= 0; i--)
 	{
 		min_heapify(i, MAXSIZE, RANDOM_ARRAY);
 	}
@@ -1015,32 +1093,35 @@ void heapify(int MAXSIZE, int RANDOM_ARRAY[])
 // Extract min heap
 int extract_min(int &MAXSIZE, int RANDOM_ARRAY[])
 {
-	if (is_empty())
+	if (MAXSIZE == 0)
 	{
 		return 0;
 	}
+
 	if (MAXSIZE == 1) //------------------------ If we have only one element
 	{
 		MAXSIZE--;
 		return RANDOM_ARRAY[0];
 	}
+
 	//------------------------------------------ If we have more than one element
 	int root = RANDOM_ARRAY[0];
 	RANDOM_ARRAY[0] = RANDOM_ARRAY[MAXSIZE - 1];
 	RANDOM_ARRAY[MAXSIZE - 1] = 0;
 	MAXSIZE--;
-	min_heapify(0); //-------------------------- Recreate the new heap data structure starting from the root
+	min_heapify(0, MAXSIZE, RANDOM_ARRAY); //--- Recreate the new heap data structure starting from the root
 	return root;
 }
 
 // Heap sort
 void heap_sort(int &MAXSIZE, int RANDOM_ARRAY[])
 {
-	//int temp[MAXSIZE];
+	int temp_size = MAXSIZE;
+
 	int *temp = new int[MAXSIZE];
 	for (int i = 0; i < MAXSIZE; i++)
 	{
-		temp[i] = extract_min(MAXSIZE, RANDOM_ARRAY);
+		temp[i] = extract_min(temp_size, RANDOM_ARRAY);
 	}
 
 	for (int i = 0; i < MAXSIZE; i++)

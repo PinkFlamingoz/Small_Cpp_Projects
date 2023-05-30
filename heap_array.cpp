@@ -19,11 +19,23 @@ using namespace std;
 //		heap[ ( 2 * i ) + 1 ] Returns the LEFT child node
 //		heap[ ( 2 * i ) + 2 ] Returns the RIGHT child node
 //
-// Heap sort is a comparison based sorting technique based on Binary Heap data structure. 
-// It is similar to selection sort where we first find the minimum element and place the minimum element at the beginning. 
+// Heap sort is a comparison based sorting technique based on Binary Heap data structure.
+// It is similar to selection sort where we first find the minimum element and place the minimum element at the beginning.
 // We repeat the same process for the remaining elements.
 
 // Classes
+// NOTE: This is min heap implementation if you wanna change for max heap change the following functions:
+// - In insert() function -> change set_root_biggest(i);
+// - In make_min_or_max() function -> change set_root_biggest(i);
+// - In delete_data() function -> change make_min_or_max(data, INT_MAX); extract_max();
+// - Swap the extract_min() and extract_max() functions
+// - When you have swapped the functions in the new extract_max() function -> change max_heapify(0);
+// - The function show_max() will give us now the smallest element
+// - And the get_root() function will give us the biggest element
+// - In heapify() function -> change max_heapify(i);
+// - In heap_sort() function -> change extract_max();
+// - Swap out the is_min_heap_sorted() function with is_max_heap_sorted() function
+// - Swap out is_valid_min_heap() function with is_valid_max_heap() function
 template < typename T>
 class Heap
 {
@@ -66,12 +78,12 @@ class Heap
 		return size;
 	}
 
-	// Get the size of the stack we want to create
+	// Get the size of the heap we want to create
 	int get_heap_size()
 	{
 		do
 		{
-			size = get_valid_input<int>("Enter stack size: ");
+			size = get_valid_input<int>("Enter heap size: ");
 		} while (size < 1);
 		return size;
 	}
@@ -131,20 +143,20 @@ class Heap
 		int start = 0;
 		int end = count;
 
-		while (start <= end) 
+		while (start <= end)
 		{
-			int mid = start + (end - start) / 2; 
+			int mid = start + (end - start) / 2;
 
-			if (arr[mid] == data) 
+			if (arr[mid] == data)
 			{
 				cout << "[" << mid << "]: ";
 				return arr[mid];
 			}
-			else if (arr[mid] < data) 
+			else if (arr[mid] < data)
 			{
 				start = mid + 1;
 			}
-			else if (arr[mid] > data) 
+			else if (arr[mid] > data)
 			{
 				end = mid - 1;
 			}
@@ -153,7 +165,7 @@ class Heap
 		return T();
 	}
 
-	// Get the index
+	// Get the index of a element in the heap data structure and limit it by the count size so the user doesn't select something out of bounds
 	int get_index(string prompt) const
 	{
 		int index = 0;
@@ -175,7 +187,7 @@ class Heap
 	{
 		int index = get_index("Enter index of node you wish to see parent of: ");
 
-		cout << "\nParent of [" << index << "]: " << arr[index] << " is : " << arr[parent(index)] << endl;
+		cout << "\nParent of [" << index << "]: " << arr[index] << " is : [" << parent(index) << "]: " << arr[parent(index)] << endl;
 	}
 
 	// Get the index of a left child
@@ -201,23 +213,26 @@ class Heap
 		if (left_index > size - 1)
 		{
 			cout << "\nLeft child does not exist!" << endl;
-			left_index = 0;
+		}
+		else
+		{
+			cout << "\nLeft child of [" << index << "]: " << arr[index] << " is : [" << left_index << "]: " << arr[left_index] << endl;
 		}
 
 		if (right_index > size - 1)
 		{
 			cout << "\nRight child does not exist!" << endl;
-			right_index = 0;
 		}
-
-		cout << "\nLeft child of [" << index << "]: " << arr[index] << " is : " << arr[left_index] << endl;
-		cout << "\nRight child of [" << index << "]: " << arr[index] << " is : " << arr[right_index] << endl;
+		else
+		{
+			cout << "\nRight child of [" << index << "]: " << arr[index] << " is : [" << right_index << "]: " << arr[right_index] << endl;
+		}
 	}
 
 	// Make the parent smallest
 	void set_root_smallest(int i)
 	{
-		while (i != 0 && arr[parent(i)] > arr[i]) // Make sure the parent is smaller than the child in min heap, do the opposite for max heap ( and also the extract min and max functions have to be swapped and also the show max and min functions )
+		while (i != 0 && arr[parent(i)] > arr[i]) // Make sure the parent is smaller than the child in min heap
 		{
 			swap(arr[i], arr[parent(i)]);
 			i = parent(i); //----------------------- Check now for the swapped value if its again smaller than its ancestors
@@ -227,14 +242,14 @@ class Heap
 	// Make the parent biggest
 	void set_root_biggest(int i)
 	{
-		while (i != 0 && arr[parent(i)] < arr[i]) // Make sure the parent is bigger than the child in min heap, do the opposite for min heap ( and also the extract min and max functions have to be swapped and also the show max and min functions )
+		while (i != 0 && arr[parent(i)] < arr[i]) // Make sure the parent is bigger than the child in max heap
 		{
 			swap(arr[i], arr[parent(i)]);
 			i = parent(i); //----------------------- Check now for the swapped value if its again smaller than its ancestors
 		}
 	}
 
-	// Insert
+	// Insert min heap
 	void insert(T data)
 	{
 		if (is_full())
@@ -243,15 +258,15 @@ class Heap
 			return;
 		}
 
-		int i = count; //------------------------------------- Get the index of the next value in line to add
+		int i = count; //------------------------------------ Get the index of the next value in line to add
 		arr[i] = data;
 		count++;
 
-		set_root_smallest(i);
+		cout << "\nData: " << arr[i] << " inserted!" << endl;
 
-		cout << "\nValue: " << arr[i] << " inserted!" << endl;
+		set_root_smallest(i); //----------------------------- Make the parent smallest
 	}
-	
+
 	// Make the node we want to delete the smallest and then swap it in the position of the root
 	void make_min_or_max(int i, int new_value)
 	{
@@ -260,11 +275,13 @@ class Heap
 		// set_root_biggest(i); use this for max
 	}
 
-	// Delete node by making the node we want to delete the smallest in the data structure and swap it to the root position then simply just extract it 
+	// Delete node by making the node we want to delete the smallest in the data structure and swap it to the root position then simply just extract it
 	void delete_data(T data)
 	{
-		make_min_or_max(data,INT_MIN); 
+		make_min_or_max(data, INT_MIN);
 		extract_min();
+
+		cout << "\nNode deleted!" << endl;
 	}
 
 	// Min heapify
@@ -284,7 +301,7 @@ class Heap
 			smallest = right_index;
 		}
 
-		if (smallest != i) //------------------------------------------ Check if the smallest value is at the root position
+		if (smallest != i) //------------------------------------------ Check if the smallest value is at the root position if its not we have found a smaller value
 		{
 			swap(arr[i], arr[smallest]);
 			min_heapify(smallest); //---------------------------------- Recursively call the same function but for the swapped element, keep in mind after the swap we have now on the position of the smallest the value that was previously on the root
@@ -308,7 +325,7 @@ class Heap
 			biggest = right_index;
 		}
 
-		if (biggest != i) //------------------------------------------ Check if the biggest value is at the root position
+		if (biggest != i) //------------------------------------------ Check if the biggest value is at the root position if its not we have found a bigger value
 		{
 			swap(arr[i], arr[biggest]);
 			max_heapify(biggest); //---------------------------------- Recursively call the same function but for the swapped element, keep in mind after the swap we have now on the position of the biggest the value that was previously on the root
@@ -340,10 +357,10 @@ class Heap
 		return root;
 	}
 
-	// Show the max NOTE: This will be the root if we implement the max heap and root is at arr[0]
-	T show_max() const
+	// Show the max
+	T show_max()
 	{
-		if(!is_min_heap_sorted())
+		if (!is_min_heap_sorted())
 		{
 			heap_sort();
 		}
@@ -351,7 +368,7 @@ class Heap
 		return arr[count - 1];
 	}
 
-	// Extract max heap 
+	// Extract max heap
 	T extract_max()
 	{
 		if (is_empty())
@@ -359,7 +376,7 @@ class Heap
 			return 0;
 		}
 
-		if(!is_min_heap_sorted())
+		if (!is_min_heap_sorted())
 		{
 			heap_sort();
 		}
@@ -381,7 +398,7 @@ class Heap
 	// Heapify the array before sorting
 	void heapify()
 	{
-		for(int i = size / 2 - 1; i >= 0; i--)
+		for (int i = size / 2 - 1; i >= 0; i--)
 		{
 			min_heapify(i);
 		}
@@ -389,74 +406,106 @@ class Heap
 
 	// Heap sort
 	void heap_sort()
-	{	
-		int *temp = new int[count];
-		for (int i = 0; i < count; i++)
+	{
+		int temp_count = count;
+
+		int *temp = new int[size];
+		for (int i = 0; i < size; i++)
 		{
 			temp[i] = extract_min();
 		}
 
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i < size; i++)
 		{
 			arr[i] = temp[i];
 		}
+
+		count = temp_count;
+
+		cout << "\nHeap sorted!" << endl;
 
 		delete[] temp;
 	}
 
 	// Check if a min heap is sorted
-	bool is_min_heap_sorted() 
+	bool is_min_heap_sorted()
 	{
-    	for (int i = 0; i < count; i++) 
+		for (int i = 0; i < count - 1; i++)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// Check if a max heap is sorted
+	bool is_max_heap_sorted()
+	{
+		for (int i = 0; i < count - 1; i++)
+		{
+			if (arr[i] < arr[i + 1])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// Check if its a valid min heap
+	bool is_valid_min_heap()
+	{
+		for (int i = 0; i < count; i++)
 		{
 			int left_index = left_child(i);
 			int right_index = right_child(i);
 
-        	if (left_index < count && arr[left_index] < arr[i]) //-- Check if left child exists and is smaller than the parent
+			if (left_index < count && arr[left_index] < arr[i]) //-- Check if left child exists and is smaller than the parent
 			{
-            	return false;
-        	}
+				return false;
+			}
 
-        	if (right_index < count && arr[right_index] < arr[i]) // Check if right child exists and is smaller than the parent
+			if (right_index < count && arr[right_index] < arr[i]) // Check if right child exists and is smaller than the parent
 			{
-            	return false;
-        	}
-    	}
-    	return true;
+				return false;
+			}
+		}
+		return true;
 	}
 
-	// Check if a max heap is sorted
-	bool is_max_heap_sorted() 
+	// Check if its a valid max heap
+	bool is_valid_max_heap()
 	{
-    	for (int i = 0; i < count; i++) 
+		for (int i = 0; i < count; i++)
 		{
-        	int left_index = left_child(i);
+			int left_index = left_child(i);
 			int right_index = right_child(i);
 
-        	if (left_index < count && arr[left_index] > arr[i]) //-- Check if left child exists and is bigger than the parent
+			if (left_index < count && arr[left_index] > arr[i]) //-- Check if left child exists and is bigger than the parent
 			{
-            	return false;
-        	}
+				return false;
+			}
 
-        	if (right_index < count && arr[right_index] > arr[i]) // Check if right child exists and is bigger than the parent
+			if (right_index < count && arr[right_index] > arr[i]) // Check if right child exists and is bigger than the parent
 			{
-            	return false;
-        	}
-    	}
-    	return true;
+				return false;
+			}
+		}
+		return true;
 	}
 
 	// Change a value in a current position
 	void change(int position, T data)
 	{
-		if (position > count || position < 0)
+		if (position >= count || position < 0)
 		{
 			cerr << "\nHeap out of bounds!" << endl;
 		}
 		else
 		{
 			arr[position] = data;
-			cout << "\nValue changed at location: " << position << endl;
+			cout << "\nData changed at location: " << position << endl;
 		}
 	}
 
@@ -469,7 +518,9 @@ class Heap
 	// Get height of a node
 	int height_of_node() const
 	{
-		return log2(get_index("Enter index of node you wish to see height of: ") + 1);
+		int node_depth = floor(log2(get_index("Enter index of node you wish to see height of: ") + 1));
+		int height_of_heap = height();
+		return height_of_heap - node_depth;
 	}
 
 	// Get depth of a node
@@ -496,7 +547,6 @@ int main()
 {
 	Heap<int> h1;
 	int choice = 0;
-	int index = 0;
 	int data = 0;
 	do
 	{
@@ -510,15 +560,14 @@ int main()
 				h1.insert(get_valid_input<int>("Enter data to insert: "));
 				break;
 			case 2:
-				if(!is_min_heap_sorted())
-				{
-					h1.heap_sort();
-				}
 				data = h1.linear_search(get_valid_input<int>("Enter data to search for: "));
 				cout << "Data found: " << data << endl;
 				break;
 			case 3:
-				if ()
+				if (!h1.is_min_heap_sorted())
+				{
+					h1.heap_sort();
+				}
 				data = h1.binary_search(get_valid_input<int>("Enter data to search for: "));
 				cout << "Data found: " << data << endl;
 				break;
@@ -526,8 +575,14 @@ int main()
 				h1.heap_sort();
 				break;
 			case 5:
-				index = get_index("Enter index of data to delete: ");
-				h1.delete_data(index);
+				if (h1.is_empty())
+				{
+					cout << "Heap is empty!" << endl;
+				}
+				else
+				{
+					h1.delete_data(h1.get_index("Enter index of data to delete: "));
+				}
 				break;
 			case 6:
 				if (h1.is_empty())
@@ -536,7 +591,7 @@ int main()
 				}
 				else
 				{
-					cout << "Min node is the root node: " << h1.get_root() << endl; // This will be the last node if we implement max heap
+					cout << "Min node is the root node: " << h1.get_root() << endl;
 				}
 				break;
 			case 7:
@@ -599,19 +654,29 @@ int main()
 				}
 				break;
 			case 15:
-				if(is_min_heap_sorted())
+				if (h1.is_min_heap_sorted())
 				{
 					cout << "Heap is sorted!" << endl;
 				}
 				else
 				{
-					cout << "Heap is not sorted!"<< endl;
+					cout << "Heap is not sorted!" << endl;
 				}
 				break;
 			case 16:
-				cout << "Total elements in heap: " << h1.get_count() << endl;
+				if (h1.is_valid_min_heap())
+				{
+					cout << "Min heap is valid!" << endl;
+				}
+				else
+				{
+					cout << "Min heap is not valid!" << endl;
+				}
 				break;
 			case 17:
+				cout << "Total elements in heap: " << h1.get_count() << endl;
+				break;
+			case 18:
 				if (h1.is_empty())
 				{
 					cout << "Heap is empty!" << endl;
@@ -621,19 +686,19 @@ int main()
 					cout << "Root of heap is: " << h1.get_root() << endl;
 				}
 				break;
-			case 18:
+			case 19:
 				h1.show_parent();
 				break;
-			case 19:
+			case 20:
 				h1.show_children();
 				break;
-			case 20:
-				h1.height_of_node();
-				break;
 			case 21:
-				h1.depth_of_node();
+				cout << h1.height_of_node() << " is height!" << endl;
 				break;
 			case 22:
+				cout << h1.depth_of_node() << " is depth!" << endl;
+				break;
+			case 23:
 				if (h1.is_empty())
 				{
 					cout << "Heap is empty!" << endl;
@@ -643,7 +708,7 @@ int main()
 					h1.display();
 				}
 				break;
-			case 23:
+			case 24:
 				system("cls");
 				break;
 			default:
@@ -675,14 +740,15 @@ void print_menu()
 	cout << "13. Is the heap full" << endl;
 	cout << "14. Is the heap empty" << endl;
 	cout << "15. Is the heap sorted" << endl;
-	cout << "16. Show count" << endl;
-	cout << "17. Show root" << endl;
-	cout << "18. Show parent of a node" << endl;
-	cout << "19. Show children of a node" << endl;
-	cout << "20. Show height of a node" << endl;
-	cout << "21. Show depth of a node" << endl;
-	cout << "22. Print Heap array" << endl;
-	cout << "23. Clear Screen" << endl << endl;
+	cout << "16. Is the min heap valid" << endl;
+	cout << "17. Show count" << endl;
+	cout << "18. Show root" << endl;
+	cout << "19. Show parent of a node" << endl;
+	cout << "20. Show children of a node" << endl;
+	cout << "21. Show height of a node" << endl;
+	cout << "22. Show depth of a node" << endl;
+	cout << "23. Print Heap array" << endl;
+	cout << "24. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -692,6 +758,6 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 23);
+	} while (choice < 0 || choice > 24);
 	return choice;
 }
