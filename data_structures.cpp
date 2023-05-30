@@ -134,17 +134,6 @@ template <typename T>
 void bubble_sort_dll(dll_node<T> *&list);
 //* Doubly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
 
-//* Binary search tree ---------------------------------------------------------------------------------------------------------------------------
-template <typename T>
-void insert_bst(dll_node<T> *&list, T value);
-
-template <typename T>
-void print_bst(dll_node<T> *list);
-
-template <typename T>
-void delete_bst(dll_node<T> *&list);
-//* Binary search tree ---------------------------------------------------------------------------------------------------------------------------
-
 int main()
 {
 	/*
@@ -901,71 +890,3 @@ void bubble_sort_dll(dll_node<T> *&list)
 	}
 }
 //* Doubly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
-
-//* Binary search tree ---------------------------------------------------------------------------------------------------------------------------
-// Insert like a binary search tree for a dll
-template <typename T>
-void insert_bst(dll_node<T> *&list, T value)
-{
-	dll_node<T> *temp = list;
-	dll_node<T> *previous = list;
-	dll_node<T> *node = new dll_node<T>;
-	node->value = value;
-	node->previous = nullptr;
-	node->next = nullptr;
-
-	if (list == nullptr)
-	{
-		list = node;
-		return;
-	}
-	while (temp != nullptr)
-	{
-		if (temp->value > value)
-		{
-			previous = temp;
-			temp = temp->previous;
-		}
-		else if (temp->value < value)
-		{
-			previous = temp;
-			temp = temp->next;
-		}
-	}
-	if (previous->value > value)
-	{
-		previous->previous = node;
-	}
-	else
-	{
-		previous->next = node;
-	}
-}
-
-// Print the binary search tree
-template <typename T>
-void print_bst(dll_node<T> *list)
-{
-	if (list == nullptr)
-	{
-		return;
-	}
-	print_binary_tree_dll(list->previous);
-	cout << "Value: " << list->value << " Left: " << list->previous << " Curr: " << list << " Right: " << list->next << endl;
-	cout << "---------" << endl;
-	print_binary_tree_dll(list->next);
-}
-
-// Delete binary search tree
-template <typename T>
-void delete_bst(dll_node<T> *&list)
-{
-	if (list == nullptr)
-	{
-		return;
-	}
-	delete_bst(list->previous);
-	delete_bst(list->next);
-	delete list;
-}
-//* Binary search tree ---------------------------------------------------------------------------------------------------------------------------
