@@ -4,11 +4,11 @@
 
 using namespace std;
 // A Heap is a special Tree - based data structure in which the tree is a complete binary tree.
-// It follows the Heap Property –
+// It follows the Heap Property -
 // Max - Heap: In a Max - Heap the key present at the root node must be greatest among the keys present at all of it's children. The same property must be recursively true for all sub - trees in that Binary Tree.
 // Min - Heap : In a Min - Heap the key present at the root node must be minimum among the keys present at all of it's children. The same property must be recursively true for all sub - trees in that Binary Tree.
 //
-// A heap can be implemented in 2 ways –
+// A heap can be implemented in 2 ways -
 // Tree Node Implementation with pointers
 // Heap as Array Implementation
 //
@@ -18,6 +18,10 @@ using namespace std;
 //		heap[ ( i - 1 ) / 2 ] Returns the PARENT node
 //		heap[ ( 2 * i ) + 1 ] Returns the LEFT child node
 //		heap[ ( 2 * i ) + 2 ] Returns the RIGHT child node
+//
+// Heap sort is a comparison based sorting technique based on Binary Heap data structure. 
+// It is similar to selection sort where we first find the minimum element and place the minimum element at the beginning. 
+// We repeat the same process for the remaining elements.
 
 // Classes
 template < typename T>
@@ -113,6 +117,7 @@ class Heap
 		{
 			if (arr[i] == data)
 			{
+				cout << "[" << i << "]: ";
 				return arr[i];
 			}
 		}
@@ -126,19 +131,20 @@ class Heap
 		int start = 0;
 		int end = count;
 
-		while (start <= end) //------------------------------------------------- Repeat until the (sub)array is of size 0
+		while (start <= end) 
 		{
-			int mid = start + (end - start) / 2; //----------------------------- Calculate the middle point of the current (sub)array
+			int mid = start + (end - start) / 2; 
 
-			if (arr[mid] == data) //-------------------------------------------- If the target is at the middle, stop
+			if (arr[mid] == data) 
 			{
+				cout << "[" << mid << "]: ";
 				return arr[mid];
 			}
-			else if (arr[mid] < data) //---------------------------------------- Otherwise, if the target is greater than what's at the middle, repeat, changing the start point to be just to the right of the middle
+			else if (arr[mid] < data) 
 			{
 				start = mid + 1;
 			}
-			else if (arr[mid] > data) //---------------------------------------- Otherwise, if the target is less than whats at the middle, repeat, changing the end point to be just to the left of the middle
+			else if (arr[mid] > data) 
 			{
 				end = mid - 1;
 			}
@@ -208,26 +214,56 @@ class Heap
 		cout << "\nRight child of [" << index << "]: " << arr[index] << " is : " << arr[right_index] << endl;
 	}
 
+	// Make the parent smallest
+	void set_root_smallest(int i)
+	{
+		while (i != 0 && arr[parent(i)] > arr[i]) // Make sure the parent is smaller than the child in min heap, do the opposite for max heap ( and also the extract min and max functions have to be swapped and also the show max and min functions )
+		{
+			swap(arr[i], arr[parent(i)]);
+			i = parent(i); //----------------------- Check now for the swapped value if its again smaller than its ancestors
+		}
+	}
+
+	// Make the parent biggest
+	void set_root_biggest(int i)
+	{
+		while (i != 0 && arr[parent(i)] < arr[i]) // Make sure the parent is bigger than the child in min heap, do the opposite for min heap ( and also the extract min and max functions have to be swapped and also the show max and min functions )
+		{
+			swap(arr[i], arr[parent(i)]);
+			i = parent(i); //----------------------- Check now for the swapped value if its again smaller than its ancestors
+		}
+	}
+
 	// Insert
 	void insert(T data)
 	{
 		if (is_full())
 		{
-			cout << "\nOverflow heap is full!" << endl;
+			cout << "\nOverflow, heap is full!" << endl;
 			return;
 		}
 
-		int i = count; //----------------------------------- Get the index of the next value in line to add
+		int i = count; //------------------------------------- Get the index of the next value in line to add
 		arr[i] = data;
 		count++;
 
-		while (i != 0 && arr[parent(i)] > arr[i]) //-------- Make sure the parent is bigger than the child in min heap, do the opposite for max heap ( and also the extract min and max functions have to be swapped and also the show max and min functions )
-		{
-			swap(arr[i], arr[parent(i)]);
-			i = parent(i); //------------------------------- Check now for the swapped value if its again smaller than its ancestors
-		}
+		set_root_smallest(i);
 
 		cout << "\nValue: " << arr[i] << " inserted!" << endl;
+	}
+	
+	// Make the node we want to delete the smallest and then swap it in the position of the root
+	void make_smallest(int i, int minimum_integer_value)
+	{
+		arr[i] = minimum_integer_value;
+		set_root_smallest(i);
+	}
+
+	// Delete node by making the node we want to delete the smallest in the data structure and swap it to the root position then simply just extract it 
+	void delete_data(T data)
+	{
+		make_smallest(data,INT_MIN); 
+		extract_min();
 	}
 
 	// Min heapify
@@ -303,13 +339,13 @@ class Heap
 		return root;
 	}
 
-	// Show the max NOTE: This will be the root if we implement the max heap
+	// Show the max NOTE: This will be the root if we implement the max heap and root is at arr[0] // This wont work if the shit is not sortet !!!!
 	T show_max() const
 	{
 		return arr[count - 1];
 	}
 
-	// Extract max heap
+	// Extract max heap // This wont work if the shit is not sortet !!!!
 	T extract_max()
 	{
 		if (is_empty())
@@ -317,13 +353,13 @@ class Heap
 			return 0;
 		}
 
-		if (count == 1) //------ If we have only one element
+		if (count == 1) //----- If we have only one element
 		{
 			count--;
 			return arr[0];
 		}
 
-		//---------------------- If we have more than one element
+		//--------------------- If we have more than one element
 		T max = arr[count - 1];
 		arr[count - 1] = 0;
 		count--;
@@ -369,6 +405,7 @@ int main()
 {
 	Heap<int> h1;
 	int choice = 0;
+	int index = 0;
 	int data = 0;
 	do
 	{
@@ -392,6 +429,8 @@ int main()
 			case 4:
 				break;
 			case 5:
+				index = get_index("Enter index of data to delete: ");
+				h1.delete_data(index);
 				break;
 			case 6:
 				if (h1.is_empty())
@@ -518,7 +557,7 @@ void print_menu()
 	cout << "2. Linear search" << endl;
 	cout << "3. Binary search" << endl;
 	cout << "4. Sort heap" << endl;// not
-	cout << "5. Delete node" << endl;// not
+	cout << "5. Delete node" << endl;
 	cout << "6. Get min" << endl;
 	cout << "7. Extract min" << endl;
 	cout << "8. Get max" << endl;
