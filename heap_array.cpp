@@ -340,13 +340,18 @@ class Heap
 		return root;
 	}
 
-	// Show the max NOTE: This will be the root if we implement the max heap and root is at arr[0] // This wont work if the shit is not sortet !!!!
+	// Show the max NOTE: This will be the root if we implement the max heap and root is at arr[0]
 	T show_max() const
 	{
+		if(!is_min_heap_sorted())
+		{
+			h1.heap_sort();
+		}
+
 		return arr[count - 1];
 	}
 
-	// Extract max heap // This wont work if the shit is not sortet !!!!
+	// Extract max heap 
 	T extract_max()
 	{
 		if (is_empty())
@@ -354,13 +359,18 @@ class Heap
 			return 0;
 		}
 
-		if (count == 1) //----- If we have only one element
+		if(!is_min_heap_sorted())
+		{
+			h1.heap_sort();
+		}
+
+		if (count == 1) //------- If we have only one element
 		{
 			count--;
 			return arr[0];
 		}
 
-		//--------------------- If we have more than one element
+		//----------------------- If we have more than one element
 		T max = arr[count - 1];
 		arr[count - 1] = 0;
 		count--;
@@ -423,13 +433,12 @@ class Heap
         	int left_index = left_child(i);
 			int right_index = right_child(i);
 
-        	if (left_index < count && arr[left_index] > arr[i]) //-- Check if left child exists and is greater than the parent
+        	if (left_index < count && arr[left_index] > arr[i]) //-- Check if left child exists and is bigger than the parent
 			{
             	return false;
         	}
 
-        	
-        	if (right_index < count && arr[right_index] > arr[i]) // Check if right child exists and is greater than the parent
+        	if (right_index < count && arr[right_index] > arr[i]) // Check if right child exists and is bigger than the parent
 			{
             	return false;
         	}
@@ -509,6 +518,7 @@ int main()
 				cout << "Data found: " << data << endl;
 				break;
 			case 4:
+				h1.heap_sort();
 				break;
 			case 5:
 				index = get_index("Enter index of data to delete: ");
@@ -584,6 +594,14 @@ int main()
 				}
 				break;
 			case 15:
+				if(is_min_heap_sorted())
+				{
+					cout << "Heap is sorted!" << endl;
+				}
+				else
+				{
+					cout << "Heap is not sorted!"<< endl;
+				}
 				break;
 			case 16:
 				cout << "Total elements in heap: " << h1.get_count() << endl;
@@ -651,7 +669,7 @@ void print_menu()
 	cout << "12. Show size of heap" << endl;
 	cout << "13. Is the heap full" << endl;
 	cout << "14. Is the heap empty" << endl;
-	cout << "15. Is the heap sorted" << endl;// not
+	cout << "15. Is the heap sorted" << endl;
 	cout << "16. Show count" << endl;
 	cout << "17. Show root" << endl;
 	cout << "18. Show parent of a node" << endl;
