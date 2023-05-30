@@ -345,7 +345,7 @@ class Heap
 	{
 		if(!is_min_heap_sorted())
 		{
-			h1.heap_sort();
+			heap_sort();
 		}
 
 		return arr[count - 1];
@@ -361,7 +361,7 @@ class Heap
 
 		if(!is_min_heap_sorted())
 		{
-			h1.heap_sort();
+			heap_sort();
 		}
 
 		if (count == 1) //------- If we have only one element
@@ -510,10 +510,15 @@ int main()
 				h1.insert(get_valid_input<int>("Enter data to insert: "));
 				break;
 			case 2:
+				if(!is_min_heap_sorted())
+				{
+					h1.heap_sort();
+				}
 				data = h1.linear_search(get_valid_input<int>("Enter data to search for: "));
 				cout << "Data found: " << data << endl;
 				break;
-			case 3:// add if sorted check
+			case 3:
+				if ()
 				data = h1.binary_search(get_valid_input<int>("Enter data to search for: "));
 				cout << "Data found: " << data << endl;
 				break;
