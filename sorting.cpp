@@ -239,6 +239,33 @@ int main()
 
 	cout << endl << "Time took for merge sort: " << elapsed_seconds8 << endl;
 
+	// Heap ------------------------------------------------------------------------------------------------------
+	cout << endl;
+	cout << "---------------- Heap -------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+
+	random_array(size, RANDOM_ARRAY);
+	cout << "Unsorted array: ";
+	print_array(size, RANDOM_ARRAY);
+	cout << endl;
+
+	heapify(size,RANDOM_ARRAY);
+	cout << "Heapify array: ";
+	print_array(size, RANDOM_ARRAY);
+
+	auto start8 = chrono::high_resolution_clock::now();
+
+	heap_sort(size, RANDOM_ARRAY);
+	
+	auto end8 = chrono::high_resolution_clock::now();
+	
+	auto elapsed_seconds8 = chrono::duration_cast<chrono::duration<double>>(end8 - start8).count();
+	
+	cout << "Sorted array:   ";
+	print_array(size, RANDOM_ARRAY);
+	
+	cout << endl << "Time took for merge sort: " << elapsed_seconds8 << endl;
+
 	delete[] RANDOM_ARRAY;
 
 	return 0;
@@ -930,3 +957,102 @@ void shell_sort(int MAXSIZE, int RANDOM_ARRAY[])
 
 // O(n log n)
 // Best-case scenario
+
+//* Heap sort
+// Swap values
+void swap(int &value1, int &value2)
+{
+	int temp = value1;
+	value1 = value2;
+	value2 = temp;
+}
+
+// Get the index of a left child
+int left_child(int i) const
+{
+	return  (2 * i) + 1;
+}
+
+// Get the index of a right child
+int right_child(int i) const
+{
+	return (2 * i) + 2;
+}
+
+// Min heapify
+void min_heapify(int i, int MAXSIZE, int RANDOM_ARRAY[])
+{
+	int left_index = left_child(i);
+	int right_index = right_child(i);
+	int smallest = i;
+
+	if (left_index < MAXSIZE && RANDOM_ARRAY[left_index] < RANDOM_ARRAY[smallest]) //-- Check if the left child is smaller than the new root, if it is make the smallest index be that left child
+	{
+		smallest = left_index;
+	}
+
+	if (right_index < MAXSIZE && RANDOM_ARRAY[right_index] < RANDOM_ARRAY[smallest]) // Check if the right child is smaller than the new root or its sibling (if the left child previously was smaller), if it is make the smallest index be that right child
+	{
+		smallest = right_index;
+	}
+
+	if (smallest != i) //-------------------------------------------------------------- Check if the smallest value is at the root position
+	{
+		swap(RANDOM_ARRAY[i], RANDOM_ARRAY[smallest]);
+		min_heapify(smallest); //------------------------------------------------------ Recursively call the same function but for the swapped element, keep in mind after the swap we have now on the position of the smallest the value that was previously on the root
+	}
+}
+
+// Heapify the array before sorting
+void heapify(int MAXSIZE, int RANDOM_ARRAY[])
+{
+	for(int i = MAXSIZE / 2 - 1; i >= 0; i--)
+	{
+		min_heapify(i, MAXSIZE, RANDOM_ARRAY);
+	}
+}
+
+// Extract min heap
+int extract_min(int &MAXSIZE, int RANDOM_ARRAY[])
+{
+	if (is_empty())
+	{
+		return 0;
+	}
+	if (MAXSIZE == 1) //------------------------ If we have only one element
+	{
+		MAXSIZE--;
+		return RANDOM_ARRAY[0];
+	}
+	//------------------------------------------ If we have more than one element
+	int root = RANDOM_ARRAY[0];
+	RANDOM_ARRAY[0] = RANDOM_ARRAY[MAXSIZE - 1];
+	RANDOM_ARRAY[MAXSIZE - 1] = 0;
+	MAXSIZE--;
+	min_heapify(0); //-------------------------- Recreate the new heap data structure starting from the root
+	return root;
+}
+
+// Heap sort
+void heap_sort(int &MAXSIZE, int RANDOM_ARRAY[])
+{
+	//int temp[MAXSIZE];
+	int *temp = new int[MAXSIZE];
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		temp[i] = extract_min(MAXSIZE, RANDOM_ARRAY);
+	}
+
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		RANDOM_ARRAY[i] = temp[i];
+	}
+
+	delete[] temp;
+}
+// O(n log n)
+// Worst-case scenario:
+
+// Ω(n log n)
+// Best-case scenario:
+//* Heap sort

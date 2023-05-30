@@ -253,16 +253,17 @@ class Heap
 	}
 	
 	// Make the node we want to delete the smallest and then swap it in the position of the root
-	void make_smallest(int i, int minimum_integer_value)
+	void make_min_or_max(int i, int new_value)
 	{
-		arr[i] = minimum_integer_value;
+		arr[i] = new_value;
 		set_root_smallest(i);
+		// set_root_biggest(i); use this for max
 	}
 
 	// Delete node by making the node we want to delete the smallest in the data structure and swap it to the root position then simply just extract it 
 	void delete_data(T data)
 	{
-		make_smallest(data,INT_MIN); 
+		make_min_or_max(data,INT_MIN); 
 		extract_min();
 	}
 
@@ -367,6 +368,75 @@ class Heap
 		return max;
 	}
 
+	// Heapify the array before sorting
+	void heapify()
+	{
+		for(int i = size / 2 - 1; i >= 0; i--)
+		{
+			min_heapify(i);
+		}
+	}
+
+	// Heap sort
+	void heap_sort()
+	{	
+		int *temp = new int[count];
+		for (int i = 0; i < count; i++)
+		{
+			temp[i] = extract_min();
+		}
+
+		for (int i = 0; i < count; i++)
+		{
+			arr[i] = temp[i];
+		}
+
+		delete[] temp;
+	}
+
+	// Check if a min heap is sorted
+	bool is_min_heap_sorted() 
+	{
+    	for (int i = 0; i < count; i++) 
+		{
+			int left_index = left_child(i);
+			int right_index = right_child(i);
+
+        	if (left_index < count && arr[left_index] < arr[i]) //-- Check if left child exists and is smaller than the parent
+			{
+            	return false;
+        	}
+
+        	if (right_index < count && arr[right_index] < arr[i]) // Check if right child exists and is smaller than the parent
+			{
+            	return false;
+        	}
+    	}
+    	return true;
+	}
+
+	// Check if a max heap is sorted
+	bool is_max_heap_sorted() 
+	{
+    	for (int i = 0; i < count; i++) 
+		{
+        	int left_index = left_child(i);
+			int right_index = right_child(i);
+
+        	if (left_index < count && arr[left_index] > arr[i]) //-- Check if left child exists and is greater than the parent
+			{
+            	return false;
+        	}
+
+        	
+        	if (right_index < count && arr[right_index] > arr[i]) // Check if right child exists and is greater than the parent
+			{
+            	return false;
+        	}
+    	}
+    	return true;
+	}
+
 	// Change a value in a current position
 	void change(int position, T data)
 	{
@@ -385,6 +455,18 @@ class Heap
 	int height() const
 	{
 		return ceil(log2(count + 1)) - 1;
+	}
+
+	// Get height of a node
+	int height_of_node() const
+	{
+		return log2(get_index("Enter index of node you wish to see height of: ") + 1);
+	}
+
+	// Get depth of a node
+	int depth_of_node() const
+	{
+		return floor(log2(get_index("Enter index of node you wish to see depth of: ") + 1));
 	}
 
 	// Print heap
@@ -523,8 +605,10 @@ int main()
 				h1.show_children();
 				break;
 			case 20:
+				h1.height_of_node();
 				break;
 			case 21:
+				h1.depth_of_node();
 				break;
 			case 22:
 				if (h1.is_empty())
@@ -556,7 +640,7 @@ void print_menu()
 	cout << "1. Insert node" << endl;
 	cout << "2. Linear search" << endl;
 	cout << "3. Binary search" << endl;
-	cout << "4. Sort heap" << endl;// not
+	cout << "4. Sort heap" << endl;
 	cout << "5. Delete node" << endl;
 	cout << "6. Get min" << endl;
 	cout << "7. Extract min" << endl;
@@ -572,8 +656,8 @@ void print_menu()
 	cout << "17. Show root" << endl;
 	cout << "18. Show parent of a node" << endl;
 	cout << "19. Show children of a node" << endl;
-	cout << "20. Show height of a node" << endl;// not
-	cout << "21. Show depth of a node" << endl;// not
+	cout << "20. Show height of a node" << endl;
+	cout << "21. Show depth of a node" << endl;
 	cout << "22. Print Heap array" << endl;
 	cout << "23. Clear Screen" << endl << endl;
 }
