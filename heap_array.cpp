@@ -398,7 +398,7 @@ class Heap
 	// Heapify the array before sorting
 	void heapify()
 	{
-		for (int i = size / 2 - 1; i >= 0; i--)
+		for (int i = size / 2 - 1; i >= 0; i--) // Heapify all nodes from bottom to top and exclude the leaf level
 		{
 			min_heapify(i);
 		}
@@ -421,8 +421,6 @@ class Heap
 		}
 
 		count = temp_count;
-
-		cout << "\nHeap sorted!" << endl;
 
 		delete[] temp;
 	}
@@ -573,6 +571,7 @@ int main()
 				break;
 			case 4:
 				h1.heap_sort();
+				cout << "Heap sorted!" << endl;
 				break;
 			case 5:
 				if (h1.is_empty())
@@ -687,16 +686,44 @@ int main()
 				}
 				break;
 			case 19:
-				h1.show_parent();
+				if (h1.is_empty())
+				{
+					cout << "Heap is empty!" << endl;
+				}
+				else
+				{
+					h1.show_parent();
+				}
 				break;
 			case 20:
-				h1.show_children();
+				if (h1.is_empty())
+				{
+					cout << "Heap is empty!" << endl;
+				}
+				else
+				{
+					h1.show_children();
+				}
 				break;
 			case 21:
-				cout << h1.height_of_node() << " is height!" << endl;
+				if (h1.is_empty())
+				{
+					cout << "Heap is empty!" << endl;
+				}
+				else
+				{
+					cout << h1.height_of_node() << " is height!" << endl;
+				}
 				break;
 			case 22:
-				cout << h1.depth_of_node() << " is depth!" << endl;
+				if (h1.is_empty())
+				{
+					cout << "Heap is empty!" << endl;
+				}
+				else
+				{
+					cout << h1.depth_of_node() << " is depth!" << endl;
+				}
 				break;
 			case 23:
 				if (h1.is_empty())

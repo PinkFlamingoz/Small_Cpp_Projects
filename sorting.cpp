@@ -1084,7 +1084,7 @@ void min_heapify(int i, int MAXSIZE, int RANDOM_ARRAY[])
 // Heapify the array before sorting
 void heapify(int MAXSIZE, int RANDOM_ARRAY[])
 {
-	for (int i = MAXSIZE / 2 - 1; i >= 0; i--)
+	for (int i = MAXSIZE / 2 - 1; i >= 0; i--) // Heapify all nodes from bottom to top and exclude the leaf level
 	{
 		min_heapify(i, MAXSIZE, RANDOM_ARRAY);
 	}
