@@ -426,7 +426,7 @@ class Heap
 	}
 
 	// Check if a min heap is sorted
-	bool is_min_heap_sorted()
+	bool is_min_heap_sorted() const
 	{
 		for (int i = 0; i < count - 1; i++)
 		{
@@ -439,7 +439,7 @@ class Heap
 	}
 
 	// Check if a max heap is sorted
-	bool is_max_heap_sorted()
+	bool is_max_heap_sorted() const
 	{
 		for (int i = 0; i < count - 1; i++)
 		{
@@ -452,7 +452,7 @@ class Heap
 	}
 
 	// Check if its a valid min heap
-	bool is_valid_min_heap()
+	bool is_valid_min_heap() const
 	{
 		for (int i = 0; i < count; i++)
 		{
@@ -473,7 +473,7 @@ class Heap
 	}
 
 	// Check if its a valid max heap
-	bool is_valid_max_heap()
+	bool is_valid_max_heap() const
 	{
 		for (int i = 0; i < count; i++)
 		{

@@ -217,9 +217,9 @@ class Binary_Search_Tree
 	}
 
 	// Parameter constructor
-	Binary_Search_Tree(Node<D> *new_root)
+	Binary_Search_Tree(Node<D> *root)
 	{
-		root = new_root;
+		this->root = root;
 	}
 
 	// Destructor

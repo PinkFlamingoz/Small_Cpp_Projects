@@ -1,4 +1,8 @@
 #include <iostream>
+#include <list>
+#include <vector>
+#include <iterator>
+#include <alghoritam>
 #include "basic_functions.h"
 
 using namespace std;
@@ -70,6 +74,20 @@ using namespace std;
 // The weights of edges can be represented as lists of pairs.
 // Adjacency lists are not well suited for parallelism since the lists require that we traverse the neighbors of a vertex sequentially.
 //
+// Pros:
+//  Requires less space compared to the adjacency matrix representation. It typically takes O(V + E) space, where V is the number of vertices and E is the number of edges.
+//  Efficient for sparse graphs, as it only stores information about existing edges.
+//  Adding a vertex is straightforward and takes O(1) time.
+//  Adding an edge takes O(1) time if the list is implemented as an array or a linked list.
+// Cons:
+//  Traversing all the edges in the graph takes O(V + E) time, which can be slower compared to the adjacency matrix representation's O(V^2) time for dense graphs.
+//  Checking for the existence of an edge between two vertices can take O(degree(u)) time, where degree(u) is the number of edges adjacent to vertex 'u'.
+//  Removing an edge takes O(degree(u)) time.
+//  The implementation and understanding can be slightly more complex compared to the adjacency matrix representation.
+//
+// Overall, the adjacency list representation is commonly used when dealing with sparse graphs, as it provides efficient space usage and supports most graph operations efficiently. 
+// However, it may not be as suitable for dense graphs or scenarios where frequent edge existence checks or edge removals are required.
+//
 // BFS -
 // In this traversal algorithm one node is selected and then all of the adjacent nodes are visited one by one. 
 // After completing all of the adjacent vertices, it moves further to check another vertices and checks its adjacent vertices again.
@@ -95,33 +113,175 @@ using namespace std;
 
 // Classes
 template < typename T>
-class Heap
+class Edge
 {
 	private:
 	// Member variables
+	T connection_vertex_key;
+	int weight;
 
 	public:
 	// Member functions
+	
+	// Constructor
+	Edge()
+	{
+		connection_vertex_key = T();
+		weight = 0;
+	}
+
+	// Parameter constructor
+	Edge(T connection_vertex_key, int weight)
+	{
+		this->connection_vertex_key = connection_vertex_key;
+		this->weight = weight;
+	}
+
+	// Get the edge connection
+	T get_connection_vertex_key() const
+	{
+		return connection_vertex_key;
+	}
+
+	// Get the weight of the edge
+	int get_edge_weight() const
+	{
+		return weight;
+	}
+
+	// Set the edge connection
+	void set_connection_vertex_key(T connection_vertex_key )
+	{
+		this->connection_vertex_key = connection_vertex_key;
+	}
+
+	// Set the weight of the edge
+	void set_edge_weight(int weight)
+	{
+		this->weight = weight;
+	}
+
 };
 
-template < typename T>
-class Heap
+template < typename T, typename D>
+class Vertex
 {
 	private:
 	// Member variables
+	T key;
+	D data;
+	list<Edge<T>> edges;
 
 	public:
 	// Member functions
+
+	// Constructor
+	Vertex()
+	{
+		key = T();
+		data = D();
+	}
+
+	// Parameter constructor
+	Vertex(T key, D data)
+	{
+		this->key = key;
+		this->data = data;
+	}
+
+	// Get the edge connection
+	T get_key() const
+	{
+		return key;
+	}
+
+	// Get the weight of the edge
+	D get_data() const
+	{
+		return data;
+	}
+
+	// Get the edges of a vertex
+	list<Edge<T>> get_edges() const
+	{
+		return edges;
+	}
+
+	// Set the edge connection
+	void set_key(T key)
+	{
+		this->key = key;
+	}
+
+	// Set the weight of the edge
+	void set_data(D data)
+	{
+		this->data = data;
+	}
 };
 
-template < typename T>
-class Heap
+template < typename T, typename D>
+class Graph
 {
 	private:
 	// Member variables
+	vector<Vertex<T,D>> vertices;
 
 	public:
 	// Member functions
+
+	// Check if vertex exist
+	bool check_vertex_exist_by_key(T new_key)
+	{	
+		// Better to use find if we use something else other than int as key
+		if(find(vertices.begin(), vertices.end(), new_key) != vertices.end()) 
+		{   		
+			return true; //-------------------------------------------------- Value exists in the vector
+		}   		
+		return false; //----------------------------------------------------- Value does not exist in the vector
+
+		//for(const auto& key : vertices)
+		//{
+		//	if(key == new_key)
+		//	{
+		//		return true;
+		//	}
+		//}
+		//return false;
+
+		//for(int i = 0; i < vertices.size(); i++) 
+		//{
+        //	if(vertices.at(i) == new_key)
+		//	{
+		//		return true;
+		//	}
+        //}
+		//return false;
+    }
+
+	// Add vertex
+	void add_vertex(Vertex<T, D> new_vertex)
+	{
+		if (check_vertex_exist_by_key(new_vertex->get_key()))
+		{
+			cerr << "\nVertex already exists with this key: " << new_vertex->get_key() << endl;
+			return;
+		}
+
+		vertices.push_back(new_vertex);
+		cout << "\nVerted added!" << endl;
+	}
+
+	// Create vertex
+	static Vertex<T, D> create_vertex()
+	{
+		Vertex<T, D> vertex;
+		cout << "\n================= Create vertex =================\n";
+		vertex->set_key(get_valid_input<T>("Set the key: "));
+		vertex->set_data(get_valid_input<D>("Set the data: "));
+		cout << "=================================================\n";
+		return vertex;
+	}
 };
 
 // Functions
@@ -130,6 +290,7 @@ int get_choice();
 
 int main()
 {
+	Graph<int, int> g1;
 	int choice = 0;
 	do
 	{
@@ -140,6 +301,7 @@ int main()
 			case 0:
 				break;
 			case 1:
+				g1.add_vertex(Vertex<int, int>::create_vertex());
 				break;
 			case 2:
 				break;
