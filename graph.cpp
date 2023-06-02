@@ -219,9 +219,9 @@ class Vertex
 		this->data = data;
 	}
 
-	// Set edge ,in the context of (const Edge<T>& edge), the & means that edge is being passed by reference. The const means that this function promises not to modify edge.
+	// Add edge ,in the context of (const Edge<T>& edge), the & means that edge is being passed by reference. The const means that this function promises not to modify edge.
 	// In short, (const Edge<T>& edge) is more efficient than (Edge<T> edge) when the Edge object is large, because it avoids making a copy of the Edge object. And it's safer because it promises not to modify the Edge object.
-	void set_edge(const Edge<T> &edge)
+	void add_edge(const Edge<T> &edge)
 	{
 		edges.push_back(edge);
 	}
@@ -238,9 +238,9 @@ class Vertex
 		cout << "| ";
 		for (auto &edge : get_edges())
 		{
-			cout << "[" << edge.get_connection_vertex_key() << "] -- (" << edge.get_edge_weight() << ") --> ";
+			cout << "--- (" << edge.get_edge_weight() << ") ---> [" << edge.get_connection_vertex_key() << "], ";
 		}
-		cout << " |";
+		cout << "|";
 	}
 };
 
@@ -254,23 +254,10 @@ class Graph
 	public:
 	// Member functions
 
-	// Get vertices
-	vector<Vertex<T, D>> get_vertices() const
+	// Get vertices we return a const reference to avoid copying of unnecessary data
+	vector<Vertex<T, D>> &get_vertices()
 	{
 		return vertices;
-	}
-
-	// Get vertex by key
-	Vertex<T, D> *get_vertex_by_key(T key)
-	{
-		for (auto &vertex : vertices)
-		{
-			if (vertex.get_key() == key)
-			{
-				return &vertex;
-			}
-		}
-		return nullptr;
 	}
 
 	// Check if vertex exist
@@ -295,17 +282,70 @@ class Graph
 		//return false;
 	}
 
-	// Check if vertex exist, by looping through the edges of the vertex key_1 and see if it has an edge corresponding to the key of the vertex that we want to set the edge
-	bool check_edge_exist_by_key(Vertex<T, D> *from, Vertex<T, D> *to)
+	// Get vertex by key
+	auto get_vertex_by_key(T key)
 	{
-		for (auto &edge : from->get_edges())
+		for (auto it = vertices.begin(); it != vertices.end(); it++)
 		{
-			if (edge.get_connection_vertex_key() == to->get_key())
+			if (it->get_key() == key)
+			{
+				return it;
+			}
+		}
+		return vertices.end();
+	}
+
+	// Check if vertex exist, by looping through the edges of the vertex key_1 and see if it has an edge corresponding to the key of the vertex that we want to set the edge
+	bool check_edge_exist_by_key(typename vector<Vertex<T, D>>::iterator key_1, typename vector<Vertex<T, D>>::iterator key_2) const
+	{
+		for (auto &edge : key_1->get_edges())
+		{
+			if (edge.get_connection_vertex_key() == key_2->get_key())
 			{
 				return true;
 			}
 		}
 		return false;
+	}
+
+	// Get an iterator to the edge, This is the same as using the lambda function
+	// typename vector<Edge<T>>::iterator get_edge_by_key(typename vector<Vertex<T, D>>::iterator vertex, T key)
+	auto get_edge_by_key_manual(typename vector<Vertex<T, D>>::iterator vertex, T key) const
+	{
+		// auto &edges = vertex->get_edges();
+		// This line is creating a reference to the vector of edges associated with the vertex referred to by from.
+		// auto & is a way to create a reference to a type that is automatically inferred by the compiler.
+		// This means edges directly refers to the actual edges vector of the vertex, not a copy of it.
+		auto &edges = vertex->get_edges();
+		for (auto it = edges.begin(); it != edges.end(); it++)
+		{
+			if (it->get_connection_vertex_key() == key)
+			{
+				return it;
+			}
+		}
+		return edges.end(); //-------------------------------- Return end() if not found
+	}
+
+	// Get an iterator to the edge
+	// find_if(vertex->get_edges().begin(), vertex->get_edges().end(), [key](const Edge<T> &edge){...});
+	// This line is using the find_if function from the Standard Library to find an edge in the vector of edges that meets a certain condition.
+	// find_if is a function template that takes three arguments : two iterators that specify the range to search, and a unary predicate that specifies the condition to meet.
+	//
+	//		vertex->get_edges().begin() and vertex->get_edges().end()
+	//      specify the range to search. These are iterators to the beginning and past - the - end of the from_edges vector, respectively.
+	//
+	//		[key](const Edge<T> &edge){return edge.get_connection_vertex_key() == key;}
+	//      is a lambda function(an anonymous function) that takes an edge and returns true if the edge's connection vertex key is equal to key.
+	//
+	// find_if returns an iterator pointing to the first element in the range[vertex->get_edges().begin(), vertex->get_edges().end()) that satisfies the predicate.
+	// If no such element is found, it returns an iterator equal to vertex->get_edges().end().
+	auto get_edge_by_key(typename vector<Vertex<T, D>>::iterator vertex, T key) const
+	{
+		return find_if(vertex->get_edges().begin(), vertex->get_edges().end(), [key](const Edge<T> &edge)
+		{
+			return edge.get_connection_vertex_key() == key;
+		});
 	}
 
 	// Add vertex
@@ -321,18 +361,54 @@ class Graph
 		cout << "\nVertex added!" << endl;
 	}
 
+	// Update vertex
+	void update_vertex(T key, D data)
+	{
+		auto vertex = get_vertex_by_key(key);
+		if (vertex == vertices.end())
+		{
+			cerr << "\nNo vertex found with key: " << key << endl;
+			return;
+		}
+
+		vertex->set_data(data);
+
+		cout << "\nVertex updated successfully!" << endl;
+	}
+
+	// Delete vertex
+	void delete_vertex(T key)
+	{
+		auto vertex = get_vertex_by_key(key);
+		if (vertex == vertices.end())
+		{
+			cerr << "\nNo vertex found with key: " << key << endl;
+			return;
+		}
+
+		auto &edges = vertex->get_edges();
+		for (auto it = edges.begin(); it != edges.end(); it++)
+		{
+			delete_edge_between_vertices(it->get_connection_vertex_key(), key);
+		}
+
+		vertices.erase(vertex);
+
+		cout << "\nVertex deleted successfully!" << endl;
+	}
+
 	// Add edge between vertices
 	void add_edge_between_vertices(T key_1, T key_2, int weight = 0)
 	{
-		Vertex<T, D> *from = get_vertex_by_key(key_1);;
-		if (from == nullptr)
+		auto from = get_vertex_by_key(key_1);
+		if (from == vertices.end())
 		{
 			cerr << "\nNo vertex found with key: " << key_1 << endl;
 			return;
 		}
 
-		Vertex<T, D> *to = get_vertex_by_key(key_2);;
-		if (to == nullptr)
+		auto to = get_vertex_by_key(key_2);;
+		if (to == vertices.end())
 		{
 			cerr << "\nNo vertex found with those key: " << key_2 << endl;
 			return;
@@ -345,63 +421,97 @@ class Graph
 		}
 
 		Edge<T> edge_1(key_2, weight);
-		from->set_edge(edge_1);
+		from->add_edge(edge_1);
 		cout << "\nEdge added [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
 
 		Edge<T> edge_2(key_1, weight);
-		to->set_edge(edge_2);
+		to->add_edge(edge_2);
 		cout << "\nEdge added [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
 	}
 
-	// Add edge between vertices
+	// Update edge between vertices
 	void update_edge_between_vertices(T key_1, T key_2, int weight = 0)
 	{
-		Vertex<T, D> *from = get_vertex_by_key(key_1);;
-		if (from == nullptr)
+		auto from = get_vertex_by_key(key_1);;
+		if (from == vertices.end())
 		{
 			cerr << "\nNo vertex found with key: " << key_1 << endl;
 			return;
 		}
 
-		Vertex<T, D> *to = get_vertex_by_key(key_2);;
-		if (to == nullptr)
+		auto to = get_vertex_by_key(key_2);;
+		if (to == vertices.end())
 		{
 			cerr << "\nNo vertex found with those key: " << key_2 << endl;
 			return;
 		}
 
-		if (!check_edge_exist_by_key(from, to))
+		auto from_edge = get_edge_by_key(from, key_2);
+		if (from_edge == from->get_edges().end())
 		{
-			cerr << "\nNo such connection found!" << endl;
+			cerr << "\nNo edge found between: [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
 			return;
 		}
 
-		for (auto &edge : from->get_edges())
+		auto to_edge = get_edge_by_key(to, key_1);
+		if (to_edge == to->get_edges().end())
 		{
-			if (edge.get_connection_vertex_key() == to->get_key())
-			{
-				edge.set_edge_weight(weight);
-				cout << "\nEdge updated [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
-				break;
-			}
+			cerr << "\nNo edge found between: [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+			return;
 		}
 
-		for (auto &edge : to->get_edges())
+		from_edge->set_edge_weight(weight);
+		cout << "\nEdge updated [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
+
+		to_edge->set_edge_weight(weight);
+		cout << "\nEdge updated [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+	}
+
+	// Delete an edge between vertices
+	void delete_edge_between_vertices(T key_1, T key_2)
+	{
+		auto from = get_vertex_by_key(key_1);;
+		if (from == vertices.end())
 		{
-			if (edge.get_connection_vertex_key() == from->get_key())
-			{
-				edge.set_edge_weight(weight);
-				cout << "\nEdge updated [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
-				break;
-			}
+			cerr << "\nNo vertex found with key: " << key_1 << endl;
+			return;
 		}
+
+		auto to = get_vertex_by_key(key_2);;
+		if (to == vertices.end())
+		{
+			cerr << "\nNo vertex found with those key: " << key_2 << endl;
+			return;
+		}
+
+		auto &from_edges = from->get_edges();
+		auto from_edge = get_edge_by_key(from, key_2);
+		if (from_edge == from_edges.end())
+		{
+			cerr << "\nNo edge found between: [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
+			return;
+		}
+
+		auto &to_edges = to->get_edges();
+		auto to_edge = get_edge_by_key(to, key_1);
+		if (to_edge == to_edges.end())
+		{
+			cerr << "\nNo edge found between: [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+			return;
+		}
+
+		from_edges.erase(from_edge);
+		cout << "\nEdge deleted [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
+
+		to_edges.erase(to_edge);
+		cout << "\nEdge deleted [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
 	}
 
 	// Degree of a vertex
 	int degree_of_a_vertex(T key)
 	{
-		Vertex<T, D> *vertex = get_vertex_by_key(key);;
-		if (vertex == nullptr)
+		auto vertex = get_vertex_by_key(key);
+		if (vertex == vertices.end())
 		{
 			cerr << "\nNo vertex found with key: " << key << endl;
 			return 0;
@@ -430,7 +540,7 @@ class Graph
 	{
 		for (auto &vertex : vertices)
 		{
-			cout << "[" << vertex.get_key() << "]: " << vertex.get_data() << " ---> ";
+			cout << "[" << vertex.get_key() << "]: " << vertex.get_data() << " --- ";
 			vertex.print_edges();
 			cout << endl;
 		}
@@ -439,8 +549,8 @@ class Graph
 	// Print neighbors of a vertex
 	void print_neighbors(T key)
 	{
-		Vertex<T, D> *vertex = get_vertex_by_key(key);;
-		if (vertex == nullptr)
+		auto vertex = get_vertex_by_key(key);;
+		if (vertex == vertices.end())
 		{
 			cerr << "\nNo vertex found with key: " << key << endl;
 			return;
@@ -469,6 +579,8 @@ int main()
 {
 	Graph<int, int> g1;
 	int choice = 0;
+	auto vertex_1 = g1.get_vertices().end();
+	auto vertex_2 = g1.get_vertices().end();
 	do
 	{
 		print_menu();
@@ -481,8 +593,10 @@ int main()
 				g1.add_vertex(Graph<int, int>::create_vertex());
 				break;
 			case 2:
+				g1.update_vertex(get_valid_input<int>("Enter key of vertex to update: "), get_valid_input<int>("Set the data: "));
 				break;
 			case 3:
+				g1.delete_vertex(get_valid_input<int>("Enter key of vertex to delete: "));
 				break;
 			case 4:
 				g1.add_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter edge weight: "));
@@ -491,12 +605,34 @@ int main()
 				g1.update_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter edge weight: "));
 				break;
 			case 6:
+				g1.delete_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "));
 				break;
 			case 7:
 				break;
 			case 8:
 				break;
 			case 9:
+				vertex_1 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex from: "));
+				if (vertex_1 == g1.get_vertices().end())
+				{
+					cerr << "No vertex found!" << endl;
+					break;
+				}
+				vertex_2 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex to: "));
+				if (vertex_2 == g1.get_vertices().end())
+				{
+					cerr << "No vertex found!" << endl;
+					break;
+				}
+
+				if (g1.check_edge_exist_by_key(vertex_1, vertex_2))
+				{
+					cerr << "Edge found between: [" << vertex_1->get_key() << "]: " << vertex_1->get_data() << " ---> [" << vertex_2->get_key() << "]: " << vertex_2->get_data() << endl;
+				}
+				else
+				{
+					cout << "Edge does not exist!" << endl;
+				}
 				break;
 			case 10:
 				break;
@@ -569,18 +705,18 @@ void print_menu()
 	cout << "4. Add edge" << endl;
 	cout << "5. Update edge" << endl;
 	cout << "6. Delete edge" << endl;
-	cout << "7. BFS" << endl;
-	cout << "8. DFS" << endl;
+	cout << "7. BFS" << endl; // not
+	cout << "8. DFS" << endl; // not
 	cout << "9. Check if two vertices are neighbors" << endl;
-	cout << "10. What is the path length between two vertices" << endl;
-	cout << "11. What is the path of least length between two vertices'" << endl;
-	cout << "12. Does a path exist between two vertices" << endl;
-	cout << "13. Does a path exist that uses every edge exactly once" << endl;
-	cout << "14. Does a path exist that uses every vertex exactly once" << endl;
-	cout << "15. Is the graph connected" << endl;
-	cout << "16. Max number of edges that this graph can have with current vertices" << endl;
-	cout << "17. Does the graph contain cycles" << endl;
-	cout << "18. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl;
+	cout << "10. What is the path length between two vertices" << endl; // not
+	cout << "11. What is the path of least length between two vertices'" << endl; // not
+	cout << "12. Does a path exist between two vertices" << endl; // not
+	cout << "13. Does a path exist that uses every edge exactly once" << endl; // not
+	cout << "14. Does a path exist that uses every vertex exactly once" << endl; // not
+	cout << "15. Is the graph connected" << endl; // not
+	cout << "16. Max number of edges that this graph can have with current vertices" << endl; // not
+	cout << "17. Does the graph contain cycles" << endl; // not
+	cout << "18. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl; // not
 	cout << "19. Degree of a vertex" << endl;
 	cout << "20. Print all neighbors of a vertex" << endl;
 	cout << "21. Is graph empty" << endl;
