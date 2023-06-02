@@ -2,7 +2,6 @@
 #include <list>
 #include <vector>
 #include <iterator>
-#include <optional>
 #include <algorithm>
 #include "basic_functions.h"
 
