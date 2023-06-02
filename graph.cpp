@@ -2,6 +2,8 @@
 #include <list>
 #include <vector>
 #include <iterator>
+#include <optional>
+#include <algorithm>
 #include "basic_functions.h"
 
 using namespace std;
@@ -200,7 +202,7 @@ class Vertex
 	}
 
 	// Get the edges of a vertex
-	list<Edge<T>> get_edges() const
+	list<Edge<T>> &get_edges()
 	{
 		return edges;
 	}
@@ -216,6 +218,30 @@ class Vertex
 	{
 		this->data = data;
 	}
+
+	// Set edge ,in the context of (const Edge<T>& edge), the & means that edge is being passed by reference. The const means that this function promises not to modify edge.
+	// In short, (const Edge<T>& edge) is more efficient than (Edge<T> edge) when the Edge object is large, because it avoids making a copy of the Edge object. And it's safer because it promises not to modify the Edge object.
+	void set_edge(const Edge<T> &edge) 
+	{
+        edges.push_back(edge);
+    }
+	
+	// Print edges
+	int count_edges() 
+	{	
+		return get_edges().size();
+	}
+
+	// Print edges
+	void print_edges() 
+	{
+		cout << "| ";
+    	for ( auto& edge : get_edges()) 
+		{
+      		cout << "["<< edge.get_connection_vertex_key() << "] -- (" << edge.get_edge_weight() << ") --> ";
+    	}
+    	cout << " |";
+	}
 };
 
 template < typename T, typename D>
@@ -228,8 +254,27 @@ class Graph
 	public:
 	// Member functions
 
+	// Get vertices
+	vector<Vertex<T, D>> get_vertices() const
+	{
+		return vertices;
+	}
+
+	// Get vertex by key
+    Vertex<T, D>* get_vertex_by_key(T key)
+	{
+ 		for (auto &vertex : vertices)
+    	{
+        	if (vertex.get_key() == key)
+        	{
+            	return &vertex;
+        	}
+    	}
+    	return nullptr;
+	}
+
 	// Check if vertex exist
-	bool check_vertex_exist_by_key(T new_key)
+	bool check_vertex_exist_by_key(T new_key) const
 	{
 		for (const auto &vertex : vertices)
 		{
@@ -242,12 +287,25 @@ class Graph
 
 		//for(int i = 0; i < vertices.size(); i++)
 		//{
-		//	if(vertices.at(i) == new_key)
+		//	if(vertices.at(i).get_key() == new_key)
 		//	{
 		//		return true;
 		//	}
 		//}
 		//return false;
+	}
+
+	// Check if vertex exist, by looping through the edges of the vertex key_1 and see if it has an edge corresponding to the key of the vertex that we want to set the edge
+	bool check_edge_exist_by_key(Vertex<T, D> *from, Vertex<T, D> *to) 
+	{
+		for ( auto& edge : from->get_edges())
+    	{
+      	 	if (edge.get_connection_vertex_key() == to->get_key())
+        	{
+           	 	return true;
+       		}
+   		}
+    	return false;
 	}
 
 	// Add vertex
@@ -261,6 +319,136 @@ class Graph
 
 		vertices.push_back(new_vertex);
 		cout << "\nVertex added!" << endl;
+	}
+
+	// Add edge between vertices
+	void add_edge_between_vertices(T key_1, T key_2, int weight = 0)
+	{		
+		Vertex<T, D>* from = get_vertex_by_key(key_1);;
+        if (from == nullptr)
+        {
+            cerr << "\nNo vertex found with key: "<< key_1 << endl;
+			return;
+        } 
+        
+		Vertex<T, D>* to = get_vertex_by_key(key_2);;
+        if (to == nullptr)
+        {
+			cerr << "\nNo vertex found with those key: "<< key_2 << endl;
+			return;
+        } 
+
+		if (check_edge_exist_by_key(from, to))
+		{
+			cerr << "\nVertices are already connected!" << endl; 
+			return;
+		}
+
+		Edge<T> edge_1(key_2, weight);
+		from->set_edge(edge_1);
+		cout << "Edge added [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
+		
+		Edge<T> edge_2(key_1, weight);
+		to->set_edge(edge_2);
+		cout << "Edge added [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+	}
+
+
+	// Add edge between vertices
+	void update_edge_between_vertices(T key_1, T key_2, int weight = 0)
+	{
+		Vertex<T, D>* from = get_vertex_by_key(key_1);;
+        if (from == nullptr)
+        {
+            cerr << "\nNo vertex found with key: "<< key_1 << endl;
+			return;
+        } 
+        
+		Vertex<T, D>* to = get_vertex_by_key(key_2);;
+        if (to == nullptr)
+        {
+			cerr << "\nNo vertex found with those key: "<< key_2 << endl;
+			return;
+        } 
+
+		if (!check_edge_exist_by_key(from, to))
+		{
+			cerr << "\nNo such connection found!" << endl; 
+			return;
+		}
+
+		for (auto& edge : from->get_edges())
+    	{
+      		if (edge.get_connection_vertex_key() == to->get_key())
+        	{
+				edge.set_edge_weight(weight);
+				cout << "Edge updated [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
+				break;
+       		}
+				
+   		}
+			
+		for (auto& edge : to->get_edges())
+    	{
+      	 	if (edge.get_connection_vertex_key() == from->get_key())
+			{
+				edge.set_edge_weight(weight);
+				cout << "Edge updated [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+				break;
+			}
+   		}
+	}		
+
+	// Degree of a vertex
+	int degree_of_a_vertex(T key)
+	{
+		Vertex<T, D>* vertex = get_vertex_by_key(key);;
+        if (vertex == nullptr)
+        {
+            cerr << "\nNo vertex found with key: "<< key << endl;
+			return 0;
+        } 
+
+		return vertex->count_edges();
+	}
+
+	// Print graph
+	// auto: This keyword tells the compiler to automatically determine the appropriate type of the variable. 
+	//       In this case, it's used to deduce the type of elements that vertices container holds. 
+	//       This is very handy when the type of elements is complex or lengthy to write out.
+	// const: This keyword means that the variable vertex cannot be modified inside the loop. 
+	//        In other words, you're promising not to change vertex within the loop body.
+    // &: This symbol indicates that vertex is a reference to the element in the vertices container, not a copy of it. 
+	//    This can improve performance because it avoids unnecessary copying of elements. 
+	//    Combined with const, this means you're getting a read-only reference to each element, one at a time.
+    // vertex: Is the name of the variable that will represent each element in the vertices container.
+	// : is what separates the element type and element variable name on the left, and the container on the right.
+	// vertices: Is the container that you're iterating over. It could be an array, vector, list, etc.
+	//
+	// In each iteration of the loop, vertex is bound to the current element in the vertices container. The loop continues until it has gone through all elements.
+	// In summary, this line of code can be read as "For each vertex in vertices, where vertex is a constant reference to the actual element in the container".
+	// If we want to modify the element we need to remove the const and keep the reference. If we remove the reference as well only the local element will be affected.
+	void print_graph() 
+	{
+		for (auto &vertex : vertices)
+		{
+			cout << "[" << vertex.get_key() << "]: " << vertex.get_data() << " ---> ";
+			vertex.print_edges();
+			cout << endl;
+		}
+	}
+
+	// Print neighbors of a vertex
+	void print_neighbors(T key)
+	{
+		Vertex<T, D>* vertex = get_vertex_by_key(key);;
+        if (vertex == nullptr)
+        {
+            cerr << "\nNo vertex found with key: "<< key << endl;
+			return;
+        } 
+
+		vertex->print_edges();
 	}
 
 	// Create vertex
@@ -299,8 +487,10 @@ int main()
 			case 3:
 				break;
 			case 4:
+				g1.add_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter edge weight: "));
 				break;
 			case 5:
+				g1.update_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter edge weight: "));
 				break;
 			case 6:
 				break;
@@ -329,12 +519,32 @@ int main()
 			case 18:
 				break;
 			case 19:
+				cout << g1.degree_of_a_vertex(get_valid_input<int>("Enter key of vertex to see degree for: ")) << " is the degree!" << endl;
 				break;
 			case 20:
+				g1.print_neighbors(get_valid_input<int>("Enter key of vertex to see neighbors for: "));
 				break;
 			case 21:
+				if (g1.get_vertices().empty())
+				{
+					cout << "Graph is empty!" << endl;
+				}
+				else
+				{
+					cout << "Graph is not empty!" << endl;
+				}
 				break;
 			case 22:
+				if (g1.get_vertices().empty())
+				{
+					cout << "Graph is empty!" << endl;
+				}
+				else
+				{
+					g1.print_graph();
+				}
+				break;
+			case 23:
 				system("cls");
 				break;
 			default:
@@ -370,13 +580,14 @@ void print_menu()
 	cout << "13. Does a path exist that uses every edge exactly once" << endl;
 	cout << "14. Does a path exist that uses every vertex exactly once" << endl;
 	cout << "15. Is the graph connected" << endl;
-	cout << "16. Max number of edges" << endl;
+	cout << "16. Max number of edges that this graph can have with current verticies" << endl;
 	cout << "17. Does the graph contain cycles" << endl;
 	cout << "18. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl;
 	cout << "19. Degree of a vertex" << endl;
 	cout << "20. Print all neighbors of a vertex" << endl;
-	cout << "21. Print graph" << endl;
-	cout << "22. Clear Screen" << endl << endl;
+	cout << "21. Is graph empty" << endl;
+	cout << "22. Print graph" << endl;
+	cout << "23. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -386,6 +597,6 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 22);
+	} while (choice < 0 || choice > 23);
 	return choice;
 }
