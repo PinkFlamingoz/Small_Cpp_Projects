@@ -8,28 +8,28 @@
 
 using namespace std;
 // Graph Terms & Properties –
-// Adjacency/Neighbor − Two node or vertices's are adjacent if they are connected to each other through an edge.
-// Path − Path represents a sequence of edges between the two vertices's.
+// Adjacency/Neighbor − Two node or vertices are adjacent if they are connected to each other through an edge.
+// Path − Path represents a sequence of edges between the two vertices.
 // Self-Loop − Is an edge that connects a vertex to itself. A simple graph contains no loops.
-// Multi Edge − Two or more edges that are connecting to the same two vertices's.
+// Multi Edge − Two or more edges that are connecting to the same two vertices.
 // Simple Graph − Graphs without loops or parallel edges are called simple graphs.
 // The degree of a node − The degree of a node is the number of edges incident/attached on it.
 // Path − A path can be defined as the sequence of nodes that are followed in order to reach some terminal node E from the initial node A.
 // Path length - Number of edges in a path.
-// Simple Path − A path is a Simple path if no vertices's(and thus edges) are not repeated
-// Cycle − A cycle can be defined as the path which has no repeated edges or vertices's except the first and last vertices's. ( Starts and stops at the same vertex )
-// Connectivity - Two vertices's are connected if a path exist between them. A graph is called connected when all vertices's are connected.
+// Simple Path − A path is a Simple path if no vertices(and thus edges) are not repeated
+// Cycle − A cycle can be defined as the path which has no repeated edges or vertices except the first and last vertices. ( Starts and stops at the same vertex )
+// Connectivity - Two vertices are connected if a path exist between them. A graph is called connected when all vertices are connected.
 //
 // Max number of edges - For simple graphs (No multi edge, No self loop)
-//	Directed =   0 <= edges <= vertices's(vertices's-1)
-//	Undirected = 0 <= edges <= (vertices's(vertices's-1))/2
+//	Directed =   0 <= edges <= vertices(vertices-1)
+//	Undirected = 0 <= edges <= (vertices(vertices-1))/2
 //
 // Some Graph Types –
 // 	Weighted Graphs –
 // 		A weight is a numerical value attached to each individual edge in the graph.
 // 		Weighted Graph will contains weight on each edge where as unweighted does not.
 //	Directed(Di-graph) -
-//	    A directed graph is a set of vertices's (nodes) connected by edges, with each node having a direction associated with it.
+//	    A directed graph is a set of vertices (nodes) connected by edges, with each node having a direction associated with it.
 //      Edges are usually represented by arrows pointing in the direction the graph can be traversed.
 //	Undirected Graph –
 //		In an undirected graph the edges are bidirectional, with no direction associated with them.
@@ -53,7 +53,7 @@ using namespace std;
 // Graphs can be represented by a 2D matrix or a vector array of lists
 // Adjacency Matrix –
 // An adjacency matrix is a way of representing a graph as a matrix of booleans (0's and 1's).
-// A finite graph can be represented in the form of a square matrix on a computer, where the boolean value of the matrix indicates if there is a direct path between two vertices's.
+// A finite graph can be represented in the form of a square matrix on a computer, where the boolean value of the matrix indicates if there is a direct path between two vertices.
 //
 // Let's assume the n x n matrix as adj[n][n].
 // if there is an edge from vertex i to j, mark adj[i][j] as 1. i.e. adj[i][j] == 1
@@ -69,20 +69,20 @@ using namespace std;
 // 	Adding a vertex is O(V^2) time.
 //
 // Adjacency List –
-// An array of lists is used. The size of the array is equal to the number of vertices's.
-// Let the array be an array[]. An entry array[i] represents the list of vertices's adjacent to the ith vertex.
+// An array of lists is used. The size of the array is equal to the number of vertices.
+// Let the array be an array[]. An entry array[i] represents the list of vertices adjacent to the ith vertex.
 // This representation can also be used to represent a weighted graph.
 // The weights of edges can be represented as lists of pairs.
 // Adjacency lists are not well suited for parallelism since the lists require that we traverse the neighbors of a vertex sequentially.
 //
 // Pros:
-//  Requires less space compared to the adjacency matrix representation. It typically takes O(V + E) space, where V is the number of vertices's and E is the number of edges.
+//  Requires less space compared to the adjacency matrix representation. It typically takes O(V + E) space, where V is the number of vertices and E is the number of edges.
 //  Efficient for sparse graphs, as it only stores information about existing edges.
 //  Adding a vertex is straightforward and takes O(1) time.
 //  Adding an edge takes O(1) time if the list is implemented as an array or a linked list.
 // Cons:
 //  Traversing all the edges in the graph takes O(V + E) time, which can be slower compared to the adjacency matrix representation's O(V^2) time for dense graphs.
-//  Checking for the existence of an edge between two vertices's can take O(degree(u)) time, where degree(u) is the number of edges adjacent to vertex 'u'.
+//  Checking for the existence of an edge between two vertices can take O(degree(u)) time, where degree(u) is the number of edges adjacent to vertex 'u'.
 //  Removing an edge takes O(degree(u)) time.
 //  The implementation and understanding can be slightly more complex compared to the adjacency matrix representation.
 //
@@ -91,7 +91,7 @@ using namespace std;
 //
 // BFS -
 // In this traversal algorithm one node is selected and then all of the adjacent nodes are visited one by one.
-// After completing all of the adjacent vertices's, it moves further to check another vertices's and checks its adjacent vertices's again.
+// After completing all of the adjacent vertices, it moves further to check another vertices and checks its adjacent vertices again.
 // Steps -
 // 1. Define a Queue
 // 2. Set current vertex V
@@ -109,7 +109,7 @@ using namespace std;
 // 4. Print current vertex V
 // 5. Add any 1 neighbor(unvisited i.e. not in stack previously) of V to stack
 // 6. If current vertex has all its neighbors already visited, pop it from stack & backtrack
-// 7. Check remaining vertices's in the stack for any unvisited vertices's.
+// 7. Check remaining vertices in the stack for any unvisited vertices.
 // 8. Repeat till stack empty
 
 // Classes
@@ -221,26 +221,26 @@ class Vertex
 
 	// Set edge ,in the context of (const Edge<T>& edge), the & means that edge is being passed by reference. The const means that this function promises not to modify edge.
 	// In short, (const Edge<T>& edge) is more efficient than (Edge<T> edge) when the Edge object is large, because it avoids making a copy of the Edge object. And it's safer because it promises not to modify the Edge object.
-	void set_edge(const Edge<T> &edge) 
+	void set_edge(const Edge<T> &edge)
 	{
-        edges.push_back(edge);
-    }
-	
+		edges.push_back(edge);
+	}
+
 	// Print edges
-	int count_edges() 
-	{	
+	int count_edges()
+	{
 		return get_edges().size();
 	}
 
 	// Print edges
-	void print_edges() 
+	void print_edges()
 	{
 		cout << "| ";
-    	for ( auto& edge : get_edges()) 
+		for (auto &edge : get_edges())
 		{
-      		cout << "["<< edge.get_connection_vertex_key() << "] -- (" << edge.get_edge_weight() << ") --> ";
-    	}
-    	cout << " |";
+			cout << "[" << edge.get_connection_vertex_key() << "] -- (" << edge.get_edge_weight() << ") --> ";
+		}
+		cout << " |";
 	}
 };
 
@@ -261,16 +261,16 @@ class Graph
 	}
 
 	// Get vertex by key
-    Vertex<T, D>* get_vertex_by_key(T key)
+	Vertex<T, D> *get_vertex_by_key(T key)
 	{
- 		for (auto &vertex : vertices)
-    	{
-        	if (vertex.get_key() == key)
-        	{
-            	return &vertex;
-        	}
-    	}
-    	return nullptr;
+		for (auto &vertex : vertices)
+		{
+			if (vertex.get_key() == key)
+			{
+				return &vertex;
+			}
+		}
+		return nullptr;
 	}
 
 	// Check if vertex exist
@@ -296,16 +296,16 @@ class Graph
 	}
 
 	// Check if vertex exist, by looping through the edges of the vertex key_1 and see if it has an edge corresponding to the key of the vertex that we want to set the edge
-	bool check_edge_exist_by_key(Vertex<T, D> *from, Vertex<T, D> *to) 
+	bool check_edge_exist_by_key(Vertex<T, D> *from, Vertex<T, D> *to)
 	{
-		for ( auto& edge : from->get_edges())
-    	{
-      	 	if (edge.get_connection_vertex_key() == to->get_key())
-        	{
-           	 	return true;
-       		}
-   		}
-    	return false;
+		for (auto &edge : from->get_edges())
+		{
+			if (edge.get_connection_vertex_key() == to->get_key())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Add vertex
@@ -323,112 +323,110 @@ class Graph
 
 	// Add edge between vertices
 	void add_edge_between_vertices(T key_1, T key_2, int weight = 0)
-	{		
-		Vertex<T, D>* from = get_vertex_by_key(key_1);;
-        if (from == nullptr)
-        {
-            cerr << "\nNo vertex found with key: "<< key_1 << endl;
+	{
+		Vertex<T, D> *from = get_vertex_by_key(key_1);;
+		if (from == nullptr)
+		{
+			cerr << "\nNo vertex found with key: " << key_1 << endl;
 			return;
-        } 
-        
-		Vertex<T, D>* to = get_vertex_by_key(key_2);;
-        if (to == nullptr)
-        {
-			cerr << "\nNo vertex found with those key: "<< key_2 << endl;
+		}
+
+		Vertex<T, D> *to = get_vertex_by_key(key_2);;
+		if (to == nullptr)
+		{
+			cerr << "\nNo vertex found with those key: " << key_2 << endl;
 			return;
-        } 
+		}
 
 		if (check_edge_exist_by_key(from, to))
 		{
-			cerr << "\nVertices are already connected!" << endl; 
+			cerr << "\nVertices are already connected!" << endl;
 			return;
 		}
 
 		Edge<T> edge_1(key_2, weight);
 		from->set_edge(edge_1);
-		cout << "Edge added [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
-		
+		cout << "\nEdge added [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
+
 		Edge<T> edge_2(key_1, weight);
 		to->set_edge(edge_2);
-		cout << "Edge added [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+		cout << "\nEdge added [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
 	}
-
 
 	// Add edge between vertices
 	void update_edge_between_vertices(T key_1, T key_2, int weight = 0)
 	{
-		Vertex<T, D>* from = get_vertex_by_key(key_1);;
-        if (from == nullptr)
-        {
-            cerr << "\nNo vertex found with key: "<< key_1 << endl;
-			return;
-        } 
-        
-		Vertex<T, D>* to = get_vertex_by_key(key_2);;
-        if (to == nullptr)
-        {
-			cerr << "\nNo vertex found with those key: "<< key_2 << endl;
-			return;
-        } 
-
-		if (!check_edge_exist_by_key(from, to))
+		Vertex<T, D> *from = get_vertex_by_key(key_1);;
+		if (from == nullptr)
 		{
-			cerr << "\nNo such connection found!" << endl; 
+			cerr << "\nNo vertex found with key: " << key_1 << endl;
 			return;
 		}
 
-		for (auto& edge : from->get_edges())
-    	{
-      		if (edge.get_connection_vertex_key() == to->get_key())
-        	{
-				edge.set_edge_weight(weight);
-				cout << "Edge updated [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
-				break;
-       		}
-				
-   		}
-			
-		for (auto& edge : to->get_edges())
-    	{
-      	 	if (edge.get_connection_vertex_key() == from->get_key())
+		Vertex<T, D> *to = get_vertex_by_key(key_2);;
+		if (to == nullptr)
+		{
+			cerr << "\nNo vertex found with those key: " << key_2 << endl;
+			return;
+		}
+
+		if (!check_edge_exist_by_key(from, to))
+		{
+			cerr << "\nNo such connection found!" << endl;
+			return;
+		}
+
+		for (auto &edge : from->get_edges())
+		{
+			if (edge.get_connection_vertex_key() == to->get_key())
 			{
 				edge.set_edge_weight(weight);
-				cout << "Edge updated [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+				cout << "\nEdge updated [" << from->get_key() << "]: " << from->get_data() << " ---> [" << to->get_key() << "]: " << to->get_data() << endl;
 				break;
 			}
-   		}
-	}		
+		}
+
+		for (auto &edge : to->get_edges())
+		{
+			if (edge.get_connection_vertex_key() == from->get_key())
+			{
+				edge.set_edge_weight(weight);
+				cout << "\nEdge updated [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
+				break;
+			}
+		}
+	}
 
 	// Degree of a vertex
 	int degree_of_a_vertex(T key)
 	{
-		Vertex<T, D>* vertex = get_vertex_by_key(key);;
-        if (vertex == nullptr)
-        {
-            cerr << "\nNo vertex found with key: "<< key << endl;
+		Vertex<T, D> *vertex = get_vertex_by_key(key);;
+		if (vertex == nullptr)
+		{
+			cerr << "\nNo vertex found with key: " << key << endl;
 			return 0;
-        } 
+		}
 
 		return vertex->count_edges();
 	}
 
 	// Print graph
-	// auto: This keyword tells the compiler to automatically determine the appropriate type of the variable. 
-	//       In this case, it's used to deduce the type of elements that vertices container holds. 
+	// auto: This keyword tells the compiler to automatically determine the appropriate type of the variable.
+	//       In this case, it's used to deduce the type of elements that vertices container holds.
 	//       This is very handy when the type of elements is complex or lengthy to write out.
-	// const: This keyword means that the variable vertex cannot be modified inside the loop. 
+	// const: This keyword means that the variable vertex cannot be modified inside the loop.
 	//        In other words, you're promising not to change vertex within the loop body.
-    // &: This symbol indicates that vertex is a reference to the element in the vertices container, not a copy of it. 
-	//    This can improve performance because it avoids unnecessary copying of elements. 
+	// &: This symbol indicates that vertex is a reference to the element in the vertices container, not a copy of it.
+	//    This can improve performance because it avoids unnecessary copying of elements.
 	//    Combined with const, this means you're getting a read-only reference to each element, one at a time.
-    // vertex: Is the name of the variable that will represent each element in the vertices container.
+	// vertex: Is the name of the variable that will represent each element in the vertices container.
 	// : is what separates the element type and element variable name on the left, and the container on the right.
 	// vertices: Is the container that you're iterating over. It could be an array, vector, list, etc.
 	//
 	// In each iteration of the loop, vertex is bound to the current element in the vertices container. The loop continues until it has gone through all elements.
 	// In summary, this line of code can be read as "For each vertex in vertices, where vertex is a constant reference to the actual element in the container".
 	// If we want to modify the element we need to remove the const and keep the reference. If we remove the reference as well only the local element will be affected.
-	void print_graph() 
+	void print_graph()
 	{
 		for (auto &vertex : vertices)
 		{
@@ -441,12 +439,12 @@ class Graph
 	// Print neighbors of a vertex
 	void print_neighbors(T key)
 	{
-		Vertex<T, D>* vertex = get_vertex_by_key(key);;
-        if (vertex == nullptr)
-        {
-            cerr << "\nNo vertex found with key: "<< key << endl;
+		Vertex<T, D> *vertex = get_vertex_by_key(key);;
+		if (vertex == nullptr)
+		{
+			cerr << "\nNo vertex found with key: " << key << endl;
 			return;
-        } 
+		}
 
 		vertex->print_edges();
 	}
@@ -573,14 +571,14 @@ void print_menu()
 	cout << "6. Delete edge" << endl;
 	cout << "7. BFS" << endl;
 	cout << "8. DFS" << endl;
-	cout << "9. Check if two vertices's are neighbors" << endl;
-	cout << "10. What is the path length between two vertices's" << endl;
-	cout << "11. What is the path of least length between two vertices's" << endl;
-	cout << "12. Does a path exist between two vertices's" << endl;
+	cout << "9. Check if two vertices are neighbors" << endl;
+	cout << "10. What is the path length between two vertices" << endl;
+	cout << "11. What is the path of least length between two vertices'" << endl;
+	cout << "12. Does a path exist between two vertices" << endl;
 	cout << "13. Does a path exist that uses every edge exactly once" << endl;
 	cout << "14. Does a path exist that uses every vertex exactly once" << endl;
 	cout << "15. Is the graph connected" << endl;
-	cout << "16. Max number of edges that this graph can have with current verticies" << endl;
+	cout << "16. Max number of edges that this graph can have with current vertices" << endl;
 	cout << "17. Does the graph contain cycles" << endl;
 	cout << "18. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl;
 	cout << "19. Degree of a vertex" << endl;
