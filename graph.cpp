@@ -297,7 +297,7 @@ class Graph
 	// Check if vertex exist, by looping through the edges of the vertex key_1 and see if it has an edge corresponding to the key of the vertex that we want to set the edge
 	bool check_edge_exist_by_key(const typename vector<Vertex<T, D>>::iterator &key_1, const typename vector<Vertex<T, D>>::iterator &key_2) const
 	{
-		for (auto &edge : key_1->get_edges())
+		for (const auto &edge : key_1->get_edges())
 		{
 			if (edge.get_connection_vertex_key() == key_2->get_key())
 			{
@@ -308,7 +308,7 @@ class Graph
 	}
 
 	// Get an iterator to the edge, This is the same as using the lambda function
-	typename list<Edge<T>>::iterator get_edge_by_key(const typename vector<Vertex<T, D>>::iterator &vertex, T key) const
+	typename list<Edge<T>>::iterator get_edge_by_key(const typename vector<Vertex<T, D>>::iterator &vertex, T key)
 	{
 		// auto &edges = vertex->get_edges();
 		// This line is creating a reference to the vector of edges associated with the vertex referred to by from.
