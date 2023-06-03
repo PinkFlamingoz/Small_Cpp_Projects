@@ -1,8 +1,6 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include <iterator>
-#include <algorithm>
 #include "basic_functions.h"
 
 using namespace std;
@@ -223,12 +221,6 @@ class Vertex
 	void add_edge(const Edge<T> &edge)
 	{
 		edges.push_back(edge);
-	}
-
-	// Print edges
-	int count_edges()
-	{
-		return get_edges().size();
 	}
 
 	// Print edges
@@ -494,7 +486,7 @@ class Graph
 			return 0;
 		}
 
-		return vertex->count_edges();
+		return vertex->get_edges().size();
 	}
 
 	// Print graph
