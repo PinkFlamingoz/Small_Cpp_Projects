@@ -282,7 +282,7 @@ class Graph
 	}
 
 	// Get vertex by key
-	auto get_vertex_by_key(T key)
+	typename vector<Vertex<T, D>>::iterator get_vertex_by_key(T key)
 	{
 		for (auto it = vertices.begin(); it != vertices.end(); it++)
 		{
@@ -295,7 +295,7 @@ class Graph
 	}
 
 	// Check if vertex exist, by looping through the edges of the vertex key_1 and see if it has an edge corresponding to the key of the vertex that we want to set the edge
-	bool check_edge_exist_by_key(typename vector<Vertex<T, D>>::iterator key_1, typename vector<Vertex<T, D>>::iterator key_2) const
+	bool check_edge_exist_by_key(const typename vector<Vertex<T, D>>::iterator &key_1, const typename vector<Vertex<T, D>>::iterator &key_2) const
 	{
 		for (auto &edge : key_1->get_edges())
 		{
@@ -308,8 +308,7 @@ class Graph
 	}
 
 	// Get an iterator to the edge, This is the same as using the lambda function
-	// typename vector<Edge<T>>::iterator get_edge_by_key(typename vector<Vertex<T, D>>::iterator vertex, T key)
-	auto get_edge_by_key_manual(typename vector<Vertex<T, D>>::iterator vertex, T key) const
+	typename list<Edge<T>>::iterator get_edge_by_key(const typename vector<Vertex<T, D>>::iterator &vertex, T key) const
 	{
 		// auto &edges = vertex->get_edges();
 		// This line is creating a reference to the vector of edges associated with the vertex referred to by from.
@@ -326,29 +325,8 @@ class Graph
 		return edges.end(); //-------------------------------- Return end() if not found
 	}
 
-	// Get an iterator to the edge
-	// find_if(vertex->get_edges().begin(), vertex->get_edges().end(), [key](const Edge<T> &edge){...});
-	// This line is using the find_if function from the Standard Library to find an edge in the vector of edges that meets a certain condition.
-	// find_if is a function template that takes three arguments : two iterators that specify the range to search, and a unary predicate that specifies the condition to meet.
-	//
-	//		vertex->get_edges().begin() and vertex->get_edges().end()
-	//      specify the range to search. These are iterators to the beginning and past - the - end of the from_edges vector, respectively.
-	//
-	//		[key](const Edge<T> &edge){return edge.get_connection_vertex_key() == key;}
-	//      is a lambda function(an anonymous function) that takes an edge and returns true if the edge's connection vertex key is equal to key.
-	//
-	// find_if returns an iterator pointing to the first element in the range[vertex->get_edges().begin(), vertex->get_edges().end()) that satisfies the predicate.
-	// If no such element is found, it returns an iterator equal to vertex->get_edges().end().
-	auto get_edge_by_key(typename vector<Vertex<T, D>>::iterator vertex, T key) const
-	{
-		return find_if(vertex->get_edges().begin(), vertex->get_edges().end(), [key](const Edge<T> &edge)
-		{
-			return edge.get_connection_vertex_key() == key;
-		});
-	}
-
 	// Add vertex
-	void add_vertex(Vertex<T, D> new_vertex)
+	void add_vertex(const Vertex<T, D> &new_vertex)
 	{
 		if (check_vertex_exist_by_key(new_vertex.get_key()))
 		{

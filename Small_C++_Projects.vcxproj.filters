@@ -288,6 +288,9 @@
     <ClCompile Include="graph.cpp">
       <Filter>Source Files\Data_structures</Filter>
     </ClCompile>
+    <ClCompile Include="lambdas.cpp">
+      <Filter>Source Files\Bonus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
