@@ -8,6 +8,13 @@
 #include "basic_functions.h"
 
 using namespace std;
+// Graph representation
+// | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
+// | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
+// | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
+// | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
+// | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
+//
 // Graph Terms & Properties –
 // Adjacency/Neighbor − Two node or vertices are adjacent if they are connected to each other through an edge.
 // Path − Path represents a sequence of edges between the two vertices.
@@ -112,6 +119,16 @@ using namespace std;
 // 6. If current vertex has all its neighbors already visited, pop it from stack & backtrack
 // 7. Check remaining vertices in the stack for any unvisited vertices.
 // 8. Repeat till stack empty
+//
+// 1. Dijkstra's Algorithm:
+// This is a famous graph search algorithm that solves the shortest - path problem for a graph with non - negative edge path costs, producing a shortest path tree.
+// It is widely used in networking for routing of packets.
+// It's also used in various fields like physical sciences, AI, operational research, etc.
+//
+// 2. Bellman - Ford Algorithm:
+// Bellman - Ford is used to find shortest paths from a single source vertex to all of the other vertices in a weighted graph.
+// The major difference between Dijkstra's and Bellman-Ford is that Bellman-Ford handles graphs with negative weight edges, whereas Dijkstra's does not.
+// It's used in routing in networks where routing costs can be negative, in calculating arbitrage opportunities in markets, and in distributed systems.
 
 // Classes
 template < typename T>
@@ -528,7 +545,7 @@ class Graph
 	// Print neighbors of a vertex
 	void print_neighbors(T key)
 	{
-		auto vertex = get_vertex_by_key(key);;
+		auto vertex = get_vertex_by_key(key);
 		if (vertex == vertices.end())
 		{
 			cerr << "\nNo vertex found with key: " << key << endl;
@@ -644,6 +661,167 @@ class Graph
 	}
 	// The decltype is used to automatically determine the type of start_vertex, which is the return type of get_vertex_by_key().
 
+	// Check if a path exists between two vertices
+	bool path_exists_DFS(T end_key, T start_key)
+	{
+		//----------------------------------------------------------------- Check if the start and end vertices exist in the graph
+		auto start_vertex = get_vertex_by_key(start_key);
+		if (start_vertex == vertices.end())
+		{
+			cerr << "No vertex found with key: " << start_key << endl;
+			return false;
+		}
+
+		auto end_vertex = get_vertex_by_key(end_key);
+		if (end_vertex == vertices.end())
+		{
+			cerr << "No vertex found with key: " << end_key << endl;
+			return false;
+		}
+
+		stack<decltype(start_vertex)> dfs_stack; //------------------------ Define a stack for DFS
+		unordered_map<T, bool> visited; //--------------------------------- Create an unordered_map to store visited vertices
+
+		//----------------------------------------------------------------- Add the start vertex to the stack and mark it as visited
+		dfs_stack.push(start_vertex);
+		visited[start_key] = true;
+
+		while (!dfs_stack.empty())
+		{
+			auto current_vertex = dfs_stack.top();
+			dfs_stack.pop();
+
+			if (current_vertex->get_key() == end_key) //------------------- If we've reached the end vertex, a path exists
+			{
+				return true;
+			}
+
+			for (auto &edge : current_vertex->get_edges()) //-------------- Add all unvisited neighbors to the stack
+			{
+				T neighbor_key = edge.get_connection_vertex_key();
+
+				if (!visited[neighbor_key]) //----------------------------- Check if the neighbor has been visited before
+				{
+					auto neighbor_vertex = get_vertex_by_key(neighbor_key);
+					dfs_stack.push(neighbor_vertex);
+					visited[neighbor_key] = true;
+				}
+			}
+		}
+
+		return false; //--------------------------------------------------- If we've exhausted all reachable vertices without finding the end vertex, no path exists
+	}
+
+	// Dijkstra's Algorithm
+	// The function takes two arguments: source_key and target_key. These represent the keys of the source and target vertices, respectively.
+	//
+	// The function uses two maps(std::map) called distances and previous.
+	//	   distances keeps track of the shortest distance from the source vertex to every other vertex that has been encountered so far.
+	//     previous is used to keep track of the shortest path found so far.
+	//
+	// The function also uses a priority queue(std::priority_queue) called queue.
+	//     This priority queue is used to decide which vertex to visit next.
+	//     The priority queue is a useful data structure for this algorithm because it can quickly give us the vertex with the smallest distance.
+	//
+	// After initializing distances(to INT_MAX, which represents infinity here) and previous, the function sets the distance to the source vertex to 0 and pushes it to queue.
+	//
+	// The function then enters a loop, which continues until there are no more vertices in the queue.
+	//
+	// Inside the loop, the function does the following:
+	//     It first removes the vertex with the smallest distance from queue. This is the current vertex.
+	//     Then it iterates over all edges of the current vertex. For each edge, it checks if the distance to the vertex at the other end of the edge(the "adjacent" vertex) can be reduced by going through the current vertex.
+	//     If so, it updates the distance and the path in distances and previous, respectively, and adds the adjacent vertex to queue.
+	//
+	// After the loop, the function checks if a path from source_key to target_key was found.
+	// If so, it prints the path by following the previous links from target_key to source_key and also prints the total distance of the path.
+	// If no path was found, it informs the user.
+	void dijkstra(T target_key, T source_key)
+	{
+		//---------------------------------------------------------------------------------------------------------- Check if the start and end vertices exist in the graph
+		auto vertex_from = get_vertex_by_key(source_key);
+		if (vertex_from == vertices.end())
+		{
+			cerr << "No vertex found with key: " << source_key << endl;
+			return;
+		}
+
+		auto vertex_to = get_vertex_by_key(target_key);
+		if (vertex_to == vertices.end())
+		{
+			cerr << "No vertex found with key: " << target_key << endl;
+			return;
+		}
+
+		map<T, int> distances;
+		map<T, T> previous;
+		priority_queue<pair<int, T>, vector<pair<int, T>>, greater<pair<int, T>>> queue;
+
+		for (auto &vertex : vertices)
+		{
+			distances[vertex.get_key()] = INT_MAX; //--------------------------------------------------------------- Initialize distances from the source vertex to all other vertices as infinity
+		}
+
+		distances[source_key] = 0; //------------------------------------------------------------------------------- Distance from source to itself is 0
+		queue.push({ 0, source_key }); //--------------------------------------------------------------------------- Push the source vertex into the queue
+
+		while (!queue.empty())
+		{
+			//------------------------------------------------------------------------------------------------------ The first vertex in pair is the minimum distance vertex, extract it from priority queue.
+			T current_vertex_key = queue.top().second;
+			queue.pop();
+
+			auto current_vertex = get_vertex_by_key(current_vertex_key); //----------------------------------------- 'current_vertex' is pointer to the vertex that matches the current_vertex_key in vertices list
+
+			for (auto &edge : current_vertex->get_edges())
+			{
+				T adj_vertex_key = edge.get_connection_vertex_key();
+
+				if (distances[adj_vertex_key] > distances[current_vertex_key] + edge.get_edge_weight()) //---------- If there is a shorter path to v through u
+				{
+					//---------------------------------------------------------------------------------------------- Update distance of v
+					distances[adj_vertex_key] = distances[current_vertex_key] + edge.get_edge_weight();
+					queue.push({ distances[adj_vertex_key], adj_vertex_key });
+
+					previous[adj_vertex_key] = current_vertex_key; //----------------------------------------------- Store the path
+				}
+			}
+		}
+
+		//---------------------------------------------------------------------------------------------------------- Print shortest distances from source to all other vertices
+		for (auto &distance : distances)
+		{
+			cout << "Distance from " << source_key << " to " << distance.first << " is " << distance.second << endl;
+		}
+
+		//---------------------------------------------------------------------------------------------------------- Print paths as well
+		for (auto &prev : previous)
+		{
+			cout << "Path to " << prev.first << ": ";
+			for (T key = prev.first; key != source_key; key = previous[key])
+			{
+				cout << key << " <- ";
+			}
+			cout << source_key << endl;
+		}
+
+		//---------------------------------------------------------------------------------------------------------- If there is a path from source_key to target_key
+		if (previous.find(target_key) != previous.end())
+		{
+			cout << "Shortest path from " << source_key << " to " << target_key << ": ";
+			for (T key = target_key; key != source_key; key = previous[key])
+			{
+				cout << key << " <- ";
+			}
+			cout << source_key << endl;
+
+			cout << "The distance is " << distances[target_key] << endl;
+		}
+		else
+		{
+			cout << "No path from " << source_key << " to " << target_key << " exists." << endl;
+		}
+	}
+
 	// Create vertex
 	static Vertex<T, D> create_vertex()
 	{
@@ -714,7 +892,7 @@ int main()
 
 				if (g1.check_edge_exist_by_key(vertex_1, vertex_2))
 				{
-					cerr << "Edge found between: [" << vertex_1->get_key() << "]: " << vertex_1->get_data() << " ---> [" << vertex_2->get_key() << "]: " << vertex_2->get_data() << endl;
+					cout << "Edge found between: [" << vertex_1->get_key() << "]: " << vertex_1->get_data() << " ---> [" << vertex_2->get_key() << "]: " << vertex_2->get_data() << endl;
 				}
 				else
 				{
@@ -722,8 +900,17 @@ int main()
 				}
 				break;
 			case 10:
+				if (g1.path_exists_DFS(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: ")))
+				{
+					cout << "Path exists!" << endl;
+				}
+				else
+				{
+					cout << "Path does not exist!" << endl;
+				}
 				break;
 			case 11:
+				g1.dijkstra(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
 				break;
 			case 12:
 				break;
@@ -738,14 +925,12 @@ int main()
 			case 17:
 				break;
 			case 18:
-				break;
-			case 19:
 				cout << g1.degree_of_a_vertex(get_valid_input<int>("Enter key of vertex to see degree for: ")) << " is the degree!" << endl;
 				break;
-			case 20:
+			case 19:
 				g1.print_neighbors(get_valid_input<int>("Enter key of vertex to see neighbors for: "));
 				break;
-			case 21:
+			case 20:
 				if (g1.get_vertices().empty())
 				{
 					cout << "Graph is empty!" << endl;
@@ -755,7 +940,7 @@ int main()
 					cout << "Graph is not empty!" << endl;
 				}
 				break;
-			case 22:
+			case 21:
 				if (g1.get_vertices().empty())
 				{
 					cout << "Graph is empty!" << endl;
@@ -765,7 +950,7 @@ int main()
 					g1.print_graph();
 				}
 				break;
-			case 23:
+			case 22:
 				system("cls");
 				break;
 			default:
@@ -782,8 +967,6 @@ int main()
 void print_menu()
 {
 	// Dijkstra's Algorithm
-	// Prims's Algorithm
-	// Kruskal's Algorithm
 	// Traveling sales man problem
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Add vertex" << endl;
@@ -795,20 +978,19 @@ void print_menu()
 	cout << "7. BFS" << endl;
 	cout << "8. DFS" << endl;
 	cout << "9. Check if two vertices are neighbors" << endl;
-	cout << "10. What is the path length between two vertices" << endl; // not
-	cout << "11. What is the path of least length between two vertices'" << endl; // not
-	cout << "12. Does a path exist between two vertices" << endl; // not
-	cout << "13. Does a path exist that uses every edge exactly once" << endl; // not
-	cout << "14. Does a path exist that uses every vertex exactly once" << endl; // not
-	cout << "15. Is the graph connected" << endl; // not
-	cout << "16. Max number of edges that this graph can have with current vertices" << endl; // not
-	cout << "17. Does the graph contain cycles" << endl; // not
-	cout << "18. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl; // not
-	cout << "19. Degree of a vertex" << endl;
-	cout << "20. Print all neighbors of a vertex" << endl;
-	cout << "21. Is graph empty" << endl;
-	cout << "22. Print graph" << endl;
-	cout << "23. Clear Screen" << endl << endl;
+	cout << "10. Does a path exist between two vertices" << endl;
+	cout << "11. What is the path of least length between two vertices'" << endl;
+	cout << "12. Does a path exist that uses every edge exactly once" << endl; // not
+	cout << "13. Does a path exist that uses every vertex exactly once" << endl; // not
+	cout << "14. Is the graph connected" << endl; // not
+	cout << "15. Max number of edges that this graph can have with current vertices" << endl; // not
+	cout << "16. Does the graph contain cycles" << endl; // not
+	cout << "17. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl; // not
+	cout << "18. Degree of a vertex" << endl;
+	cout << "19. Print all neighbors of a vertex" << endl;
+	cout << "20. Is graph empty" << endl;
+	cout << "21. Print graph" << endl;
+	cout << "22. Clear Screen" << endl << endl;
 }
 
 // Get the choice for the menu
@@ -818,6 +1000,6 @@ int get_choice()
 	do
 	{
 		choice = get_valid_input<int>("Enter choice: ");
-	} while (choice < 0 || choice > 23);
+	} while (choice < 0 || choice > 22);
 	return choice;
 }
