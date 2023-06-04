@@ -1,6 +1,10 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <map>
+#include <queue>
+#include <stack>
+#include <unordered_map>
 #include "basic_functions.h"
 
 using namespace std;
@@ -367,8 +371,14 @@ class Graph
 	}
 
 	// Add edge between vertices
-	void add_edge_between_vertices(T key_1, T key_2, int weight = 0)
+	void add_edge_between_vertices(int weight, T key_2, T key_1)
 	{
+		if (key_1 == key_2)
+		{
+			cerr << "\nSource and destination vertices are the same. Self-loops are not allowed." << endl;
+			return;
+		}
+
 		auto from = get_vertex_by_key(key_1);
 		if (from == vertices.end())
 		{
@@ -399,7 +409,7 @@ class Graph
 	}
 
 	// Update edge between vertices
-	void update_edge_between_vertices(T key_1, T key_2, int weight = 0)
+	void update_edge_between_vertices(int weight, T key_2, T key_1)
 	{
 		auto from = get_vertex_by_key(key_1);;
 		if (from == vertices.end())
@@ -437,7 +447,7 @@ class Graph
 	}
 
 	// Delete an edge between vertices
-	void delete_edge_between_vertices(T key_1, T key_2)
+	void delete_edge_between_vertices(T key_2, T key_1)
 	{
 		auto from = get_vertex_by_key(key_1);;
 		if (from == vertices.end())
@@ -528,6 +538,112 @@ class Graph
 		vertex->print_edges();
 	}
 
+	// BFS
+	// 1.Declare a queue, bfs_queue, to store iterators to Vertex objects. This avoids duplicating vertex objects when they're added to the queue.
+	// 2.Declare an unordered_map named visited to store visited vertices. The keys are the vertex keys, and the values are iterators to the Vertex objects. This helps to quickly lookup a vertex by its key.
+	// 3.Check if the start vertex exists in the graph. If it does not, print an error message and return from the function.
+	// 4.Add a iterator to the start vertex to bfs_queue, and add the start vertex key and a iterator to the vertex to visited.
+	// 5.While bfs_queue is not empty, do the following:
+	//   5.1. Get the iterator to the current vertex from bfs_stack.
+	//	 5.2. Dequeue a vertex from bfs_queue.
+	//   5.3. Print the current vertex
+	//	 5.4. For each edge of the dequeued vertex, do the following:
+	//        5.4.1. Get the key of the connected vertex.
+	//		  5.4.2. If the connected vertex has not been visited, add a iterator to it to bfs_queue, and add the vertex key and the iterator to the vertex to visited.
+	void BFS(T start_key)
+	{
+		//---------------------------------------------------------------------------------------------- Check if the start vertex exists in the graph
+		auto start_vertex = get_vertex_by_key(start_key);
+		if (start_vertex == vertices.end())
+		{
+			cerr << "No vertex found with key: " << start_key << endl;
+			return;
+		}
+
+		queue<decltype(start_vertex)> bfs_queue; //----------------------------------------------------- Define a queue for BFS
+		unordered_map<T, decltype(start_vertex)> visited; //-------------------------------------------- Create a map to store visited vertices
+
+		//---------------------------------------------------------------------------------------------- Add the start vertex to the queue and visited map
+		bfs_queue.push(start_vertex);
+		visited[start_key] = start_vertex;
+
+		//---------------------------------------------------------------------------------------------- BFS Algorithm
+		while (!bfs_queue.empty())
+		{
+			//------------------------------------------------------------------------------------------ Get the iterator to the current vertex from the queue and remove it from the queue and print it
+			auto current_vertex = bfs_queue.front();
+			bfs_queue.pop();
+			cout << "[" << current_vertex->get_key() << "]: " << current_vertex->get_data() << " ---> ";
+
+			for (auto &edge : current_vertex->get_edges()) //------------------------------------------- Add all unvisited neighbors to the queue
+			{
+				T neighbor_key = edge.get_connection_vertex_key();
+
+				if (visited.find(neighbor_key) == visited.end()) //------------------------------------- Check if the neighbor has been visited before
+				{
+					//---------------------------------------------------------------------------------- If not, mark it as visited and add it to the queue
+					auto neighbor_vertex = get_vertex_by_key(neighbor_key);
+					bfs_queue.push(neighbor_vertex);
+					visited[neighbor_key] = neighbor_vertex;
+				}
+			}
+		}
+	}
+	// The decltype is used to automatically determine the type of start_vertex, which is the return type of get_vertex_by_key().
+
+	// DFS
+	// 1. Define a Stack named dfs_stack to store iterators to Vertex objects.
+	// 2. Define an unordered_map named visited to store visited vertices.
+	// 3. Check if the start vertex exists in the graph.If it does not, print an error message and return from the function.
+	// 4. Add the iterator to the start vertex to dfs_stack, and add the start vertex key and its iterator to visited.
+	// 5. While dfs_stack is not empty, do the following:
+	//    5.1. Get the iterator to the current vertex from dfs_stack.
+	//    5.2. Pop it from the stack.
+	//	  5.3. Print the current vertex.
+	//    5.4. For each edge of the current vertex, do the following:
+	//         5.4.1 Get the key of the connected vertex.
+	//         5.4.2 If the connected vertex has not been visited, add the iterator to it to dfs_stack, and add the vertex key and its iterator to visited.
+	void DFS(T start_key)
+	{
+		//---------------------------------------------------------------------------------------------- Check if the start vertex exists in the graph
+		auto start_vertex = get_vertex_by_key(start_key);
+		if (start_vertex == vertices.end())
+		{
+			cerr << "No vertex found with key: " << start_key << endl;
+			return;
+		}
+
+		stack<decltype(start_vertex)> dfs_stack; //----------------------------------------------------- Define a stack for DFS
+		unordered_map<T, decltype(start_vertex)> visited; //-------------------------------------------- Create an unordered_map to store visited vertices
+
+		//---------------------------------------------------------------------------------------------- Add the start vertex to the stack and visited map
+		dfs_stack.push(start_vertex);
+		visited[start_key] = start_vertex;
+
+		//---------------------------------------------------------------------------------------------- DFS Algorithm
+		while (!dfs_stack.empty())
+		{
+			//------------------------------------------------------------------------------------------ Get the iterator to the current vertex from the stack and remove it from the stack and print it
+			auto current_vertex = dfs_stack.top();
+			dfs_stack.pop();
+			cout << "[" << current_vertex->get_key() << "]: " << current_vertex->get_data() << " ---> ";
+
+			for (auto &edge : current_vertex->get_edges()) //------------------------------------------- Add all unvisited neighbors to the stack
+			{
+				T neighbor_key = edge.get_connection_vertex_key();
+
+				if (visited.find(neighbor_key) == visited.end()) //------------------------------------- Check if the neighbor has been visited before
+				{
+					//---------------------------------------------------------------------------------- If not, mark it as visited and add it to the stack
+					auto neighbor_vertex = get_vertex_by_key(neighbor_key);
+					dfs_stack.push(neighbor_vertex);
+					visited[neighbor_key] = neighbor_vertex;
+				}
+			}
+		}
+	}
+	// The decltype is used to automatically determine the type of start_vertex, which is the return type of get_vertex_by_key().
+
 	// Create vertex
 	static Vertex<T, D> create_vertex()
 	{
@@ -568,17 +684,19 @@ int main()
 				g1.delete_vertex(get_valid_input<int>("Enter key of vertex to delete: "));
 				break;
 			case 4:
-				g1.add_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter edge weight: "));
+				g1.add_edge_between_vertices(get_valid_input<int>("Enter edge weight: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
 				break;
 			case 5:
-				g1.update_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter edge weight: "));
+				g1.update_edge_between_vertices(get_valid_input<int>("Enter edge weight: "), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
 				break;
 			case 6:
-				g1.delete_edge_between_vertices(get_valid_input<int>("Enter key of vertex from: "), get_valid_input<int>("Enter key of vertex to: "));
+				g1.delete_edge_between_vertices(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
 				break;
 			case 7:
+				g1.BFS(get_valid_input<int>("Enter key of vertex to start BFS from: "));
 				break;
 			case 8:
+				g1.DFS(get_valid_input<int>("Enter key of vertex to start DFS from: "));
 				break;
 			case 9:
 				vertex_1 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex from: "));
@@ -674,8 +792,8 @@ void print_menu()
 	cout << "4. Add edge" << endl;
 	cout << "5. Update edge" << endl;
 	cout << "6. Delete edge" << endl;
-	cout << "7. BFS" << endl; // not
-	cout << "8. DFS" << endl; // not
+	cout << "7. BFS" << endl;
+	cout << "8. DFS" << endl;
 	cout << "9. Check if two vertices are neighbors" << endl;
 	cout << "10. What is the path length between two vertices" << endl; // not
 	cout << "11. What is the path of least length between two vertices'" << endl; // not
