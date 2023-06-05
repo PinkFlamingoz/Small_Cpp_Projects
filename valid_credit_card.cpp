@@ -65,22 +65,22 @@ void print_card(long long card)
 }
 
 //                   4003600000000014
-// 1.digit= 4, card= 400360000000001,                                              sum= 0 + 4 = 4
-// 2.digit= 1, card= 40036000000000,  if{digit= 1 * 2 = 2},                        sum= 4 + 2 = 6
-// 3.digit= 0, card= 4003600000000,                                                sum= 6 + 0 = 6
-// 4.digit= 0, card= 400360000000,    if{digit= 0 * 2 = 0},                        sum= 6 + 0 = 6
-// 5.digit= 0, card= 40036000000,                                                  sum= 6 + 0 = 6
-// 6.digit= 0, card= 4003600000,      if{digit= 0 * 2 = 0},                        sum= 6 + 0 = 6
-// 7.digit= 0, card= 400360000,                                                    sum= 6 + 0 = 6
-// 8.digit= 0, card= 40036000,        if{digit= 0 * 2 = 0},                        sum= 6 + 0 = 6
-// 9.digit= 0, card= 4003600,                                                      sum= 6 + 0 = 6
-//10.digit= 0, card= 400360,          if{digit= 0 * 2 = 0},                        sum= 6 + 0 = 6
-//11.digit= 0, card= 40036,                                                        sum= 6 + 0 = 6
-//12.digit= 6, card= 4003,            if{digit= 6 * 2 = 12; if{digit= 12-9 = 3}},  sum= 6 + 3 = 9
-//13.digit= 3, card= 400,                                                          sum= 9 + 3 = 12
-//14.digit= 0, card= 40,              if{digit= 0 * 2 = 0},                        sum= 12 + 0 = 12
-//15.digit= 0, card= 4,                                                            sum= 12 + 0 = 12
-//16.digit= 4, card= ,                if{digit= 4 * 2 = 8},                        sum= 12 + 8 = 20
+// 1. digit = 4, card= 400360000000001,                                              sum = 0 + 4 = 4
+// 2. digit = 1, card= 40036000000000,  if{digit= 1 * 2 = 2},                        sum = 4 + 2 = 6
+// 3. digit = 0, card= 4003600000000,                                                sum = 6 + 0 = 6
+// 4. digit = 0, card= 400360000000,    if{digit= 0 * 2 = 0},                        sum = 6 + 0 = 6
+// 5. digit = 0, card= 40036000000,                                                  sum = 6 + 0 = 6
+// 6. digit = 0, card= 4003600000,      if{digit= 0 * 2 = 0},                        sum = 6 + 0 = 6
+// 7. digit = 0, card= 400360000,                                                    sum = 6 + 0 = 6
+// 8. digit = 0, card= 40036000,        if{digit= 0 * 2 = 0},                        sum = 6 + 0 = 6
+// 9. digit = 0, card= 4003600,                                                      sum = 6 + 0 = 6
+//10. digit = 0, card= 400360,          if{digit= 0 * 2 = 0},                        sum = 6 + 0 = 6
+//11. digit = 0, card= 40036,                                                        sum = 6 + 0 = 6
+//12. digit = 6, card= 4003,            if{digit= 6 * 2 = 12; if{digit= 12-9 = 3}},  sum = 6 + 3 = 9
+//13. digit = 3, card= 400,                                                          sum = 9 + 3 = 12
+//14. digit = 0, card= 40,              if{digit= 0 * 2 = 0},                        sum = 12 + 0 = 12
+//15. digit = 0, card= 4,                                                            sum = 12 + 0 = 12
+//16. digit = 4, card= ,                if{digit= 4 * 2 = 8},                        sum = 12 + 8 = 20
 int calculate_checksum(long long card)
 {
 	int digit = 0;

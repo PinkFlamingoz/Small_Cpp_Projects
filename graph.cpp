@@ -498,58 +498,6 @@ class Graph
 		cout << "\nEdge deleted [" << to->get_key() << "]: " << to->get_data() << " ---> [" << from->get_key() << "]: " << from->get_data() << endl;
 	}
 
-	// Degree of a vertex
-	int degree_of_a_vertex(T key)
-	{
-		auto vertex = get_vertex_by_key(key);
-		if (vertex == vertices.end())
-		{
-			cerr << "\nNo vertex found with key: " << key << endl;
-			return 0;
-		}
-
-		return vertex->get_edges().size();
-	}
-
-	// Print graph
-	// auto: This keyword tells the compiler to automatically determine the appropriate type of the variable.
-	//       In this case, it's used to deduce the type of elements that vertices container holds.
-	//       This is very handy when the type of elements is complex or lengthy to write out.
-	// const: This keyword means that the variable vertex cannot be modified inside the loop.
-	//        In other words, you're promising not to change vertex within the loop body.
-	// &: This symbol indicates that vertex is a reference to the element in the vertices container, not a copy of it.
-	//    This can improve performance because it avoids unnecessary copying of elements.
-	//    Combined with const, this means you're getting a read-only reference to each element, one at a time.
-	// vertex: Is the name of the variable that will represent each element in the vertices container.
-	// : is what separates the element type and element variable name on the left, and the container on the right.
-	// vertices: Is the container that you're iterating over. It could be an array, vector, list, etc.
-	//
-	// In each iteration of the loop, vertex is bound to the current element in the vertices container. The loop continues until it has gone through all elements.
-	// In summary, this line of code can be read as "For each vertex in vertices, where vertex is a constant reference to the actual element in the container".
-	// If we want to modify the element we need to remove the const and keep the reference. If we remove the reference as well only the local element will be affected.
-	void print_graph()
-	{
-		for (auto &vertex : vertices)
-		{
-			cout << "[" << vertex.get_key() << "]: " << vertex.get_data() << " --- ";
-			vertex.print_edges();
-			cout << endl;
-		}
-	}
-
-	// Print neighbors of a vertex
-	void print_neighbors(T key)
-	{
-		auto vertex = get_vertex_by_key(key);
-		if (vertex == vertices.end())
-		{
-			cerr << "\nNo vertex found with key: " << key << endl;
-			return;
-		}
-
-		vertex->print_edges();
-	}
-
 	// BFS
 	// 1.Declare a queue, bfs_queue, to store iterators to Vertex objects. This avoids duplicating vertex objects when they're added to the queue.
 	// 2.Declare an unordered_map named visited to store visited vertices. The keys are the vertex keys, and the values are iterators to the Vertex objects. This helps to quickly lookup a vertex by its key.
@@ -707,6 +655,269 @@ class Graph
 		return false; //--------------------------------------------------- If we've exhausted all reachable vertices without finding the end vertex, no path exists
 	}
 
+	// Check if the graph is connected
+	bool is_graph_connected(T start_key)
+	{
+		if (vertices.empty())
+		{
+			return true; //------------------------------------------------ An empty graph is considered connected
+		}
+
+		//----------------------------------------------------------------- Check if the start vertex exists in the graph
+		auto start_vertex = get_vertex_by_key(start_key);
+		if (start_vertex == vertices.end())
+		{
+			cerr << "\nNo vertex found with key: " << start_key << endl;
+			return false;
+		}
+
+		stack<decltype(start_vertex)> dfs_stack; //------------------------ Define a stack for DFS
+		unordered_map<T, bool> visited; //--------------------------------- Create an unordered_map to store visited vertices
+
+		dfs_stack.push(start_vertex); //----------------------------------- Add the start vertex to the stack
+		visited[start_vertex->get_key()] = true; //------------------------ Mark it as visited
+
+		//----------------------------------------------------------------- DFS Algorithm
+		while (!dfs_stack.empty())
+		{
+			auto current_vertex = dfs_stack.top(); //---------------------- Get the vertex from the stack
+			dfs_stack.pop(); //-------------------------------------------- Remove it from the stack
+
+			for (auto &edge : current_vertex->get_edges()) //-------------- Visit all the neighbors of the current vertex
+			{
+				T neighbor_key = edge.get_connection_vertex_key();
+
+				if (!visited[neighbor_key]) //----------------------------- If the neighbor has not been visited, mark it as visited and add it to the stack
+				{
+					auto neighbor_vertex = get_vertex_by_key(neighbor_key);
+					dfs_stack.push(neighbor_vertex);
+					visited[neighbor_key] = true;
+				}
+			}
+		}
+
+		return visited.size() == vertices.size(); //----------------------- If the number of visited vertices is equal to the total number of vertices, the graph is connected
+	}
+
+	// DFS_Cycle(vertex_key, visited, parent):
+	// 1. Mark vertex_key as visited
+	// 2. For each edge in the edges of vertex_key:
+	//    2.1. Extract neighbor_key from the edge
+	//    2.2. If neighbor_key is not visited:
+	//		   2.2.1. Call DFS_Cycle with neighbor_key, visited, and vertex_key as the parent
+	//         2.2.2. If DFS_Cycle returns true (which indicates a cycle), return true
+	//    2.3. Else if neighbor_key is visited and it is not the parent, return true (it indicates a cycle)
+	// 3. If no cycles are found after traversing all edges, return false
+	bool DFS_cycle(T vertex_key, unordered_map<T, bool> &visited, T parent)
+	{
+		visited[vertex_key] = true; //--------------------------- Mark the current node as visited
+
+		//------------------------------------------------------- Recur for all the vertices adjacent to this vertex
+		auto vertex = get_vertex_by_key(vertex_key);
+		for (auto &edge : vertex->get_edges())
+		{
+			T neighbor_key = edge.get_connection_vertex_key();
+
+			//--------------------------------------------------- If an adjacent vertex is not visited, then recur for that adjacent
+			if (!visited[neighbor_key])
+			{
+				if (DFS_cycle(neighbor_key, visited, vertex_key))
+				{
+					return true;
+				}
+			}
+			//--------------------------------------------------- If an adjacent vertex is visited and is not a parent of the current vertex, then there is a cycle
+			else if (neighbor_key != parent)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// Contains_Cycle :
+	// 1. Create an empty map "visited" to keep track of visited vertices
+	// 2. For each vertex in the graph:
+	//    2.1. If the vertex is not visited:
+	//         2.1.1. Call DFS_Cycle with the vertex_key, visited map, and vertex_key as the parent
+	//         2.1.2. If DFS_Cycle returns true, return true (since a cycle is detected)
+	// 3. After checking all vertices, if no cycles are found, return false
+	//
+	// This graph forms a cycle A -> B -> C -> A.
+	// Now, let's see how Depth First Search (DFS) algorithm works.
+	// If we start DFS from A, it could go to B first (based on the ordering of neighbors). So for B, the parent node is A. Then DFS would go to C from B. For C, the parent node is B.
+	// The key point here is that in an undirected graph, the parent of the current node(from which we came to the current node) is considered as an already visited node.
+	// Hence, we should not consider it as a back edge.
+	// So when we are at node C, we see that it has two neighbors: B and A.B is the parent of C in the DFS tree, so we ignore it.
+	// But A is also a neighbor of C and A is visited and is not the parent of C, so this forms a cycle.
+	// That's why we check neighbor_key != parent. If we don't, we would incorrectly identify the edge between the current node and its parent in the DFS tree as a back edge, leading to a false identification of a cycle.
+	bool contains_cycle()
+	{
+		unordered_map<T, bool> visited; //--------------------------------- Initialize visited map
+
+		for (auto &vertex : vertices) //----------------------------------- Do a DFS traversal for all vertices
+		{
+			if (!visited[vertex.get_key()])
+			{
+				//--------------------------------------------------------- Don't send any parent vertex for the first vertex
+				if (DFS_cycle(vertex.get_key(), visited, vertex.get_key()))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	// Is graph Eulerian or semi-Eulerian
+	// An Eulerian graph is one where all vertices have an even degree, and it contains an Eulerian cycle, a path in the graph that visits every edge exactly once and starts and ends at the same vertex.
+	// A semi-Eulerian graph, on the other hand, is a graph where exactly two vertices have an odd degree and it contains an Eulerian path, a path in the graph that visits every edge exactly once but does not necessarily start and end at the same vertex.
+	bool is_graph_eulerian()
+	{
+		if (!is_graph_connected(vertices.front().get_key())) // A graph is Eulerian or semi-Eulerian only if it is connected, which means there is a path between every pair of vertices
+		{
+			return false;
+		}
+
+		int odd = 0; //---------------------------------------- A counter variable odd is declared and initialized to zero. This variable will be used to count the vertices with an odd degree in the graph
+		for (auto &vertex : vertices)
+		{
+			if ((vertex.get_edges().size()) % 2 != 0) //------- Checks whether the current vertex has an odd degree. The degree of a vertex in an undirected graph is the number of edges connected to it. vertex.get_edges().size() gives the degree of vertex. If this degree is odd, odd is incremented by 1
+			{
+				odd += 1;
+			}
+		}
+
+		return (odd == 0 || odd == 2);
+	}
+	// After counting the vertices with an odd degree, the function checks whether their number odd is either 0 or 2.
+	// If odd is 0, it means all vertices have an even degree, and the graph is Eulerian.
+	// If odd is 2, it means exactly two vertices have an odd degree, and the graph is semi-Eulerian.
+	// In both these cases, the function returns true. If odd is neither 0 nor 2, the function returns false, indicating that the graph is neither Eulerian nor semi-Eulerian.
+
+	// Print an Eulerian path or cycle in a graph
+	// An unordered map visited_edges is initialized to keep track of the edges that have been visited.
+	// The outer map's keys are the vertices, and its values are another unordered map.
+	// The inner map's keys are also vertices, representing connections to the outer map's vertex.
+	// The inner map's values are booleans, indicating whether the edge between the outer and inner vertices has been visited. Initially, all edges are marked as not visited.
+	//
+	// A stack current_path and a vector eulerian_path are defined to keep track of the current path and the final Eulerian path, respectively.
+	//
+	// T current_vertex = vertices.begin()->get_key(): The Eulerian path starts from the first vertex in the vertices map.
+	//
+	// The function then enters a loop, which continues until the current_path stack is empty.
+	// Inside the loop, it checks for each edge of the current vertex.
+	// If an edge connecting to a neighbor has not been visited(!visited_edges[current_vertex][edge.get_connection_vertex_key()]), it marks that edge as visited and pushes the current vertex into the current_path stack.
+	// Then, it moves to the neighbor by setting current_vertex to edge.get_connection_vertex_key().
+	// If all edges from the current vertex have been visited, it means we are "stuck".
+	// In this case, it adds the current vertex to the eulerian_path vector and backtracks by setting current_vertex to the top of the current_path stack and popping the stack.
+	//
+	//  After the loop, eulerian_path contains the vertices of the Eulerian path, but in reverse order because of the backtracking process.
+	// The function then prints these vertices in the correct order by iterating over eulerian_path in reverse.
+	//
+	//     A
+	//   /
+	//	B     C
+	//	 \   / \
+	//	   D --- E
+	//
+	// We start from an arbitrary vertex. Let's pick 'A'. We put 'A' on the current_path stack and set current_vertex to 'A'.
+	//
+	// From 'A', we have one unvisited edge: (A, B). Let's go with (A, B).
+	// We mark (A, B) as visited and put 'B' on the current_path stack.
+	//
+	// Now current_vertex is 'B'.
+	// From 'B', we have one unvisited edge: (B, D). Let's go with (B, D).
+	// We mark (B, D) as visited and put 'D' on the current_path stack.
+	//
+	// Now current_vertex is 'D'.
+	// From 'D', we have two unvisited edges: (D, C), and (D, E). Let's go with (D, E).
+	// We mark (D, E) as visited and put 'E' on the current_path stack.
+	//
+	// Now current_vertex is 'E'.
+	// From 'E' we have one unvisited edge: (E, C). Let's go with (E, C).
+	// We mark (E, C) as visited and put 'C' on the current_path stack.
+	//
+	// Now current_vertex is 'C'.
+	// 'C' has no unvisited edges. So we backtrack. We pop 'C' from the current_path stack and add it to eulerian_path.
+	//
+	// Now current_vertex is 'E'.
+	// 'E' has no unvisited edges. So we backtrack. We pop 'E' from the current_path stack and add it to eulerian_path.
+	//
+	// Now current_vertex is 'D'.
+	// 'D' has no unvisited edges. So we backtrack. We pop 'D' from the current_path stack and add it to eulerian_path.
+	//
+	// Now current_vertex is 'B'.
+	// 'B' has no unvisited edges. So we backtrack. We pop 'B' from the current_path stack and add it to eulerian_path.
+	//
+	// Now current_vertex is 'A'.
+	// 'A' has no unvisited edges. So we backtrack. We pop 'A' from the current_path stack and add it to eulerian_path.
+	//
+	// Now current_path is empty. We have visited all edges once. The eulerian_path has the order of the vertices visited.
+	// Finally, we print the eulerian_path in reverse order : A -> B -> D -> E -> C -> D which gives us an Eulerian path.
+	void print_eulerian()
+	{
+		if (!is_graph_eulerian()) //------------------------------------------------------- Check if the graph has an Eulerian path or cycle.
+		{
+			cout << "\nThe graph does not have an Eulerian path or cycle" << endl;
+			return;
+		}
+
+		unordered_map<T, unordered_map<T, bool>> visited_edges; //------------------------- Create a map to keep track of edges that have been visited.
+
+		for (const auto &vertex : vertices) //--------------------------------------------- Initialize visited_edges for every vertex in the graph
+		{
+			visited_edges[vertex.get_key()] = unordered_map<T, bool>();
+		}
+
+		//--------------------------------------------------------------------------------- Create a stack to keep track of the current path and a vector to store the final Eulerian path
+		stack<T> current_path;
+		vector<T> eulerian_path;
+
+		//--------------------------------------------------------------------------------- Start from the first vertex in the map
+		T current_vertex = vertices.begin()->get_key();
+		current_path.push(current_vertex);
+
+		//--------------------------------------------------------------------------------- Traverse the graph DFS
+		while (!current_path.empty())
+		{
+			bool stuck = true; //---------------------------------------------------------- Boolean variable to check if all edges from the current vertex are visited
+
+			for (auto &edge : get_vertex_by_key(current_vertex)->get_edges()) //----------- Traverse all neighbors of the current vertex
+			{
+				if (!visited_edges[current_vertex][edge.get_connection_vertex_key()]) //--- If this edge has not been visited yet
+				{
+					//--------------------------------------------------------------------- Mark the edge as visited, since it is an undirected graph we do this for both edges aka back and forth
+					visited_edges[current_vertex][edge.get_connection_vertex_key()] = true;
+					visited_edges[edge.get_connection_vertex_key()][current_vertex] = true;
+
+					//--------------------------------------------------------------------- Add the current vertex to the stack and move to the next vertex
+					current_path.push(current_vertex);
+					current_vertex = edge.get_connection_vertex_key();
+
+					stuck = false; //------------------------------------------------------ We found an unvisited edge, so we are not stuck
+					break;
+				}
+			}
+
+			if (stuck) //------------------------------------------------------------------ If all edges are visited (we are stuck), add the current vertex to the Eulerian path and move to the previous vertex in the current path
+			{
+				eulerian_path.push_back(current_vertex);
+				current_vertex = current_path.top();
+				current_path.pop();
+			}
+		}
+
+		//--------------------------------------------------------------------------------- Print the Eulerian path or cycle. NOTE: as we are pushing back elements into eulerian_path in reverse order, we have to print it in reverse, hence we use reverse iterators
+		for (auto it = eulerian_path.rbegin(); it != eulerian_path.rend(); ++it)
+		{
+			cout << *it << " -> ";
+		}
+		cout << endl;
+	}
+
 	// Dijkstra's Algorithm
 	// The function takes two arguments: source_key and target_key. These represent the keys of the source and target vertices, respectively.
 	//
@@ -732,130 +943,130 @@ class Graph
 	// If no path was found, it informs the user.
 	//
 	// The initialization of distances to INT_MAX (representing "infinity" in this context) is an important part of Dijkstra's algorithm.
-	// The distances map holds the shortest known distances from the source vertex to all other vertices. 
-	// Initially, the shortest distance from the source vertex to any other vertex is unknown. 
-	// We could say it's "infinitely large" since we haven't yet explored any path to the vertex. 
+	// The distances map holds the shortest known distances from the source vertex to all other vertices.
+	// Initially, the shortest distance from the source vertex to any other vertex is unknown.
+	// We could say it's "infinitely large" since we haven't yet explored any path to the vertex.
 	// This is why we initialize all distances to INT_MAX.
-	// As Dijkstra's algorithm progresses, it explores different paths starting from the source vertex and updates the distances in the map. 
+	// As Dijkstra's algorithm progresses, it explores different paths starting from the source vertex and updates the distances in the map.
 	// The algorithm guarantees that once a vertex's distance is updated, it is the shortest distance from the source vertex to that vertex.
-	// In other words, we start by assuming that all vertices are "infinitely" far away, and then Dijkstra's algorithm "discovers" the true distances by exploring the graph. 
+	// In other words, we start by assuming that all vertices are "infinitely" far away, and then Dijkstra's algorithm "discovers" the true distances by exploring the graph.
 	// This is a common approach when dealing with shortest path algorithms or generally in situations where you want to find a minimum value, and you start with the largest possible value as an initial condition.
 	//
-	// The priority_queue is a container adapter that provides a restricted form of a container that always keeps the greatest element at the top (or the least, based on the comparator function provided). 
+	// The priority_queue is a container adapter that provides a restricted form of a container that always keeps the greatest element at the top (or the least, based on the comparator function provided).
 	// It is defined with three parameters:
-	// pair<int, T>: This is the type of data that will be stored in the priority queue. 
+	// pair<int, T>: This is the type of data that will be stored in the priority queue.
 	//				 Here, it's a pair, where the first element is an integer (representing the weight or distance in this context), and the second element is of type T (representing the vertex).
-	// vector<pair<int, T>>: This is the underlying container that is used to store the elements. 
-	//                       It can be any type of sequence container such as vector, deque, or even a user-defined type, as long as it supports certain operations like front(), push_back(), and pop_back(). 
+	// vector<pair<int, T>>: This is the underlying container that is used to store the elements.
+	//                       It can be any type of sequence container such as vector, dequeue, or even a user-defined type, as long as it supports certain operations like front(), push_back(), and pop_back().
 	//                       Here, we are using vector of pair<int, T>.
-	// greater<pair<int, T>>: This is a comparison function that determines the order of the elements inside the queue. 
-	//                        By default, priority_queue is a max heap (meaning it always pops the maximum element). 
-	//                        But in this case, we want it to be a min heap (i.e., it should always pop the minimum element). 
-	//                        greater<> is a built-in function object class that defines the function call operator with the same functionality as the relational operator >. 
+	// greater<pair<int, T>>: This is a comparison function that determines the order of the elements inside the queue.
+	//                        By default, priority_queue is a max heap (meaning it always pops the maximum element).
+	//                        But in this case, we want it to be a min heap (i.e., it should always pop the minimum element).
+	//                        greater<> is a built-in function object class that defines the function call operator with the same functionality as the relational operator >.
 	//                        By providing greater<pair<int, T>>, we are making the priority queue behave like a min heap instead of a max heap.
 	//
 	// A --2-- B --2-- D --1-- E
-    // |               |
-    // |               |
-    // | __1__ C __3__ |
+	// |               |
+	// |               |
+	// | __1__ C __3__ |
 	//
-    // Step 1: Initialize the distances array to INT_MAX and distance to the source vertex (A) to 0.
-	// The priority queue is initialized with (0, A). Also, the predecessor map initially contains only the source vertex with no predecessor.   
-	// Distances map: 
+	// Step 1: Initialize the distances array to INT_MAX and distance to the source vertex (A) to 0.
+	// The priority queue is initialized with (0, A). Also, the predecessor map initially contains only the source vertex with no predecessor.
+	// Distances map:
 	// A: 0
 	// B: INT_MAX
 	// C: INT_MAX
 	// D: INT_MAX
 	// E: INT_MAX
 	//
-	// Priority queue: 
+	// Priority queue:
 	// (0, A)
 	//
 	// Predecessor map:
 	// A: None
 	//
-	// Step 2: Process vertex A from the priority queue. 
-	// Update the distances to its adjacent vertices (B and C). 
-	// The new distance to B will be 0 + 2 = 2, and to C will be 0 + 1 = 1. 
+	// Step 2: Process vertex A from the priority queue.
+	// Update the distances to its adjacent vertices (B and C).
+	// The new distance to B will be 0 + 2 = 2, and to C will be 0 + 1 = 1.
 	// Since these are smaller than the current distances, update the distances and add the new distances along with the vertices to the priority queue.
-    // Distances map: 
+	// Distances map:
 	// A: 0
 	// B: 2
 	// C: 1
 	// D: INT_MAX
 	// E: INT_MAX
-	// 
-	// Priority queue: 
+	//
+	// Priority queue:
 	// (1, C)
 	// (2, B)
-	// 
+	//
 	// Predecessor map:
 	// A: None
 	// B: A
 	// C: A
 	//
-	// Step 3: Process the vertex with the smallest distance in the priority queue, which is C. 
-	// Update the distance to its adjacent vertices. 
-	// In this case, C only connects to D. The new distance to D will be 1 (distance to C) + 3 (weight of edge CD) = 4. 
+	// Step 3: Process the vertex with the smallest distance in the priority queue, which is C.
+	// Update the distance to its adjacent vertices.
+	// In this case, C only connects to D. The new distance to D will be 1 (distance to C) + 3 (weight of edge CD) = 4.
 	// Since this is smaller than the current distance to D, update it.
-    // Distances map: 
-    // A: 0
-    // B: 2
-    // C: 1
-    // D: 4
-    // E: INT_MAX
-    // 
-    // Priority queue: 
-    // (2, B)
-    // (4, D)
-    // 
-    // Predecessor map:
-    // A: None
-    // B: A
-    // C: A
-    // D: C
+	// Distances map:
+	// A: 0
+	// B: 2
+	// C: 1
+	// D: 4
+	// E: INT_MAX
 	//
-	// Step 4: Process vertex B. Update the distance to its adjacent vertices (D). 
-	// The new distance to D will be 2 (distance to B) + 2 (weight of edge BD) = 4. 
+	// Priority queue:
+	// (2, B)
+	// (4, D)
+	//
+	// Predecessor map:
+	// A: None
+	// B: A
+	// C: A
+	// D: C
+	//
+	// Step 4: Process vertex B. Update the distance to its adjacent vertices (D).
+	// The new distance to D will be 2 (distance to B) + 2 (weight of edge BD) = 4.
 	// Since this is equal to the current distance to D, we do not update it.
-	// Distances map: 
-    // A: 0
-    // B: 2
-    // C: 1
-    // D: 4
-    // E: INT_MAX
-    // 
-    // Priority queue: 
-    // (4, D)
-    // 
-    // Predecessor map:
-    // A: None
-    // B: A
-    // C: A
-    // D: C
+	// Distances map:
+	// A: 0
+	// B: 2
+	// C: 1
+	// D: 4
+	// E: INT_MAX
 	//
-	// Step 5: Process vertex D. 
-	// Update the distance to its adjacent vertices (E). 
-	// The new distance to E will be 4 (distance to D) + 1 (weight of edge DE) = 5. 
+	// Priority queue:
+	// (4, D)
+	//
+	// Predecessor map:
+	// A: None
+	// B: A
+	// C: A
+	// D: C
+	//
+	// Step 5: Process vertex D.
+	// Update the distance to its adjacent vertices (E).
+	// The new distance to E will be 4 (distance to D) + 1 (weight of edge DE) = 5.
 	// Since this is smaller than the current distance to E, update it.
-	// Distances map: 
-    // A: 0
-    // B: 2
-    // C: 1
-    // D: 4
-    // E: 5
-    // 
-    // Priority queue: 
-    // (Empty)
-    // 
-    // Predecessor map:
-    // A: None
-    // B: A
-    // C: A
-    // D: C
-    // E: D
+	// Distances map:
+	// A: 0
+	// B: 2
+	// C: 1
+	// D: 4
+	// E: 5
 	//
-	// At the end of the algorithm, the distances map gives the shortest distance from A to all other vertices, and the predecessor map can be used to construct the shortest path from A to any other vertex. 
+	// Priority queue:
+	// (Empty)
+	//
+	// Predecessor map:
+	// A: None
+	// B: A
+	// C: A
+	// D: C
+	// E: D
+	//
+	// At the end of the algorithm, the distances map gives the shortest distance from A to all other vertices, and the predecessor map can be used to construct the shortest path from A to any other vertex.
 	// For example, the shortest path from A to E is A --> B --> D --> E with a total weight of 5.
 	void dijkstra(T target_key, T source_key)
 	{
@@ -903,22 +1114,24 @@ class Graph
 					//---------------------------------------------------------------------------------------------- Update distance of v
 					distances[neighbor_key] = distances[current_vertex_key] + edge.get_edge_weight();
 					queue.push({ distances[neighbor_key], neighbor_key });
-					
+
 					previous[neighbor_key] = current_vertex_key; //------------------------------------------------- Store the path
 				}
 			}
 		}
 
 		//---------------------------------------------------------------------------------------------------------- Print shortest distances from source to all other vertices
+		cout << endl;
 		for (auto &distance : distances)
 		{
-			cout << "\nDistance from " << source_key << " to " << distance.first << " is " << distance.second << endl;
+			cout << "Distance from " << source_key << " to " << distance.first << " is " << distance.second << endl;
 		}
 
 		//---------------------------------------------------------------------------------------------------------- Print paths as well
+		cout << endl;
 		for (auto &prev : previous)
 		{
-			cout << "\n11Path to " << prev.first << ": ";
+			cout << "Path to " << prev.first << ": ";
 			for (T key = prev.first; key != source_key; key = previous[key])
 			{
 				cout << key << " <- ";
@@ -940,47 +1153,73 @@ class Graph
 		}
 		else
 		{
-			cout << "\nNo path from " << source_key << " to " << target_key << " exists." << endl;
+			cout << "\nNo path exists from " << source_key << " to " << target_key << " exists." << endl;
 		}
 	}
 
-	// Check if the graph is connected
-	bool is_graph_connected() 
+	// Degree of a vertex
+	int degree_of_a_vertex(T key)
 	{
-    	if (vertices.empty()) 
+		auto vertex = get_vertex_by_key(key);
+		if (vertex == vertices.end())
 		{
-        	return true; //------------------------------------------------ An empty graph is considered connected
-    	}
+			cerr << "\nNo vertex found with key: " << key << endl;
+			return 0;
+		}
 
-    	stack<Vertex<T, D>> dfs_stack; //---------------------------------- Define a stack for DFS
-    	unordered_map<T, bool> visited; //--------------------------------- Create an unordered_map to store visited vertices
-
-   	 	auto start_vertex = vertices.begin()->second; //------------------- Start from the first vertex in the map
-    	dfs_stack.push(start_vertex); //----------------------------------- Add the start vertex to the stack
-    	visited[start_vertex->get_key()] = true; //------------------------ Mark it as visited
-
-    	//----------------------------------------------------------------- DFS Algorithm
-    	while (!dfs_stack.empty()) 
-		{
-        	auto current_vertex = dfs_stack.top(); //---------------------- Get the vertex from the stack
-        	dfs_stack.pop(); //-------------------------------------------- Remove it from the stack
-
-        	for (auto &edge : current_vertex->get_edges()) //-------------- Visit all the neighbors of the current vertex
-			{
-            	T neighbor_key = edge.get_connection_vertex_key();
-
-            	if (!visited[neighbor_key]) //----------------------------- If the neighbor has not been visited, mark it as visited and add it to the stack
-				{
-                	auto neighbor_vertex = get_vertex_by_key(neighbor_key);
-                	dfs_stack.push(neighbor_vertex);
-                	visited[neighbor_key] = true;
-            	}
-        	}
-    	}
-
-    	return visited.size() == vertices.size(); //----------------------- If the number of visited vertices is equal to the total number of vertices, the graph is connected
+		return vertex->get_edges().size();
 	}
-	
+
+	// How many edges can a graph have with the current vertices (n is the number of vertices)
+	// For an undirected graph without self - loops, the maximum number of edges is n * (n - 1) / 2, because each vertex can connect to n - 1 other vertices(not counting itself), and since it's an undirected graph, each edge is counted twice (once for each vertex it connects).
+	// For an undirected graph with    self - loops, the maximum number of edges is n * n            because each vertex can connect to n vertices including itself.
+	// For a directed graph    without self - loops, the maximum number of edges is n * (n - 1)      because each vertex can have an outgoing edge to n - 1 other vertices and an incoming edge from n - 1 other vertices.
+	// For a directed graph    with    self - loops, the maximum number of edges is n * n            because each vertex can have an outgoing and an incoming edge from each of the n vertices including itself.
+	int max_edges() const
+	{
+		int n = vertices.size();
+		return n * (n - 1) / 2;
+	}
+
+	// Print graph
+	// auto: This keyword tells the compiler to automatically determine the appropriate type of the variable.
+	//       In this case, it's used to deduce the type of elements that vertices container holds.
+	//       This is very handy when the type of elements is complex or lengthy to write out.
+	// const: This keyword means that the variable vertex cannot be modified inside the loop.
+	//        In other words, you're promising not to change vertex within the loop body.
+	// &: This symbol indicates that vertex is a reference to the element in the vertices container, not a copy of it.
+	//    This can improve performance because it avoids unnecessary copying of elements.
+	//    Combined with const, this means you're getting a read-only reference to each element, one at a time.
+	// vertex: Is the name of the variable that will represent each element in the vertices container.
+	// : is what separates the element type and element variable name on the left, and the container on the right.
+	// vertices: Is the container that you're iterating over. It could be an array, vector, list, etc.
+	//
+	// In each iteration of the loop, vertex is bound to the current element in the vertices container. The loop continues until it has gone through all elements.
+	// In summary, this line of code can be read as "For each vertex in vertices, where vertex is a constant reference to the actual element in the container".
+	// If we want to modify the element we need to remove the const and keep the reference. If we remove the reference as well only the local element will be affected.
+	void print_graph()
+	{
+		for (auto &vertex : vertices)
+		{
+			cout << "[" << vertex.get_key() << "]: " << vertex.get_data() << " --- ";
+			vertex.print_edges();
+			cout << endl;
+		}
+	}
+
+	// Print neighbors of a vertex
+	void print_neighbors(T key)
+	{
+		auto vertex = get_vertex_by_key(key);
+		if (vertex == vertices.end())
+		{
+			cerr << "\nNo vertex found with key: " << key << endl;
+			return;
+		}
+
+		vertex->print_edges();
+	}
+
 	// Create vertex
 	static Vertex<T, D> create_vertex()
 	{
@@ -1073,11 +1312,12 @@ int main()
 				g1.dijkstra(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
 				break;
 			case 12:
+				g1.print_eulerian();
 				break;
 			case 13:
 				break;
 			case 14:
-			    if(g1.is_graph_connected())
+				if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
 				{
 					cout << "Graph is connected" << endl;
 				}
@@ -1087,8 +1327,18 @@ int main()
 				}
 				break;
 			case 15:
+				cout << "Max number of edges this graph can currently have is: " << g1.max_edges() << " edges with a total of: " << g1.get_vertices().size() << " vertices!" << endl;
 				break;
 			case 16:
+				if (g1.contains_cycle())
+				{
+					cout << "Graph has cycles!" << endl;
+				}
+				else
+				{
+					cout << "Graph doesn't have cycles" << endl;
+				}
+
 				break;
 			case 17:
 				break;
@@ -1134,7 +1384,6 @@ int main()
 // Print the menu
 void print_menu()
 {
-	// Traveling sales man problem
 	cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
 	cout << "1. Add vertex" << endl;
 	cout << "2. Update vertex" << endl;
@@ -1147,11 +1396,11 @@ void print_menu()
 	cout << "9. Check if two vertices are neighbors" << endl;
 	cout << "10. Does a path exist between two vertices" << endl;
 	cout << "11. What is the path of least length between two vertices Dijkstra's Algorithm" << endl;
-	cout << "12. Does a path exist that uses every edge exactly once" << endl; // not
+	cout << "12. Does a path exist that uses every edge exactly once" << endl;
 	cout << "13. Does a path exist that uses every vertex exactly once" << endl; // not
 	cout << "14. Is the graph connected" << endl;
-	cout << "15. Max number of edges that this graph can have with current vertices" << endl; // not
-	cout << "16. Does the graph contain cycles" << endl; // not
+	cout << "15. Max number of edges that this graph can have with current vertices" << endl;
+	cout << "16. Does the graph contain cycles" << endl;
 	cout << "17. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl; // not
 	cout << "18. Degree of a vertex" << endl;
 	cout << "19. Print all neighbors of a vertex" << endl;
@@ -1178,6 +1427,6 @@ int get_weight()
 	do
 	{
 		weight = get_valid_input<int>("Enter edge weight: ");
-	} while (weight < 0);
+	} while (weight < 1);
 	return weight;
 }
