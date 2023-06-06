@@ -1020,7 +1020,7 @@ class Graph
 
 		color_map[vertices.front().get_key()] = 0; //------------------------------------------------------ Color the first vertex with color 0
 
-		vector<bool> available_colors(k, true); //--------------------------------------------------------- Temporary array to store available colors. If available_colors[current_color] is false, then the color current_color is assigned to one of its neighbors
+		vector<bool> available_colors(k, true); //--------------------------------------------------------- Temporary array to store available colors of size k. If available_colors[current_color] is false, then the color current_color is assigned to one of its neighbors
 
 		//------------------------------------------------------------------------------------------------- Assign colors to remaining V-1 vertices
 		for (auto &vertex : vertices)
@@ -1490,7 +1490,6 @@ int main()
 					cout << "Path does not exist!" << endl;
 				}
 				break;
-				break;
 			case 14:
 				if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
 				{
@@ -1592,7 +1591,7 @@ void print_menu()
 	cout << "14. Is the graph connected" << endl;
 	cout << "15. Max number of edges that this graph can have with current vertices" << endl;
 	cout << "16. Does the graph contain cycles" << endl;
-	cout << "17. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl; // not
+	cout << "17. Given a set of k colors, can we assign colors to each vertex so that no two neighbors are assigned the same color" << endl;
 	cout << "18. Degree of a vertex" << endl;
 	cout << "19. Print all neighbors of a vertex" << endl;
 	cout << "20. Is graph empty" << endl;
