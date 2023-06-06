@@ -774,23 +774,37 @@ class Graph
 	// Is graph Eulerian or semi-Eulerian
 	// An Eulerian graph is one where all vertices have an even degree, and it contains an Eulerian cycle, a path in the graph that visits every edge exactly once and starts and ends at the same vertex.
 	// A semi-Eulerian graph, on the other hand, is a graph where exactly two vertices have an odd degree and it contains an Eulerian path, a path in the graph that visits every edge exactly once but does not necessarily start and end at the same vertex.
-	bool is_graph_eulerian()
+	// To ensure that we always find the correct Eulerian path or cycle, we need to choose the correct starting vertex.
+	// In an Eulerian cycle, any vertex can be a starting point.
+	// But in an Eulerian path, the path should start at one of the vertices with an odd degree.
+	pair<int, vector<T>> is_graph_eulerian()
 	{
 		if (!is_graph_connected(vertices.front().get_key())) // A graph is Eulerian or semi-Eulerian only if it is connected, which means there is a path between every pair of vertices
 		{
-			return false;
+			return make_pair(-1, vector<T>()); //-------------- Return empty vector and -1
 		}
 
 		int odd = 0; //---------------------------------------- A counter variable odd is declared and initialized to zero. This variable will be used to count the vertices with an odd degree in the graph
+		vector<T> odd_vertices;
 		for (auto &vertex : vertices)
 		{
 			if ((vertex.get_edges().size()) % 2 != 0) //------- Checks whether the current vertex has an odd degree. The degree of a vertex in an undirected graph is the number of edges connected to it. vertex.get_edges().size() gives the degree of vertex. If this degree is odd, odd is incremented by 1
 			{
 				odd += 1;
+				odd_vertices.push_back(vertex.get_key()); //--- Store vertices with odd degree
 			}
 		}
 
-		return (odd == 0 || odd == 2);
+		if (odd == 0)
+		{
+			return make_pair(0, odd_vertices);
+		}
+		else if (odd == 2)
+		{
+			return make_pair(2, odd_vertices);
+		}
+
+		return make_pair(-1, vector<T>()); //------------------ Return empty vector and -1 if graph is not Eulerian or semi-Eulerian
 	}
 	// After counting the vertices with an odd degree, the function checks whether their number odd is either 0 or 2.
 	// If odd is 0, it means all vertices have an even degree, and the graph is Eulerian.
@@ -804,8 +818,6 @@ class Graph
 	// The inner map's values are booleans, indicating whether the edge between the outer and inner vertices has been visited. Initially, all edges are marked as not visited.
 	//
 	// A stack current_path and a vector eulerian_path are defined to keep track of the current path and the final Eulerian path, respectively.
-	//
-	// T current_vertex = vertices.begin()->get_key(): The Eulerian path starts from the first vertex in the vertices map.
 	//
 	// The function then enters a loop, which continues until the current_path stack is empty.
 	// Inside the loop, it checks for each edge of the current vertex.
@@ -859,50 +871,59 @@ class Graph
 	// Finally, we print the eulerian_path in reverse order : A -> B -> D -> E -> C -> D which gives us an Eulerian path.
 	void print_eulerian()
 	{
-		if (!is_graph_eulerian()) //------------------------------------------------------- Check if the graph has an Eulerian path or cycle.
+		pair<int, vector<T>> eulerian = is_graph_eulerian();
+		if (eulerian.first == -1)
 		{
 			cout << "\nThe graph does not have an Eulerian path or cycle" << endl;
 			return;
 		}
 
-		unordered_map<T, unordered_map<T, bool>> visited_edges; //------------------------- Create a map to keep track of edges that have been visited.
+		unordered_map<T, unordered_map<T, bool>> visited_edges; //------------------------------- Create a map to keep track of edges that have been visited.
 
-		for (const auto &vertex : vertices) //--------------------------------------------- Initialize visited_edges for every vertex in the graph
+		for (const auto &vertex : vertices) //--------------------------------------------------- Initialize visited_edges for every vertex in the graph
 		{
 			visited_edges[vertex.get_key()] = unordered_map<T, bool>();
 		}
 
-		//--------------------------------------------------------------------------------- Create a stack to keep track of the current path and a vector to store the final Eulerian path
+		//--------------------------------------------------------------------------------------- Create a stack to keep track of the current path and a vector to store the final Eulerian path
 		stack<T> current_path;
 		vector<T> eulerian_path;
 
-		//--------------------------------------------------------------------------------- Start from the first vertex in the map
-		T current_vertex = vertices.begin()->get_key();
+		//--------------------------------------------------------------------------------------- Start from the first vertex with odd degree (if any), or the first vertex in the graph
+		T current_vertex;
+		if (eulerian.first == 0) //-------------------------------------------------------------- Eulerian, can start from any vertex so we start from the first vertex
+		{
+			current_vertex = vertices.begin()->get_key();
+		}
+		else if (eulerian.first == 2) //--------------------------------------------------------- Semi-Eulerian, must start from vertex with odd degree
+		{
+			current_vertex = eulerian.second[0];
+		}
 		current_path.push(current_vertex);
 
-		//--------------------------------------------------------------------------------- Traverse the graph DFS
+		//--------------------------------------------------------------------------------------- Traverse the graph DFS
 		while (!current_path.empty())
 		{
-			bool stuck = true; //---------------------------------------------------------- Boolean variable to check if all edges from the current vertex are visited
+			bool stuck = true; //---------------------------------------------------------------- Boolean variable to check if all edges from the current vertex are visited
 
-			for (auto &edge : get_vertex_by_key(current_vertex)->get_edges()) //----------- Traverse all neighbors of the current vertex
+			for (auto &edge : get_vertex_by_key(current_vertex)->get_edges()) //----------------- Traverse all neighbors of the current vertex
 			{
-				if (!visited_edges[current_vertex][edge.get_connection_vertex_key()]) //--- If this edge has not been visited yet
+				if (!visited_edges[current_vertex][edge.get_connection_vertex_key()]) //--------- If this edge has not been visited yet
 				{
-					//--------------------------------------------------------------------- Mark the edge as visited, since it is an undirected graph we do this for both edges aka back and forth
+					//--------------------------------------------------------------------------- Mark the edge as visited, since it is an undirected graph we do this for both edges aka back and forth
 					visited_edges[current_vertex][edge.get_connection_vertex_key()] = true;
 					visited_edges[edge.get_connection_vertex_key()][current_vertex] = true;
 
-					//--------------------------------------------------------------------- Add the current vertex to the stack and move to the next vertex
+					//--------------------------------------------------------------------------- Add the current vertex to the stack and move to the next vertex
 					current_path.push(current_vertex);
 					current_vertex = edge.get_connection_vertex_key();
 
-					stuck = false; //------------------------------------------------------ We found an unvisited edge, so we are not stuck
+					stuck = false; //------------------------------------------------------------ We found an unvisited edge, so we are not stuck
 					break;
 				}
 			}
 
-			if (stuck) //------------------------------------------------------------------ If all edges are visited (we are stuck), add the current vertex to the Eulerian path and move to the previous vertex in the current path
+			if (stuck) //------------------------------------------------------------------------ If all edges are visited (we are stuck), add the current vertex to the Eulerian path and move to the previous vertex in the current path
 			{
 				eulerian_path.push_back(current_vertex);
 				current_vertex = current_path.top();
@@ -910,12 +931,148 @@ class Graph
 			}
 		}
 
-		//--------------------------------------------------------------------------------- Print the Eulerian path or cycle. NOTE: as we are pushing back elements into eulerian_path in reverse order, we have to print it in reverse, hence we use reverse iterators
+		//--------------------------------------------------------------------------------------- Print the Eulerian path or cycle. NOTE: as we are pushing back elements into eulerian_path in reverse order, we have to print it in reverse, hence we use reverse iterators
+		cout << endl;
 		for (auto it = eulerian_path.rbegin(); it != eulerian_path.rend(); ++it)
 		{
-			cout << *it << " -> ";
+			cout << *it << " ---> ";
 		}
 		cout << endl;
+	}
+
+	// Check if a path exists from the current vertex that includes all vertices
+	// It first adds the current vertex to the path and marks it as visited.
+	// It then checks if all vertices have been visited and added to the path.
+	// If so, it means a Hamiltonian Path has been found and the function returns true.
+	// If not all vertices have been visited, it goes through each neighbor of the current vertex.
+	// For each neighbor, if the neighbor hasn't been visited yet, it calls is_current_parth_hamiltonian() recursively on that neighbor.
+	// If the recursive call returns true, it means a Hamiltonian Path has been found from the current vertex and the function returns true.
+	// If no valid path can be found from any of the neighbors, the function "backtracks".
+	// It removes the current vertex from the path, marks it as unvisited, and returns false.
+	// Backtracking means that the function will go back to previous steps and try different paths.
+	bool is_current_parth_hamiltonian(list<T> &path, map<T, bool> &visited, T vertex_key)
+	{
+		// Base case
+		path.push_back(vertex_key); //----------------------------------------------------------------- Add the current vertex to the path
+
+		if (path.size() == vertices.size()) //--------------------------------------------------------- If all vertices are in the path, then we have found a Hamiltonian Path
+		{
+			return true;
+		}
+
+		visited[vertex_key] = true; //----------------------------------------------------------------- Mark the current vertex as visited
+
+		// Recursive case
+		auto current_vertex = get_vertex_by_key(vertex_key); //---------------------------------------- Retrieve the current vertex
+
+		for (auto &edge : current_vertex->get_edges()) //---------------------------------------------- Check all adjacent vertices
+		{
+			T neighbor_key = edge.get_connection_vertex_key();
+
+			if (!visited[neighbor_key] && is_current_parth_hamiltonian(path, visited, neighbor_key)) // If the vertex hasn't been visited yet, then check if a path exists from there
+			{
+				return true;
+			}
+		}
+
+		//--------------------------------------------------------------------------------------------- If no valid path is found then backtrack, remove the vertex from the path and mark it as unvisited
+		path.pop_back();
+		visited[vertex_key] = false;
+
+		return false;
+	}
+
+	// Check if a Hamiltonian Path exists in the graph
+	bool is_hamiltonian_path()
+	{
+		for (auto &vertex : vertices)
+		{
+			//------------------------------------------------------------------- Create a path and a visited map
+			list<T> path;
+			map<T, bool> visited;
+
+			if (is_current_parth_hamiltonian(path, visited, vertex.get_key())) // If a Hamiltonian Path exists starting from this vertex, then return true
+			{
+				//--------------------------------------------------------------- Print the path
+				cout << "\nHamiltonian path found: ";
+				for (auto &key : path)
+				{
+					cout << key << " ---> ";
+				}
+				cout << endl;
+				return true;
+			}
+		}
+
+		//----------------------------------------------------------------------- If no Hamiltonian Path is found after checking all vertices, then return false
+		cout << "\nNo Hamiltonian path found in this graph." << endl;
+		return false;
+	}
+
+	// Check if we can assign colors to each vertex so that no two neighbors are assigned the same color
+	bool color_graph(int k)
+	{
+		unordered_map<T, int> color_map; //---------------------------------------------------------------- Keeps track of colors assigned to each vertex
+		for (auto &vertex : vertices)
+		{
+			color_map[vertex.get_key()] = -1; //----------------------------------------------------------- Initialize all vertices as uncolored (-1)
+		}
+
+		color_map[vertices.front().get_key()] = 0; //------------------------------------------------------ Color the first vertex with color 0
+
+		vector<bool> available_colors(k, true); //--------------------------------------------------------- Temporary array to store available colors. If available_colors[current_color] is false, then the color current_color is assigned to one of its neighbors
+
+		//------------------------------------------------------------------------------------------------- Assign colors to remaining V-1 vertices
+		for (auto &vertex : vertices)
+		{
+			if (vertex.get_key() == vertices.front().get_key()) //----------------------------------------- Skip the first vertex
+			{
+				continue;
+			}
+
+			//--------------------------------------------------------------------------------------------- Process all neighboring vertices and flag their color as unavailable
+			for (auto &edge : vertex.get_edges())
+			{
+				if (color_map[edge.get_connection_vertex_key()] != -1)
+				{
+					available_colors[color_map[edge.get_connection_vertex_key()]] = false;
+				}
+			}
+
+			//--------------------------------------------------------------------------------------------- Find the first available color
+			int current_color;
+			for (current_color = 0; current_color < k; current_color++)
+			{
+				if (available_colors[current_color])
+				{
+					break;
+				}
+			}
+
+			if (current_color == k) //--------------------------------------------------------------------- If no color could be assigned, return false
+			{
+				return false;
+			}
+
+			color_map[vertex.get_key()] = current_color; //------------------------------------------------ Assign the found color to this vertex
+
+			//--------------------------------------------------------------------------------------------- Reset the values back to true for the next iteration
+			for (auto &edge : vertex.get_edges())
+			{
+				if (color_map[edge.get_connection_vertex_key()] != -1)
+				{
+					available_colors[color_map[edge.get_connection_vertex_key()]] = true;
+				}
+			}
+		}
+
+		//------------------------------------------------------------------------------------------------- If we made it here, it means we were able to color all the vertices with k colors, print the color map here if you want
+		for (auto &vertex : vertices)
+		{
+			cout << "Vertex " << vertex.get_key() << " ---> Color " << color_map[vertex.get_key()] << endl;
+		}
+
+		return true;
 	}
 
 	// Dijkstra's Algorithm
@@ -1134,7 +1291,7 @@ class Graph
 			cout << "Path to " << prev.first << ": ";
 			for (T key = prev.first; key != source_key; key = previous[key])
 			{
-				cout << key << " <- ";
+				cout << key << " <--- ";
 			}
 			cout << source_key << endl;
 		}
@@ -1145,7 +1302,7 @@ class Graph
 			cout << "\nShortest path from " << source_key << " to " << target_key << ": ";
 			for (T key = target_key; key != source_key; key = previous[key])
 			{
-				cout << key << " <- ";
+				cout << key << " <--- ";
 			}
 			cout << source_key << endl;
 
@@ -1236,6 +1393,7 @@ class Graph
 void print_menu();
 int get_choice();
 int get_weight();
+int get_colors();
 
 int main()
 {
@@ -1243,6 +1401,7 @@ int main()
 	int choice = 0;
 	auto vertex_1 = g1.get_vertices().end();
 	auto vertex_2 = g1.get_vertices().end();
+	int colors = 0;
 	do
 	{
 		print_menu();
@@ -1312,18 +1471,34 @@ int main()
 				g1.dijkstra(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
 				break;
 			case 12:
-				g1.print_eulerian();
+				if (g1.get_vertices().empty())
+				{
+					cout << "Graph is empty!" << endl;
+				}
+				else
+				{
+					g1.print_eulerian();
+				}
 				break;
 			case 13:
+				if (g1.is_hamiltonian_path())
+				{
+					cout << "Path exists!" << endl;
+				}
+				else
+				{
+					cout << "Path does not exist!" << endl;
+				}
+				break;
 				break;
 			case 14:
 				if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
 				{
-					cout << "Graph is connected" << endl;
+					cout << "Graph is connected!" << endl;
 				}
 				else
 				{
-					cout << "Graph is not connected" << endl;
+					cout << "Graph is not connected!" << endl;
 				}
 				break;
 			case 15:
@@ -1336,11 +1511,27 @@ int main()
 				}
 				else
 				{
-					cout << "Graph doesn't have cycles" << endl;
+					cout << "Graph doesn't have cycles!" << endl;
 				}
 
 				break;
 			case 17:
+				if (g1.get_vertices().empty())
+				{
+					cout << "Graph is empty!" << endl;
+				}
+				else
+				{
+					colors = get_colors();
+					if (g1.color_graph(colors))
+					{
+						cout << "The graph can be colored using " << colors << " colors!" << endl;
+					}
+					else
+					{
+						cout << "The graph cannot be colored using " << colors << " colors!" << endl;
+					}
+				}
 				break;
 			case 18:
 				cout << g1.degree_of_a_vertex(get_valid_input<int>("Enter key of vertex to see degree for: ")) << " is the degree!" << endl;
@@ -1397,7 +1588,7 @@ void print_menu()
 	cout << "10. Does a path exist between two vertices" << endl;
 	cout << "11. What is the path of least length between two vertices Dijkstra's Algorithm" << endl;
 	cout << "12. Does a path exist that uses every edge exactly once" << endl;
-	cout << "13. Does a path exist that uses every vertex exactly once" << endl; // not
+	cout << "13. Does a path exist that uses every vertex exactly once" << endl;
 	cout << "14. Is the graph connected" << endl;
 	cout << "15. Max number of edges that this graph can have with current vertices" << endl;
 	cout << "16. Does the graph contain cycles" << endl;
@@ -1429,4 +1620,15 @@ int get_weight()
 		weight = get_valid_input<int>("Enter edge weight: ");
 	} while (weight < 1);
 	return weight;
+}
+
+// Get the colors
+int get_colors()
+{
+	int colors = 0;
+	do
+	{
+		colors = get_valid_input<int>("Enter number of colors to give: ");
+	} while (colors < 1);
+	return colors;
 }
