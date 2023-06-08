@@ -1030,12 +1030,12 @@ class Graph
 				continue;
 			}
 
-			//--------------------------------------------------------------------------------------------- Process all neighboring vertices and flag their color as unavailable
+			//--------------------------------------------------------------------------------------------- Process all neighboring vertices and flag their color as unavailable, if that vertex thats connecting to the current vertex has a color it will flag it as false
 			for (auto &edge : vertex.get_edges())
 			{
 				if (color_map[edge.get_connection_vertex_key()] != -1)
 				{
-					available_colors[color_map[edge.get_connection_vertex_key()]] = false;
+					available_colors[color_map[edge.get_connection_vertex_key()]] = false; //-------------  The color_map here returns a color of a connecting vertex, if we have 2 colors it will return either 0 or 1
 				}
 			}
 
@@ -1056,7 +1056,7 @@ class Graph
 
 			color_map[vertex.get_key()] = current_color; //------------------------------------------------ Assign the found color to this vertex
 
-			//--------------------------------------------------------------------------------------------- Reset the values back to true for the next iteration
+			//--------------------------------------------------------------------------------------------- Reset the values back to true for the next iteration, only for the uncolored vertices, we keep the color of the current vertex
 			for (auto &edge : vertex.get_edges())
 			{
 				if (color_map[edge.get_connection_vertex_key()] != -1)
