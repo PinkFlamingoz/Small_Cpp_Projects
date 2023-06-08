@@ -1491,13 +1491,20 @@ int main()
 				}
 				break;
 			case 14:
-				if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
+				if (g1.get_vertices().empty())
 				{
-					cout << "Graph is connected!" << endl;
+					cout << "Graph is empty!" << endl;
 				}
 				else
 				{
-					cout << "Graph is not connected!" << endl;
+					if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
+					{
+						cout << "Graph is connected!" << endl;
+					}
+					else
+					{
+						cout << "Graph is not connected!" << endl;
+					}
 				}
 				break;
 			case 15:
