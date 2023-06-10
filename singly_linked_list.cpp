@@ -373,8 +373,8 @@ class Singly_linked_list
 		cout << "List deleted!\n";
 	}
 
-	// Delete list recursive
-	void delete_list_recursive(Node<K, D> *head)
+	// Delete list recursive NOTE: you must adapt a reference pointer to the head if you wanna delete it recursive
+	void delete_list_recursive(Node<K, D> *&head)
 	{
 		// Base case
 		if (head == nullptr)
