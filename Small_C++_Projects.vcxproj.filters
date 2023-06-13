@@ -291,6 +291,12 @@
     <ClCompile Include="lambdas.cpp">
       <Filter>Source Files\Bonus</Filter>
     </ClCompile>
+    <ClCompile Include="hash_table.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="tries.cpp">
+      <Filter>Source Files\Data_structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">

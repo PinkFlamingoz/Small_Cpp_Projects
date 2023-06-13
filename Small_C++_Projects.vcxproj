@@ -136,6 +136,7 @@
     <ClCompile Include="bank.cpp" />
     <ClCompile Include="binary_search.cpp" />
     <ClCompile Include="graph.cpp" />
+    <ClCompile Include="hash_table.cpp" />
     <ClCompile Include="heap_array.cpp" />
     <ClCompile Include="lambdas.cpp" />
     <ClCompile Include="tree.cpp" />
@@ -208,6 +209,7 @@
     <ClCompile Include="temperature.cpp" />
     <ClCompile Include="tideman_vote.cpp" />
     <ClCompile Include="triangle_check.cpp" />
+    <ClCompile Include="tries.cpp" />
     <ClCompile Include="unions.cpp" />
     <ClCompile Include="validate_file.cpp" />
     <ClCompile Include="valid_credit_card.cpp" />

@@ -8,6 +8,30 @@
 #include "basic_functions.h"
 
 using namespace std;
+// NOTE:
+// map: A map in C++ is a container in the STL that is used to store key-value pairs in an ordered manner.
+// The key values are sorted by their own comparison operation, which by default is std::less<Key>, but this can be customized.
+// Maps are often used when there's a need to quickly access data associated with a specific key.
+// Searching, removing, and inserting operations are efficient and have logarithmic complexity.
+//
+// unordered_map: An unordered map in C++ is a container that stores key - value pairs in an arbitrary order.
+// The order of the elements does not remain constant and can change every time the program is run.
+// This is unlike map where the order is always ascending.
+// The underlying data structure is a hash table, so the insertion, deletion and access operations typically take constant time, O(1), on average.
+//
+// set: A set in C++ is a container that stores unique elements following a specific order.
+// By default, it uses the less comparison function to maintain an ascending order of elements.
+// Insertion, removal, and search have logarithmic complexity.
+// Sets are usually used when there is a need to prevent duplicate elements and maintain a certain order.
+//
+// unordered_set: An unordered set is similar to a set but it doesn't maintain any order of elements.
+// The elements are stored using a hash table which provides constant time complexity on average for insertions, deletions and access.
+// Just like set, unordered_set also stores unique elements only.
+//
+// The primary difference between a set and a map in C++ is that a set only stores a single value for each element, whereas a map stores paired values - a key and a value associated with that key.
+// Set: A set only contains keys and not values. The key itself is the value. You can think of a set as a map where only keys exist, and there are no values. Because keys are unique in a map, the elements in a set are also unique.
+// Map : A map contains key - value pairs, where each key is associated with a value. You use the key to access or change its associated value. The keys are unique, so each key can only appear once in a map, and it can only be associated with one value.
+//
 // Graph representation
 // | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
 // | [ key ] [ data ] [ (list) { (edge) [ direction_to_key ] [ weight ], ... more edges } ] |
