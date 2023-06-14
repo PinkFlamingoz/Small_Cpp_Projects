@@ -106,9 +106,9 @@ class Stack
 	}
 
 	// Parameter constructor
-	Stack(Node<K, D> *new_top)
+	Stack(Node<K, D> *top)
 	{
-		top = new_top;
+		this->top = top;
 	}
 
 	// Destructor
@@ -151,7 +151,7 @@ class Stack
 		return temp;
 	}
 
-	// Add an element in the stack
+	// To push, dynamically allocate a new node, set its next pointer to point to the current top of the list, then move the top pointer to the newly-created node
 	void push(Node<K, D> *new_node)
 	{
 		if (node_exists(new_node->get_key()) != nullptr)
@@ -167,14 +167,13 @@ class Stack
 		}
 		else
 		{
-			Node<K, D> *temp = top;
+			new_node->set_next(top);
 			top = new_node;
-			new_node->set_next(temp);
 			cout << "\nNew node with key[" << new_node->get_key() << "] and data: " << new_node->get_data() << " pushed successfully!" << endl;
 		}
 	}
 
-	// Take out an element of a stack, don't take out if the stack is empty!
+	// To pop, traverse the linked list to its second element (if it exists), free the top of the list, then move the top pointer to the (former) second element
 	void pop()
 	{
 		if (is_empty())

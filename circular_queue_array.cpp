@@ -2,15 +2,15 @@
 #include "basic_functions.h"
 
 using namespace std;
-// • Arrays
-//  • Insertion is bad – lots of shifting to fit an element in the middle
-//  • Deletion is bad – lots of shifting after removing an element
-//  • Lookup is great – random access, constant time
-//  • Relatively easy to sort
-//  • Relatively small size - wise
-//  • Stuck with a fixed size, no flexibility
+// ï¿½ Arrays
+//  ï¿½ Insertion is bad ï¿½ lots of shifting to fit an element in the middle
+//  ï¿½ Deletion is bad ï¿½ lots of shifting after removing an element
+//  ï¿½ Lookup is great ï¿½ random access, constant time
+//  ï¿½ Relatively easy to sort
+//  ï¿½ Relatively small size - wise
+//  ï¿½ Stuck with a fixed size, no flexibility
 
-// Definition –
+// Definition ï¿½
 // Circular queue is a linear data structure in which the operations are performed based on FIFO(First In First Out) principle and the last position is connected back to the first position to make a circle.
 // It is also called 'Ring Buffer'.
 // It is a type of Queue data structure which overcomes some drawback of the simple queue data structure.
@@ -121,7 +121,11 @@ class Circular_queue
 	// front = 1 aka we have not dequeued;
 	// rear = (0 + 1) % 5 = 1 == 1 = front; condition is true and the queue is full
 
-	// Add to the queue
+	// Enqueue: Add a new element to the end of the queue
+	// â€¢ Accept a pointer to the queue
+	// â€¢ Accept data of type VALUE to be added to the queue
+	// â€¢ Add that data to the queue at the end of the queue
+	// â€¢ Change the size(rear) of the queue
 	void enqueue(T value)
 	{
 		if (is_full())
@@ -151,7 +155,11 @@ class Circular_queue
 	// rear = (4 + 1) % 5 = 0
 	// When the rear reaches the 4 it goes to the start, hence making a circle
 
-	// Remove from the queue
+	// Dequeue: Remove the most recent element from the front of the queue
+	// â€¢ Accept a pointer to the queue
+	// â€¢ Change the location of the front of the queue
+	// â€¢ Decrease the size of the queue
+	// â€¢ Return the value that was removed from the queue
 	T dequeue()
 	{
 		T x{};
@@ -162,7 +170,6 @@ class Circular_queue
 		}
 		else if (front == rear) //--------------------- We check if the rear and front are equal which means that the queue has come to an end and we have to re-set it to position -1, aka empty
 		{
-			cout << "front value: " << front << " -> ";
 			x = arr[front];
 			arr[front] = T();
 			rear = -1;
@@ -172,7 +179,6 @@ class Circular_queue
 		}
 		else //---------------------------------------- If we are not at the end of the queue we simply get the value at the front, replace that position with the default and increase the front to point at the next in line
 		{
-			cout << "front value: " << front << " -> ";
 			x = arr[front];
 			arr[front] = T();
 			front = (front + 1) % size;
@@ -254,6 +260,7 @@ int main()
 				q1.enqueue(get_valid_input<int>("Enter an item to Enqueue in the Circular queue: "));
 				break;
 			case 2:
+				cout << "Front value: " << q1.show_rear() << " -> ";
 				cout << "Dequeued Value: " << q1.dequeue() << endl;
 				break;
 			case 3:

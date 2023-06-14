@@ -2,25 +2,25 @@
 #include "basic_functions.h"
 
 using namespace std;
-// • Linked lists
-//  • Insertion is easy – just tack onto the front
-//  • Deletion is easy – once you find the element
-//  • Lookup is bad – have to rely on linear search
-//  • Relatively difficult to sort – unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  • Relatively small size - wise(not as small as arrays)
+// ï¿½ Linked lists
+//  ï¿½ Insertion is easy ï¿½ just tack onto the front
+//  ï¿½ Deletion is easy ï¿½ once you find the element
+//  ï¿½ Lookup is bad ï¿½ have to rely on linear search
+//  ï¿½ Relatively difficult to sort ï¿½ unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  ï¿½ Relatively small size - wise(not as small as arrays)
 
-// Definition –
+// Definition ï¿½
 // Queue is a linear data structure which operates in a First IN First OUT or Last IN Last OUT.
-// It is named queue as it behaves like a real - world queue, for example – queue(line) of cars in a single lane, queue of people waiting at food counter etc.
+// It is named queue as it behaves like a real - world queue, for example ï¿½ queue(line) of cars in a single lane, queue of people waiting at food counter etc.
 // Queue is an abstract data type with a bounded(predefined) capacity.
 // It is a simple data structure that allows adding and removing elements in a particular order.
 // The order is FIFO(First IN First OUT) or LILO(Last In Last Out).
 
-// Standard Queue Operations –
-// enqueue() – Add item to the queue from the REAR.
-// dequeue() – Remove item from the queue from the FRONT.
-// is_empty() – Check if queue empty or not.
-// count() – Get number of items in the queue.
+// Standard Queue Operations ï¿½
+// enqueue() ï¿½ Add item to the queue from the REAR.
+// dequeue() ï¿½ Remove item from the queue from the FRONT.
+// is_empty() ï¿½ Check if queue empty or not.
+// count() ï¿½ Get number of items in the queue.
 
 // Some types of Queue(We will discuss them in detail in other articles) -
 // Simple Queue
@@ -111,10 +111,10 @@ class Queue
 	}
 
 	// Parameter constructor
-	Queue(Node<K, D> *new_front, Node<K, D> *new_rear)
+	Queue(Node<K, D> *front, Node<K, D> *rear)
 	{
-		front = new_front;
-		rear = new_rear;
+		this->front = front;
+		this->rear = rear;
 	}
 
 	// Destructor
@@ -163,7 +163,11 @@ class Queue
 		return temp;
 	}
 
-	// Add to the queue
+	// To enqueue:
+	// â€¢ Dynamically allocate a new node
+	// â€¢ Set its next pointer to NULL
+	// â€¢ Set the rear's next pointer to the new node
+	// â€¢ Move the rear pointer to the newly-created node
 	void enqueue(Node<K, D> *new_node)
 	{
 		if (node_exists(new_node->get_key()) != nullptr)
@@ -186,7 +190,10 @@ class Queue
 		}
 	}
 
-	// Remove from the queue
+	// To dequeue:
+	// â€¢ Traverse the linked list to its second element (if it exists)
+	// â€¢ Free the front of the list
+	// â€¢ Move the front pointer to the (former) second element
 	void dequeue()
 	{
 		if (is_empty())

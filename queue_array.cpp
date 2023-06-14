@@ -2,27 +2,27 @@
 #include "basic_functions.h"
 
 using namespace std;
-// • Arrays
-//  • Insertion is bad – lots of shifting to fit an element in the middle
-//  • Deletion is bad – lots of shifting after removing an element
-//  • Lookup is great – random access, constant time
-//  • Relatively easy to sort
-//  • Relatively small size - wise
-//  • Stuck with a fixed size, no flexibility
+// - Arrays
+//  - Insertion is bad - lots of shifting to fit an element in the middle
+//  - Deletion is bad - lots of shifting after removing an element
+//  - Lookup is great - random access, constant time
+//  - Relatively easy to sort
+//  - Relatively small size - wise
+//  - Stuck with a fixed size, no flexibility
 
-// Definition –
+// Definition -
 // Queue is a linear data structure which operates in a First IN First OUT or Last IN Last OUT.
-// It is named queue as it behaves like a real - world queue, for example – queue(line) of cars in a single lane, queue of people waiting at food counter etc.
+// It is named queue as it behaves like a real - world queue, for example - queue(line) of cars in a single lane, queue of people waiting at food counter etc.
 // Queue is an abstract data type with a bounded(predefined) capacity.
 // It is a simple data structure that allows adding and removing elements in a particular order.
 // The order is FIFO(First IN First OUT) or LILO(Last In Last Out).
 
-// Standard Queue Operations –
-// enqueue() – Add item to the queue from the REAR.
-// dequeue() – Remove item from the queue from the FRONT.
-// is_full() – Check if queue is full or not.
-// is_empty() – Check if queue empty or not.
-// count() – Get number of items in the queue.
+// Standard Queue Operations -
+// enqueue() - Add item to the queue from the REAR.
+// dequeue() - Remove item from the queue from the FRONT.
+// is_full() - Check if queue is full or not.
+// is_empty() - Check if queue empty or not.
+// count() - Get number of items in the queue.
 
 // Some types of Queue(We will discuss them in detail in other articles) -
 // Simple Queue
@@ -116,7 +116,11 @@ class Queue
 		}
 	}
 
-	// Add to the queue
+	// Enqueue: Add a new element to the end of the queue
+	// â€¢ Accept a pointer to the queue
+	// â€¢ Accept data of type VALUE to be added to the queue
+	// â€¢ Add that data to the queue at the end of the queue
+	// â€¢ Change the size(rear) of the queue
 	void enqueue(T value)
 	{
 		if (is_full())
@@ -124,20 +128,24 @@ class Queue
 			cerr << "Queue full!" << endl;
 			return;
 		}
-		else if (is_empty()) //---------- We check if its the first element in the queue in this case we have to increase rear and front +1 because they are both -1
+		else if (is_empty()) //----------- We check if its the first element in the queue in this case we have to increase rear and front +1 because they are both -1
 		{
 			rear = 0;
 			front = 0;
 			arr[rear] = value;
 		}
-		else //-------------------------- If we already have elements in the queue then we simply increase the rear and add the value there at the new rear index
+		else //--------------------------- If we already have elements in the queue then we simply increase the rear and add the value there at the new rear index
 		{
 			rear++;
 			arr[rear] = value;
 		}
 	}
 
-	// Remove from the queue
+	// Dequeue: Remove the most recent element from the front of the queue
+	// â€¢ Accept a pointer to the queue
+	// â€¢ Change the location of the front of the queue
+	// â€¢ Decrease the size of the queue
+	// â€¢ Return the value that was removed from the queue
 	T dequeue()
 	{
 		T x{};
@@ -148,7 +156,6 @@ class Queue
 		}
 		else if (front == rear) //--------------------- We check if the rear and front are equal which means that the queue has come to an end and we have to re-set it to position -1, aka empty
 		{
-			cout << "front value: " << front << " -> ";
 			x = arr[front];
 			arr[front] = T();
 			rear = -1;
@@ -157,7 +164,6 @@ class Queue
 		}
 		else //---------------------------------------- If we are not at the end of the queue we simply get the value at the front, replace that position with the default and increase the front to point at the next in line
 		{
-			cout << "front value: " << front << " -> ";
 			x = arr[front];
 			arr[front] = T();
 			front++;
@@ -238,6 +244,7 @@ int main()
 				q1.enqueue(get_valid_input<int>("Enter an item to Enqueue in the Queue: "));
 				break;
 			case 2:
+				cout << "Front value: " << q1.show_rear() << " -> ";
 				cout << "Dequeued Value: " << q1.dequeue() << endl;
 				break;
 			case 3:

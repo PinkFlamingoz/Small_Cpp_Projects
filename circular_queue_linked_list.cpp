@@ -2,14 +2,14 @@
 #include "basic_functions.h"
 
 using namespace std;
-// • Linked lists
-//  • Insertion is easy – just tack onto the front
-//  • Deletion is easy – once you find the element
-//  • Lookup is bad – have to rely on linear search
-//  • Relatively difficult to sort – unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  • Relatively small size - wise(not as small as arrays)
+// ï¿½ Linked lists
+//  ï¿½ Insertion is easy ï¿½ just tack onto the front
+//  ï¿½ Deletion is easy ï¿½ once you find the element
+//  ï¿½ Lookup is bad ï¿½ have to rely on linear search
+//  ï¿½ Relatively difficult to sort ï¿½ unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  ï¿½ Relatively small size - wise(not as small as arrays)
 
-// Definition –
+// Definition ï¿½
 // Circular queue is a linear data structure in which the operations are performed based on FIFO(First In First Out) principle and the last position is connected back to the first position to make a circle.
 // It is also called 'Ring Buffer'.
 // It is a type of Circular queue data structure which overcomes some drawback of the simple queue data structure.
@@ -102,10 +102,10 @@ class Circular_queue
 	}
 
 	// Parameter constructor
-	Circular_queue(Node<K, D> *new_front, Node<K, D> *new_rear)
+	Circular_queue(Node<K, D> *front, Node<K, D> *rear)
 	{
-		front = new_front;
-		rear = new_rear;
+		this->front = front;
+		this->rear = rear;
 	}
 
 	// Destructor
@@ -163,7 +163,12 @@ class Circular_queue
 		return temp;
 	}
 
-	// Add to the queue
+	// To enqueue:
+	// â€¢ Dynamically allocate a new node
+	// â€¢ Set its next pointer to NULL
+	// â€¢ Set the rear's next pointer to the new node
+	// â€¢ Move the rear pointer to the newly-created node
+	// â€¢ Move the new nodes's next pointer to the front
 	void enqueue(Node<K, D> *new_node)
 	{
 		if (node_exists(new_node->get_key()) != nullptr)
@@ -188,7 +193,11 @@ class Circular_queue
 		}
 	}
 
-	// Remove from the queue
+	// To dequeue:
+	// â€¢ Traverse the linked list to its second element (if it exists)
+	// â€¢ Free the front of the list
+	// â€¢ Move the front pointer to the (former) second element
+	// â€¢ Make the rear pointer point to the front
 	void dequeue()
 	{
 		if (is_empty())

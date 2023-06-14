@@ -106,7 +106,11 @@ class Stack
 		}
 	}
 
-	// Add an element in the stack, don't add if the stack is full
+	// Push: Add a new element to the top of the stack
+	// • Accept a pointer to the stack
+	// • Accept data of type VALUE to be added to the stack
+	// • Change the location of the top of the stack
+	// • Add that data to the stack at the top of the stack
 	void push(T value)
 	{
 		if (is_full())
@@ -120,7 +124,10 @@ class Stack
 		}
 	}
 
-	// Take out an element of a stack, don't take out if the stack is empty
+	// Pop: Remove the most recent element from the top of the stack
+	// • Accept a pointer to the stack.
+	// • Change the location of the top of the stack.
+	// • Return the value that was removed from the stack
 	T pop()
 	{
 		if (is_empty())

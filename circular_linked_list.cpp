@@ -2,12 +2,12 @@
 #include "basic_functions.h"
 
 using namespace std;
-// • Linked lists
-//  • Insertion is easy – just tack onto the front
-//  • Deletion is easy – once you find the element
-//  • Lookup is bad – have to rely on linear search
-//  • Relatively difficult to sort – unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  • Relatively small size - wise(not as small as arrays)
+// ï¿½ Linked lists
+//  ï¿½ Insertion is easy ï¿½ just tack onto the front
+//  ï¿½ Deletion is easy ï¿½ once you find the element
+//  ï¿½ Lookup is bad ï¿½ have to rely on linear search
+//  ï¿½ Relatively difficult to sort ï¿½ unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  ï¿½ Relatively small size - wise(not as small as arrays)
 
 // Classes
 template <typename K, typename D>
@@ -91,9 +91,9 @@ class Circular_linked_list
 	}
 
 	// Parameter constructor
-	Circular_linked_list(Node<K, D> *new_head)
+	Circular_linked_list(Node<K, D> *head)
 	{
-		head = new_head;
+		this->head = head;
 	}
 
 	// Destructor
