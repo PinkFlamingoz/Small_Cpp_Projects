@@ -1,52 +1,58 @@
 #include <iostream>
 
 using namespace std;
-// • Arrays
-//  • Insertion is bad – lots of shifting to fit an element in the middle
-//  • Deletion is bad – lots of shifting after removing an element
-//  • Lookup is great – random access, constant time
-//  • Relatively easy to sort
-//  • Relatively small size - wise
-//  • Stuck with a fixed size, no flexibility
-//	• Behind the scenes an array jumps to a index using the formula BASE ADDRES + ( INDEX POSITION * SIZE OF ELEMENT )
+// When choosing a data structure to build into your project, always prioritize what comes first, and choose what the best data structure suits your needs
+// Either:
+// - Insertion
+// - Deletion
+// - Search
 //
-// • Linked lists
-//  • Insertion is easy – just tack onto the front
-//  • Deletion is easy – once you find the element
-//  • Lookup is bad – have to rely on linear search
-//  • Relatively difficult to sort – unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  • Relatively small size - wise(not as small as arrays)
+// - Arrays
+//  - Insertion is bad - lots of shifting to fit an element in the middle
+//  - Deletion is bad - lots of shifting after removing an element
+//  - Lookup is great - random access, constant time
+//  - Relatively easy to sort
+//  - Relatively small size - wise
+//  - Stuck with a fixed size, no flexibility
+//	- Behind the scenes an array jumps to a index using the formula BASE ADDRES + ( INDEX POSITION * SIZE OF ELEMENT )
 //
-// • Hash tables
-//  • Insertion is a two - step process – hash, then add
-//  • Deletion is easy – once you find the element
-//  • Lookup is on average better than with linked lists because you have he benefit of a real - world constant factor
-//  • Not an ideal data structure if sorting is the goal – just use an array
-//  • Can run the gamut of size
+// - Linked lists
+//  - Insertion is easy - just tack onto the front
+//  - Deletion is easy - once you find the element
+//  - Lookup is bad - have to rely on linear search
+//  - Relatively difficult to sort - unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  - Relatively small size - wise(not as small as arrays)
 //
-// • Tries
-//  • Insertion is complex – a lot of dynamic memory allocation, but gets easier as you go
-//  • Deletion is easy – just free a node
-//  • Lookup is fast – not quite as fast as an array, but almost
-//  • Already sorted – sorts as you build in almost all situations
-//  • Rapidly becomes huge, even with very little data present, not great if space is at a premium
+// - Hash tables
+//  - Insertion is a two - step process - hash, then add
+//  - Deletion is easy - once you find the element
+//  - Lookup is on average better than with linked lists because you have he benefit of a real - world constant factor
+//  - Not an ideal data structure if sorting is the goal - just use an array
+//  - Can run the gamut of size
+//
+// - Tries
+//  - Insertion is complex - a lot of dynamic memory allocation, but gets easier as you go
+//  - Deletion is easy - just free a node
+//  - Lookup is fast - not quite as fast as an array, but almost
+//  - Already sorted - sorts as you build in almost all situations
+//  - Rapidly becomes huge, even with very little data present, not great if space is at a premium
 //
 // NOTE: the -> operator. It is an arrow. This operator goes to an address and looks inside of a structure. Same as (*struct_variable).something = value;
-// • First, it dereferences the pointer on the left side of the operator.
-// • Second, it accesses the field on the right side of the operator.
+// - First, it dereferences the pointer on the left side of the operator.
+// - Second, it accesses the field on the right side of the operator.
 //
 // variable declaration
 // struct car *mycar = malloc(sizeof(struct car));
 // field accessing
 // (*mycar).year = 2011;
-// strcpy((*mycar).plate, “CS50”);
+// strcpy((*mycar).plate, ï¿½CS50ï¿½);
 // (*mycar).odometer = 50505;
 //
 // variable declaration
 // struct car *mycar = malloc(sizeof(struct car));
 // field accessing
 // mycar->year = 2011;
-// strcpy(mycar->plate, “CS50”);
+// strcpy(mycar->plate, ï¿½CS50ï¿½);
 // mycar->odometer = 50505;
 
 //* Singly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
