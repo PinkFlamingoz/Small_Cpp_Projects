@@ -173,7 +173,7 @@ class Hash_table
 	}
 
 	// Hash function for strings
-	size_t hash_string_oni(const string &input)
+	size_t hash_string_simpler(const string &input)
 	{
 		size_t hash = 0;
 		size_t prime = 31;
