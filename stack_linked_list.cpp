@@ -157,6 +157,7 @@ class Stack
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 

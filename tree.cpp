@@ -403,6 +403,7 @@ class Binary_Search_Tree
 				if (new_node->get_data() == trav_ptr->get_data()) //-------------------------------------------- CASE 2: If we have the same data
 				{
 					cerr << "\nNode already exists with this data: " << new_node->get_data() << endl;
+					delete new_node;
 					return;
 				}
 
@@ -451,6 +452,7 @@ class Binary_Search_Tree
 		else //------------------------------------------------------------------------------ CASE 2: If we have the same data
 		{
 			cerr << "\nNode already exists with this data: " << new_node->get_data() << endl;
+			delete new_node;
 			return root;
 		}
 

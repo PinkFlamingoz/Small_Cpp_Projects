@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// Classes
 class Matrix
 {
 	private:

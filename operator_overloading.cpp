@@ -147,8 +147,9 @@ class Complex
 	// Multiplication Single
 	Complex &operator*=(const Complex &number)
 	{
+		double temp_real = real;
 		real = real * number.real - imaginary * number.imaginary;
-		imaginary = real * number.imaginary + imaginary * number.real;
+		imaginary = temp_real * number.imaginary + imaginary * number.real;
 		return *this;
 	}
 
@@ -156,8 +157,9 @@ class Complex
 	Complex &operator/=(const Complex &number)
 	{
 		double denominator = number.real * number.real + number.imaginary * number.imaginary;
+		double temp_real = real;
 		real = (real * number.real + imaginary * number.imaginary) / denominator;
-		imaginary = (imaginary * number.real - real * number.imaginary) / denominator;
+		imaginary = (imaginary * number.real - temp_real * number.imaginary) / denominator;
 		return *this;
 	}
 

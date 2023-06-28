@@ -2,12 +2,12 @@
 #include "basic_functions.h"
 
 using namespace std;
-// � Linked lists
-//  � Insertion is easy � just tack onto the front
-//  � Deletion is easy � once you find the element
-//  � Lookup is bad � have to rely on linear search
-//  � Relatively difficult to sort � unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  � Relatively small size - wise(not as small as arrays)
+// - Linked lists
+//  - Insertion is easy - just tack onto the front
+//  - Deletion is easy - once you find the element
+//  - Lookup is bad - have to rely on linear search
+//  - Relatively difficult to sort - unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  - Relatively small size - wise(not as small as arrays)
 
 // Classes
 template <typename K, typename D>
@@ -142,6 +142,7 @@ class Singly_linked_list
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 
@@ -156,6 +157,7 @@ class Singly_linked_list
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 
@@ -185,12 +187,14 @@ class Singly_linked_list
 		if (temp == nullptr) //------------------------------------------------------------ We must check if a node exist with the key that we want to insert after it, with this we also check if the list is empty
 		{
 			cerr << "\nThere is no node with that key: " << key << endl;
+			delete new_node;
 			return;
 		}
 
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 
@@ -206,12 +210,14 @@ class Singly_linked_list
 		if (node_exists(key) == nullptr)
 		{
 			cerr << "\nThere is no node with that key: " << key << endl;
+			delete new_node;
 			return;
 		}
 
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 
@@ -243,6 +249,7 @@ class Singly_linked_list
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 

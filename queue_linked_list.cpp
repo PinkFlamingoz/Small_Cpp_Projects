@@ -2,25 +2,25 @@
 #include "basic_functions.h"
 
 using namespace std;
-// � Linked lists
-//  � Insertion is easy � just tack onto the front
-//  � Deletion is easy � once you find the element
-//  � Lookup is bad � have to rely on linear search
-//  � Relatively difficult to sort � unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  � Relatively small size - wise(not as small as arrays)
+// - Linked lists
+//  - Insertion is easy - just tack onto the front
+//  - Deletion is easy - once you find the element
+//  - Lookup is bad - have to rely on linear search
+//  - Relatively difficult to sort - unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  - Relatively small size - wise(not as small as arrays)
 
-// Definition �
+// Definition -
 // Queue is a linear data structure which operates in a First IN First OUT or Last IN Last OUT.
-// It is named queue as it behaves like a real - world queue, for example � queue(line) of cars in a single lane, queue of people waiting at food counter etc.
+// It is named queue as it behaves like a real - world queue, for example - queue(line) of cars in a single lane, queue of people waiting at food counter etc.
 // Queue is an abstract data type with a bounded(predefined) capacity.
 // It is a simple data structure that allows adding and removing elements in a particular order.
 // The order is FIFO(First IN First OUT) or LILO(Last In Last Out).
 
-// Standard Queue Operations �
-// enqueue() � Add item to the queue from the REAR.
-// dequeue() � Remove item from the queue from the FRONT.
-// is_empty() � Check if queue empty or not.
-// count() � Get number of items in the queue.
+// Standard Queue Operations -
+// enqueue() - Add item to the queue from the REAR.
+// dequeue() - Remove item from the queue from the FRONT.
+// is_empty() - Check if queue empty or not.
+// count() - Get number of items in the queue.
 
 // Some types of Queue(We will discuss them in detail in other articles) -
 // Simple Queue
@@ -173,6 +173,7 @@ class Queue
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 

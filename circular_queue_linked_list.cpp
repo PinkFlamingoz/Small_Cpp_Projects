@@ -2,14 +2,14 @@
 #include "basic_functions.h"
 
 using namespace std;
-// � Linked lists
-//  � Insertion is easy � just tack onto the front
-//  � Deletion is easy � once you find the element
-//  � Lookup is bad � have to rely on linear search
-//  � Relatively difficult to sort � unless you're willing to compromise on super - fast insertion and instead sort as you construct
-//  � Relatively small size - wise(not as small as arrays)
+// - Linked lists
+//  - Insertion is easy - just tack onto the front
+//  - Deletion is easy - once you find the element
+//  - Lookup is bad - have to rely on linear search
+//  - Relatively difficult to sort - unless you're willing to compromise on super - fast insertion and instead sort as you construct
+//  - Relatively small size - wise(not as small as arrays)
 
-// Definition �
+// Definition -
 // Circular queue is a linear data structure in which the operations are performed based on FIFO(First In First Out) principle and the last position is connected back to the first position to make a circle.
 // It is also called 'Ring Buffer'.
 // It is a type of Circular queue data structure which overcomes some drawback of the simple queue data structure.
@@ -174,6 +174,7 @@ class Circular_queue
 		if (node_exists(new_node->get_key()) != nullptr)
 		{
 			cerr << "\nNode already exists with this key: " << new_node->get_key() << endl;
+			delete new_node;
 			return;
 		}
 

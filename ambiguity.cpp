@@ -13,7 +13,6 @@ using namespace std;
 // It's important to note that the scope resolution operator can only be used with static members of a class or namespace. Non-static members require an instance of the class or structure to be accessed.
 
 //Classes
-
 class OMEGA
 {
 	protected:

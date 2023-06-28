@@ -45,14 +45,14 @@ using namespace std;
 // struct car *mycar = malloc(sizeof(struct car));
 // field accessing
 // (*mycar).year = 2011;
-// strcpy((*mycar).plate, �CS50�);
+// strcpy((*mycar).plate, -CS50-);
 // (*mycar).odometer = 50505;
 //
 // variable declaration
 // struct car *mycar = malloc(sizeof(struct car));
 // field accessing
 // mycar->year = 2011;
-// strcpy(mycar->plate, �CS50�);
+// strcpy(mycar->plate, -CS50-);
 // mycar->odometer = 50505;
 
 //* Singly-Linked Lists --------------------------------------------------------------------------------------------------------------------------
