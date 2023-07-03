@@ -303,11 +303,13 @@ class Trie
 	// Delete the trie recursive
 	void delete_trie_recursive(Node *&node)
 	{
+		// Base case
 		if (node == nullptr)
 		{
 			return;
 		}
 
+		// Recursive case
 		for (int i = 0; i < MAX_SIZE; i++)
 		{
 			delete_trie_recursive(node->get_child(i));
