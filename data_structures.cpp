@@ -231,7 +231,7 @@ int main()
 																																 // With pointer to a pointer                        // With return
 																																 //                                                  //
 // Prepend, add in front of the singly linked list O(1)																			 // In main {insert(&list, 1);}                      // In main {list = insert(list, 1);}
-template <typename T>                                                                                                             // template <typename T>                             // template <typename T>
+template <typename T>                                                                                                            // template <typename T>                            // template <typename T>
 void prepend_sll(sll_node<T> *&list, T value)                                                                                    // void insert(sll_node<T>** list_ptr, T value)     // sll_node<T>* insert(sll_node<T>* list, T value)
 {                                                                                                                                // {                                                // {
 	sll_node<T> *node = new sll_node<T>; // Dynamically allocate space for a new sll_node                                        //		sll_node<T>* node = new sll_node<T>;         //		sll_node<T>* node = new sll_node<T>;

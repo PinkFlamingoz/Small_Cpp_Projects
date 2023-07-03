@@ -136,7 +136,7 @@ class Hash_table
 	{
 		for (size_t i = 0; i < MAX_SIZE; i++)
 		{
-			table[i] = input_table[i]; //----- Assign each element from the input_table to the corresponding element in the table array
+			table[i] = input_table[i]; //---- Assign each element from the input_table to the corresponding element in the table array
 		}
 	}
 
@@ -190,7 +190,6 @@ class Hash_table
 	size_t hash_string(const string &input)
 	{
 		size_t hash = 0;
-		size_t prime = 31;
 
 		for (char c : input)
 		{
@@ -207,6 +206,7 @@ class Hash_table
 		return (hash<int>{}(input)) % MAX_SIZE;
 	}
 
+	// Depending on what type of data we use do that hashing
 	size_t get_hash(D data)
 	{
 		if constexpr (is_same<D, int>::value)
@@ -422,7 +422,7 @@ int main()
 				break;
 			case 1:
 				cout << "\n================= Prepend node operation =================\n";
-				cout << "Enter key & data of the node to be prepended\n";
+				cout << "Enter data of the node to be prepended\n";
 				table.insert_node(Hash_table<string>::create_node());
 				cout << "==========================================================\n";
 				break;
