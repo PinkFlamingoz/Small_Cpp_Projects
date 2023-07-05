@@ -297,6 +297,12 @@
     <ClCompile Include="tries.cpp">
       <Filter>Source Files\Data_structures</Filter>
     </ClCompile>
+    <ClCompile Include="dog_names.cpp">
+      <Filter>Source Files\Week_5</Filter>
+    </ClCompile>
+    <ClCompile Include="blood.cpp">
+      <Filter>Source Files\Week_5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
@@ -326,6 +332,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="plates.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="dog_names.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
