@@ -58,7 +58,7 @@ using namespace std;
 // Remember, the goal of a hash function is to generate a fixed - size output(the hash) that is as unique as possible for each unique input.A good hash function will minimize collisions(different inputs producing the same hash), and will distribute its output uniformly across the range of possible hash values.
 
 // Globals
-constexpr int MAX_SIZE = 10;
+constexpr int MAX_SIZE = 11;
 
 // Classes
 template < typename D>

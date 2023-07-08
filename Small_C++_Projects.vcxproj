@@ -141,6 +141,7 @@
     <ClCompile Include="hash_table.cpp" />
     <ClCompile Include="heap_array.cpp" />
     <ClCompile Include="lambdas.cpp" />
+    <ClCompile Include="speller.cpp" />
     <ClCompile Include="tree.cpp" />
     <ClCompile Include="caeser_cipher.cpp" />
     <ClCompile Include="calculate_the_half_bill.cpp" />

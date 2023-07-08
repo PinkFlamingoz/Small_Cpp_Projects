@@ -303,6 +303,9 @@
     <ClCompile Include="blood.cpp">
       <Filter>Source Files\Week_5</Filter>
     </ClCompile>
+    <ClCompile Include="speller.cpp">
+      <Filter>Source Files\Week_5</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic_functions.h">
@@ -312,6 +315,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wav.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -335,6 +341,90 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="dog_names.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="dictionaries\large.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="dictionaries\small.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\austen.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\birdman.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\burnett.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\carroll.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\cat.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\constitution.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\federalist.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\frankenstein.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\grimm.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\her.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\homer.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\lalaland.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\mansfield.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\pneumonoultramicroscopicsilicovolcanoconiosis.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\revenant.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\rinehart.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\shakespeare.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\stein.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\stoker.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\surgery.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\tolstoy.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\wells.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\whittier.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\wordsworth.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\xueqin1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="texts\xueqin2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

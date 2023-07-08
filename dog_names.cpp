@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
 	//* Add words  --------------------------------------------------------------------------------------------------------------------------------------------
 	string buffer = "";
-	while ((getline(input_file, buffer)))
+	while (input_file >> buffer)
 	{
 		Node *trav_ptr = head;
 		for (auto character : buffer)
@@ -107,6 +107,7 @@ bool check(string &name)
 			cerr << "Invalid character in string: " << character << "\n";
 			continue;
 		}
+
 		if (trav_ptr->children[index] == nullptr)
 		{
 			return false;

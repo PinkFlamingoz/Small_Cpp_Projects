@@ -100,6 +100,12 @@ void write_to_a_file(Contact person)
 }
 
 // Read the contacts from a file
+// If you want to read line by line, then getline(input_file, buffer) is the better choice.
+// This will read an entire line of text up to a newline character ('\n') or end-of-file, and put it into the string buffer.
+// This includes any whitespace characters on that line.
+//
+// On the other hand, if you want to read word by word or value by value, the extraction operator >> would be a better choice.
+// The >> operator reads until the first whitespace character(which could be a space, newline, or tab), discards the whitespace, and puts the non - whitespace sequence into the variable.
 void read_form_a_file()
 {
 	// Reading from a file
