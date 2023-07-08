@@ -59,31 +59,47 @@ int main(int argc, char *argv[])
 
 	// Prepare to spell-check
 	int index = 0, misspellings = 0, words = 0;
+
+// Spell-check each word in text
+	char c;
 	string word;
-
-	// Spell-check each word in text
-	while (file >> word)
+	while (file.get(c))
 	{
-		// Ignore words with numbers
-		if (any_of(word.begin(), word.end(), ::isdigit))
+		if (isalpha(c) || (c == '\'' && !word.empty())) // Allow only alphabetical characters and apostrophes
 		{
-			continue;
+			word += c; //--------------------------------- Append character to word
+
+			if (word.size() > LENGTH) //------------------ Ignore alphabetical strings too long to be words
+			{
+				while (file.get(c) && isalpha(c)); //----- Consume remainder of alphabetical string
+
+				word.clear(); //-------------------------- Prepare for new word
+			}
 		}
-
-		// Update counter
-		words++;
-
-		// Check word's spelling
-		start = chrono::high_resolution_clock::now();
-		bool misspelled = !check(word.c_str());
-		end = chrono::high_resolution_clock::now();
-		time_check += calculate(start, end);
-
-		// Print word if misspelled
-		if (misspelled)
+		else if (isdigit(c)) //--------------------------- Ignore words with numbers
 		{
-			cout << word << endl;
-			misspellings++;
+			while (file.get(c) && isalnum(c)); //--------- Consume remainder of alphanumeric string
+
+			word.clear(); //------------------------------ Prepare for new word
+		}
+		else if (!word.empty()) //------------------------ We must have found a whole word
+		{
+			words++; //----------------------------------- Update counter
+
+			//-------------------------------------------- Check word's spelling
+			start = chrono::high_resolution_clock::now();
+			bool misspelled = !check(word.c_str());
+			end = chrono::high_resolution_clock::now();
+			time_check += calculate(start, end);
+
+			//-------------------------------------------- Print word if misspelled
+			if (misspelled)
+			{
+				cout << word << endl;
+				misspellings++;
+			}
+
+			word.clear(); //------------------------------ Prepare for next word
 		}
 	}
 
@@ -110,7 +126,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Report benchmarks
-	cout << "\nWORDS MISSPELLED:   " << misspellings << endl;
+	cout << "\nWORDS MISSPELLED:     " << misspellings << endl;
 	cout << "WORDS IN DICTIONARY:  " << n << endl;
 	cout << "WORDS IN TEXT:        " << words << endl;
 	cout << "TIME IN load:         " << time_load << endl;

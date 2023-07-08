@@ -46,11 +46,11 @@ size_t hash_string(const string &input)
 // Returns true if word is in dictionary, else false
 bool check(const string &word)
 {
-	size_t hash_key = hash_string(word);
-	Node *trav_ptr = table[hash_key];
-
 	string to_lower_word = word;
 	transform(to_lower_word.begin(), to_lower_word.end(), to_lower_word.begin(), ::tolower);
+
+	size_t hash_key = hash_string(to_lower_word);
+	Node *trav_ptr = table[hash_key];
 
 	while (trav_ptr != nullptr)
 	{

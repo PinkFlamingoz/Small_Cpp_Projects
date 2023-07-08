@@ -223,6 +223,7 @@
   <ItemGroup>
     <ClInclude Include="basic_functions.h" />
     <ClInclude Include="bmp.h" />
+    <ClInclude Include="dictionary.h" />
     <ClInclude Include="wav.h" />
   </ItemGroup>
   <ItemGroup>
@@ -230,9 +231,37 @@
     <Text Include="6.txt" />
     <Text Include="7.txt" />
     <Text Include="8.txt" />
+    <Text Include="dictionaries\large.txt" />
+    <Text Include="dictionaries\small.txt" />
     <Text Include="dog_names.txt" />
     <Text Include="plates.txt" />
     <Text Include="test.txt" />
+    <Text Include="texts\austen.txt" />
+    <Text Include="texts\birdman.txt" />
+    <Text Include="texts\burnett.txt" />
+    <Text Include="texts\carroll.txt" />
+    <Text Include="texts\cat.txt" />
+    <Text Include="texts\constitution.txt" />
+    <Text Include="texts\federalist.txt" />
+    <Text Include="texts\frankenstein.txt" />
+    <Text Include="texts\grimm.txt" />
+    <Text Include="texts\her.txt" />
+    <Text Include="texts\homer.txt" />
+    <Text Include="texts\lalaland.txt" />
+    <Text Include="texts\mansfield.txt" />
+    <Text Include="texts\pneumonoultramicroscopicsilicovolcanoconiosis.txt" />
+    <Text Include="texts\revenant.txt" />
+    <Text Include="texts\rinehart.txt" />
+    <Text Include="texts\shakespeare.txt" />
+    <Text Include="texts\stein.txt" />
+    <Text Include="texts\stoker.txt" />
+    <Text Include="texts\surgery.txt" />
+    <Text Include="texts\tolstoy.txt" />
+    <Text Include="texts\wells.txt" />
+    <Text Include="texts\whittier.txt" />
+    <Text Include="texts\wordsworth.txt" />
+    <Text Include="texts\xueqin1.txt" />
+    <Text Include="texts\xueqin2.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="blur_tower.bmp" />
