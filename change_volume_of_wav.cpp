@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "wav.h"
+#include "headers/wav.h"
 
 using namespace std;
 

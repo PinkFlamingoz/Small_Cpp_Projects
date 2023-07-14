@@ -3,8 +3,8 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
-#include "bmp.h"
-#include "basic_functions.h"
+#include "headers/bmp.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 

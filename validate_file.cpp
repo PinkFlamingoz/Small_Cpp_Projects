@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {   //* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------
 	if (argc != 2)
 	{
-		cerr << "Error 1: Enter only one argument! " << endl << "Usage: ./validate_pdf [filename.type]" << endl << "You entered " << argc - 1 << " arguments." << endl;
+		cerr << "Error 1: Enter only one argument! " << endl << "Usage: ./validate_file [filename.type]" << endl << "You entered " << argc - 1 << " arguments." << endl;
 		return 1;
 	}
 	//* Ensure proper usage -----------------------------------------------------------------------------------------------------------------------------------

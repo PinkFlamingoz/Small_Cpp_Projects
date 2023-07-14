@@ -1,5 +1,5 @@
 #include <iostream>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 // NOTE: We can also have friend classes, when we create a friend class then all the member functions of the friend class also become the friend of the other class.

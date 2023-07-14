@@ -3,7 +3,7 @@
 #include <stack>
 #include <iomanip>
 #include <math.h>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 // A tree is a non linear data structure that simulates a hierarchical tree structure with a root value and sub trees of children with parent node, represented as set of linked nodes.

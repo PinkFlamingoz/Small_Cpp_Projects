@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "wav.h"
+#include "headers/wav.h"
 
 using namespace std;
 

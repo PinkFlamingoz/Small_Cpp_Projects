@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include "bmp.h"
-#include "basic_functions.h"
+#include "headers/bmp.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 

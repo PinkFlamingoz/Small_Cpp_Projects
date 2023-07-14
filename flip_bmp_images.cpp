@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "bmp.h"
+#include "headers/bmp.h"
 
 using namespace std;
 

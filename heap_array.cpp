@@ -1,6 +1,6 @@
 #include <iostream>
 #include <math.h>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 // A Heap is a special Tree - based data structure in which the tree is a complete binary tree.

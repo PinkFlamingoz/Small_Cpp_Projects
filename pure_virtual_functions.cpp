@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <math.h>
 #include <vector>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 #include <algorithm>
 
 using namespace std;

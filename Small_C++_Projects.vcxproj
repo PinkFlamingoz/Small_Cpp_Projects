@@ -221,21 +221,14 @@
     <ClCompile Include="wordle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basic_functions.h" />
-    <ClInclude Include="bmp.h" />
-    <ClInclude Include="dictionary.h" />
-    <ClInclude Include="wav.h" />
+    <ClInclude Include="headers\basic_functions.h" />
+    <ClInclude Include="headers\bmp.h" />
+    <ClInclude Include="headers\dictionary.h" />
+    <ClInclude Include="headers\wav.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="5.txt" />
-    <Text Include="6.txt" />
-    <Text Include="7.txt" />
-    <Text Include="8.txt" />
     <Text Include="dictionaries\large.txt" />
     <Text Include="dictionaries\small.txt" />
-    <Text Include="dog_names.txt" />
-    <Text Include="plates.txt" />
-    <Text Include="test.txt" />
     <Text Include="texts\austen.txt" />
     <Text Include="texts\birdman.txt" />
     <Text Include="texts\burnett.txt" />
@@ -262,32 +255,37 @@
     <Text Include="texts\wordsworth.txt" />
     <Text Include="texts\xueqin1.txt" />
     <Text Include="texts\xueqin2.txt" />
+    <Text Include="txt\dog_names.txt" />
+    <Text Include="txt\plates.txt" />
+    <Text Include="wordle\5.txt" />
+    <Text Include="wordle\6.txt" />
+    <Text Include="wordle\7.txt" />
+    <Text Include="wordle\8.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="blur_tower.bmp" />
-    <Image Include="courtyard.bmp" />
-    <Image Include="edge_tower.bmp" />
-    <Image Include="fliped.bmp" />
-    <Image Include="grayscale_stadium.bmp" />
-    <Image Include="harvard_bottomup.bmp" />
-    <Image Include="newsmiley.bmp" />
-    <Image Include="reflect_courtyard.bmp" />
-    <Image Include="sepia_yard.bmp" />
-    <Image Include="smiley.bmp" />
-    <Image Include="stadium.bmp" />
-    <Image Include="test.jpg" />
-    <Image Include="tower.bmp" />
-    <Image Include="yard.bmp" />
+    <None Include="DATA\account.dat" />
+    <None Include="recovered_images\card.raw" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="account.dat" />
-    <None Include="card.raw" />
-    <None Include="test.pdf" />
+    <Media Include="wav_audio\input.wav" />
+    <Media Include="wav_audio\new_sound.wav" />
+    <Media Include="wav_audio\reversed_wav.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="input.wav" />
-    <Media Include="new_sound.wav" />
-    <Media Include="reversed_wav.wav" />
+    <Image Include="bmp_images\blur_tower.bmp" />
+    <Image Include="bmp_images\courtyard.bmp" />
+    <Image Include="bmp_images\edge_tower.bmp" />
+    <Image Include="bmp_images\fliped.bmp" />
+    <Image Include="bmp_images\grayscale_stadium.bmp" />
+    <Image Include="bmp_images\harvard_bottomup.bmp" />
+    <Image Include="bmp_images\newsmiley.bmp" />
+    <Image Include="bmp_images\reflect_courtyard.bmp" />
+    <Image Include="bmp_images\sepia_yard.bmp" />
+    <Image Include="bmp_images\smiley.bmp" />
+    <Image Include="bmp_images\stadium.bmp" />
+    <Image Include="bmp_images\tower.bmp" />
+    <Image Include="bmp_images\unfliped.bmp" />
+    <Image Include="bmp_images\yard.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

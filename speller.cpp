@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "dictionary.h"
+#include "headers/dictionary.h"
 
 // Default dictionary
 constexpr auto DICTIONARY = "dictionaries/large.txt";

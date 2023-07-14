@@ -2,12 +2,13 @@
 #include <fstream>
 #include <cstring>
 #include <iomanip>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 
 // Globals
 static int counter = 0;
+string file_name = "DATA/account.dat";
 
 // Classes
 class Account
@@ -215,7 +216,7 @@ void write_account()
 {
 	Account account;
 
-	ofstream output_file("account.dat", ios::binary | ios::app); //------------ Open account.dat file for writing in binary append mode
+	ofstream output_file(file_name, ios::binary | ios::app); //------------ Open account.dat file for writing in binary append mode
 	if (!output_file)
 	{
 		cerr << "Cant open file! with name account.dat" << endl;
@@ -235,7 +236,7 @@ void display_data(int n)
 	Account account;
 	bool found = false;
 
-	ifstream input_file("account.dat", ios::binary); //----------------------------- Open the input file in binary mode
+	ifstream input_file(file_name, ios::binary); //----------------------------- Open the input file in binary mode
 	if (!input_file.is_open())
 	{
 		cerr << "Cant open file! with name account.dat" << endl;
@@ -265,7 +266,7 @@ void modify_account(int n)
 	Account account;
 	bool found = false;
 
-	fstream file("account.dat", ios::binary | ios::in | ios::out); //----------- Create a binary file stream to read and write from the account.dat file
+	fstream file(file_name, ios::binary | ios::in | ios::out); //----------- Create a binary file stream to read and write from the account.dat file
 	if (!file.is_open())
 	{
 		cerr << "Cant open file! with name account.dat" << endl;
@@ -305,14 +306,14 @@ void delete_account(int n)
 	Account account;
 	bool found = false;
 
-	ifstream input_file("account.dat", ios::binary); //----------------------------- Open the input file for reading in binary mode
+	ifstream input_file(file_name, ios::binary); //----------------------------- Open the input file for reading in binary mode
 	if (!input_file.is_open())
 	{
 		cerr << "Cant open file! with name account.dat" << endl;
 		return;
 	}
 
-	ofstream output_file("temp.dat", ios::binary); //------------------------------- Open a temporary file for writing in binary mode
+	ofstream output_file("DATA/temp.dat", ios::binary); //------------------------------- Open a temporary file for writing in binary mode
 	if (!output_file.is_open())
 	{
 		cerr << "Error: deleting account!" << endl;
@@ -339,14 +340,14 @@ void delete_account(int n)
 
 	if (found == false) //---------------------------------------------------------- If the account is not found just remove the temp, otherwise rename it and remove the old file
 	{
-		remove("temp.dat");
+		remove("DATA/temp.dat");
 		cout << endl << "Account does not exist!" << endl;
 		return;
 	}
 	else
 	{
-		remove("account.dat");
-		rename("temp.dat", "account.dat");
+		remove("DATA/account.dat");
+		rename("DATA/temp.dat", "DATA/account.dat");
 		cout << "\n\t\t   Account is deleted!" << endl;
 	}
 }
@@ -356,7 +357,7 @@ void display_all()
 {
 	Account account;
 
-	ifstream input_file("account.dat", ios::binary);  //-------------------------------------------- Open the input file for reading in binary mode
+	ifstream input_file(file_name, ios::binary);  //-------------------------------------------- Open the input file for reading in binary mode
 	if (!input_file.is_open())
 	{
 		cerr << "Cant open file! with name account.dat" << endl;
@@ -381,7 +382,7 @@ void deposit_withdraw(int n, int option)
 	int amount = 0;
 	bool found = false;
 
-	fstream file("account.dat", ios::binary | ios::in | ios::out); //-------------------------------------------------------------- Create a binary file stream to read and write from the account.dat file
+	fstream file(file_name, ios::binary | ios::in | ios::out); //-------------------------------------------------------------- Create a binary file stream to read and write from the account.dat file
 	if (!file.is_open())
 	{
 		cerr << "Cant open file! with name account.dat amount" << endl;
@@ -446,7 +447,7 @@ static int count_accounts()
 	Account account;
 	int counter = 0;
 
-	ifstream input_file("account.dat", ios::binary);  //-------------------------------------------- Open the input file for reading in binary mode
+	ifstream input_file(file_name, ios::binary);  //-------------------------------------------- Open the input file for reading in binary mode
 	if (!input_file.is_open())
 	{
 		cerr << "Cant open file! with name account.dat" << endl;

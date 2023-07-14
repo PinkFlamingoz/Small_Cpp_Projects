@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 	set_word_size(word_size_int); //------------------------------- Set word size
 
-	string word_list_file_name = to_string(WORDSIZE) + ".txt"; //-- Open correct file, each file has exactly LISTSIZE words
+	string word_list_file_name = "wordle/" + to_string(WORDSIZE) + ".txt"; //-- Open correct file, each file has exactly LISTSIZE words
 	ifstream word_list(word_list_file_name);
 	if (!word_list.is_open())
 	{

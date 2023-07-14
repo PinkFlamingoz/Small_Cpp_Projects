@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <vector>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 // Time complexity = input length, number of steps

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "basic_functions.h"
+#include "headers/basic_functions.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ struct Contact
 };
 
 // Globals
-string file_name = "test.txt";
+string file_name = "tests/test.txt";
 
 // Functions
 Contact get_contact(string prompt);

@@ -308,41 +308,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="basic_functions.h">
+    <ClInclude Include="headers\basic_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bmp.h">
+    <ClInclude Include="headers\bmp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wav.h">
+    <ClInclude Include="headers\dictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dictionary.h">
+    <ClInclude Include="headers\wav.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="5.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="6.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="7.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="8.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="plates.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="dog_names.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="dictionaries\large.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -427,71 +406,86 @@
     <Text Include="texts\xueqin2.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="wordle\5.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="wordle\6.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="wordle\7.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="wordle\8.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="txt\dog_names.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="txt\plates.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="harvard_bottomup.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="smiley.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="newsmiley.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="fliped.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="courtyard.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="stadium.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="tower.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="yard.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="edge_tower.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="blur_tower.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="reflect_courtyard.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="grayscale_stadium.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="sepia_yard.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="test.pdf">
+    <None Include="DATA\account.dat">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="card.raw">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="account.dat">
+    <None Include="recovered_images\card.raw">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="input.wav">
+    <Media Include="wav_audio\input.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="new_sound.wav">
+    <Media Include="wav_audio\new_sound.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="reversed_wav.wav">
+    <Media Include="wav_audio\reversed_wav.wav">
       <Filter>Resource Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bmp_images\blur_tower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\courtyard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\edge_tower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\fliped.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\grayscale_stadium.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\harvard_bottomup.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\newsmiley.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\reflect_courtyard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\sepia_yard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\smiley.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\stadium.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\tower.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\unfliped.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bmp_images\yard.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
