@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	if (!loaded)
 	{
 		cerr << "ERROR IN MAIN, Could not load " << dictionary << endl;
-		return 1;
+		return 2;
 	}
 
 	// Try to open text
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	{
 		cerr << "ERROR IN TEXT, Could not open " << text << endl;
 		unload();
-		return 1;
+		return 3;
 	}
 	//* Open files --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	// Prepare to spell-check
 	int index = 0, misspellings = 0, words = 0;
 
-// Spell-check each word in text
+	// Spell-check each word in text
 	char c;
 	string word;
 	while (file.get(c))
