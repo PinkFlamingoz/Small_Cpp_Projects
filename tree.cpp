@@ -435,7 +435,7 @@ public:
 	Node<D> *insert_recursive(Node<D> *root, Node<D> *new_node)
 	{
 		// Base case
-		if (root == nullptr) //--------------------------------------------------------------- CASE 1: If the tree is empty
+		if (root == nullptr) //-------------------------------------------------------------- CASE 1: If the tree is empty
 		{
 			root = new_node;
 			return root;
