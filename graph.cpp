@@ -153,12 +153,12 @@ using namespace std;
 template < typename T>
 class Edge
 {
-	private:
+private:
 	// Member variables
 	T connection_vertex_key;
 	int weight;
 
-	public:
+public:
 	// Member functions
 
 	// Constructor
@@ -203,13 +203,13 @@ class Edge
 template < typename T, typename D>
 class Vertex
 {
-	private:
+private:
 	// Member variables
 	T key;
 	D data;
 	list<Edge<T>> edges;
 
-	public:
+public:
 	// Member functions
 
 	// Constructor
@@ -278,11 +278,11 @@ class Vertex
 template < typename T, typename D>
 class Graph
 {
-	private:
+private:
 	// Member variables
 	vector<Vertex<T, D>> vertices;
 
-	public:
+public:
 	// Member functions
 
 	// Get vertices we return a const reference to avoid copying of unnecessary data
@@ -400,6 +400,11 @@ class Graph
 		{
 			delete_edge_between_vertices(it->get_connection_vertex_key(), key);
 		}
+
+		//for (auto &edge : vertex->get_edges())
+		//{
+		//	delete_edge_between_vertices(edge->get_connection_vertex_key(), key);
+		//}
 
 		vertices.erase(vertex);
 
@@ -850,7 +855,7 @@ class Graph
 	// If all edges from the current vertex have been visited, it means we are "stuck".
 	// In this case, it adds the current vertex to the eulerian_path vector and backtracks by setting current_vertex to the top of the current_path stack and popping the stack.
 	//
-	//  After the loop, eulerian_path contains the vertices of the Eulerian path, but in reverse order because of the backtracking process.
+	// After the loop, eulerian_path contains the vertices of the Eulerian path, but in reverse order because of the backtracking process.
 	// The function then prints these vertices in the correct order by iterating over eulerian_path in reverse.
 	//
 	//     A
@@ -961,6 +966,12 @@ class Graph
 		{
 			cout << *it << " ---> ";
 		}
+
+		//for (auto element : eulerian_path | views::reverse)
+		//{
+		//	cout << element << " ---> ";
+		//}
+
 		cout << endl;
 	}
 
@@ -988,7 +999,6 @@ class Graph
 
 		// Recursive case
 		auto current_vertex = get_vertex_by_key(vertex_key); //---------------------------------------- Retrieve the current vertex
-
 		for (auto &edge : current_vertex->get_edges()) //---------------------------------------------- Check all adjacent vertices
 		{
 			T neighbor_key = edge.get_connection_vertex_key();
@@ -1034,6 +1044,11 @@ class Graph
 	}
 
 	// Check if we can assign colors to each vertex so that no two neighbors are assigned the same color
+	// vector<bool>: This part tells us that we're making a vector that will store bool values.
+	// available_colors : This is the name we're giving to our vector. Just like you might name a pet to identify it, we name our vector so we can use it later in our code.
+	// (k, true) : This part is a bit like giving instructions on how to set up our vector :
+	// k: This tells us how many items(or 'elements') we want in our vector.If k is 5, it means we want 5 spots in our vector.
+	// true : This tells us what each of these spots should initially hold.In this case, we're saying that every spot in our vector should start with the value true. So, if k is 5, we end up with a vector that looks like [true, true, true, true, true].
 	bool color_graph(int k)
 	{
 		unordered_map<T, int> color_map; //---------------------------------------------------------------- Keeps track of colors assigned to each vertex
@@ -1432,169 +1447,169 @@ int main()
 		choice = get_choice();
 		switch (choice)
 		{
-			case 0:
+		case 0:
+			break;
+		case 1:
+			g1.add_vertex(Graph<int, int>::create_vertex());
+			break;
+		case 2:
+			g1.update_vertex(get_valid_input<int>("Enter key of vertex to update: "), get_valid_input<int>("Set the data: "));
+			break;
+		case 3:
+			g1.delete_vertex(get_valid_input<int>("Enter key of vertex to delete: "));
+			break;
+		case 4:
+			g1.add_edge_between_vertices(get_weight(), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
+			break;
+		case 5:
+			g1.update_edge_between_vertices(get_weight(), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
+			break;
+		case 6:
+			g1.delete_edge_between_vertices(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
+			break;
+		case 7:
+			g1.BFS(get_valid_input<int>("Enter key of vertex to start BFS from: "));
+			break;
+		case 8:
+			g1.DFS(get_valid_input<int>("Enter key of vertex to start DFS from: "));
+			break;
+		case 9:
+			vertex_1 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex from: "));
+			if (vertex_1 == g1.get_vertices().end())
+			{
+				cerr << "No vertex found!" << endl;
 				break;
-			case 1:
-				g1.add_vertex(Graph<int, int>::create_vertex());
+			}
+			vertex_2 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex to: "));
+			if (vertex_2 == g1.get_vertices().end())
+			{
+				cerr << "No vertex found!" << endl;
 				break;
-			case 2:
-				g1.update_vertex(get_valid_input<int>("Enter key of vertex to update: "), get_valid_input<int>("Set the data: "));
-				break;
-			case 3:
-				g1.delete_vertex(get_valid_input<int>("Enter key of vertex to delete: "));
-				break;
-			case 4:
-				g1.add_edge_between_vertices(get_weight(), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
-				break;
-			case 5:
-				g1.update_edge_between_vertices(get_weight(), get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
-				break;
-			case 6:
-				g1.delete_edge_between_vertices(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
-				break;
-			case 7:
-				g1.BFS(get_valid_input<int>("Enter key of vertex to start BFS from: "));
-				break;
-			case 8:
-				g1.DFS(get_valid_input<int>("Enter key of vertex to start DFS from: "));
-				break;
-			case 9:
-				vertex_1 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex from: "));
-				if (vertex_1 == g1.get_vertices().end())
-				{
-					cerr << "No vertex found!" << endl;
-					break;
-				}
-				vertex_2 = g1.get_vertex_by_key(get_valid_input<int>("Enter key of vertex to: "));
-				if (vertex_2 == g1.get_vertices().end())
-				{
-					cerr << "No vertex found!" << endl;
-					break;
-				}
+			}
 
-				if (g1.check_edge_exist_by_key(vertex_1, vertex_2))
+			if (g1.check_edge_exist_by_key(vertex_1, vertex_2))
+			{
+				cout << "Edge found between: [" << vertex_1->get_key() << "]: " << vertex_1->get_data() << " ---> [" << vertex_2->get_key() << "]: " << vertex_2->get_data() << endl;
+			}
+			else
+			{
+				cout << "Edge does not exist!" << endl;
+			}
+			break;
+		case 10:
+			if (g1.path_exists_DFS(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: ")))
+			{
+				cout << "Path exists!" << endl;
+			}
+			else
+			{
+				cout << "Path does not exist!" << endl;
+			}
+			break;
+		case 11:
+			g1.dijkstra(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
+			break;
+		case 12:
+			if (g1.get_vertices().empty())
+			{
+				cout << "Graph is empty!" << endl;
+			}
+			else
+			{
+				g1.print_eulerian();
+			}
+			break;
+		case 13:
+			if (g1.is_hamiltonian_path())
+			{
+				cout << "Path exists!" << endl;
+			}
+			else
+			{
+				cout << "Path does not exist!" << endl;
+			}
+			break;
+		case 14:
+			if (g1.get_vertices().empty())
+			{
+				cout << "Graph is empty!" << endl;
+			}
+			else
+			{
+				if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
 				{
-					cout << "Edge found between: [" << vertex_1->get_key() << "]: " << vertex_1->get_data() << " ---> [" << vertex_2->get_key() << "]: " << vertex_2->get_data() << endl;
+					cout << "Graph is connected!" << endl;
 				}
 				else
 				{
-					cout << "Edge does not exist!" << endl;
+					cout << "Graph is not connected!" << endl;
 				}
-				break;
-			case 10:
-				if (g1.path_exists_DFS(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: ")))
-				{
-					cout << "Path exists!" << endl;
-				}
-				else
-				{
-					cout << "Path does not exist!" << endl;
-				}
-				break;
-			case 11:
-				g1.dijkstra(get_valid_input<int>("Enter key of vertex to: "), get_valid_input<int>("Enter key of vertex from: "));
-				break;
-			case 12:
-				if (g1.get_vertices().empty())
-				{
-					cout << "Graph is empty!" << endl;
-				}
-				else
-				{
-					g1.print_eulerian();
-				}
-				break;
-			case 13:
-				if (g1.is_hamiltonian_path())
-				{
-					cout << "Path exists!" << endl;
-				}
-				else
-				{
-					cout << "Path does not exist!" << endl;
-				}
-				break;
-			case 14:
-				if (g1.get_vertices().empty())
-				{
-					cout << "Graph is empty!" << endl;
-				}
-				else
-				{
-					if (g1.is_graph_connected(get_valid_input<int>("Enter key of vertex to start from: ")))
-					{
-						cout << "Graph is connected!" << endl;
-					}
-					else
-					{
-						cout << "Graph is not connected!" << endl;
-					}
-				}
-				break;
-			case 15:
-				cout << "Max number of edges this graph can currently have is: " << g1.max_edges() << " edges with a total of: " << g1.get_vertices().size() << " vertices!" << endl;
-				break;
-			case 16:
-				if (g1.contains_cycle())
-				{
-					cout << "Graph has cycles!" << endl;
-				}
-				else
-				{
-					cout << "Graph doesn't have cycles!" << endl;
-				}
+			}
+			break;
+		case 15:
+			cout << "Max number of edges this graph can currently have is: " << g1.max_edges() << " edges with a total of: " << g1.get_vertices().size() << " vertices!" << endl;
+			break;
+		case 16:
+			if (g1.contains_cycle())
+			{
+				cout << "Graph has cycles!" << endl;
+			}
+			else
+			{
+				cout << "Graph doesn't have cycles!" << endl;
+			}
 
-				break;
-			case 17:
-				if (g1.get_vertices().empty())
+			break;
+		case 17:
+			if (g1.get_vertices().empty())
+			{
+				cout << "Graph is empty!" << endl;
+			}
+			else
+			{
+				colors = get_colors();
+				if (g1.color_graph(colors))
 				{
-					cout << "Graph is empty!" << endl;
+					cout << "The graph can be colored using " << colors << " colors!" << endl;
 				}
 				else
 				{
-					colors = get_colors();
-					if (g1.color_graph(colors))
-					{
-						cout << "The graph can be colored using " << colors << " colors!" << endl;
-					}
-					else
-					{
-						cout << "The graph cannot be colored using " << colors << " colors!" << endl;
-					}
+					cout << "The graph cannot be colored using " << colors << " colors!" << endl;
 				}
-				break;
-			case 18:
-				cout << g1.degree_of_a_vertex(get_valid_input<int>("Enter key of vertex to see degree for: ")) << " is the degree!" << endl;
-				break;
-			case 19:
-				g1.print_neighbors(get_valid_input<int>("Enter key of vertex to see neighbors for: "));
-				break;
-			case 20:
-				if (g1.get_vertices().empty())
-				{
-					cout << "Graph is empty!" << endl;
-				}
-				else
-				{
-					cout << "Graph is not empty!" << endl;
-				}
-				break;
-			case 21:
-				if (g1.get_vertices().empty())
-				{
-					cout << "Graph is empty!" << endl;
-				}
-				else
-				{
-					g1.print_graph();
-				}
-				break;
-			case 22:
-				system("cls");
-				break;
-			default:
-				cout << "Try again" << endl;
-				break;
+			}
+			break;
+		case 18:
+			cout << g1.degree_of_a_vertex(get_valid_input<int>("Enter key of vertex to see degree for: ")) << " is the degree!" << endl;
+			break;
+		case 19:
+			g1.print_neighbors(get_valid_input<int>("Enter key of vertex to see neighbors for: "));
+			break;
+		case 20:
+			if (g1.get_vertices().empty())
+			{
+				cout << "Graph is empty!" << endl;
+			}
+			else
+			{
+				cout << "Graph is not empty!" << endl;
+			}
+			break;
+		case 21:
+			if (g1.get_vertices().empty())
+			{
+				cout << "Graph is empty!" << endl;
+			}
+			else
+			{
+				g1.print_graph();
+			}
+			break;
+		case 22:
+			system("cls");
+			break;
+		default:
+			cout << "Try again" << endl;
+			break;
 		}
 		cout << "\n\t\t"; system("pause"); // or cin.get(); // For a pause every new operation
 	} while (choice != 0);

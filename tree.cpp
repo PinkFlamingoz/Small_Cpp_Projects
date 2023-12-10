@@ -9,7 +9,7 @@ using namespace std;
 // A tree is a non linear data structure that simulates a hierarchical tree structure with a root value and sub trees of children with parent node, represented as set of linked nodes.
 //
 // Tree terms -
-// Root - Root is a special node in a tree. The entire tree is referenced through it.It does not have a parent.
+// Root - Root is a special node in a tree. The entire tree is referenced through it. It does not have a parent.
 // Parent Node - Parent node is an immediate predecessor of a node.
 // Child Node - All immediate successors of a node are its children.
 // Siblings - Nodes with the same parent are called Siblings.
@@ -139,13 +139,13 @@ using namespace std;
 template <typename D>
 class Node
 {
-	private:
+private:
 	// Member variables
 	D data;
 	Node<D> *left;
 	Node<D> *right;
 
-	public:
+public:
 	// Member functions
 
 	// Constructor
@@ -203,11 +203,11 @@ class Node
 template <typename D>
 class Binary_Search_Tree
 {
-	private:
+private:
 	// Member variables
 	Node<D> *root;
 
-	public:
+public:
 	// Member functions
 
 	// Constructor
@@ -660,6 +660,8 @@ class Binary_Search_Tree
 		if (level == 0)
 		{
 			cout << root->get_data() << " "; //----------- Reached the desired level, print the value
+
+			return;
 		}
 		// Recursive case
 		print_given_level(root->get_left(), level - 1); // The -1 gets called with each recursive call indicating how deep down the level goes example if we enter level 5, starting from the root it will call 5 times until the desired level is reached
@@ -849,7 +851,7 @@ class Binary_Search_Tree
 		return left_count + right_count;
 	}
 
-	// Print leaf nodes of a tree
+	// Count leaf nodes of a tree
 	int count_leaf_nodes(Node<D> *root) const
 	{
 		// Base case
@@ -881,6 +883,8 @@ class Binary_Search_Tree
 		if (root->get_left() == nullptr && root->get_right() == nullptr)
 		{
 			cout << root->get_data() << " ";
+
+			return;
 		}
 		// Recursive case
 		print_leaf_nodes(root->get_left());
@@ -1205,440 +1209,440 @@ int main()
 		choice = get_choice();
 		switch (choice)
 		{
-			case 0:
-				break;
-			case 1:
-				bst1.insert(Binary_Search_Tree<int>::create_node());
-				break;
-			case 2:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to search for: "));
-				if (bst_node != nullptr)
+		case 0:
+			break;
+		case 1:
+			bst1.insert(Binary_Search_Tree<int>::create_node());
+			break;
+		case 2:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to search for: "));
+			if (bst_node != nullptr)
+			{
+				bst1.show_parent(bst1.get_root(), bst_node);
+				cout << endl;
+				cout << "Found node: " << "[" << bst_node << "]: " << bst_node->get_data() << endl;
+				bst1.show_children(bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 3:
+			bst1.set_root(bst1.insert_recursive(bst1.get_root(), Binary_Search_Tree<int>::create_node()));
+			break;
+		case 4:
+			bst_node = bst1.search_recursive(bst1.get_root(), get_valid_input<int>("Enter data to search for: "));
+			if (bst_node != nullptr)
+			{
+				bst1.show_parent(bst1.get_root(), bst_node);
+				cout << endl;
+				cout << "Found node: " << "[" << bst_node << "]: " << bst_node->get_data() << endl;
+				bst1.show_children(bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 5:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to delete: "));
+			if (bst_node != nullptr)
+			{
+				bst1.set_root(bst1.delete_node(bst1.get_root(), bst_node));
+				cout << "Node deleted!" << endl;
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 6:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to delete subtree: "));
+			if (bst_node != nullptr)
+			{
+				if (bst1.get_root() == bst_node)
 				{
-					bst1.show_parent(bst1.get_root(), bst_node);
-					cout << endl;
-					cout << "Found node: " << "[" << bst_node << "]: " << bst_node->get_data() << endl;
-					bst1.show_children(bst_node);
+					bst1.delete_tree();
+					break;
 				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 3:
-				bst1.set_root(bst1.insert_recursive(bst1.get_root(), Binary_Search_Tree<int>::create_node()));
-				break;
-			case 4:
-				bst_node = bst1.search_recursive(bst1.get_root(), get_valid_input<int>("Enter data to search for: "));
-				if (bst_node != nullptr)
-				{
-					bst1.show_parent(bst1.get_root(), bst_node);
-					cout << endl;
-					cout << "Found node: " << "[" << bst_node << "]: " << bst_node->get_data() << endl;
-					bst1.show_children(bst_node);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 5:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to delete: "));
-				if (bst_node != nullptr)
-				{
-					bst1.set_root(bst1.delete_node(bst1.get_root(), bst_node));
-					cout << "Node deleted!" << endl;
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 6:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to delete subtree: "));
-				if (bst_node != nullptr)
-				{
-					if (bst1.get_root() == bst_node)
-					{
-						bst1.delete_tree();
-						break;
-					}
 
-					bst_node2 = bst1.find_parent(bst1.get_root(), bst_node);
+				bst_node2 = bst1.find_parent(bst1.get_root(), bst_node);
 
-					if (bst_node == bst_node2->get_left())
-					{
-						bst_node2->set_left(nullptr);
-					}
-					else if (bst_node == bst_node2->get_right())
-					{
-						bst_node2->set_right(nullptr);
-					}
+				if (bst_node == bst_node2->get_left())
+				{
+					bst_node2->set_left(nullptr);
+				}
+				else if (bst_node == bst_node2->get_right())
+				{
+					bst_node2->set_right(nullptr);
+				}
 
-					bst1.delete_subtree(bst_node);
+				bst1.delete_subtree(bst_node);
 
-					bst1.set_root(bst1.balance_tree(bst1.get_root()));
-					cout << "Sub Tree deleted!" << endl;
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 7:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst1.print_tree_2D(bst1.get_root(), 5);
-				}
-				break;
-			case 8:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst1.print_pre_order(bst1.get_root());
-				}
-				break;
-			case 9:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst1.print_in_order(bst1.get_root());
-				}
-				break;
-			case 10:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst1.print_post_order(bst1.get_root());
-				}
-				break;
-			case 11:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst1.print_BFS_tree(bst1.get_root());
-				}
-				break;
-			case 12:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to print path for: "));
-				if (bst_node != nullptr)
-				{
-					bst1.print_path_to_node(bst_node);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 13:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to see parent of: "));
-				if (bst_node != nullptr)
-				{
-					bst1.show_parent(bst1.get_root(), bst_node);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 14:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to see siblings for: "));
-				if (bst_node != nullptr)
-				{
-					level = bst1.get_depth(bst1.get_root(), bst_node);
-					cout << "Siblings on level " << level << ": ";
-					bst1.print_given_level(bst1.get_root(), level);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 15:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to see children for: "));
-				if (bst_node != nullptr)
-				{
-					bst1.show_children(bst_node);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 16:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to see ancestors for: "));
-				if (bst_node != nullptr)
-				{
-					bst1.print_ancestors(bst1.get_root(), bst_node);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 17:
-				bst_node = bst1.search(get_valid_input<int>("Enter data to see descendants for: "));
-				if (bst_node != nullptr)
-				{
-					bst1.print_pre_order(bst_node);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 18:
-				bst_node = bst1.search(get_valid_input<int>("Enter data of to see depth for: "));
-				if (bst_node != nullptr)
-				{
-					cout << "Depth of current node is: " << bst1.get_depth(bst1.get_root(), bst_node) << endl;
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 19:
-				bst_node = bst1.search(get_valid_input<int>("Enter data of to see height for: "));
-				if (bst_node != nullptr)
-				{
-					cout << "Height of current node is: " << bst1.get_height(bst_node) << endl;
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 20:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Tree is not empty!" << endl;
-				}
-				break;
-			case 21:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Root of tree is: [" << bst1.get_root() << "]: " << bst1.get_root()->get_data() << endl;
-				}
-				break;
-			case 22:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl;
-				}
-				break;
-			case 23:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl;
-				}
-				break;
-			case 24:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl;
-				}
-				break;
-			case 25:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Total number of leafs in the tree: " << bst1.count_leaf_nodes(bst1.get_root()) << endl;
-				}
-				break;
-			case 26:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					level = get_level(bst1.get_height(bst1.get_root()));
-					cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level);
-				}
-				break;
-			case 27:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					level = get_level(bst1.get_height(bst1.get_root()));
-					cout << "Nodes on level " << level << ": ";
-					bst1.print_given_level(bst1.get_root(), level);
-				}
-				break;
-			case 28:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					cout << "Leafs in the tree are: ";
-					bst1.print_leaf_nodes(bst1.get_root());
-				}
-				break;
-			case 29:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst_node = bst1.min_node(bst1.get_root());
-					cout << "Min node in the tree is: [" << bst_node << "]: " << bst_node->get_data();
-				}
-				break;
-			case 30:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst_node = bst1.max_node(bst1.get_root());
-					cout << "Max node in the tree is: [" << bst_node << "]: " << bst_node->get_data();
-				}
-				break;
-			case 31:
-				bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
-				bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
-				if (bst_node != nullptr && bst_node2 != nullptr)
-				{
-					bst_node3 = bst1.find_LCA(bst1.get_root(), bst_node, bst_node2);
-					cout << "Lowest common ancestor is: [" << bst_node3 << "]: " << bst_node3->get_data();
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 32:
-				bst_node = bst1.search(get_valid_input<int>("Enter data of node to find on what level it is: "));
-				if (bst_node != nullptr)
-				{
-					level = bst1.find_level_of_node(bst1.get_root(), bst_node, 0);
-					cout << "Node [" << bst_node << "]: " << bst_node->get_data() << " is on level: " << level << endl;
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 33:
-				bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
-				bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
-				if (bst_node != nullptr && bst_node2 != nullptr)
-				{
-					distance = bst1.find_distance_between_two_nodes(bst1.get_root(), bst_node, bst_node2);
-					cout << "Distance between: [" << bst_node << "]: " << bst_node->get_data() << " and [" << bst_node2 << "]: " << bst_node2->get_data() << " is: " << distance << endl;
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 34:
-				bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
-				bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
-				if (bst_node != nullptr && bst_node2 != nullptr)
-				{
-					bst1.print_path_between_nodes(bst1.get_root(), bst_node, bst_node2);
-				}
-				else
-				{
-					cout << "No node with that data exists!" << endl;
-				}
-				break;
-			case 35:
-				if (bst1.is_it_complete_tree())
-				{
-					cout << "The tree is complete!" << endl;
-				}
-				else
-				{
-					cout << "The tree is not complete!" << endl;
-				}
-				break;
-			case 36:
-				if (bst1.is_it_perfect_tree(bst1.get_root()))
-				{
-					cout << "The tree is perfect!" << endl;
-				}
-				else
-				{
-					cout << "The tree is not perfect!" << endl;
-				}
-				break;
-			case 37:
-				if (bst1.is_tree_balanced(bst1.get_root()))
-				{
-					cout << "The tree is balanced!" << endl;
-				}
-				else
-				{
-					cout << "The tree is not balanced!" << endl;
-				}
-				break;
-			case 38:
-				if (bst1.is_empty())
-				{
-					cout << "Tree is empty!" << endl;
-				}
-				else
-				{
-					bst1.set_root(bst1.balance_tree(bst1.get_root()));
-				}
-				break;
-			case 39:
-				bst1.delete_tree();
-				break;
-			case 40:
-				system("cls");
-				break;
-			default:
-				cout << "Try again" << endl;
-				break;
+				bst1.set_root(bst1.balance_tree(bst1.get_root()));
+				cout << "Sub Tree deleted!" << endl;
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 7:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst1.print_tree_2D(bst1.get_root(), 5);
+			}
+			break;
+		case 8:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst1.print_pre_order(bst1.get_root());
+			}
+			break;
+		case 9:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst1.print_in_order(bst1.get_root());
+			}
+			break;
+		case 10:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst1.print_post_order(bst1.get_root());
+			}
+			break;
+		case 11:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst1.print_BFS_tree(bst1.get_root());
+			}
+			break;
+		case 12:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to print path for: "));
+			if (bst_node != nullptr)
+			{
+				bst1.print_path_to_node(bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 13:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to see parent of: "));
+			if (bst_node != nullptr)
+			{
+				bst1.show_parent(bst1.get_root(), bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 14:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to see siblings for: "));
+			if (bst_node != nullptr)
+			{
+				level = bst1.get_depth(bst1.get_root(), bst_node);
+				cout << "Siblings on level " << level << ": ";
+				bst1.print_given_level(bst1.get_root(), level);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 15:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to see children for: "));
+			if (bst_node != nullptr)
+			{
+				bst1.show_children(bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 16:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to see ancestors for: "));
+			if (bst_node != nullptr)
+			{
+				bst1.print_ancestors(bst1.get_root(), bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 17:
+			bst_node = bst1.search(get_valid_input<int>("Enter data to see descendants for: "));
+			if (bst_node != nullptr)
+			{
+				bst1.print_pre_order(bst_node);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 18:
+			bst_node = bst1.search(get_valid_input<int>("Enter data of to see depth for: "));
+			if (bst_node != nullptr)
+			{
+				cout << "Depth of current node is: " << bst1.get_depth(bst1.get_root(), bst_node) << endl;
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 19:
+			bst_node = bst1.search(get_valid_input<int>("Enter data of to see height for: "));
+			if (bst_node != nullptr)
+			{
+				cout << "Height of current node is: " << bst1.get_height(bst_node) << endl;
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 20:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Tree is not empty!" << endl;
+			}
+			break;
+		case 21:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Root of tree is: [" << bst1.get_root() << "]: " << bst1.get_root()->get_data() << endl;
+			}
+			break;
+		case 22:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Height of tree is: " << bst1.get_height(bst1.get_root()) << endl;
+			}
+			break;
+		case 23:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Total number of levels in the tree: " << bst1.get_height(bst1.get_root()) << endl;
+			}
+			break;
+		case 24:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Total number of nodes in the tree: " << bst1.count_nodes(bst1.get_root()) << endl;
+			}
+			break;
+		case 25:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Total number of leafs in the tree: " << bst1.count_leaf_nodes(bst1.get_root()) << endl;
+			}
+			break;
+		case 26:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				level = get_level(bst1.get_height(bst1.get_root()));
+				cout << "Number of nodes on level " << level << ": " << bst1.count_nodes_on_level(bst1.get_root(), level);
+			}
+			break;
+		case 27:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				level = get_level(bst1.get_height(bst1.get_root()));
+				cout << "Nodes on level " << level << ": ";
+				bst1.print_given_level(bst1.get_root(), level);
+			}
+			break;
+		case 28:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				cout << "Leafs in the tree are: ";
+				bst1.print_leaf_nodes(bst1.get_root());
+			}
+			break;
+		case 29:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst_node = bst1.min_node(bst1.get_root());
+				cout << "Min node in the tree is: [" << bst_node << "]: " << bst_node->get_data();
+			}
+			break;
+		case 30:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst_node = bst1.max_node(bst1.get_root());
+				cout << "Max node in the tree is: [" << bst_node << "]: " << bst_node->get_data();
+			}
+			break;
+		case 31:
+			bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
+			bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
+			if (bst_node != nullptr && bst_node2 != nullptr)
+			{
+				bst_node3 = bst1.find_LCA(bst1.get_root(), bst_node, bst_node2);
+				cout << "Lowest common ancestor is: [" << bst_node3 << "]: " << bst_node3->get_data();
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 32:
+			bst_node = bst1.search(get_valid_input<int>("Enter data of node to find on what level it is: "));
+			if (bst_node != nullptr)
+			{
+				level = bst1.find_level_of_node(bst1.get_root(), bst_node, 0);
+				cout << "Node [" << bst_node << "]: " << bst_node->get_data() << " is on level: " << level << endl;
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 33:
+			bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
+			bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
+			if (bst_node != nullptr && bst_node2 != nullptr)
+			{
+				distance = bst1.find_distance_between_two_nodes(bst1.get_root(), bst_node, bst_node2);
+				cout << "Distance between: [" << bst_node << "]: " << bst_node->get_data() << " and [" << bst_node2 << "]: " << bst_node2->get_data() << " is: " << distance << endl;
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 34:
+			bst_node = bst1.search(get_valid_input<int>("Enter data of node 1: "));
+			bst_node2 = bst1.search(get_valid_input<int>("Enter data of node 2: "));
+			if (bst_node != nullptr && bst_node2 != nullptr)
+			{
+				bst1.print_path_between_nodes(bst1.get_root(), bst_node, bst_node2);
+			}
+			else
+			{
+				cout << "No node with that data exists!" << endl;
+			}
+			break;
+		case 35:
+			if (bst1.is_it_complete_tree())
+			{
+				cout << "The tree is complete!" << endl;
+			}
+			else
+			{
+				cout << "The tree is not complete!" << endl;
+			}
+			break;
+		case 36:
+			if (bst1.is_it_perfect_tree(bst1.get_root()))
+			{
+				cout << "The tree is perfect!" << endl;
+			}
+			else
+			{
+				cout << "The tree is not perfect!" << endl;
+			}
+			break;
+		case 37:
+			if (bst1.is_tree_balanced(bst1.get_root()))
+			{
+				cout << "The tree is balanced!" << endl;
+			}
+			else
+			{
+				cout << "The tree is not balanced!" << endl;
+			}
+			break;
+		case 38:
+			if (bst1.is_empty())
+			{
+				cout << "Tree is empty!" << endl;
+			}
+			else
+			{
+				bst1.set_root(bst1.balance_tree(bst1.get_root()));
+			}
+			break;
+		case 39:
+			bst1.delete_tree();
+			break;
+		case 40:
+			system("cls");
+			break;
+		default:
+			cout << "Try again" << endl;
+			break;
 		}
 		cout << "\n\t\t"; system("pause"); // or cin.get(); // For a pause every new operation
 	} while (choice != 0);
